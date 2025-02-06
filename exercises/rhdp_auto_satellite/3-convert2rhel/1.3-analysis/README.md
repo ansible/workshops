@@ -28,7 +28,7 @@
 
 ### Step 1 - CentOS Conversion Automation Workflow
 
-Red Hat provides the Convert2RHEL utility, a tool to convert RHEL-like systems to their RHEL counterparts. The [Convert2RHEL documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/converting_from_an_rpm-based_linux_distribution_to_rhel/index) guides users on how to use the Convert2RHEL utility to manually convert a RHEL host. This is fine if there only a few CentOS hosts to convert, but what if you are a large enterprise with tens, hundreds, or even thousands of CentOS hosts? The manual process does not scale. Using automation, the end-to-end process for converting a RHEL host is reduced to a matter of days and the total downtime required for the actual conversion is measured in hours or less.
+Red Hat provides the Convert2RHEL utility, a tool to convert RHEL-like systems to their RHEL counterparts. The [Convert2RHEL documentation](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html-single/converting_from_an_rpm-based_linux_distribution_to_rhel/index) guides users on how to utilize the Convert2RHEL utility to manually convert a RHEL host. This is fine if there only a few CentOS hosts to convert, but what if you are a large enterprise with tens, hundreds, or even thousands of CentOS hosts? The manual process does not scale. Using automation, the end-to-end process for converting a RHEL host is reduced to a matter of days and the total downtime required for the actual conversion is measured in hours or less.
 
 Our CentOS conversion automation approach follows a workflow with three phases:
 
@@ -49,7 +49,7 @@ During the analysis phase, theoretically, no changes should be made to the syste
 
 #### Convert
 
-After the analysis phase is complete and the report indicates acceptable risk, a maintenance window can be scheduled and the conversion phase can begin. It is during this phase that the conversion playbooks are executed using a workflow job template. The first playbook creates a snapshot that can be used for rolling back if anything goes wrong with the conversion. After the snapshot is created, the second playbook uses the [convert role from the infra.convert2rhel Ansible collection](https://github.com/redhat-cop/infra.convert2rhel/tree/main/roles/convert), where the automation is a convenience wrapper around the Convert2RHEL utility, to perform the operation where the CentOS host is converted to RHEL. The host should not be accessed via login or application access during the conversion, unless working through remediation development activities. When the conversion is finished, the host will reboot under the newly converted RHEL system. Now the ops and app teams can assess if the conversion was successful by verifying all application services are working as expected.
+After the analysis phase is complete and the report indicates acceptable risk, a maintenance window can be scheduled and the conversion phase can begin. It is during this phase that the conversion playbooks are executed using a workflow job template. The first playbook creates a snapshot that can be used for rolling back if anything goes wrong with the conversion. After the snapshot is created, the second playbook utilizes the [convert role from the infra.convert2rhel Ansible collection](https://github.com/redhat-cop/infra.convert2rhel/tree/main/roles/convert), where the automation is a convenience wrapper around the Convert2RHEL utility, to perform the operation where the CentOS host is converted to RHEL. The host should not be accessed via login or application access during the conversion, unless working through remediation development activities. When the conversion is finished, the host will reboot under the newly converted RHEL system. Now the ops and app teams can assess if the conversion was successful by verifying all application services are working as expected.
 
 #### Commit
 
@@ -116,17 +116,19 @@ If you would like to review the content view configuration that we will be utili
   >
   > A composite content view in Satellite is a content view that is composed of other composite views, typically multiples of content views.
 
+- Click on the `CentOS7_to_RHEL7` composite content view.
+
 - On the `CentOS7_to_RHEL7` content view page, click on the `Content views` tab.
 
   ![CentOS7_to_RHEL7 Content View](images/composite_content_view_for_convert2rhel.png)
 
-- Notice that the CentOS7 and RHEL7 content views have been added to the CentOS7_to_RHEL7 composite content view. Click on either of the CentOS7 or RHEL7 content views and then the `Repositories` tab in each view.
+- Notice that the CentOS7 and RHEL7 content views have been added to the CentOS7_to_RHEL7 composite content view (the versions and environments depicted may vary in your workshop deployment, this is OK). Click on either of the CentOS7 or RHEL7 content views and then the `Repositories` tab in each view.
 
   ![CentOS7 Content View Repositories](images/composite_content_view_centos_repos.png)
 
   ![RHEL7 Content View Repositories](images/composite_content_view_rhel_repos.png)
 
-Currently, our CentOS7 nodes are configured to utilize the `CentOS7` content view, with associated `CentOS7_Dev` lifecycle environment. We will now change our CentOS7 nodes to instead consume the `CentOS7_to_RHEL7` composite content view via the associated `CentOS7_to_RHEL7_Dev` lifecycle environment during the conversion process.
+Currently, our CentOS7 nodes are configured to utilize the `CentOS7` content view, with associated `CentOS7_Dev` lifecycle environment for software packages. We will now change our CentOS7 nodes to instead consume the `CentOS7_to_RHEL7` composite content view via the associated `CentOS7_to_RHEL7_Dev` lifecycle environment for access to the requisite software packages during the conversion process.
 
 - Return to the AAP Web UI browser tab and navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation panel and click on `SATELLITE / Change content source for content host`.
 
@@ -136,7 +138,7 @@ Currently, our CentOS7 nodes are configured to utilize the `CentOS7` content vie
 
   ![Satellite Change content source for content host](images/content_host_template_launch.png)
 
-- On the survey dialog, for `Select inventory group`, select `CentOS7_Dev` from the drop down. Leave the specific content hosts limit field blank. for `Select target lifecycle environment for the content host`, select `CentOS7_to_RHEL7_Dev`, then click "Next".
+- On the survey dialog, for `Select inventory group`, select `CentOS7_Dev` from the drop down. Leave the specific content hosts to limit field blank. for `Select target lifecycle environment for the content host`, select `CentOS7_to_RHEL7_Dev`, then click "Next".
 
   ![Satellite Change content source for content host survey](images/content_host_template_survey.png)
 
@@ -182,7 +184,11 @@ The first step in converting our three tier app hosts will be executing the anal
 
   ![Analysis job survey prompt on AAP Web UI](images/analysis_survey_prompt.png)
 
-- For this workflow job template, the survey allows for choosing a group of hosts on which the workflow will execute against. For `Select EL Group to analyze` choose `CentOS_Dev` from the drop-down and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
+- For this workflow job template, the survey allows for choosing an Ansible inventory group of hosts on which the workflow will execute against. For `Select EL Group to analyze` choose `CentOS_Dev` from the drop-down and click the "Next" button. This will bring you to a preview of the selected job options and variable settings.
+
+  > **Note**
+  >
+  > While we did change the `CentOS7_to_RHEL7_Dev` lifecycle environment that the CentOS nodes are assigned to in Satellite, this was only for selecting the requisite software packge repositories for the conversion process. We are still utilizing the `CentOS_Dev` inventory group in the Ansible Automation Platform inventory for specifying the proper instances to launch conversion automation against.
 
   ![Analysis job preview on AAP Web UI](images/analysis_preview.png)
 
@@ -251,7 +257,7 @@ Can you find the upstream source repo and playbook code?
 ```
 By checking the `collections/requirements.yml` file in the `redhat-partner-tech/automated-satellite` git repo, we can discover that this role comes from another git repo at [https://github.com/heatmiser/infra.convert2rhel](https://github.com/heatmiser/infra.convert2rhel). It is the `analysis` role under this second git repo that provides all the automation tasks that ultimately runs the Convert2RHEL analysis scan and generates the report.
 
- *NOTE* We are utilizing a fork of the upstream infra.convert2rhel Ansible collection [https://github.com/redhat-cop/infra.convert2rhel](https://github.com/redhat-cop/infra.convert2rhel). Because the upstream collections is a fast moving project, we utilize a fork where we can closely manage the state of the code base to ensure optimal stability for the lab/workshop/demo environment.
+ > **NOTE:** We are utilizing a fork of the upstream infra.convert2rhel Ansible collection [https://github.com/redhat-cop/infra.convert2rhel](https://github.com/redhat-cop/infra.convert2rhel). Because the upstream collections is a fast moving project, we utilize a fork where we can closely manage the state of the code base to ensure optimal stability for the lab/workshop/demo environment.
 
 - In a new browser tab/instance, open the [https://github.com/heatmiser/infra.convert2rhel](https://github.com/heatmiser/infra.convert2rhel) URL. Drill down to the `roles/analysis` directory in this git repo to review the README and yaml source files.
 

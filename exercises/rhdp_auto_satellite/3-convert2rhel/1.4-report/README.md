@@ -48,7 +48,7 @@ For this workshop, we will be using the CentOS Web Console to access the Convert
 
   ![Remote host menu listing all workbench app servers](images/remote_host_menu_with_pets.png)
 
-- You can use the remote host menu to navigate to the web consoles of each of your CentOS 7 app servers. Try selecting one of your CentOS 7 app servers now. The Web Console system overview page will show the operating system version installed. For example, we can see node4 is confirmed as running CentOS 7:
+- You can use the remote host menu to navigate to the web consoles of each of your CentOS 7 app servers. Try selecting one of your CentOS 7 app servers now ( node4, node5, or node6 ). The Web Console system overview page will show the operating system version installed. For example, we can see node4 is confirmed as running CentOS 7:
 
   ![node4 running CentOS Linux 7 (Core)](images/centos7_os.png)
 
@@ -58,7 +58,7 @@ For this workshop, we will be using the CentOS Web Console to access the Convert
 
   ![Web console is running in limited access mode](images/limited_access.svg)
 
-  If you see this, use the button to switch to administrative access mode before proceeding. A confirmation will appear like this:
+  **If** you see this, use the button to switch to administrative access mode before proceeding. A confirmation will appear like this:
 
   ![You now have administrative access](images/administrative_access.svg)
 
@@ -104,7 +104,7 @@ less /var/log/convert2rhel/convert2rhel-pre-conversion.txt
 
 ### Challenge Lab: What if we were to experience warnings we are unsure of?
 
-You may be wondering: what if there are many warning issues listed in the report? Why would we be going forward with attempting a conversion without first resolving all the findings on the report? It's a fair question.
+You may be wondering: what if there are many warning issues listed in the report, beyond those mentioned above? Why would we be going forward with attempting a conversion without first resolving all the findings on the report? It's a fair question.
 
 > **Tip**
 >
@@ -128,7 +128,7 @@ Of course, the answer is our automated snapshot/rollback capability.
 
 ## Conclusion
 
-In this exercise, we learned about the different options for managing Convert2RHEL pre-conversion analysis reports. We used the CentOS Web Console to look at the reports we generated in the previous exercise. In the challenge lab, we reviewed the importance of snapshots and learned to embrace failure.
+In this exercise, we learned about the different options for managing Convert2RHEL pre-conversion analysis reports. We used the CentOS Web Console to look at the reports we generated in the previous exercise. In the challenge lab, we reviewed the importance of snapshots and learned to embrace any potential failures, embracing the concept of utilizing lessons learned from failed conversions as inputs to improved conversion remediations and automation.
 
 ---
 

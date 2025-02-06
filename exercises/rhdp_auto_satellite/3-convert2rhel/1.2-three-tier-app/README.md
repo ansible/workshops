@@ -23,19 +23,24 @@
 
 This use-case will focus on conversion from CentOS (though this could be another RHEL derivitive) to RHEL while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Prod", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three CentOS nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after CentOS to RHEL conversions.
 
-| Role                                   | Inventory name | 
-| ---------------------------------------| ---------------|
-| Automation controller                  | ansible-1      |
-| Satellite Server                       | satellite      |
-| CentOS/OracleLinux Host 4 - HAProxy    | node4          |
-| CentOS/OracleLinux Host 5 - Tomcat     | node5          |
-| CentOS/OracleLinux Host 6 - PostgreSQL | node6          |
+| Role                                      | Inventory name | 
+| ------------------------------------------| ---------------|
+| Automation Automation Platform controller | ansible-1      |
+| Satellite Server                          | satellite      |
+| CentOS/OracleLinux Host 4 - HAProxy       | node4          |
+| CentOS/OracleLinux Host 5 - Tomcat        | node5          |
+| CentOS/OracleLinux Host 6 - PostgreSQL    | node6          |
 
 | **A Note about using Satellite vs. Ansible Automation Platform for this...**<br>  |
 | ------------- |
 | Out of the box, Satellite 6 supports [RHEL systems roles](https://access.redhat.com/articles/3050101) (a collection of Ansible Roles) for a limited set of administration tasks. Satellite can be used to do OS conversions and upgrades, however an Ansible Automation Platform Subscription is required to execute complicated OS conversions and upgrades that require logic to meet up-time requirements.  Using these two solutions together ensures you have the best tool for the job for:<br>- Content Management (Satellite)<br>- OS Patching & Standardized Operating Environments (Satellite)<br>- Provisioning: OS, Infra Services and Applications/Other (Satellite and/or Ansible Automation Platform)<br>- Configuration of Infra and Apps (Ansible Automation Platform)<br><br>Reference: [Converting CentOS to RHEL with Red Hat Satellite 6](https://www.redhat.com/en/blog/steps-converting-centos-linux-convert2rhel-and-red-hat-satellite) and [Leapp Upgrade with Satellite 6](https://www.redhat.com/en/blog/leapp-upgrade-using-red-hat-satellite-6)|
 
 ### Step 1 - Set Instance Tags 
+
+  > **Note**
+  >
+  > - This workshop is utilizing virtual machines/servers running on Amazon Web Services (AWS). [AWS nomenclature utilizes the term `instance`](https://aws.amazon.com/what-is/cloud-instances/) to designate a virtual machine/server.
+  > - [In AWS, a tag is a key-value pair applied to a resource to hold metadata about that resource](https://docs.aws.amazon.com/whitepapers/latest/tagging-best-practices/what-are-tags.html). Each tag is a label consisting of a key and an optional value. For example, if we wanted to designate a `name` tag for an instance named `node4.example.com` within AWS, we could assign --> key: name, value: node4.example.com. Utilizing tags are a suggested practice for grouping resources in logical manners (not just in AWS, but in other hyperscaler clouds, as well as even in Vsphere, etc). We will see that when utilized properly, tags are a powerful means for constructing dynamic infrastructure inventories that can be utilized within Ansible Automation Platform to target the correct components in a hybrid cloud infrastructure.
 
 - Return to the AAP Web UI browser tab you opened in step 3 of the previous exercise. Navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. This will bring up a list of job templates that can be used to run playbook jobs on target hosts:
 
@@ -69,7 +74,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
 ### Step 2 - Update Ansible Inventory
 
-- Now that we have application tier group tags set, we can update the Ansible inventory to include inventory groups associated with our application stack tiers. However, before we do, let's review how the Ansible inventory update works behind the scenes.
+- Now that we have application tier group tags set for each instance, we can update the Ansible inventory to include inventory groups associated with our application stack tiers. However, before we do, let's review how the Ansible inventory update works behind the scenes.
 
   ![Controller inventories](images/update_controller_inventory_01.png)
 
@@ -89,11 +94,11 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_inventory_filter.png)
 
-- Looking at the Source variables, first let's look at `filters` and `hostnames`. The `filters` section will allow definining which instances should be selected for inclusion within the given inventory. In this case, the tags `ContentView`, `Environment`, `Student`, and `guid` will be utilized...all instances with tags matching the current values defined for each tag, will be selected. The `hostnames` sections allows defining how names of filtered resources will be definined in the inventory. In this case, the value currently defined with tag `NodeName` will be utilized for the name within the inventory.
+- Looking at the Source variables, first let's look at `filters` and `hostnames`. The `filters` section will allow definining which instances should be selected for inclusion within the given inventory. In this case, the tags `ContentView`, `Environment`, `Student`, and `guid` will be utilized...all instances with tags matching the current values defined for each tag, will be selected. The `hostnames` sections allows defining how names of filtered resources will be defined in the inventory. In this case, the value currently defined with tag `NodeName` will be utilized for the name populated within the `CentOS7 Development` inventory.
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_05.png)
 
-- Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, given the instances that are selected via the filters in the previous section, if any of these instances are currently tagged with "app_stack_name" and "AnsibleGroup" tags, then it will create an inventory group with the name beginning with the value assigned to the "app_stack_name" tag, an "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "app_stack_name" tag is currently set to `stack02` and the "AnsibleGroup" tag is set to `appdbs`, then the inventory group `stack02_appdbs` will be created (or confirmed if already existing) and that instance will be assigned to the `stack02_appdbs` group.
+- Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, given the instances that are selected via the filters in the previous section, if any of these instances are currently tagged with "app_stack_name" and "AnsibleGroup" tags, then it will create an inventory group with the name beginning with the value assigned to the "app_stack_name" tag, an "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "app_stack_name" tag is currently set to `stack02` and the "AnsibleGroup" tag is set to `appdbs`, then the inventory group `stack02_appdbs` will be created (or confirmed if already existing) and that instance will be assigned to the `stack02_appdbs` inventory group.
 
 - Click on "Done" in the Source variables exapanded view.
 
@@ -169,7 +174,7 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![EC2 Instance Action Launch](images/ec2_instance_action_launch.png)
 
-- On the `Launch | EC2 / Instance action - Preview` dialog, review and then click **Launch**. Once the `EC2 / Instance action` job has completed, our CentOS7 instances will be started and available for installing the three tier application stack.
+- On the `Launch | EC2 / Instance action - Preview` dialog, review and then click **Launch**. Once the `EC2 / Instance action` job has completed, our CentOS7 instances will be started (or confirmed as started if they are already up and running) and available for installing the three tier application stack.
 
 - In the AAP Web UI, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. This will bring up a list of job templates.
 

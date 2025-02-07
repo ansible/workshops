@@ -130,16 +130,16 @@ Save and exit the workflow template editor by clicking on "Save" on the top righ
 
 #### 4\. Exploring the Satellite host configuration
 
-* In the Satellite UI on the left menu pane, hover over 'Hosts' and select 'Content Hosts'.
+* In the Satellite UI on the left menu pane, click on 'Hosts' and then select 'Content Hosts'.
     * Observe the multiple security, bug fix, enhancements and package updates available for each server, which will vary depending on the date of when the workshop takes place.
     * Further, take note of the life cycle environment: RHEL7_Dev.
 
 ![Satellite content hosts](images/2-patching-aap2-Satellite-contenthosts.png)
 
-* In the Satellite UI on the left menu pane, navigate to 'Content' and select 'Content Views'.
+* In the Satellite UI on the left menu pane, click on 'Content', followed by clicking on 'Lifecycle', and then select 'Content Views'.
     * Since the servers that we are working with are RHEL7 select the 'RHEL7' content view.
     * We may need to publish a new content view version, however, we set that up as part of our workflow!
-    * Note: your content view version may differ from this example, that is OK
+    * Note: your content view version may differ from this example, that is OK.
 
 ![Satellite RHEL7 CV](images/2-patching-aap-Satellite-CV-RHEL7.png)
 
@@ -149,7 +149,7 @@ Save and exit the workflow template editor by clicking on "Save" on the top righ
 
 #### 5\. Navigate back to Ansible Automation Platform and launch workflow job
 
-* Click on Templates to locate the 'SATELLITE / Patching Workflow' template.
+* Click on Templates and locate the 'SATELLITE / Patching Workflow' template.
     * You can either click on the rocketship to the right of the template or select the template and select LAUNCH. (they do the same thing).
 * Observe the job kicking off in Ansible.
     * You need to wait for this workflow to complete before moving on to the next step.
@@ -161,7 +161,7 @@ Save and exit the workflow template editor by clicking on "Save" on the top righ
 
 #### 6\. Navigate back to Satellite to examine automation effects
 
-* In the Satellite UI on the left menu pane, navigate to 'Content' then 'Content Views' and select RHEL7.
+* In the Satellite UI on the left menu pane, navigate to 'Content', then 'Lifecycle', then 'Content Views' and select RHEL7.
     * Notice the new content view version.
 * In the Satellite UI on the left menu pane, navigate to  Hosts > All Hosts and select node1.example.com.
     * Select the 'content' tab under Details.
@@ -172,8 +172,8 @@ Save and exit the workflow template editor by clicking on "Save" on the top righ
 
 * You may notice that not all issues are remediated.
     * This is to showcase that you can exclude updates based on type.
-    * In this case we're not pushing out updates for kernel changes.
-    * Of course this can be configurable through use of the exclude definition for ```ansible.builtin.yum``` module in the server_patch.yml playbook.
+    * In this case, we are not pushing out updates for kernel changes.
+    * Of course, this can be configurable through use of the exclude definition for ```ansible.builtin.yum``` module in the server_patch.yml playbook.
 
 ![kernel patches excluded](images/2-patching-aap2-server-patching-kernel-exclude.png)
 

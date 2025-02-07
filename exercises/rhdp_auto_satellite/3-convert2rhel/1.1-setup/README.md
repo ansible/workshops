@@ -27,16 +27,16 @@
 
 The workshop is provisioned with a pre-configured lab environment. You will have access to a host deployed with Ansible Automation Platform (AAP) which you will use to control the playbook and workflow jobs that automate the CentOS conversion workflow steps. You will also have access to three CentOS hosts. These are the hosts where we will be converting the CentOS operating system (OS) to Red Hat Enterprise Linux.
 
-| Role                                | Inventory name |
-| ------------------------------------| ---------------|
-| Automation controller               | ansible-1      |
-| Satellite Server                    | satellite      |
-| Managed Host 1 - RHEL               | node1          |
-| Managed Host 2 - RHEL               | node2          |
-| Managed Host 3 - RHEL               | node3          |
-| Managed Host 4 - CentOS/OracleLinux | node4          |
-| Managed Host 5 - CentOS/OracleLinux | node5          |
-| Managed Host 6 - CentOS/OracleLinux | node6          |
+| Role                                   | Inventory name |
+| ---------------------------------------| ---------------|
+| Ansible Automation Platform controller | ansible-1      |
+| Satellite Server                       | satellite      |
+| Managed Host 1 - RHEL                  | node1          |
+| Managed Host 2 - RHEL                  | node2          |
+| Managed Host 3 - RHEL                  | node3          |
+| Managed Host 4 - CentOS/OracleLinux    | node4          |
+| Managed Host 5 - CentOS/OracleLinux    | node5          |
+| Managed Host 6 - CentOS/OracleLinux    | node6          |
 
 ### Step 1 - Access the AAP Web UI
 
@@ -48,7 +48,7 @@ The AAP Web UI is where we will go to submit and check the status of the Ansible
 
 - Enter the username `admin` and the password provided. This will bring you to your AAP Web UI dashboard like the example below:
 
-  ![Example AAP Web UI dashboard](images/aap_console_example.svg)
+  ![Example AAP Web UI dashboard](images/aap_console_example.png)
 
 - Let's use the AAP Web UI to make a couple of preparations for the exercise. First, let's ensure our CentOS nodes are up and running. In the AAP Web UI browser tab, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. Browse the list of job templates and click on the template `EC2 / Instance action`:
 

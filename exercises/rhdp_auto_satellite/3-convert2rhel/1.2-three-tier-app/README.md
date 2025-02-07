@@ -10,7 +10,7 @@
     - [Step 1 - Set Instance Tags](#step-1---set-instance-tags)
     - [Step 2 - Update Ansible Inventory](#step-2---update-ansible-inventory)
     - [Step 3 - Install Three Tier Application](#step-3---install-three-tier-application)
-    - [Step 4 - Smoke Test Three Tier Application](#step-4---open-a-terminal-session)
+    - [Step 4 - Smoke Test Three Tier Application](#step-4---smoke-test-three-tier-application)
   - [Conclusion](#conclusion)
 
 ## Objectives
@@ -21,7 +21,7 @@
 
 ### Three Tier App
 
-This use-case will focus on conversion from CentOS (though this could be another RHEL derivitive) to RHEL while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Prod", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three CentOS nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after CentOS to RHEL conversions.
+This use-case will focus on conversion from CentOS (though this could be another RHEL derivative) to RHEL while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Prod", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three CentOS nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after CentOS to RHEL conversions.
 
 | Role                                      | Inventory name | 
 | ------------------------------------------| ---------------|
@@ -58,11 +58,11 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Expanded job template variables](images/set_instance_tags_04.png)
 
-- Note the **group_tag_map**...each node is being mapped to a group name which corresponds to the particular application tier role that the node is to serve. Looking at the Ansible playbook that corresonds to this job template:
+- Note the **group_tag_map**...each node is being mapped to a group name which corresponds to the particular application tier role that the node is to serve. Looking at the Ansible playbook that corresponds to this job template:
 
   ![Ansible playbook for group tags](images/set_instance_tags_06.png)
 
-- We can see that the **group_tag_map** dictionary is looped through, selecting a particular instace via the *resource: "{{ host_ec2_instance_id[item.key] }}"* filter and then setting the "AnsibleGroup" tag via *AnsibleGroup: "{{ item.value }}"*
+- We can see that the **group_tag_map** dictionary is looped through, selecting a particular instance via the *resource: "{{ host_ec2_instance_id[item.key] }}"* filter and then setting the "AnsibleGroup" tag via *AnsibleGroup: "{{ item.value }}"*
 
 - Additionally, the **app_stack_name** tag is set to designate that each node is a member of the same application stack.
 
@@ -94,13 +94,13 @@ This use-case will focus on conversion from CentOS (though this could be another
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_inventory_filter.png)
 
-- Looking at the Source variables, first let's look at `filters` and `hostnames`. The `filters` section will allow definining which instances should be selected for inclusion within the given inventory. In this case, the tags `ContentView`, `Environment`, `Student`, and `guid` will be utilized...all instances with tags matching the current values defined for each tag, will be selected. The `hostnames` sections allows defining how names of filtered resources will be defined in the inventory. In this case, the value currently defined with tag `NodeName` will be utilized for the name populated within the `CentOS7 Development` inventory.
+- Looking at the Source variables, first let's look at `filters` and `hostnames`. The `filters` section will allow defining which instances should be selected for inclusion within the given inventory. In this case, the tags `ContentView`, `Environment`, `Student`, and `guid` will be utilized...all instances with tags matching the current values defined for each tag, will be selected. The `hostnames` sections allows defining how names of filtered resources will be defined in the inventory. In this case, the value currently defined with tag `NodeName` will be utilized for the name populated within the `CentOS7 Development` inventory.
 
   ![Controller inventories keyed_groups](images/update_controller_inventory_05.png)
 
 - Scroll down the source variables section until you see "keyed_groups". [Keyed groups](https://docs.ansible.com/ansible/latest/plugins/inventory.html#:~:text=with%20the%20constructed-,keyed_groups,-option.%20The%20option) are where you can define dynamic inventory groups based on instance tags. In this case, given the instances that are selected via the filters in the previous section, if any of these instances are currently tagged with "app_stack_name" and "AnsibleGroup" tags, then it will create an inventory group with the name beginning with the value assigned to the "app_stack_name" tag, an "_" (underscore) and then the value assigned to the "AnsibleGroup" tag...so in this case, if the "app_stack_name" tag is currently set to `stack02` and the "AnsibleGroup" tag is set to `appdbs`, then the inventory group `stack02_appdbs` will be created (or confirmed if already existing) and that instance will be assigned to the `stack02_appdbs` inventory group.
 
-- Click on "Done" in the Source variables exapanded view.
+- Click on "Done" in the Source variables expanded view.
 
   ![Controller inventories group](images/update_controller_inventory_sync.png)
 
@@ -148,33 +148,6 @@ This use-case will focus on conversion from CentOS (though this could be another
 - Survey the job output details...this job run only takes about 5 to 6 seconds to complete.
 
 ### Step 3 - Install Three Tier Application
-
-- In the AAP Web UI, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. This will bring up a list of job templates that can be used to run playbook jobs on target hosts.
-
-  ![Job templates on AAP Web UI with EC2 filter](images/aap_templates_ec2_filter.png)
-
-- In the filter box, enter `EC2` and then click the magnifying glass. This will bring up a list of job templates specific to AWS/EC2 automation: 
-
-  ![EC2 Job templates Instance Action](images/aap_templates_ec2_instance_action.png)
-
-- Click ![launch](images/convert2rhel-aap2-launch.png) to the right of **EC2 / Instance action**:
-
-  ![EC2 Instance Action Other](images/ec2_instance_action_other.png)
-
-- For the `Launch | EC2 / Instance action - Other prompts` dialog, click **Next**.
-
-  ![EC2 Instance Action Survey](images/ec2_instance_action_survey.png)
-
-- On the `Launch | EC2 / Instance action - Survey` dialog:
-  - For `Select EC2 instance action` select "start".
-  - For `Select OS target` select "CentOS7".
-  - For `Select Environment stage` select "Dev".
-  
-  Then, click **Next**.
-
-  ![EC2 Instance Action Launch](images/ec2_instance_action_launch.png)
-
-- On the `Launch | EC2 / Instance action - Preview` dialog, review and then click **Launch**. Once the `EC2 / Instance action` job has completed, our CentOS7 instances will be started (or confirmed as started if they are already up and running) and available for installing the three tier application stack.
 
 - In the AAP Web UI, navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. This will bring up a list of job templates.
 
@@ -240,7 +213,7 @@ This should take ~15 seconds to complete.
 
 In this exercise, we learned about how to set instance tags to assist with identifying instances. We then turned to looking into how Ansible Automation Platform dynamic inventory sources can be utilized to generate various host groups with a given inventory. We followed that with performing an automated installation of an example three tier application stack. Finally, we verified the three tier application stack functionality via an automated application smoke test.
 
-Use the link below to move on the the next exercise.
+Use the link below to move on the next exercise.
 
 ---
 

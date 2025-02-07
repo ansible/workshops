@@ -187,9 +187,9 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 </svg>
     </span>
   </a>
-  <a target="_new" href="./exercises/ansible_smart_mgmt" class="data-card">
-    <h3>Smart Management</h3>
-    <h4>Automated Smart Management Workshop</h4>
+  <a target="_new" href="./exercises/rhdp_auto_satellite" class="data-card">
+    <h3>Satellite </h3>
+    <h4>Ansible + Satellite Workshop</h4>
     <p>Focused on automation of security and lifecycle management with Red Hat Satellite Server</p>
     <span class="link-text">
       Lab Page

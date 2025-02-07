@@ -1,4 +1,6 @@
-## Additional Ansible Network Automation Exercises
+# Additional Ansible Network Automation Exercises
+
+**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
 These are additional exercises available for students that have already completed the workshop or are seeking additional knowledge.
 

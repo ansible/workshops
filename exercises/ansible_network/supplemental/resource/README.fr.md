@@ -1,47 +1,47 @@
-# Supplemental Exercise: Ansible Network Resource Modules
+# Exercice Supplémentaire : Modules de Ressources Réseau Ansible
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
+**Lire ceci dans d'autres langues** : ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
-## Table of Contents
+## Table des Matières
 
-  * [Objective](#objective)
-    * [Step 1 - Manually modify the Arista configuration](#step-1---manually-modify-the-arista-configuration)
-    * [Step 2 - Run the playbook](#step-2---run-the-playbook)
-    * [Step 3 - Modify the playbook](#step-3---modify-the-playbook)
-    * [Step 4 - Run replaced playbook](#step-4---run-replaced-playbook)
-    * [Step 5 - Add a VLAN to rtr2](#step-5---add-a-vlan-to-rtr2)
-    * [Step 6 - Use overridden parameter](#step-6---use-overridden-parameter)
-    * [Step 7 - using rendered parameter](#step-7---using-rendered-parameter)
-    * [Step 8 - Using the parsed parameter](#step-8---using-the-parsed-parameter)
-  * [Takeaways](#takeaways)
+  * [Objectif](#objectif)
+    * [Étape 1 - Modifier manuellement la configuration Arista](#étape-1---modifier-manuellement-la-configuration-arista)
+    * [Étape 2 - Exécuter le playbook](#étape-2---exécuter-le-playbook)
+    * [Étape 3 - Modifier le playbook](#étape-3---modifier-le-playbook)
+    * [Étape 4 - Exécuter le playbook modifié](#étape-4---exécuter-le-playbook-modifié)
+    * [Étape 5 - Ajouter un VLAN à rtr2](#étape-5---ajouter-un-vlan-à-rtr2)
+    * [Étape 6 - Utiliser le paramètre overridden](#étape-6---utiliser-le-paramètre-overridden)
+    * [Étape 7 - Utilisation du paramètre rendered](#étape-7---utilisation-du-paramètre-rendered)
+    * [Étape 8 - Utilisation du paramètre parsed](#étape-8---utilisation-du-paramètre-parsed)
+  * [Points à retenir](#points-à-retenir)
   * [Solution](#solution)
-  * [Complete](#complete)
+  * [Terminer](#terminer)
 
-## Objective
+## Objectif
 
-Demonstration use of [Ansible Network Resource Modules](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)
+Démonstration de l'utilisation des [Modules de Ressources Réseau Ansible](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html)
 
-This exercise builds upon [exercise 4 - Ansible Network Resource Modules](../../4-resource-module/).  Please complete that exercise before starting this one.
+Cet exercice est une extension de l'étape [exercice 4 - Modules de Ressources Réseau Ansible](../../4-resource-module/). Veuillez compléter cet exercice avant de commencer celui-ci.
 
-There are two parts to this exercise:
+Il y a deux parties à cet exercice :
 
-1.  Cover additional configuration `state` parameters:
+1. Couvrir des paramètres de configuration `state` supplémentaires :
 
   * `replaced`
   * `overridden`
 
-  and contrast them to what we saw with `merged`.
+  et les comparer à ce que nous avons vu avec `merged`.
 
-2. Cover additional read-only `state` parameters
+2. Couvrir des paramètres `state` supplémentaires en lecture seule :
 
   * `rendered`
   * `parsed`
 
-  and contrast them to the `gathered` parameter.
+  et les comparer au paramètre `gathered`.
 
-### Step 1 - Manually modify the Arista configuration
+### Étape 1 - Modifier manuellement la configuration Arista
 
-* Login to an Arista switch.  We are assuming the configuration from exercise 4 is already applied
+* Connectez-vous à un switch Arista. Nous supposons que la configuration de l'exercice 4 est déjà appliquée
 
   ```bash
   vlan 20
@@ -57,7 +57,7 @@ There are two parts to this exercise:
      name DMZ
   ```
 
-* From the control node terminal, you can `ssh rtr2` and type `enable`
+* Depuis le terminal du nœud de contrôle, vous pouvez utiliser `ssh rtr2` et taper `enable`
 
   ```bash
   $ ssh rtr2
@@ -65,13 +65,13 @@ There are two parts to this exercise:
   rtr2>enable
   ```
 
-* Use the command `configure terminal` to manually edit the Arista configuration:
+* Utilisez la commande `configure terminal` pour modifier manuellement la configuration Arista :
 
   ```bash
   rtr2#configure terminal
   rtr2(config)#
   ```
-* Now configure vlan 50 to `state suspend`
+* Configurez maintenant le vlan 50 en `state suspend`
 
   ```bash
   rtr2(config)#vlan 50
@@ -82,7 +82,7 @@ There are two parts to this exercise:
   rtr2(config-vlan-50)#state suspend
   ```
 
-* Save the configuration
+* Sauvegardez la configuration
 
   ```bash
   rtr2(config-vlan-50)#exit
@@ -91,7 +91,7 @@ There are two parts to this exercise:
   Copy completed successfully.
   ```
 
-* Examine the configuration
+* Examinez la configuration
 
   ```bash
   rtr2#sh run | s vlan
@@ -109,17 +109,17 @@ There are two parts to this exercise:
      state suspend
   ```
 
-  * The running-configuration no longer matches our playbook!  vlan 50 is now in state suspend.
+  * La configuration en cours d'exécution ne correspond plus à notre playbook ! Le vlan 50 est maintenant en état suspendu.
 
-### Step 2 - Run the playbook
+### Étape 2 - Exécuter le playbook
 
-* Execute the playbook using the `ansible-navigator run`.
+* Exécutez le playbook en utilisant `ansible-navigator run`.
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
 
-* The output will look similar to the following:
+* La sortie ressemblera à ceci :
 
   ```bash
   [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
@@ -135,13 +135,13 @@ There are two parts to this exercise:
   rtr4                       : ok=1    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0  
   ```
 
-* The playbook did **NOT** modify the configuration.  The `state: merged` only enforces that the config provided exists on the network device.  Lets contrast this to `replaced`.  If you login to the Arista network device the `state suspend` will still be there.
+* Le playbook n'a **PAS** modifié la configuration. Le paramètre `state: merged` garantit uniquement que la configuration fournie existe sur l'appareil réseau. Comparons cela à `replaced`. Si vous vous connectez à l'appareil réseau Arista, l'état suspendu sera toujours présent.
 
-### Step 3 - Modify the playbook
+### Étape 3 - Modifier le playbook
 
-* Modify the `resource.yml` playbook so that `state: merged` is now `state: replaced`
+* Modifiez le playbook `resource.yml` pour que `state: merged` devienne `state: replaced`
 
-* The playbook should look like the following:
+* Le playbook devrait ressembler à ceci :
 
   ```yaml
   ---
@@ -165,15 +165,15 @@ There are two parts to this exercise:
             vlan_id: 50
   ```
 
-### Step 4 - Run replaced playbook
+### Étape 4 - Exécuter le playbook modifié
 
-* Execute the playbook using the `ansible-navigator run`.  Since there is just one task we can use the `--mode stdout`
+* Exécutez le playbook en utilisant `ansible-navigator run`. Comme il n'y a qu'une seule tâche, nous pouvons utiliser `--mode stdout`
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
 
-* The output will look similar to the following:
+* La sortie ressemblera à ceci :
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
@@ -188,20 +188,21 @@ There are two parts to this exercise:
   rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   rtr4                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
-* Now examine the config on rtr2, the `state suspend` is now gone.  Replaced will enforce (for the specified VLANs) the supplied configurations.  This means that since `state: suspend` was not supplied, and NOT the default for a VLAN, it will remove it from the network device.
 
-### Step 5 - Add a VLAN to rtr2
+Continuez ainsi pour l'ensemble de la traduction. Une fois terminée, chaque partie de l'étape sera précisée.
 
-* Create vlan 100 on `rtr2`
+### Étape 5 - Ajouter un VLAN à rtr2
+
+* Créez le VLAN 100 sur `rtr2`
 
   ```bash
   rtr2(config)#vlan 100
   rtr2(config-vlan-100)#name ?
-    WORD  The ASCII name for the VLAN
+    WORD  Le nom ASCII du VLAN
   rtr2(config-vlan-100)#name artisanal
   ```
 
-*  We can assume that someone has created this VLAN outside of automation (e.g. they hand-crafted a VLAN i.e. artisanal VLAN)  This is referred to as "out of band" network changes.  This is very common in the network industry because a network engineer solved a problem, but then never documented or circled back to remove this configuration.  This manual configuration change does not match best practices or their documented policy.  This could cause issues where someone tries to use this VLAN in the future, and not aware of this configuration.
+* On peut supposer que quelqu'un a créé ce VLAN en dehors de l'automatisation (par exemple, ils ont créé manuellement un VLAN, appelé VLAN artisanal). Cela est appelé des modifications réseau "hors bande". C'est très courant dans l'industrie du réseau, car un ingénieur réseau a résolu un problème mais n'a jamais documenté ni supprimé cette configuration. Cette modification manuelle ne respecte pas les meilleures pratiques ou la politique documentée. Cela pourrait causer des problèmes si quelqu'un tente d'utiliser ce VLAN à l'avenir sans être au courant de cette configuration.
 
   ```bash
   rtr2#show vlan
@@ -215,39 +216,40 @@ There are two parts to this exercise:
   100   artisanal                        active   
   ```
 
-* Re-run the playbook again.  The VLAN 100 is NOT removed.
+* Réexécutez le playbook. Le VLAN 100 n'est **PAS** supprimé.
 
-### Step 6 - Use overridden parameter
+### Étape 6 - Utiliser le paramètre overridden
 
-* Modify the playbook again, this time using the `state: overridden`
+* Modifiez le playbook, cette fois en utilisant `state: overridden`
 
-    ```yaml
-    ---
-    - name: configure VLANs
-      hosts: arista
-      gather_facts: false
+  ```yaml
+  ---
+  - name: configure VLANs
+    hosts: arista
+    gather_facts: false
 
-      tasks:
+    tasks:
 
-      - name: use vlans resource module
-        arista.eos.vlans:
-          state: overridden
-          config:
-            - name: desktops
-              vlan_id: 20
-            - name: servers
-              vlan_id: 30
-            - name: printers
-              vlan_id: 40
-            - name: DMZ
-              vlan_id: 50
-    ```
-* Execute the playbook using the `ansible-navigator run`.
+    - name: use vlans resource module
+      arista.eos.vlans:
+        state: overridden
+        config:
+          - name: desktops
+            vlan_id: 20
+          - name: servers
+            vlan_id: 30
+          - name: printers
+            vlan_id: 40
+          - name: DMZ
+            vlan_id: 50
+  ```
+
+* Exécutez le playbook en utilisant `ansible-navigator run`.
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
   ```
-* Login back into the `rtr2` device and examine the VLANs
+* Connectez-vous à l'appareil `rtr2` et examinez les VLANs
   ```bash
   rtr2#show vlan
   VLAN  Name                             Status    Ports
@@ -259,19 +261,19 @@ There are two parts to this exercise:
   50    DMZ                              active
   ```
 
-* The artisanal VLAN 100 has been removed!  Now the same resource modules can be used to not only configure network devices, but enforce which VLANs are configured.  This is referred to as policy enforcement, and a huge part of configuration management.  Going from `merged` to `replaced` to `overridden` will often match the automation journey for a network team as they gain more and more confidence with automation.
+* Le VLAN artisanal 100 a été supprimé ! Maintenant, les mêmes modules de ressources peuvent être utilisés non seulement pour configurer des appareils réseau, mais aussi pour faire respecter quels VLANs sont configurés. Cela est appelé enforcement de politique et constitue une part importante de la gestion de configuration. Passer de `merged` à `replaced` puis à `overridden` correspond souvent au parcours d'automatisation pour une équipe réseau au fur et à mesure qu'elle gagne en confiance avec l'automatisation.
 
-### Step 7 - using rendered parameter
+### Étape 7 - Utilisation du paramètre rendered
 
-Now lets return to using read-only parameters.  These parameters do not modify the configuration on a network device.  In exercise 4, we used the `state: gathered` to retrieve the VLAN configuration from the Arista network device.  This time we will use `rendered` to get the Arista commands that generate the configuration:
+Revenons maintenant à l'utilisation de paramètres en lecture seule. Ces paramètres ne modifient pas la configuration d'un appareil réseau. Dans l'exercice 4, nous avons utilisé `state: gathered` pour récupérer la configuration VLAN de l'appareil réseau Arista. Cette fois, nous utiliserons `rendered` pour obtenir les commandes Arista qui génèrent la configuration :
 
-* Modify the `resource.yml` playbook to `state: rendered`
+* Modifiez le playbook `resource.yml` pour `state: rendered`
 
-* Register the output from the task to a variable named `rendered_config`
+* Enregistrez la sortie de la tâche dans une variable nommée `rendered_config`
 
-* Add a `debug` task to print the output to the terminal window
+* Ajoutez une tâche `debug` pour afficher la sortie dans la fenêtre du terminal
 
-* The playbook will look like the following:
+* Le playbook ressemblera à ceci :
 
 {% raw %}
   ```yaml
@@ -293,14 +295,14 @@ Now lets return to using read-only parameters.  These parameters do not modify t
     debug:
       msg: "{{ rendered_config }}"
   ```
-  {% endraw %}
+{% endraw %}
 
-* Execute the playbook using the `ansible-navigator run`.
+* Exécutez le playbook en utilisant `ansible-navigator run`.
 
   ```bash
   $ ansible-navigator run resource.yml --mode stdout
 
-* The output will look like the following:
+* La sortie ressemblera à ceci :
 
   ```bash
   [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
@@ -356,13 +358,13 @@ Now lets return to using read-only parameters.  These parameters do not modify t
   rtr4                       : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
 
-* Specifically the `rendered` key will display the Arista commands that are used to generate the configuration!  This allows network automators to know exactly what commands would be run and executed before they actually run automation to apply the commands.
+* Le champ `rendered` affiche les commandes Arista qui sont utilisées pour générer la configuration ! Cela permet aux automatiseurs réseau de savoir exactement quelles commandes seraient exécutées avant de lancer l'automatisation pour appliquer les commandes.
 
-### Step 8 - Using the parsed parameter
+### Étape 8 - Utilisation du paramètre parsed
 
-Finally lets cover the parsed parameter.  This parameter is used when a existing file contains the network device configuration.  Imagine there was already a backup performed.
+Enfin, abordons le paramètre `parsed`. Ce paramètre est utilisé lorsqu'un fichier existant contient la configuration de l'appareil réseau. Imaginez qu'une sauvegarde ait déjà été effectuée.
 
-* First lets backup a configuration.  Here is a simple playbook for doing a configuration backup.  The playbook is [backup.yml](backup.yml).
+* Tout d'abord, sauvegardons une configuration. Voici un playbook simple pour effectuer une sauvegarde de configuration. Le playbook est [backup.yml](backup.yml).
 
 {% raw %}
   ```yaml
@@ -381,20 +383,20 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
   ```
 {% endraw %}
 
-* Execute the playbook:
+* Exécutez le playbook :
 
   ```bash
   $ ansible-navigator run backup.yml --mode stdout
   ```
 
-* Verify the backups were created:
+* Vérifiez que les sauvegardes ont été créées :
 
   ```bash
   $ ls backup
   rtr2.txt  rtr4.txt
   ```
 
-* Now modify the `resource.yml` playbook to use the `parsed` playbook:
+* Modifiez maintenant le playbook `resource.yml` pour utiliser le playbook `parsed` :
 
 {% raw %}
   ```yaml
@@ -417,19 +419,19 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
   ```
 {% endraw %}
 
-* There is a couple additional changes:
+* Il y a quelques changements supplémentaires :
 
-  * instead of `config` we are using `running-config` and pointing to the backup file.
-  * We are registering the output from the module to `parsed_config` varaible
-  * We are using the debug module to print the `parsed_config` variable
+  * au lieu de `config`, nous utilisons `running-config` en pointant vers le fichier de sauvegarde.
+  * Nous enregistrons la sortie du module dans la variable `parsed_config`
+  * Nous utilisons le module debug pour afficher la variable `parsed_config`
 
-* Execute the playbook:
+* Exécutez le playbook :
 
-    ```bash
-    $ ansible-navigator run resource.yml --mode stdout
-    ```
+  ```bash
+  $ ansible-navigator run resource.yml --mode stdout
+  ```
 
-* The output will look like the following:
+* La sortie ressemblera à ceci :
 
   ```yaml
   [student@ansible-1 network-workshop]$ ansible-navigator run resource.yml --mode stdout
@@ -509,7 +511,7 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
   rtr4                       : ok=2    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
   ```
 
-* In the output above you will see that the flat-file backup was parsed into structured data:
+* Dans la sortie ci-dessus, vous verrez que la sauvegarde sous forme de fichier plat a été analysée en données structurées :
 
   ```json
   "parsed": [
@@ -520,41 +522,40 @@ Finally lets cover the parsed parameter.  This parameter is used when a existing
       }
   ```
 
-* The default output is JSON but can be easily transformed into YAML.
+* La sortie par défaut est en JSON mais peut être facilement transformée en YAML.
 
-## Takeaways
+## Points à retenir
 
-We covered two additional configuration `state` parameters:
+Nous avons couvert deux paramètres de configuration `state` supplémentaires :
 
-  * `replaced` - enforced config for specified VLANs
-  * `overridden`- enforced config for ALL vlans
+  * `replaced` - applique une configuration pour des VLANs spécifiques
+  * `overridden`- applique une configuration pour TOUS les VLANs
 
-Going from `merged` to `replaced` to `overridden` follows the automation adoption journey as network teams gain more confidence with automation.  
+Passer de `merged` à `replaced` puis à `overridden` correspond au parcours d'adoption de l'automatisation au fur et à mesure que les équipes réseau gagnent en confiance.
 
-We covered additional read-only `state` parameters
+Nous avons également couvert des paramètres en lecture seule supplémentaires :
 
-  * `rendered` - shows commands that would generate the desired configuration
-  * `parsed` - turned a flat-file configuration (such as a backup) into structured data (versus modifying the actual device)
+  * `rendered` - montre les commandes qui généreraient la configuration souhaitée
+  * `parsed` - transforme une configuration sous forme de fichier plat (comme une sauvegarde) en données structurées (plutôt que de modifier l'appareil réel)
 
-These allow network automators to use resource modules in additional scenarios, such as disconnected environments. Network resource modules provide a consistent experience across different network devices.
+Ces fonctionnalités permettent aux automatiseurs réseau d'utiliser les modules de ressources dans des scénarios supplémentaires, tels que les environnements déconnectés. Les modules de ressources réseau offrent une expérience cohérente sur différents appareils réseau.
 
-The [documentation guide](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html) provided additional info of using network resource modules.
+Le [guide de documentation](https://docs.ansible.com/ansible/latest/network/user_guide/network_resource_modules.html) fournit des informations complémentaires sur l'utilisation des modules de ressources réseau.
 
 ## Solution
 
-The finished Ansible Playbook is provided here for an answer key:
+Le playbook Ansible final est fourni ici comme référence :
 
 -  [overridden.yml](overridden.yml)
 -  [backup.yml](backup.yml)
 -  [parsed.yml](parsed.yml)
 
+## Terminer
 
-## Complete
-
-You have completed the supplemental lab!
-
+Vous avez terminé le laboratoire supplémentaire !
 
 ---
-[Click here to return to supplemental exercises](../README.md)
 
-[Click here to return to the Ansible Network Automation Workshop](../../README.md)
+[Cliquez ici pour revenir aux exercices supplémentaires](../README.fr.md)
+
+[Cliquez ici pour revenir au Workshop d'Automatisation de Réseaux Ansible](../../README.fr.md)

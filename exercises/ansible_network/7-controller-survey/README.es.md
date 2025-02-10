@@ -1,6 +1,6 @@
 # Ejercicio 7: Crear una Encuesta (Survey)
 
-**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
 ## Índice
 
@@ -212,6 +212,6 @@ Has probado existosamente lo siguiente:
 ¡Felicidades, has completado el ejercicio de laboratorio 7!
 
 ---
-[Ejercicio Anterior](../6-controller-job-template/README.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
+[Ejercicio Anterior](../6-controller-job-template/README.fr.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
 
 [Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

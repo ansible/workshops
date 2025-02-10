@@ -1,6 +1,6 @@
 # Adicional - Configuración de Red con Plantillas Jinja
 
-**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png), [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
 ## Índice
 
@@ -209,4 +209,4 @@ The provided Ansible Jinja2 template is provided here: [template.j2](template.j2
 ¡Felicidades, has completado este ejercicio de laboratorio!
 
 ---
-[Click here to return to the Ansible Network Automation Workshop](../../README.md)
+[Click here to return to the Ansible Network Automation Workshop](../../README.fr.md)

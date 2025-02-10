@@ -14,17 +14,17 @@ Vous voulez les diapositives de présentation ? Les voici :
 
 ## Exercices d'Automatisation de Réseau avec Ansible
 
-* [Exercice 1 - Exploration de l'environnement de laboratoire](./1-explore/)
-* [Exercice 2 - Exécutez votre premier playbook d'automatisation de réseau](./2-first-playbook/)
-* [Exercice 3 - Utilisation des informations Ansible sur les appareils réseau](./3-facts/)
-* [Exercice 4 - Modules de Ressources Réseau Ansible](./4-resource-module/)
-* [Exercice 5 - Exploration de l'environnement du contrôleur d'automatisation](./5-explore-controller/)
-* [Exercice 6 - Création d'un modèle de travail pour le contrôleur d'automatisation](./6-controller-job-template/)
-* [Exercice 7 - Création d'une enquête avec le contrôleur d'automatisation](./7-controller-survey/)
-* [Exercice 8 - Utilisation de la fonctionnalité de contrôle d'accès basé sur les rôles (RBAC)](./8-controller-rbac/)
-* [Exercice 9 - Création d'un flux de travail avec le contrôleur d'automatisation](./9-controller-workflow/)
+* [Exercice 1 - Exploration de l'environnement de laboratoire](./1-explore/README.fr.md)
+* [Exercice 2 - Exécutez votre premier playbook d'automatisation de réseau](./2-first-playbook/README.fr.md)
+* [Exercice 3 - Utilisation des informations Ansible sur les appareils réseau](./3-facts/README.fr.md)
+* [Exercice 4 - Modules de Ressources Réseau Ansible](./4-resource-module/README.fr.md)
+* [Exercice 5 - Exploration de l'environnement du contrôleur d'automatisation](./5-explore-controller/README.fr.md)
+* [Exercice 6 - Création d'un modèle de travail pour le contrôleur d'automatisation](./6-controller-job-template/README.fr.md)
+* [Exercice 7 - Création d'une enquête avec le contrôleur d'automatisation](./7-controller-survey/README.fr.md)
+* [Exercice 8 - Utilisation de la fonctionnalité de contrôle d'accès basé sur les rôles (RBAC)](./8-controller-rbac/README.fr.md)
+* [Exercice 9 - Création d'un flux de travail avec le contrôleur d'automatisation](./9-controller-workflow/README.fr.md)
 
-Des exercices supplémentaires sont [disponibles ici](supplemental/).
+Des exercices supplémentaires sont [disponibles ici](supplemental/README.fr.md).
 
 ## Diagramme de Réseau
 

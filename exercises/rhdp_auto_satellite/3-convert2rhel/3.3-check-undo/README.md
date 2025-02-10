@@ -24,13 +24,13 @@ In the previous exercise, we rolled back our three tier application servers. Now
 
 In this step, we will repeat the observations we made on our host after the conversion with the expectation that everything is back as it was before the conversion.
 
-- In the previous exercise, we checked that the CentOS version is reverted back. You can verify this at a shell prompt using commands like `cat /etc/redhat-release` and `uname -r` to output the OS release information and kernel version. You can also refresh the RHEL Web Console to confirm the CentOS version shown on the system overview page.
+- In the previous exercise, we checked that the CentOS version is reverted back. You can verify this at a shell prompt using commands like `cat /etc/redhat-release` and `uname -r` to output the OS release information and kernel version. You can also refresh the Web Console to confirm the CentOS version shown on the system overview page.
 
-- If you inflicted some damage to any of the three tier application servers with the optional [Simulate conversion failure](../3.1-error-condition/README.md) exercise, you will now find no evidence of that. You could switch over to the Ansible Automation Platform UI and run the `CONVERT2RHEL / 99 - Three Tier App smoke test` job template to verify complete application stack functinality. Or check via some of the following:
+- If you inflicted some damage to any of the three tier application servers with the optional [Simulate conversion failure](../3.1-error-condition/README.md) exercise, you will now find no evidence of that. You could switch over to the Ansible Automation Platform UI and run the `CONVERT2RHEL / 99 - Three Tier App smoke test` job template to verify complete application stack functionality. Or check via some of the following:
 
   For example, did you delete everything with the `rm -rf /*` command or remove the standard C library with the `rpm -e --nodeps glibc` command? Your efforts to nuke the OS have been nullified!
 
-  Did you break your three tier applicationlication by removing the PostgreSQL package on node6? If you check now with the `yum list 'postgresql*'` command, you will see that postgresql packages are installed.
+  Did you break your three tier application by removing the PostgreSQL package on node6? If you check now with the `yum list 'postgresql*'` command, you will see that postgresql packages are installed.
 
   If you filled up your disk, check now with the `df -h /` command. You will see there is now plenty of free space reported.
 

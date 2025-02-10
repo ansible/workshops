@@ -7,9 +7,9 @@
   - [Objectives](#objectives)
   - [Guide](#guide)
     - [Step 1 - Managing Convert2RHEL Pre-conversion Results](#step-1---managing-convert2rhel-pre-conversion-results)
-    - [Step 2 - Navigating the CentOS Web Console](#step-2---navigating-the-rhel-web-console)
+    - [Step 2 - Navigating the CentOS Web Console](#step-2---navigating-the-centos-web-console)
     - [Step 3 - Review Convert2RHEL Pre-conversion Report of CentOS 7 Host](#step-3---review-convert2rhel-pre-conversion-report-of-centos-7-host)
-    - [Challenge Lab: What About Ignoring So Many High Findings?](#challenge-lab-what-about-ignoring-so-many-high-findings)
+    - [Challenge Lab: What About Ignoring So Many High Findings?](#challenge-lab-what-if-we-were-to-experience-warnings-we-are-unsure-of)
   - [Conclusion](#conclusion)
 
 ## Objectives
@@ -24,7 +24,7 @@
 
 In the previous exercise, we used a workflow template with associated job templates and playbooks to analyze our CentOS7 app servers. Behind the scenes, the `analysis` module from the `infra.convert2rhel` Ansible collection launched a Convert2RHEL pre-conversion analysis on each of our CentOS 7 app servers and once complete, parsed the pre-conversion analysis report for any issues that would either block the conversion from initiating or potentially failing. If any problems were found, then the Ansible Automation Platform automation job would have reported a failure.
 
-- If we are using the Convert2RHEL utility to manually convert just a single CentOS host, we could simply get to a shell prompt on the host and look at the local report file output. In [Exercise 1.1, Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session), we learned how to open an ssh session to one of our app servers. Follow those steps and after logging in, use this command to review the local Convert2RHEL pre-conversion report file:
+- If we are using the Convert2RHEL utility to manually convert just a single CentOS host, we could simply get to a shell prompt on the host and look at the local report file output. In [Exercise 1.1, Step 3](../1.1-setup/README.md#step-3---open-a-terminal-session), we learned how to open an ssh session to one of our app servers. Follow those steps and after logging in, use this command to review the local Convert2RHEL pre-conversion report file:
 
   ```
   less /var/log/convert2rhel/convert2rhel-pre-conversion.txt
@@ -44,7 +44,7 @@ In the previous exercise, we used a workflow template with associated job templa
 
 For this workshop, we will be using the CentOS Web Console to access the Convert2RHEL pre-conversion reports we generated.
 
-- Return to the RHEL Web Console browser tab you opened from [Exercise 1.1, Step 4](../1.1-setup/README.md#step-4---access-the-rhel-web-console). This is the RHEL Web Console of the AAP controller host, but we need to access our CentOS 7 app server hosts to see their pre-conversion reports. Do this by clicking the "student&#8203;@&#8203;ansible-1.example.com" box in the top left corner of the AAP RHEL Web Console to reveal the remote host menu. For example:
+- Return to the RHEL Web Console browser tab you opened from [Exercise 1.1, Step 5](../1.1-setup/README.md#step-5---access-the-web-console). This is the RHEL Web Console of the AAP controller host, but we need to access our CentOS 7 app server hosts to see their pre-conversion reports. Do this by clicking the "student&#8203;@&#8203;ansible-1.example.com" box in the top left corner of the AAP RHEL Web Console to reveal the remote host menu. For example:
 
   ![Remote host menu listing all workbench app servers](images/remote_host_menu_with_pets.png)
 
@@ -86,9 +86,9 @@ less /var/log/convert2rhel/convert2rhel-pre-conversion.txt
 
   > **Note**
   >
-  > The contents of your report may differ from the example above because of updates made to the Convert2RHEL framework and other RHEL packages released over time since this workshop was written. If you discover any differences that materially break the flow of the exercises in the workshop, kindly let us know by raising an issue [here](https://github.com/redhat-partner-tech/automated-satellite/issues/new).
+  > The contents of your report may differ from the example above because of updates made to the Convert2RHEL utility and other RHEL packages released over time since this workshop was written. If you discover any differences that materially break the flow of the exercises in the workshop, kindly let us know by raising an issue [here](https://github.com/redhat-partner-tech/automated-satellite/issues/new).
 
-- When the pre-conversion report is generated, the Convert2RHEL framework collects system data and assesses convertability based on a large collection of checks. When any of these checks uncovers a potential risk, it is recorded as a finding in the report.
+- When the pre-conversion report is generated, the Convert2RHEL utility collects system data and assesses convertability based on a large collection of checks. When any of these checks uncovers a potential risk, it is recorded as a finding in the report.
 
 - The good news is that the warning regarding the "third party" package `katello-ca-consumer-satellite`:  
 `(WARNING) LIST_THIRD_PARTY_PACKAGES::THIRD_PARTY_PACKAGE_DETECTED - Third party packages detected`  

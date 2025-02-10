@@ -11,7 +11,7 @@
     - [Step 2 - Access the Visual Studio Code Web UI](#step-2---access-the-visual-studio-code-web-ui)
     - [Step 3 - Open a Terminal Session](#step-3---open-a-terminal-session)
     - [Step 4 - Access the Satellite Web UI](#step-4---access-the-satellite-web-ui)
-    - [Step 5 - Access the RHEL Web Console](#step-5---access-the-centos-web-console)
+    - [Step 5 - Access the Web Console](#step-5---access-the-web-console)
     - [Step 6 - Challenge Labs](#step-6---challenge-labs)
   - [Conclusion](#conclusion)
 

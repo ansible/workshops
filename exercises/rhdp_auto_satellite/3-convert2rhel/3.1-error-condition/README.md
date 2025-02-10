@@ -15,7 +15,7 @@
 
 This is an optional exercise. It is not required to successfully complete the workshop, but it will help demonstrate the effectiveness of rolling back a CentOS to RHEL conversion. Review the objectives listed in the next section to decide if you want to do this exercise or if you would rather skip ahead to the next exercise:
 
-* [Exercise 3.2 - Run Rollback Job](3.2-rollback/README.md)
+* [Exercise 3.2 - Run Rollback Job](../3.2-rollback/README.md)
 
 ## Objectives
 
@@ -34,7 +34,7 @@ In the next exercise, we will be rolling back the CentOS to RHEL conversion acro
 
 - Choose one of the servers. It can be the HAproxy node, or the Tomcat node, or the PostgreSQL node. In this example, the PostgreSQL node, node6, will be utilized.
 
-- Follow the steps you used with [Exercise 1.1: Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session) to open a terminal session on the application stack server you have chosen misconfigure.
+- Follow the steps you used with [Exercise 1.1: Step 3](../1.1-setup/README.md#step-3---open-a-terminal-session) to open a terminal session on the application stack server you have chosen misconfigure.
 
 - At the shell prompt, ssh to node6: `ssh node6` and then use the `sudo -i` command to switch to the root user. For example:
 

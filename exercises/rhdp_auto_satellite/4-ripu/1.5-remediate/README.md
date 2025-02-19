@@ -86,11 +86,11 @@ The Leapp framework uses an answer file as a means of accepting user input choic
       executable: /bin/bash
   ```
 
-- You will find the tasks above in the playbook [`remediate_rhel7.yml`](https://github.com/redhat-partner-tech/automated-satellite/blob/39b6e82ea9fec5a43d43aa0ab8f9f6e0c7ae1fcf/remediate_rhel7.yml#L22-L39). There are a few more remediation task examples in this playbook as well. The "OS / Remediation" job template is already set up to execute this playbook, so let's use it to remediate our RHEL7 hosts.
+- You will find the tasks above in the playbook [`remediate_rhel7.yml`](https://github.com/redhat-partner-tech/automated-satellite/blob/39b6e82ea9fec5a43d43aa0ab8f9f6e0c7ae1fcf/remediate_rhel7.yml#L22-L39). There are a few more remediation task examples in this playbook as well. The "OS / Leapp / Remediation" job template is already set up to execute this playbook, so let's use it to remediate our RHEL7 hosts.
 
 ![OS remediation job](images/aap_job_templates_remediate.png)
 
-- Return to your AAP Web UI browser tab. Navigate to Resources > Templates on the AAP Web UI and find the **OS / Remediation** job template. Click ![launch](images/template-aap2-launch.png) to the right of **OS / Remediation** to launch the remediation job.
+- Return to your AAP Web UI browser tab. Navigate to Resources > Templates on the AAP Web UI and find the **OS / Remediation** job template. Click ![launch](images/template-aap2-launch.png) to the right of **OS / Leapp / Remediation** to launch the remediation job.
 
 - This will bring you to the job template survey prompt. Again, leave the "Limit" field empty and click "Next". Choose the `RHEL7_Dev` option at the "Select inventory group" prompt. Then click the "Next" button. Review the job preview details and then when ready, click the "Launch" button to submit the job. This playbook includes only a small number of lightweight tasks and should run pretty quickly, completing in approximately 30 seconds.
 

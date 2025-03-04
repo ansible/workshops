@@ -98,7 +98,9 @@ Cette étape expliquera et élaborera chaque partie du fichier template.j2 nouve
 
 <!-- {% endraw %} -->
 
+{% raw %}
 * Les morceaux de code dans un modèle Jinja sont échappés avec `{%` et `%}`. La déclaration `interface,ip` décompose le dictionnaire en une clé nommée `interface` et une valeur nommée `ip`.
+{% endraw %}
 
 * Le `nodes[inventory_hostname]` effectue une recherche de dictionnaire dans le fichier `group_vars/all.yml`. La variable **inventory_hostname** est le nom de l'hôte configuré dans le fichier d'inventaire d'Ansible. Lorsque le playbook est exécuté contre `rtr1`, inventory_hostname sera `rtr1`, et pour `rtr2`, ce sera `rtr2`, etc.
 
@@ -161,8 +163,8 @@ changed: [rtr1]
 changed: [rtr2]
 
 PLAY RECAP *********************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 ### Étape 6 - Vérification de la configuration

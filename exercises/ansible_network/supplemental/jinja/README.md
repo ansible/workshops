@@ -65,7 +65,7 @@ Copy the YAML dictionary we created above into the `group_vars/all.yml` file and
 
 Create a new file called `template.j2` in the `network-workshop` directory.  Right click on the Explorer toolbar on the left side of Visual Studio Code and select **New File**.  The directory stucture will look like this:
 
-```
+```bash
 ├── group_vars
 │   └── all.yml
 ├── template.j2

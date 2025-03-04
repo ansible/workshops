@@ -98,9 +98,9 @@ Cette étape expliquera et élaborera chaque partie du fichier template.j2 nouve
 
 <!-- {% endraw %} -->
 
-{% raw %}
+<!-- {% raw %} -->
 * Les morceaux de code dans un modèle Jinja sont échappés avec `{%` et `%}`. La déclaration `interface,ip` décompose le dictionnaire en une clé nommée `interface` et une valeur nommée `ip`.
-{% endraw %}
+<!-- {% endraw %} -->
 
 * Le `nodes[inventory_hostname]` effectue une recherche de dictionnaire dans le fichier `group_vars/all.yml`. La variable **inventory_hostname** est le nom de l'hôte configuré dans le fichier d'inventaire d'Ansible. Lorsque le playbook est exécuté contre `rtr1`, inventory_hostname sera `rtr1`, et pour `rtr2`, ce sera `rtr2`, etc.
 
@@ -108,18 +108,22 @@ Cette étape expliquera et élaborera chaque partie du fichier template.j2 nouve
 
 * Le mot-clé `items()` retourne une liste de dictionnaires. Dans ce cas, la clé du dictionnaire est le nom de l'interface (par exemple Loopback100) et la valeur est une adresse IP (par exemple 192.168.100.1)
 
+<!-- {% raw %} -->
 ```yaml
-interface {{interface}}
-  ip address {{ip}} 255.255.255.255
+interface {{ interface }}
+  ip address {{ i }} 255.255.255.255
 ```
+<!-- {% endraw %} -->
 
 * Les variables sont rendues avec les accolades comme ceci : `{{ variable_here }}`. Dans ce cas, les noms des variables n'existent que dans le contexte de la boucle. En dehors de la boucle, ces deux variables n'existent pas. Chaque itération réattribuera les variables à de nouvelles valeurs en fonction de ce que nous avons dans nos variables.
 
 Enfin :
 
+<!-- {% raw %} -->
 ```yaml
 {% endfor %}
 ```
+<!-- {% endraw %} -->
 
 * En Jinja, nous devons spécifier la fin de la boucle.
 
@@ -127,6 +131,7 @@ Enfin :
 
 - Créez un nouveau fichier de Playbook Ansible appelé `config.yml`. Faites un clic droit sur la barre d'outils Explorer à gauche de Visual Studio Code et sélectionnez **New File**. Copiez le playbook ci-dessous ou tapez-le :
 
+<!-- {% raw %} -->
 ```yaml
 ---
 - name: configure network devices
@@ -137,6 +142,7 @@ Enfin :
       cli_config:
         config: "{{ lookup('template', 'template.j2') }}"
 ```
+<!-- {% endraw %} -->
 
 * Ce Playbook Ansible contient une tâche nommée *configure device with config*
 * Le module **cli_config** est indépendant du fournisseur. Ce module fonctionnera de manière identique pour un appareil Arista, Cisco ou Juniper. Ce module fonctionne uniquement avec le plugin de connexion **network_cli**.

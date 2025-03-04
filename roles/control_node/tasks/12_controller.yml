@@ -45,7 +45,6 @@
   async: 3000
   poll: 15
 
-
 - name: wait for Automation Controller to be up
   ansible.builtin.uri:
     url: https://localhost:{{ aap_port | default('443') }}/api/controller/v2/ping/

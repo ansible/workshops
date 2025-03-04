@@ -23,47 +23,64 @@ if (!$db) {
 
 session_start();
 
-
-if (!isset($_SESSION['email'])) {
-  if (!isset($_POST['email'])) {
+// Password authentication check
+$password_authenticated = false;
+if (isset($_SESSION['password_authenticated']) && $_SESSION['password_authenticated'] === true) {
+  $password_authenticated = true;
+} elseif (isset($_POST['site_password'])) {
+  if ($_POST['site_password'] === "{{ admin_password }}") {
+    $_SESSION['password_authenticated'] = true;
+    $password_authenticated = true;
+    // Redirect to the same page to clear the POST data
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit;
   } else {
-    if (!isValidEmail($_POST['email'])) {
-      $error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Email is invalid</font>';
+    $error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Incorrect password</font>';
+  }
+}
+
+// Only process the login form if password authentication is complete
+if ($password_authenticated) {
+  if (!isset($_SESSION['email'])) {
+    if (!isset($_POST['email'])) {
     } else {
-      // Check if student already exists
-      $student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array(sql_clean_username($_POST['email'])));
-      if (!isset($student['id'])) {
-        $id = db_fetch_cell("SELECT id FROM `users` WHERE email = '' LIMIT 1", 'id');
-        if (!$id) {
-          $error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Sorry, all available student accounts are taken.  Please let the instructor know.</font>';
+      if (!isValidEmail($_POST['email'])) {
+        $error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Email is invalid</font>';
+      } else {
+        // Check if student already exists
+        $student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array(sql_clean_username($_POST['email'])));
+        if (!isset($student['id'])) {
+          $id = db_fetch_cell("SELECT id FROM `users` WHERE email = '' LIMIT 1", 'id');
+          if (!$id) {
+            $error = '<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=red>Sorry, all available student accounts are taken.  Please let the instructor know.</font>';
+          } else {
+            db_execute_prepare('UPDATE `users` set name=?, email=? WHERE id = ?', array(sql_clean_username($_POST['name']), sql_clean_username($_POST['email']), $id));
+            $_SESSION['email'] = sql_clean_username($_POST['email']);
+            Header("Location: /#studentinfo\n\n");
+            exit;
+          }
         } else {
-          db_execute_prepare('UPDATE `users` set name=?, email=? WHERE id = ?', array(sql_clean_username($_POST['name']), sql_clean_username($_POST['email']), $id));
-          $_SESSION['email'] = sql_clean_username($_POST['email']);
+          $_SESSION['email'] = $student['email'];
           Header("Location: /#studentinfo\n\n");
           exit;
         }
-      } else {
-        $_SESSION['email'] = $student['email'];
-        Header("Location: /#studentinfo\n\n");
-        exit;
       }
     }
+  } else {
+    $student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array($_SESSION['email']));
+    if (!isset($student['id'])) {
+      session_destroy();
+      header("Location: index.php\n\n");
+      exit;
+    }
   }
-} else {
-  $student = db_fetch_assoc_prepare("SELECT * FROM `users` WHERE email = ?", array($_SESSION['email']));
-  if (!isset($student['id'])) {
+
+  if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != $_SESSION['email'])) {
     session_destroy();
     header("Location: index.php\n\n");
     exit;
   }
 }
-
-if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != $_SESSION['email'])) {
-  session_destroy();
-  header("Location: index.php\n\n");
-  exit;
-}
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,10 +90,54 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="style.css">
+  <style>
+    #password-form {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 400px;
+      margin: 50px auto;
+    }
+    #password-form input, #password-form button {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    #password-form button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #password-form button:hover {
+      opacity: 0.8;
+    }
+    /* Hide main content until password is entered */
+    <?php if (!$password_authenticated) { ?>
+    .wrapper > header, .wrapper > section, .wrapper > footer {
+      display: none;
+    }
+    <?php } ?>
+  </style>
 </head>
 
 <body>
   <div class="wrapper">
+    <?php if (!$password_authenticated) { ?>
+    <!-- Password Form -->
+    <div id="password-form">
+      <h2>Password Required</h2>
+      <p>Please enter the password to access this workshop:</p>
+      <form method="POST">
+        <input type="password" name="site_password" id="site-password" placeholder="Enter password">
+        <?php if ($error) { echo $error; } ?>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <?php } else { ?>
     <header>
       <div class="header-container">
         <a href="https://ansible.com">
@@ -101,7 +162,7 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
             <div class="col-sm-8">
                 {% if workshop_type == 'network' %}
                 <h2>Ansible Automation Platform + Network</h2>
-                <p>The Ansible network automation workshop is a comprehensive beginners guide to automating popular network data center devices from Arista, Cisco and Juniper via Ansible playbooks. You’ll learn how to pull facts from devices, build templated network configurations, and apply these concepts at scale with Ansible automation controller. You’ll put it all together by exploring the controller’s job templates, surveys, access controls and more. </p>
+                <p>The Ansible network automation workshop is a comprehensive beginners guide to automating popular network data center devices from Arista, Cisco and Juniper via Ansible playbooks. You'll learn how to pull facts from devices, build templated network configurations, and apply these concepts at scale with Ansible automation controller. You'll put it all together by exploring the controller's job templates, surveys, access controls and more. </p>
                 <div class="row">
                   <div class="col-sm-4">
                       <a target=_blank href="https://labs.demoredhat.com/exercises/ansible_network/">Network Exercises</a>
@@ -134,7 +195,7 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                 </div>
                 {% elif workshop_type == 'rhel' %}
                 <h2>Ansible Automation Platform + RHEL</h2>
-                <p>If you’re new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you’ve learned to implement Ansible automation controller to your enterprise use cases. You’ll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you’ll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.</p>
+                <p>If you're new to Ansible Automation, this workshop consists of two parts: 1) starting with the basics of understanding foundational command line activities and 2) applying what you've learned to implement Ansible automation controller to your enterprise use cases. You'll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you'll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.</p>
                 <div class="row">
                     <div class="col-sm-4">
                         <a target=_blank href="https://labs.demoredhat.com/exercises/ansible_rhel/">Ansible RHEL Exercises</a>
@@ -154,7 +215,7 @@ if (isset($_GET['logout']) || (isset($student['email']) && $student['email'] != 
                 </div>
                 {% elif workshop_type == 'security' %}
                 <h2>Ansible Automation Workshop + Security</h2>
-                <p>Get started with Ansible Security Automation by implementing automation for three security use cases: 1) orchestrating firewalls, 2) IDS and SIEM: investigating suspicious traffic on a web server, and 3) threat hunting: analyzing unusual denied accesses on a firewall and remediation of a SQL injection. After a brief introduction, you’ll tackle some of the basic concepts and show you how to use Ansible Security Automation in combination with existing third-party security solutions.</p>
+                <p>Get started with Ansible Security Automation by implementing automation for three security use cases: 1) orchestrating firewalls, 2) IDS and SIEM: investigating suspicious traffic on a web server, and 3) threat hunting: analyzing unusual denied accesses on a firewall and remediation of a SQL injection. After a brief introduction, you'll tackle some of the basic concepts and show you how to use Ansible Security Automation in combination with existing third-party security solutions.</p>
                 <div class="row">
                     <div class="col-sm-4">
                         <a target=_blank href="https://labs.demoredhat.com/exercises/ansible_security">Ansible Security Exercises</a>
@@ -294,7 +355,7 @@ if (isset($student['id'])) {
     </div>
   </div>
 </footer>
-
+<?php } ?>
 </div>
 
 </body>
@@ -534,22 +595,6 @@ function isValidEmail($email){
     return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
 
-function display_form() {
-  print "<div class='student_logins'>
-    <div class='header'>
-             <p class='studentinfo'>Please enter your Name and Email address.</p>
-    </div>
-      <div class='content'>
-        <p>";
-  print "<form action='/' method=POST enctype='multipart/form-data'>";
-  print "<table><tr><td align=right>Name: </td><td><input type=text name=name size=20></td></tr>";
-  print "<tr><td align=right>Email: </td><td><input type=text name=email size=20></td></tr>";
-  print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
-  print "</p>";
-  print "</div></div>";
-
-}
-
 function sql_clean_username($text) {
   $text = preg_replace("/[^[:alnum:][:space:] @\.\-_]/u", '', $text);
   return $text;
@@ -613,4 +658,19 @@ function db_fetch_assocs_prepare($query, $data) {
   $stmt->execute($data);
   $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
   return $results;
+}
+
+function display_form() {
+  print "<div class='student_logins'>
+    <div class='header'>
+             <p class='studentinfo'>Please enter your Name and Email address.</p>
+    </div>
+      <div class='content'>
+        <p>";
+  print "<form action='/' method=POST enctype='multipart/form-data'>";
+  print "<table><tr><td align=right>Name: </td><td><input type=text name=name size=20></td></tr>";
+  print "<tr><td align=right>Email: </td><td><input type=text name=email size=20></td></tr>";
+  print "<tr><td></td><td><input type=submit value='Submit'></td></tr></table></form>";
+  print "</p>";
+  print "</div></div>";
 }

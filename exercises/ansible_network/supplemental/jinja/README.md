@@ -65,7 +65,7 @@ Copy the YAML dictionary we created above into the `group_vars/all.yml` file and
 
 Create a new file called `template.j2` in the `network-workshop` directory.  Right click on the Explorer toolbar on the left side of Visual Studio Code and select **New File**.  The directory stucture will look like this:
 
-```
+```bash
 ├── group_vars
 │   └── all.yml
 ├── template.j2
@@ -161,13 +161,13 @@ Finally:
 
 Use the `ansible-navigator` command  to execute the playbook:
 
-```
+```bash
 [student@ansible network-workshop]$ ansible-playbook config.yml
 ```
 
 The output will look similar to the following:.
 
-```
+```bash
 [student@ansible-1 network-workshop]$ ansible-navigator run config.yml --mode stdout
 
 PLAY [configure network devices] ***********************************************
@@ -177,8 +177,8 @@ changed: [rtr1]
 changed: [rtr2]
 
 PLAY RECAP *********************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+rtr2                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 ### Step 6 - Verify configuration

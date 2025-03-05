@@ -4,7 +4,7 @@
   >
   > This workshop is available with either CentOS 7 or Oracle Linux 7 nodes. In the case where Oracle Linux nodes are present, substitute "Oracle Linux" wherever "CentOS" is mentioned in the exercise instructions.
 
-This exercise will introduce a comprehensive approach to automate conversions of CentOS 7 to Red Hat Enterprise Linux (RHEL) 7. The solution uses Ansible Automation Platform (AAP) to execute upgrades at enterprise scale across a large estate of CentOS hosts. The exercise demonstrates how to use an example of this approach to perform conversions of CentOS7 to RHEL7. You will also learn about how this solution can be customized to meet the special requirements of your enterprise environment.
+This exercise will introduce a comprehensive approach to automate conversions of CentOS Linux 7 to Red Hat Enterprise Linux (RHEL) 7. The solution uses Ansible Automation Platform (AAP) to execute upgrades at enterprise scale across a large estate of CentOS hosts. The exercise demonstrates how to use an example of this approach to perform conversions of CentOS7 to RHEL7. You will also learn about how this solution can be customized to meet the special requirements of your enterprise environment.
 
 There are three key features that the solution approach recommends to deliver success at scale:
 

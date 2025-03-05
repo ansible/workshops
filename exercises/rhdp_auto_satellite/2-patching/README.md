@@ -110,11 +110,13 @@ Before we can finish the workflow we need to link 'SERVER / Fact Scan' to 'OS / 
     * You will be prompted with an "Add Link" menu for the Run options. Leave the selection defined for 'On Success'.
     * Click "Save".
     * You will then need to hover over the 'OS / Patch OS to latest' node and edit the node by clicking on the pencil icon. Scroll down to the "Convergence" drop-down and select 'All'.
-    * Continue with clicking "Next", "Next" and "Save".
+    * Continue with clicking "Next", "Next", "Next", and "Save".
 
 Your workflow should resemble the following:
 
 ![workflow final](images/2-patching-aap2-workflow-final.png)
+
+> NOTE!!!
 
 Save and exit the workflow template editor by clicking on "Save" on the top right.
 
@@ -130,26 +132,26 @@ Save and exit the workflow template editor by clicking on "Save" on the top righ
 
 #### 4\. Exploring the Satellite host configuration
 
-* In the Satellite UI on the left menu pane, hover over 'Hosts' and select 'Content Hosts'.
+* In the Satellite UI on the left menu pane, click on 'Hosts' and then select 'Content Hosts'.
     * Observe the multiple security, bug fix, enhancements and package updates available for each server, which will vary depending on the date of when the workshop takes place.
     * Further, take note of the life cycle environment: RHEL7_Dev.
 
 ![Satellite content hosts](images/2-patching-aap2-Satellite-contenthosts.png)
 
-* In the Satellite UI on the left menu pane, navigate to 'Content' and select 'Content Views'.
+* In the Satellite UI on the left menu pane, click on 'Content', followed by clicking on 'Lifecycle', and then select 'Content Views'.
     * Since the servers that we are working with are RHEL7 select the 'RHEL7' content view.
     * We may need to publish a new content view version, however, we set that up as part of our workflow!
-    * Note: your content view version may differ from this example, that is OK
+    * Note: your content view version may differ from this example, that is OK.
 
 ![Satellite RHEL7 CV](images/2-patching-aap-Satellite-CV-RHEL7.png)
 
 * In the Satellite UI on the left menu pane, navigate to Hosts > All Hosts and select node1.example.com.
-    * Select the "content" tab under Details.
-    * Notice the Installable errata; this is your number of errata before running your patch workflow.
+    * Notice the Applicable/Installable errata pie chart.
+    * You can choose to click on the number of errata linked to above the pie chart, or directly focus in on security advisories, bug fixes, or enhancements by click on those specific links.
 
 #### 5\. Navigate back to Ansible Automation Platform and launch workflow job
 
-* Click on Templates to locate the 'SATELLITE / Patching Workflow' template.
+* Click on Templates and locate the 'SATELLITE / Patching Workflow' template.
     * You can either click on the rocketship to the right of the template or select the template and select LAUNCH. (they do the same thing).
 * Observe the job kicking off in Ansible.
     * You need to wait for this workflow to complete before moving on to the next step.
@@ -161,19 +163,18 @@ Save and exit the workflow template editor by clicking on "Save" on the top righ
 
 #### 6\. Navigate back to Satellite to examine automation effects
 
-* In the Satellite UI on the left menu pane, navigate to 'Content' then 'Content Views' and select RHEL7.
+* In the Satellite UI on the left menu pane, navigate to 'Content', then 'Lifecycle', then 'Content Views' and select RHEL7.
     * Notice the new content view version.
 * In the Satellite UI on the left menu pane, navigate to  Hosts > All Hosts and select node1.example.com.
-    * Select the 'content' tab under Details.
     * Notice that the Installable errata has decreased.
     * This indicates that we have applied our updates.
 
 ![errata reduced](images/2-patching-aap2-Satellite-reduced-installable-errata.png)
 
 * You may notice that not all issues are remediated.
-    * This is to showcase that you can exclude updates based on type.
-    * In this case we're not pushing out updates for kernel changes.
-    * Of course this can be configurable through use of the exclude definition for ```ansible.builtin.yum``` module in the server_patch.yml playbook.
+    * This is to showcase that some updates can be excluded based on type.
+    * In this case, we are not pushing out updates for kernel changes.
+    * Of course, this can be configurable through use of the exclude definition for ```ansible.builtin.yum``` module in the server_patch.yml playbook.
 
 ![kernel patches excluded](images/2-patching-aap2-server-patching-kernel-exclude.png)
 

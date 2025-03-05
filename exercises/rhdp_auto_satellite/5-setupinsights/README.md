@@ -2,9 +2,9 @@ Automated Satellite Workshop: Insights Environment Setup
 ----------------------------------------------------------------------
 
 **Introduction**<br>
-This use-case will focus on connecting an individual's Red Hat Portal Account to the Automated Satellite Workshop environment for the purposes of demonstrating Insights functionality at the end of the workshop.  
+This use-case will focus on connecting an individual's Red Hat Portal Account to the Automated Satellite Workshop environment for the purposes of demonstrating Insights functionality.  
 
-This exercise is primarily targeted for a Red Hat SA to deliver a demo of the Insights services, though any individual with a Red Hat Portal Account, the appropriate account permissions and other prerequiistes could run through this exercise.
+This exercise is primarily targeted for a Red Hat SA/SSP to deliver a demo of the Insights services, though any individual with a Red Hat Portal Account, the appropriate account permissions and other prerequiistes could run through this exercise.
 
 This exercise is perscriptive in its setup, yet open-ended in its implementation.
 
@@ -34,15 +34,15 @@ Prerequisites
 --------------
 -   Information required for executing this exercise
 
-    - Manifest created in your portal account targeted to Satellite 6.14 with appropriate subscriptions including a minimum of 2 RHEL Instance-based subscriptions with Smart Management and 1 Satellite Infrastructure subscription
+    - Manifest created in your portal account targeted to Satellite 6.15 with appropriate subscriptions including a minimum of 2 RHEL Instance-based subscriptions with Smart Management (Employee SKU can be used) and 1 Red Hat Satellite Infrastructure subscription
         - Record the name ⇒ manifest_name 
 
     - Offline Token for accessing the Subscription Manager API
         - access.redhat.com -> Subscriptions -> Manage -> RHSM API Tokens - Generate Token ⇒ offline_token
 
     - Your Organization ID 
-        - access.redhat.com -> Subscriptions -> Manage -> Activation Keys ⇒ rhsm_org_id OR
-        - console.redhat.com -> Settings -> Remote Host Configuration -> Activation Keys⇒ rhsm_org_id
+        - access.redhat.com -> Subscriptions -> Systems -> Activation Keys ⇒ rhsm_org_id OR
+        - console.redhat.com -> Services -> Platform/Red Hat Enterprise Linux -> Inventory -> System Configuration -> Activation Keys⇒ rhsm_org_id
 
     - Red Hat Account username and password
         - username ⇒ redhat_portal_username
@@ -94,7 +94,7 @@ Exercise:
 
 ![setup-insights](images/4-setupinsights-variables.png)
 
--   Add the following variables captured during the prerequisites:
+-   Configure the following variables captured during the prerequisites:
 
     - manifest_name
     - offline_token

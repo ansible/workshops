@@ -1,4 +1,6 @@
-## Ejercicios Adicionales De Automatización de Red Ansible
+# Ejercicios Adicionales De Automatización de Red Ansible
+
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
 Estos ejercicios adicionales están disponibles para los estudiantes que hayan completado el taller o estén buscando conocimientos adicionales.
 

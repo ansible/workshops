@@ -1,6 +1,6 @@
 # Exercise 4: Ansible Network Resource Modules - Cisco Example
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)
+**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
 ## Table of Contents
 <!-- TOC titleSize:2 tabSpaces:2 depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 skip:0 title:1 charForUnorderedList:* -->
@@ -156,7 +156,7 @@ As you can see in the output above there is no SNMP configuration on the Cisco r
     * gathered
     * parsed
 
-    Only two of these parameters will be covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.md).
+    Only two of these parameters will be covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.fr.md).
   * `config:` - this is the supplied SNMP configuration.  It is a list of dictionaries. The most important takeaway is that if the module was change from `cisco.ios.snmp_server` to `junipernetworks.junos.snmp_server` it would work identically.  This allows network engineers to focus on the network (e.g. SNMP configuration) versus the vendor syntax and implementation.
 
 ### Step 4 - Execute the Ansible Playbook

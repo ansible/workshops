@@ -5,21 +5,21 @@ Automated Satellite Workshop: Configuring and performing an OpenSCAP Scan
 <br>![uk](../../../images/uk.png) [English](README.md), ![france](../../../images/fr.png) [Français](README.fr.md).
 <br>
 
-In this exercise, we will learn how to configure and perform an OpenSCAP scan using playbooks in Ansible Automation Platform 2 with Satellite.
+In this exercise, we will learn how to configure and perform an OpenSCAP scan using playbooks in Ansible Automation Platform with Satellite.
 
-When running multiple Red Hat Enterprise Linux systems, it's important to keep all of these systems compliant with a meaningful security policy and perform security scans often.
+When running multiple Red Hat Enterprise Linux systems, it's important to keep all of these systems compliant with a meaningful security policy and performing security scans often.
 OpenSCAP is an open source project that defines the language used to express compliance checklists in human and machine readable form (XML). 
 Government agencies, corporations, and e-commerce organizations, for example, provide their compliance checklists using OpenSCAP.
 The OpenSCAP project also develops tools for automated compliance checking.
-Red Hat Satellite is configured with openscap integration enabled by default. 
-This installs openscap ansible modules, roles, and related tools. Satellite is also loaded with the SCAP security guide (SSG)(scap-seruity-guide.noarch). 
-The SSG contains the checklist files for multiple standards, for multiple operating systems and releases. 
-These checklists allow for scanning systems to evaluate benchmarks for like CIS, PCI, HIPPA, Justice and DISA-STIG compliance. 
+Red Hat Satellite is configured with OpenSCAP integration enabled by default. 
+This installs OpenSCAP ansible modules, roles, and related tools. Satellite is also loaded with the SCAP security guide (SSG)(scap-seruity-guide.noarch). 
+The SSG contains the checklist files for multiple standards, multiple operating systems and releases. 
+These checklists allow for scanning systems to evaluate benchmarks such as CIS, PCI, HIPPA, Justice and DISA-STIG compliance. 
 
 The SCAP packages are available with every install of RHEL. 
-You can also install the RPM package for the SCAP workbench (e.g. scap-workbench.x86_64) which provides the ability to load and examine the checklists in a user friendly GUI. 
+You can also install the RPM package for the SCAP workbench (e.g. scap-workbench.x86_64) which provides the ability to load and examine the checklists in a user-friendly GUI. 
 You can create a tailoring file for any of the included profiles that allows you to turn on or turn off specific checks to meet the your organization's unique requirements. You can launch and test scans based on your profiles using the tool. 
-Your tailoring files and the profile can be loaded into Satellite and assigned to groups of systems customize scanning and reporting. Satellite produces reports to meet audit specifications.
+Your tailoring files and the profile can be loaded into Satellite and assigned to groups of systems for custom scanning and reporting. Satellite produces reports to meet audit specifications.
 
 This exercise will focus on standard profiles for PCI and DISA STIG for RHEL systems. Tailoring and other operating systems will be out of scope.
 
@@ -55,7 +55,9 @@ Exercise
 
 Now we will start configuring a compliance policy that we can use to scan our RHEL nodes.
 
--   In Satellite hover over 'Hosts' from the menu pane on the left side, and then click on 'Policies'
+-   In the Satellite UI, click on the 'Hosts' dropdown menu pane on the left, then click on the 'Compliance' dropdown, followed by clicking on 'Policies'.
+
+![satellite_policy](images/1-compliance-aap2-Satellite_Policies.png)
 
 -   Click on the "New Policy" button, and fill out the details as in step 3 below.
 
@@ -63,25 +65,28 @@ Now we will start configuring a compliance policy that we can use to scan our RH
 
 #### 3\. Configuring a new compliance policy
 
-Now we will start configuring our Satellite server to be able to manage a compliance policy
+Now we will start configuring our Satellite server to be able to manage a compliance policy.
 
--   Select "Manual" from the deployment options and click "Next"
+-   Select "Manual" from the deployment options and click "Next".
+
+> **NOTE:**
+> There is an "Ansible" radio button selection, why aren't we using that? Selecting the "Ansible" radio button here would utilize the Ansible engine built into Satellite to execute the automation for the scan. In this case, we are going to be utilizing Ansible Automation Platform (AAP) to automate the execution of the OpenSCAP client scan on the managed host, providing the means to expand the capabilities of the scan, as well as providing for the expanded automation capabilites provided by AAP.
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP1.png)
 
--   Create the policy name "PCI_Compliance" and provide any description you like. Then click "Next"
+-   Create the policy name "PCI_Compliance" and provide any description you like. Then click "Next".
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP2.png)
 
--   Select the "Red Hat rhel7 default content" and "PCI-DSS v4.0 Control Baseline for Red Hat Enterprise Linux 7". There is no tailoring file. Then click "Next"
+-   Select the "Red Hat rhel7 default content" and "PCI-DSS v4.0 Control Baseline for Red Hat Enterprise Linux 7". There is no tailoring file. Then click "Next".
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP3.png)
 
--   It is necessary to set a schedule when creating a new compliance policy. You can select "Monthly" and "1" for Day of Month for the purposes of this exercise. Then click "Next"
+-   It is necessary to set a schedule when creating a new compliance policy. You can select "Monthly" and "1" for Day of Month for the purposes of this exercise. Then click "Next".
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP4.png)
 
--   Steps 5, 6, and 7 as part of the New Compliance Policy can use default values. Click "Next" through "Locations", and "Organizations". For "Hostgroups" click "Submit"
+-   Steps 5, 6, and 7 as part of the New Compliance Policy can use default values. Click "Next" through "Locations", and "Organizations". For "Hostgroups" click "Submit".
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP5.png)
 
@@ -103,7 +108,7 @@ Now we will start configuring our Satellite server to be able to manage a compli
 
 This step will allow us to scan a single RHEL 7 host with the ```PCI_Compliance``` policy that we configured on Satellite.
 
--   In Ansible Automation Platform click 'Templates' from the menu pane on the left side
+-   In Ansible Automation Platform click 'Templates' from the menu pane on the left side.
 
 -   Click the BLUE 'Add' drop-down icon and select 'Add job template' from the drop-down selection menu. Fill out the details as follows:
 
@@ -185,7 +190,7 @@ This step will allow us to scan a single RHEL 7 host with the ```PCI_Compliance`
 
 -   Click on the 'Full Report' button, under Actions, for 'node1.example.com' to see the report (This may take a few seconds). The Openscap Capsule field will reflect your workshop Satellite host.
 
--   Scroll down to the **Rule Overview** section. You can filter by "Pass", "Fail", "Fixed", or any number of qualifiers as well as group rules by "Severity"
+-   Scroll down to the **Rule Overview** section. You can filter by "Pass", "Fail", "Fixed", or any number of qualifiers as well as group rules by "Severity".
 
 ![aap_arf](images/1-compliance-aap2-Satellite_ARF.png)
 
@@ -208,23 +213,26 @@ Click "Activate to reveal" arrow next to the 'Remediation Ansible snippet', whic
 
 This step will expand our OpenSCAP policy scan to add another XCCDF compliance profile called ```STIG_Compliance```. We will also expand to include all systems in the 'RHEL7 Development' inventory by leaving the job run ```limit survey``` blank instead of specifying a single system.
 
--   In Satellite, hover over "Hosts" from the menu on the left side of the screen, and then click on "Policies".
+-   In the Satellite UI, click on the 'Hosts' dropdown menu pane on the left, then click on the 'Compliance' dropdown, followed by clicking on 'Policies'.
 
--   Click on the "New Compliance Policy" button
+-   Click on the "New Compliance Policy" button on the top right of the UI.
 
--   Select "Manual" from the deployment options and click "Next"
+-   Select "Manual" from the deployment options and click "Next".
+
+> **NOTE:**
+> Remember, selecting the "Ansible" radio button here would utilize the Ansible engine built into Satellite to execute the automation for the scan. We are going to be utilizing Ansible Automation Platform (AAP) to automate the execution of the OpenSCAP client scan on the managed host, so selecting "Manual" for the scap policy provides a means to integrate AAP for the scan automation.
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP6.png)
 
--   Create the policy name "STIG_Compliance" and provide any description you like. Then click "Next"
+-   Create the policy name "STIG_Compliance" and provide any description you like. Then click "Next".
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP7.png)
 
--   Select the "Red Hat rhel7 default content" and "DISA STIG for Red Hat Enterprise Linux 7". There is no tailoring file. Then click "Next"
+-   Select the "Red Hat rhel7 default content" and "DISA STIG for Red Hat Enterprise Linux 7". There is no tailoring file. Then click "Next".
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP8.png)
 
--   It is necessary to set a schedule when creating a new compliance policy. You can select "Monthly" and "1" for Day of Month for the purposes of this exercise. Then click "Next"
+-   It is necessary to set a schedule when creating a new compliance policy. You can select "Monthly" and "1" for Day of Month for the purposes of this exercise. Then click "Next".
 
 ![satellite_policy](images/1-compliance-aap2-Satellite_SCAP9.png)
 
@@ -238,7 +246,7 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
 -   Now, we will update our OpenSCAP Scan job template in Ansible Automation Platform and run another PCI compliance scan, plus the STIG compliance scan.
 -   Navigate back to the Ansible Automation Platform UI and click 'Templates' from the left side pane menu
--   Select the OpenSCAP Scan job template, and click edit at the bottom of the template to modify the "Variables" section and add the ```STIG_Compliance``` policy to the ```policy_name``` list:
+-   Find the `SATELLITE / Compliance - OpenSCAP Scan` job template, and select it by clicking on the name of the job template. Next, click edit at the bottom of the template to modify the "Variables" section and add the ```STIG_Compliance``` policy to the ```policy_name``` list:
 
         Variables (Keep the exact spacing provided below.
         Note that the extra-vars that we are supplying need to be
@@ -250,6 +258,8 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
           - STIG_Compliance
 
 ![aap_template](images/1-compliance-aap2-template2-fix.png)
+
+-   Notice that we have listed the policy names, `PCI_Compliance` and `STIG_Compliance` exactly how we named the policies in the Satellite UI. By configuring the `policy_name` variable in this format, we are providing it as a list of the policies to utilize each time we execute this job template.
 
 -   Leave the rest of the fields blank or as they are, and click 'Save'. You can then select 'Launch' to deploy the job template.
 
@@ -266,9 +276,9 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
 ![aap_arf](images/1-compliance-aap2-Satellite_ARF-Final.png)
 
--   Each report can be reviewed independent of other node scans and remediations for rule findings can be completed according to the requirements of your own internal policies.
+-   Each report can be reviewed independent of other node scans and automation remediations for rule findings can be compiled according to the requirements of internal organizational policies.
 
 #### 9\. End of Exercise
 
 -   You have finished Exercise 1.
--   Continue to [Exercise 2: Patch Management / OS](../2-patching/README.md), OR [Return to the main workshop page](../README.md)
+-   Continue to [Exercise 2: Patch Management / OS](../2-patching/README.md), or [Return to the main workshop page](../README.md)

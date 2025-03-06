@@ -57,3 +57,4 @@ provisioner/packer/manifest.zip
 provisioner/test.yml
 provisioner/colin.yml
 .vscode/settings.json
+.idea

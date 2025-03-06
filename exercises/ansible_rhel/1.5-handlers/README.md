@@ -7,12 +7,15 @@
 
 ## Table of Contents
 
-- [Objective](#objective)
-- [Guide](#guide)
-  - [Step 1 - Understanding Conditionals, Handlers, and Loops](#step-1---understanding-conditionals-handlers-and-loops)
-  - [Step 2 - Conditionals](#step-2---conditionals)
-  - [Step 3 - Handlers](#step-3---handlers)
-  - [Step 4 - Loops](#step-4---loops)
+- [Workshop Exercise - Conditionals, Handlers and Loops](#workshop-exercise---conditionals-handlers-and-loops)
+- [Workshop Exercises - Using Conditionals, Handlers, and Loops](#workshop-exercises---using-conditionals-handlers-and-loops)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [Step 1 - Understanding Conditionals, Handlers, and Loops](#step-1---understanding-conditionals-handlers-and-loops)
+    - [Step 2 - Conditionals](#step-2---conditionals)
+    - [Step 3 - Handlers](#step-3---handlers)
+    - [Step 4 - Loops](#step-4---loops)
 
 ## Objective
 
@@ -118,7 +121,7 @@ The handler Restart Apache is triggered only if the task “Allow HTTP traffic o
 
 > NOTE: Notice how the name of the handler is used within the notify section of the “Reload Firewall” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
 
-```
+```bash
 PLAY [Basic System Setup] ******************************************************
 
 TASK [Gathering Facts] *********************************************************
@@ -146,10 +149,10 @@ ok: [node1]
 ok: [node2]
 
 PLAY RECAP *********************************************************************
-ansible-1                  : ok=3    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
-node1                      : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-node2                      : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-node3                      : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+ansible-1                  : ok=3    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+node1                      : ok=4    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ```
 
 ### Step 4 - Loops
@@ -195,7 +198,7 @@ When you run the updated playbook, this task is executed three times, once for e
 
 Snippet of the output for creating a new user on all the nodes.
 
-```
+```bash
 [student@ansible-1 ~lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
 
 PLAY [Basic System Setup] ******************************************************
@@ -224,10 +227,10 @@ changed: [ansible-1] => (item=carol)
 
 
 PLAY RECAP *********************************************************************
-ansible-1                  : ok=3    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
-node1                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-node2                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-node3                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0 
+ansible-1                  : ok=3    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0
+node1                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node2                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+node3                      : ok=4    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 ```
 ---

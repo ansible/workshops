@@ -5,7 +5,8 @@
 
 ## Table of Contents
 
-- [Workshop Exercise - Using Variables](##workshop-exercise---using-variables)
+- [Workshop Exercise - Using Variables](#workshop-exercise---using-variables)
+  - [Table of Contents](#table-of-contents)
   - [Objective](#objective)
   - [Guide](#guide)
     - [Step 1 - Understanding Variables](#step-1---understanding-variables)
@@ -68,7 +69,7 @@ Execute the updated playbook:
 [student@ansible-1 lab_inventory]$ ansible-navigator run system_setup.yml -m stdout
 ```
 
-```
+```bash
 PLAY [Basic System Setup] ******************************************************
 
 TASK [Gathering Facts] *********************************************************
@@ -138,7 +139,7 @@ Run the checks playbook:
 
 Output:
 
-```
+```bash
 PLAY [System Configuration Checks] *********************************************
 
 TASK [Gathering Facts] *********************************************************

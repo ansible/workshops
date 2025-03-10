@@ -392,15 +392,25 @@
           register: workshop_job_templates02
           until: workshop_job_templates02.json.status == "successful"
           delay: 20  # Every 20 seconds
-          retries: 15  # 5 minutes 5*60/20
+          retries: 30  # 10 minutes 10*60/20
 
-        - name: Run Z / SETUP / Workshop deployment workflow template
+        - name: Run Z / SETUP / Workshop - CentOS7 deployment workflow template
           awx.awx.workflow_launch:
-            workflow_template: "Z / SETUP / Workshop deployment"
+            workflow_template: "Z / SETUP / Workshop - CentOS7"
             controller_username: admin
             controller_password: "{{ admin_password }}"
             controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
             timeout: 3900 # 63 minutes
+          when: centos7 is defined
+
+        - name: Run Z / SETUP / Workshop - OL7 deployment workflow template
+          awx.awx.workflow_launch:
+            workflow_template: "Z / SETUP / Workshop - OL7"
+            controller_username: admin
+            controller_password: "{{ admin_password }}"
+            controller_host: "https://{{ student }}.{{ ec2_name_prefix }}.{{ workshop_dns_zone }}"
+            timeout: 3900 # 63 minutes
+          when: ol7 is defined
 
     - name: Final workshop preparations - demo mode
       when: provision_mode == "demo"

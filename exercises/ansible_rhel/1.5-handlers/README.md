@@ -117,9 +117,9 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
 
 ```
 
-The handler Restart Apache is triggered only if the task “Allow HTTP traffic on web servers” makes any changes.
+The handler "Reload Firewall" is triggered only if the task “Allow HTTP traffic on web servers” makes any changes.
 
-> NOTE: Notice how the name of the handler is used within the notify section of the “Reload Firewall” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
+> NOTE: Notice how the name of the handler is used within the notify section of the “Allow HTTP traffic on web servers” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
 
 ```bash
 PLAY [Basic System Setup] ******************************************************

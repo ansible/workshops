@@ -18,7 +18,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <li><a href="#4_hour_section">4 Hour Workshops</a></li>
     <li><a href="#6_hour_section">6 Hour Workshops</a></li>
     <li><a href="#product_demos_section">Product Demos</a></li>
-    <li><a href="#arcade_section">Click-through demo</a></li>
+    <li><a href="#arcade_section">Interactive experiences</a></li>
   </ul>
 </div>
 

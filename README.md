@@ -229,8 +229,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <h1 id="arcade_section">Interactive experiences</h1>
 <section class="page-contain">
   <a target="_new" href="https://interact.redhat.com/share/QIkx7TMuu22RDi0nUjRA" class="data-card">
-    <h3>Google Cloud: AIOps - Self Healing Infrastructure with Ansible Automation Platform</h3>
-    <h4>Unlocking AI value on Google Cloud.</h4>
+    <h3>Self-healing Infrastructure on Google Cloud</h3>
+    <h4>AIOps on Google Cloud.</h4>
     <p>Understand how Ansible Automation Platform can perform self-healing infrastructure</p>
     <span class="link-text">
       Lab Page

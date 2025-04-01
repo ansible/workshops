@@ -228,6 +228,43 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 
 <h1 id="arcade_section">Interactive experiences</h1>
 <section class="page-contain">
+<!-- arcade lab -->
+<a target="_new" href="https://interact.redhat.com/share/hCaq4jsAc1wMsd6gD3Ch" class="data-card">
+    <h3>Provisioning AAP in Red Hat Developer Sandbox</h3>
+    <h4>Red Hat Developer Sandbox is a trial experience for Red Hat products</h4>
+    <p>This lab will walk you through how to get hands-on experience to integrate your applications and automation.</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+  </a>
+<!-- arcade lab -->
+<a target="_new" href="https://interact.redhat.com/share/Ce4FwI060iaYltYJYLHq" class="data-card">
+    <h3>Automating OpenShift VMs with AAP</h3>
+    <h4>Effortless Inventory Management</h4>
+    <p>Ansible Automation Platform becomes your single source of truth for OpenShift VMs</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+  </a>
+<!-- arcade lab -->
+<a target="_new" href="https://interact.redhat.com/share/E1HhKjGqhls8JF5NsBNz" class="data-card">
+    <h3>Event-Driven Ansible with Event Streams</h3>
+    <h4>Simplified event routing</h4>
+    <p>This capability lets you create a single endpoint to receive alerts from an event source and then use the events in multiple rulebooks</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+  </a>
+<!-- arcade lab -->
   <a target="_new" href="https://interact.redhat.com/share/QIkx7TMuu22RDi0nUjRA" class="data-card">
     <h3>Self-healing Infrastructure on Google Cloud</h3>
     <h4>AIOps on Google Cloud.</h4>

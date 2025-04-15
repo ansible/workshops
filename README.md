@@ -259,7 +259,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <section class="page-contain">
 <!-- arcade lab -->
 <a target="_new" href="https://interact.redhat.com/share/baxthgXBQZ3kSRKPLn5L" class="data-card">
-    <h3>AAP on Azure (Managed Application)</h3>
+    <h3>AAP on Azure - Subscription Activation</h3>
     <h4>Subscription Activation</h4>
     <p>This lab will get you up and running on Azure by showing you how to activate your subscription.</p>
     <span class="link-text">
@@ -272,8 +272,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
 <!-- arcade lab -->
 <a target="_new" href="https://interact.redhat.com/share/baxthgXBQZ3kSRKPLn5L" class="data-card">
-    <h3>AAP on AWS (a managed service)</h3>
-    <h4>Setup and getting started.</h4>
+    <h3>AAP on AWS - Getting Started</h3>
+    <h4>Setup the managed service</h4>
     <p>This lab will get you up and running on AWS and performing your first automation.</p>
     <span class="link-text">
       Lab Page
@@ -285,7 +285,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
 <!-- arcade lab -->
 <a target="_new" href="https://interact.redhat.com/share/baxthgXBQZ3kSRKPLn5L" class="data-card">
-    <h3>AAP 2.4 to 2.5.</h3>
+    <h3>AAP 2.4 to 2.5 SAML</h3>
     <h4>Linking accounts post upgrade, and Setting up SAML authentication.</h4>
     <p>This lab will walk you through how to upgrade from AAP 2.4 to AAP 2.5.</p>
     <span class="link-text">
@@ -299,8 +299,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <!-- arcade lab -->
 <a target="_new" href="https://interact.redhat.com/share/hCaq4jsAc1wMsd6gD3Ch" class="data-card">
     <h3>Provisioning AAP in RH Developer Sandbox</h3>
-    <h4>Red Hat Developer Sandbox is a trial experience for Red Hat products</h4>
-    <p>This lab will walk you through how to get hands-on experience to integrate your applications and automation.</p>
+    <h4>How to get the full AAP experience</h4>
+    <p>Red Hat Developer Sandbox is a trial experience for Red Hat products</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -377,8 +377,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   <!-- arcade lab -->
   <a target="_new" href="https://app.arcade.software/share/liRbTzSPhtuQZwTI3JSV" class="data-card">
     <h3>AAP on Azure</h3>
-    <h4>Red Hat Ansible Automation Platform on Microsoft Azure - Managed Application - Getting Started</h4>
-    <p>How to get started with Ansible Automation Platform on Microsoft Azure, the Managed Application</p>
+    <h4>Getting Started with AAP on Microsoft Azure - Managed Application</h4>
+    <p>How to get started with Ansible Automation Platform on Microsoft Azure - Managed Application</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">

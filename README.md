@@ -48,6 +48,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
   </a>
   <a target="_new" href="exercises/instruqt/ansible-cloud-lab" class="data-card">
     <h3>Cloud</h3>
@@ -233,8 +234,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <section class="page-contain">
 <!-- arcade lab -->
 <a target="_new" href="https://interact.redhat.com/share/baxthgXBQZ3kSRKPLn5L" class="data-card">
-    <h3>Ansible Automation Platform on Azure (Managed Application) Subscription Activation</h3>
-    <h4>Automation in Minutes!</h4>
+    <h3>AAP on Azure (Managed Application)</h3>
+    <h4>Subscription Activation</h4>
     <p>This lab will get you up and running on Azure by showing you how to activate your subscription.</p>
     <span class="link-text">
       Lab Page
@@ -246,8 +247,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
 <!-- arcade lab -->
 <a target="_new" href="https://interact.redhat.com/share/baxthgXBQZ3kSRKPLn5L" class="data-card">
-    <h3>Standing up Ansible Automation Platform Service on AWS (a managed service)</h3>
-    <h4>Automation in Minutes!</h4>
+    <h3>AAP on AWS (a managed service)</h3>
+    <h4>Setup and getting started.</h4>
     <p>This lab will get you up and running on AWS and performing your first automation.</p>
     <span class="link-text">
       Lab Page
@@ -255,10 +256,11 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- arcade lab -->
 <a target="_new" href="https://interact.redhat.com/share/baxthgXBQZ3kSRKPLn5L" class="data-card">
-    <h3>Ansible Automation Platform 2.4 to 2.5.</h3>
+    <h3>AAP 2.4 to 2.5.</h3>
     <h4>Linking accounts post upgrade, and Setting up SAML authentication.</h4>
     <p>This lab will walk you through how to upgrade from AAP 2.4 to AAP 2.5.</p>
     <span class="link-text">
@@ -270,7 +272,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
 <!-- arcade lab -->
 <a target="_new" href="https://interact.redhat.com/share/hCaq4jsAc1wMsd6gD3Ch" class="data-card">
-    <h3>Provisioning AAP in Red Hat Developer Sandbox</h3>
+    <h3>Provisioning AAP in RH Developer Sandbox</h3>
     <h4>Red Hat Developer Sandbox is a trial experience for Red Hat products</h4>
     <p>This lab will walk you through how to get hands-on experience to integrate your applications and automation.</p>
     <span class="link-text">

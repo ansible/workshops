@@ -331,9 +331,9 @@ a h3:hover {
   font-weight: 600;
   line-height: 1;
   padding-bottom: .5em;
-  margin: 0 0 0.142857143em;
   border-bottom: 2px solid #ee0000;
   transition: color .45s ease, border .45s ease;
+  margin:0px;
 }
 
 .data-card h4 {
@@ -342,8 +342,8 @@ a h3:hover {
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.1em;
-  margin: 0 0 1.777777778em;
   transition: color .45s ease;
+  padding-top:5px;
 }
 
 .data-card p {
@@ -445,4 +445,15 @@ code.language-yaml {
 
 code.language-bash {
   padding: 0;
+}
+
+div#lab_powered_by {
+  color: #627084;
+  font-size: 12px;
+  margin-bottom:-30px;
+  padding-top: 10px;
+}
+
+div#lab_powered_by img {
+  width: 30%;
 }

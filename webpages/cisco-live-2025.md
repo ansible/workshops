@@ -1,4 +1,4 @@
-<h1>Cisco Live 2025 - EMEA</h1>
+<h1>Cisco Live 2025 - NA</h1>
 <section class="page-contain">
   <a target="_new" href="https://play.instruqt.com/redhat/invite/3xkrydzryhhb" class="data-card">
     <h3>DEVRHL-1001</h3>
@@ -11,7 +11,7 @@
 </svg>
     </span>
   </a>
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/lkbluyvyjgjv" class="data-card">
+  <a target="_new" href="https://play.instruqt.com/redhat/invite/kivvxnx8xqdy" class="data-card">
     <h3>DEVRHL-1002</h3>
     <h4>Ansible for Network automation: Writing playbooks and completing Backups and Restores</h4>
     <p>Learn how to write Ansible Playbooks, which describe what actions to take when running the automation.</p>
@@ -22,7 +22,7 @@
 </svg>
     </span>
   </a>
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/pikd9st13feo" class="data-card">
+  <a target="_new" href="https://play.instruqt.com/redhat/invite/ev2kjalwikzi" class="data-card">
     <h3>DEVRHL-1003</h3>
     <h4>Ansible for network automation: network visibility and resource modules</h4>
     <p>Retrieve facts from across the network infrastructure and create dynamic documentation.</p>
@@ -33,7 +33,7 @@
 </svg>
     </span>
   </a>
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/yksp2wdknim3" class="data-card">
+  <a target="_new" href="https://play.instruqt.com/redhat/invite/hjvqkq6mk54d" class="data-card">
     <h3>DEVRHL-1004</h3>
     <h4>Extending automation to remote branch networks (Meraki)</h4>
     <p>Learn how to use the Ansible Automation Platform to configure a network, add Meraki devices, and configure specific settings.</p>
@@ -44,7 +44,7 @@
 </svg>
     </span>
   </a>
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/safjltkwk5oj" class="data-card">
+  <a target="_new" href="https://play.instruqt.com/redhat/invite/yk8qpcqaumjr" class="data-card">
     <h3>DEVRHL-1007</h3>
     <h4>Event-Driven Ansible for Cisco routers and switches</h4>
     <p>Event-driven automation is a method for automatically responding to changing conditions on your network.</p>

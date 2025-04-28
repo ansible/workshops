@@ -400,6 +400,46 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     </span>
   <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
+  <!-- arcade lab -->
+ <a target="_new" href="https://interact.redhat.com/share/CyDTEq6Na9DYpoLnnTqf" class="data-card">
+    <h3>Windows Server update</h3>
+    <h4>Automate the management of Windows Updates at scale</h4>
+    <p>Gather update information and create dynamic reports as we deploy updates.</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+  <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+  <!-- arcade lab -->
+ <a target="_new" href="https://interact.redhat.com/share/LlORaaBejJPyNtbc8H2o" class="data-card">
+    <h3>Active Directory</h3>
+    <h4>Automate the management of Active Directory at scale</h4>
+    <p>Deploy and manage Active Directory with Ansible Automation Platform</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+  <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+  <!-- arcade lab -->
+ <a target="_new" href="https://interact.redhat.com/share/CFupJLjcEZRTnhItsnGQ" class="data-card">
+    <h3>Red Hat Insights</h3>
+    <h4>Ansible Automation Platform + Insights</h4>
+    <p>Remediate and manage vulnerabilties and compliance at scale by integrating Red Hat Insights with AAP</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+  <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- end section -->
 </section>
 
 ## Self Paced Exercises

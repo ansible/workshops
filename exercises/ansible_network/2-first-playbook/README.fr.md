@@ -2,7 +2,7 @@
 
 **Lisez ceci dans d'autres langues** : ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
-Vous n'avez pas d'environnement de laboratoire ? Essayez cet exercice sur notre [environnement sandbox gratuit](https://aap2.demoredhat.com/). Cet exercice correspond à **Ansible Network Automation Basics - Lab 1**.
+Vous n'avez pas d'environnement de laboratoire ? Essayez cet exercice sur notre [environnement sandbox gratuit](https://labs.demoredhat.com/). Cet exercice correspond à **Ansible Network Automation Basics - Lab 1**.
 
 ## Table des matières
 
@@ -87,7 +87,7 @@ TASK [S'assurer que les chaînes SNMP souhaitées sont présentes] *************
 changed: [rtr1]
 
 PLAY RECAP *********************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 [student@ansible-1 network-workshop]$
 ```
@@ -110,7 +110,7 @@ snmp-server community ansible-private RW
 
 Le module `cisco.ios.config` est idempotent. Cela signifie qu'un changement de configuration est poussé vers le dispositif uniquement si cette configuration n'existe pas déjà sur les hôtes cibles.
 
-> Besoin d'aide avec la terminologie d'Ansible Automation ?  
+> Besoin d'aide avec la terminologie d'Ansible Automation ?
 >
 > Consultez le [glossaire ici](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) pour plus d'informations sur des termes comme l'idempotence.
 
@@ -242,4 +242,3 @@ Vous avez terminé l'exercice 2 !
 [Exercice précédent](../1-explore/README.fr.md) | [Exercice suivant](../3-facts/README.fr.md)
 
 [Retour à l'atelier d'automatisation réseau Ansible](../README.fr.md)
-

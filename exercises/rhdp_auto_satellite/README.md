@@ -7,12 +7,18 @@
 In this workshop, you will learn how to get the most from Red Hat Satellite in concert with Red Hat Ansible Automation Platform.
 
 ## Table of Contents
-- [Use Cases](#use-cases)
-- [Presentations](#presentations)
-- [Time planning](#time-planning)
-- [Lab Diagram](#lab-diagram)
-- [Your Environment](#your-environment)
-- [Workshop Exercises](#workshop-exercises)
+- [Automated Satellite Workshop](#automated-satellite-workshop)
+  - [Table of Contents](#table-of-contents)
+  - [Use Cases](#use-cases)
+  - [Presentations](#presentations)
+  - [Time planning](#time-planning)
+  - [Lab Diagram](#lab-diagram)
+    - [Your Environment](#your-environment)
+    - [Step 1 - Access the AAP Web UI](#step-1---access-the-aap-web-ui)
+    - [Step 2 - Access the Visual Studio Code Web UI](#step-2---access-the-visual-studio-code-web-ui)
+    - [Step 3 - Open a Terminal Session](#step-3---open-a-terminal-session)
+    - [Step 4 - Access the Satellite Web UI](#step-4---access-the-satellite-web-ui)
+  - [Workshop Exercises](#workshop-exercises)
 
 ## Use Cases
 
@@ -27,10 +33,10 @@ This workshop currently focuses on 5 main customer pain points:
 
 The exercises are self explanatory and guide the participants through the entire lab. All concepts are explained when they are introduced.
 
-There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail.  Workshop presentation is located at [Automated Satellite Workshop](https://aap2.demoredhat.com/decks/ansible_auto_satellite.pdf).
+There is an optional presentation available to support the workshops and explain Automation, the basics of Ansible and the topics of the exercises in more detail.  Workshop presentation is located at [Automated Satellite Workshop](https://labs.demoredhat.com/decks/ansible_auto_satellite.pdf).
 
 Also have a look at our Ansible Best Practices Deck:
-[Ansible Best Practices](https://aap2.demoredhat.com/decks/ansible_best_practices.pdf)
+[Ansible Best Practices](https://labs.demoredhat.com/decks/ansible_best_practices.pdf)
 
 ## Time planning
 

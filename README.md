@@ -8,7 +8,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <div id="website_explanation">
 <h1>Website</h1>
 
-- <a href="http://aap2.demoredhat.com">http://aap2.demoredhat.com</a> - Please use the website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).
+- <a href="http://labs.demoredhat.com">http://labs.demoredhat.com</a> - Please use the website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).
 </div>
 
 <div class="table-of-contents">

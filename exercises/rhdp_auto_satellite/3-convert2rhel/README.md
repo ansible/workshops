@@ -10,11 +10,11 @@ There are three key features that the solution approach recommends to deliver su
 
 ![Automate Everything, Snapshot/rollback, Reporting Dashboard](images/conversions_key_features.svg)
 
-As you progress through this exercise, you will learn more about the importance of these features and the different options for how you might implement them in your enterprise. For this exercise, we assume you have at least some experience using Ansible Automation Platform and working with Ansible playbooks and roles. If you're new to Ansible, consider first completing the workshop [Ansible for Red Hat Enterprise Linux](https://aap2.demoredhat.com/exercises/ansible_rhel).
+As you progress through this exercise, you will learn more about the importance of these features and the different options for how you might implement them in your enterprise. For this exercise, we assume you have at least some experience using Ansible Automation Platform and working with Ansible playbooks and roles. If you're new to Ansible, consider first completing the workshop [Ansible for Red Hat Enterprise Linux](https://labs.demoredhat.com/exercises/ansible_rhel).
 
 ## Table of Contents
 
-- [Automated Satellite Workshop: CentOS to RHEL Conversion exercise](#automated-satellite-workshop:-centos-to-rhel-conversion-exercise)
+- [Automated Satellite Workshop: CentOS to RHEL Conversion exercise](#automated-satellite-workshop-centos-to-rhel-conversion-exercise)
   - [Table of Contents](#table-of-contents)
   - [Presentations](#presentations)
   - [Time Planning](#time-planning)
@@ -23,8 +23,7 @@ As you progress through this exercise, you will learn more about the importance 
     - [Section 1 - Pre-upgrade Analysis](#section-1---pre-upgrade-analysis)
     - [Section 2 - CentOS OS Conversion](#section-2---centos-os-conversion)
     - [Section 3 - Rolling Back](#section-3---rolling-back)
-    - [Supplemental Exercises](#supplemental-exercises)
-  - [Exercise Navigation](#exercise-navigation)
+  - [Workshop Navigation](#workshop-navigation)
 
 ## Presentations
 

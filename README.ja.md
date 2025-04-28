@@ -9,7 +9,7 @@ Red Hat Ansible Automation Workshops
 
 ## Web サイト
 
-- [http://aap2.demoredhat.com](http://aap2.demoredhat.com) - [Github
+- [http://labs.demoredhat.com](http://labs.demoredhat.com) - [Github
 ページ](https://pages.github.com/) を使用してマークダウンファイルから自動的にレンダリングされるオプションの Web
 サイトをご覧ください。既に Web サイトを閲覧している場合は、このセクションは無視してください。
 

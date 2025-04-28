@@ -2,7 +2,7 @@
 
 **Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
-Don't have a workshop environment? Try this exercise on our zero cost [sandbox environment](https://aap2.demoredhat.com/).  This exercise corresponds to **Ansible Network Automation Basics - Lab 1**.
+Don't have a workshop environment? Try this exercise on our zero cost [sandbox environment](https://labs.demoredhat.com/).  This exercise corresponds to **Ansible Network Automation Basics - Lab 1**.
 
 ## Table of Contents
 
@@ -88,7 +88,7 @@ TASK [Ensure that the desired snmp strings are present] ************************
 changed: [rtr1]
 
 PLAY RECAP *********************************************************************
-rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rtr1                       : ok=1    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
 [student@ansible-1 network-workshop]$
 ```
@@ -111,7 +111,7 @@ snmp-server community ansible-private RW
 
 The `cisco.ios.config` module is idempotent. This means, a configuration change is pushed to the device if and only if that configuration does not exist on the end hosts.
 
-> Need help with Ansible Automation terminology?  
+> Need help with Ansible Automation terminology?
 >
 > Check out the [glossary here](https://docs.ansible.com/ansible/latest/reference_appendices/glossary.html) for more information on terms like idempotency.
 

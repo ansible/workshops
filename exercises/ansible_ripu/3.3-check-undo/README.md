@@ -40,7 +40,7 @@ In this step, we will repeat the observations we made on our host after the upgr
   >
   > Because the external IP addresses of the EC2 instances provisioned for the workshop are dynamically assigned (i.e., using DHCP), it is possible that the web user interface URL may change after a reboot. If that happens, run this command at the shell prompt of the app server to determine the new URL for the application web user interface:
   >
-  > ```
+  > ```bash
   > echo "http://$(curl -s ifconfig.me):8080"
   > ```
 

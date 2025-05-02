@@ -27,6 +27,14 @@
     group: "{{ username }}"
     mode: '0400'
 
+- name: Put ssh-key in proper spot for student
+  ansible.builtin.copy:
+    src: "{{ output_dir }}/{{ ec2_name_prefix }}-private.pem"
+    dest: "/home/ec2-user/.ssh/id_rsa"
+    owner: "ec2-user"
+    group: "ec2-user"
+    mode: '0400'
+
 - name: Clean out /tmp/workshops
   ansible.builtin.file:
     path: /tmp/workshops

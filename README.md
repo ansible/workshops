@@ -164,7 +164,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
-  <a target="_new" href="https://interact.redhat.com/share/iaIlwC3A7UmSTjv2IhBM"data-card">
+  <a target="_new" href="https://interact.redhat.com/share/iaIlwC3A7UmSTjv2IhBM" class="data-card">
     <h3>Network Automation</h3>
     <h4>Manage network devices like a pro</h4>
     <p>Network visbility, config management and operations</p>
@@ -177,7 +177,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
-  <a target="_new" href="https://interact.redhat.com/share/WLz8bjVZ1Tw1ie8KBv7f"data-card">
+  <a target="_new" href="https://interact.redhat.com/share/WLz8bjVZ1Tw1ie8KBv7f" class="data-card">
     <h3>Deploying and Removing RHEL apps</h3>
     <h4>Automate application deployement</h4>
     <p>Use Ansible to quickly automate app deployments</p>

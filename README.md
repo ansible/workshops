@@ -194,10 +194,10 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 <h1 id="cloud_section">Cloud</h1>
 <section class="page-contain">
 <!-- lab -->
-  <a target="_new" href="https://interact.redhat.com/share/nOMqJgJKjLnHrJTNzwne" class="data-card">
-    <h3>Scaling VM Migration</h3>
-    <h4>Automate VM migrations with Ansible</h4>
-    <p>Scale VM migration to OpenShift with AAP</p>
+  <a target="_new" href="https://interact.redhat.com/share/g5FvwGvIJdX9vGQpjrC8" class="data-card">
+    <h3>Hashicorp Terraform</h3>
+    <h4>IT automation workflows for the cloud</h4>
+    <p>See how Terraform and Ansible can work together</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,9 +208,9 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   </a>
 <!-- lab -->
   <a target="_new" href="https://interact.redhat.com/share/Ce4FwI060iaYltYJYLHq" class="data-card">
-    <h3>Inventory Mangement</h3>
-    <h4>Effortless inventory management</h4>
-    <p>Save time and adapt quickly to changes</p>
+    <h3>Infra visibility & Reports</h3>
+    <h4>Use Ansible to gain infra awareness</h4>
+    <p>Dyanmic documentation is key for automation success</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,10 +220,23 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
-  <a target="_new" href="https://interact.redhat.com/share/NHQztyi9saczG39JyMdz"data-card">
-    <h3>Patching RHEL VMs</h3>
-    <h4>Patch RHEL VMs in OpenShift Virtualization</h4>
-    <p>Learn how to create custom-built reporting for patch compliance</p>
+  <a target="_new" href="https://interact.redhat.com/share/QIkx7TMuu22RDi0nUjRA" class="data-card">
+    <h3>AIOps on Google Cloud</h3>
+    <h4>Apply an AIOps workflow on Google Cloud</h4>
+    <p>Learn how to combine AI solutions with your IT infra workflows</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/g25qlmX59RI0r6OjRjL2" class="data-card">
+    <h3>AAP Service on AWS</h3>
+    <h4>Automation in Minutes with AAP on AWS</h4>
+    <p>Get your automation infrastructure online quickly</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">

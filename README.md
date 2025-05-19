@@ -16,6 +16,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
   <ul>
     <li><a href="#ai_section">AI</a></li>
     <li><a href="#openshift_virt_section">OpenShift Virt</a></li>
+    <li><a href="#it_automation_section">IT Automation</a></li>
   </ul>
 </div>
 
@@ -61,6 +62,8 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
+
+
 <h1 id="openshift_virt_section">OpenShift Virt</h1>
 <section class="page-contain">
 <!-- lab -->
@@ -94,6 +97,49 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <h3>Patching RHEL VMs</h3>
     <h4>Patch RHEL VMs in OpenShift Virtualization</h4>
     <p>Learn how to create custom-built reporting for patch compliance</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
+
+<h1 id="it_automation_section">IT Automation</h1>
+<section class="page-contain">
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/8wSFxhB1CT2w7Z7OWsyz" class="data-card">
+    <h3>Hashicorp Vault</h3>
+    <h4>Integrate AAP and Hashicorp Vault</h4>
+    <p>Managing your Ansible secrets with Hashicorp Vault</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/ld4BGpJnfILzJughA3QF" class="data-card">
+    <h3>AAP Automation Dashboard</h3>
+    <h4>Measure automation intiatives</h4>
+    <p>Create reports about automation successes</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/bHLVVsWPJnUzDR3EMxCg"data-card">
+    <h3>Policy Enforcement</h3>
+    <h4>Apply OPA policies to automation workflows</h4>
+    <p>Learn how to put guard rails on enterprise automation</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -95,7 +95,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
-  <a target="_new" href="https://interact.redhat.com/share/NHQztyi9saczG39JyMdz"data-card">
+  <a target="_new" href="https://interact.redhat.com/share/NHQztyi9saczG39JyMdz" class="data-card">
     <h3>Patching RHEL VMs</h3>
     <h4>Patch RHEL VMs in OpenShift Virtualization</h4>
     <p>Learn how to create custom-built reporting for patch compliance</p>

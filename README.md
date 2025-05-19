@@ -64,7 +64,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
-
+</section>
 
 <h1 id="openshift_virt_section">OpenShift Virt</h1>
 <section class="page-contain">
@@ -108,6 +108,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
+</section>
 
 <h1 id="it_automation_section">IT Automation</h1>
 <section class="page-contain">
@@ -190,7 +191,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
-
+</section>
 
 <h1 id="cloud_section">Cloud</h1>
 <section class="page-contain">
@@ -247,6 +248,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
+</section>
 
 <h1 id="developer_section">Developer</h1>
 <section class="page-contain">
@@ -303,6 +305,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
+</section>
 
 ## Workshops
 

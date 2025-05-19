@@ -49,7 +49,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
     <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
 <!-- lab -->
-  <a target="_new" href="https://interact.redhat.com/share/kCuEEAIeU2a8plQcDALz class="data-card">
+  <a target="_new" href="https://interact.redhat.com/share/kCuEEAIeU2a8plQcDALz" class="data-card">
     <h3>Unlocking AIOps</h3>
     <h4>Use AI within IT operation workflows</h4>
     <p>Red Hat Ansible Automation Platform unlocks AIOps</p>

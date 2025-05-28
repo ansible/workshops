@@ -1,7 +1,7 @@
 <h1>Cisco Live 2025 - NA</h1>
 <section class="page-contain">
 <!-- lab box -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/3xkrydzryhhb" class="data-card">
+  <a target="_new" href="https://play.instruqt.com/redhat/invite/whcf52xvqbej" class="data-card">
     <h3>DEVRHL-1001</h3>
     <h4>Ansible for Network Automation Basics: Surveys and Workflows</h4>
     <p>Learn how to create an automation controller survey to configure a Cisco IOS network device with specific settings</p>
@@ -61,7 +61,7 @@
     </span>
   </a>
 <!-- lab box -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/yk8qpcqaumjr" class="data-card">
+  <a target="_new" href="https://play.instruqt.com/redhat/invite/ef97o71frzjm class="data-card">
     <h3>DEVRHL-1007</h3>
     <h4>Event-Driven Ansible for Cisco routers and switches</h4>
     <p>Event-driven automation is a method for automatically responding to changing conditions on your network.</p>

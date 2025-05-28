@@ -1,6 +1,7 @@
 <h1>Cisco Live 2025 - NA</h1>
 <section class="page-contain">
 <!-- lab box -->
+<!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/whcf52xvqbej-->
   <a target="_new" href="https://play.instruqt.com/redhat/invite/whcf52xvqbej" class="data-card">
     <h3>DEVRHL-1001</h3>
     <h4>Ansible for Network Automation Basics: Surveys and Workflows</h4>
@@ -53,8 +54,6 @@
 <!-- lab box -->
 <!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/d0o2sbmqe89c -->
   <a target="_new" href="https://play.instruqt.com/redhat/invite/d0o2sbmqe89c" class="data-card">
-
-  d0o2sbmqe89c
     <h3>DEVRHL-1005</h3>
     <h4>Network automation and Sources of Truth</h4>
     <p>Learn how to centralize your resources in a network Source of Truth such as NetBox or Git.</p>

@@ -25,6 +25,7 @@
     </span>
   </a>
 <!-- lab box -->
+<!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/ev2kjalwikzi -->
   <a target="_new" href="https://play.instruqt.com/redhat/invite/ev2kjalwikzi" class="data-card">
     <h3>DEVRHL-1003</h3>
     <h4>Ansible for network automation: network visibility and resource modules</h4>
@@ -37,6 +38,7 @@
     </span>
   </a>
 <!-- lab box -->
+<!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/hjvqkq6mk54d -->
   <a target="_new" href="https://play.instruqt.com/redhat/invite/hjvqkq6mk54d" class="data-card">
     <h3>DEVRHL-1004</h3>
     <h4>Extending automation to remote branch networks (Meraki)</h4>
@@ -48,8 +50,11 @@
 </svg>
     </span>
   </a>
-  <!-- lab box -->
+<!-- lab box -->
+<!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/d0o2sbmqe89c -->
   <a target="_new" href="https://play.instruqt.com/redhat/invite/d0o2sbmqe89c" class="data-card">
+
+  d0o2sbmqe89c
     <h3>DEVRHL-1005</h3>
     <h4>Network automation and Sources of Truth</h4>
     <p>Learn how to centralize your resources in a network Source of Truth such as NetBox or Git.</p>
@@ -61,7 +66,7 @@
     </span>
   </a>
 <!-- lab box -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/ef97o71frzjm class="data-card">
+  <a target="_new" href="https://play.instruqt.com/redhat/invite/ef97o71frzjm" class="data-card">
     <h3>DEVRHL-1007</h3>
     <h4>Event-Driven Ansible for Cisco routers and switches</h4>
     <p>Event-driven automation is a method for automatically responding to changing conditions on your network.</p>

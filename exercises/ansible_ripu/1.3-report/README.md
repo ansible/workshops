@@ -28,7 +28,7 @@ In the previous exercise, we used a playbook job template to generate a Leapp pr
 
 - If we we're using the Leapp framework to manually upgrade just a single RHEL host, we could simply get to a shell prompt on the host and look at the local report file output. In [Exercise 1.1, Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session), we learned how to open an ssh session to one of our pet app servers. Follow those steps and after logging in, use this command to review the local Leapp pre-upgrade report file:
 
-  ```
+  ```bash
   less /var/log/leapp/leapp-report.txt
   ```
 

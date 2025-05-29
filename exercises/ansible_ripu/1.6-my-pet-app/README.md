@@ -69,7 +69,7 @@ You may want to install a different application, for example, an actual applicat
 
   Login to your pet app server and run these commands:
 
-  ```
+  ```bash
   distver=$(sed -r 's/([^:]*:){4}//;s/(.).*/\1/' /etc/system-release-cpe)
   sudo yum-config-manager --add-repo=https://packages.adoptium.net/artifactory/rpm/rhel/$distver/x86_64
   sudo yum-config-manager --save --setopt=\*adoptium\*.gpgkey=https://packages.adoptium.net/artifactory/api/gpg/key/public
@@ -80,7 +80,7 @@ You may want to install a different application, for example, an actual applicat
 
 - Verify that the temurin-17-jdk package was installed:
 
-  ```
+  ```bash
   rpm -q temurin-17-jdk
   ```
 
@@ -88,7 +88,7 @@ You may want to install a different application, for example, an actual applicat
 
 - Next, we will install the Spring Pet Clinic Sample Application under the home directory of the ec2-user. Run these commands:
 
-  ```
+  ```bash
   cd ~
   git clone https://github.com/spring-projects/spring-petclinic.git
   ```
@@ -97,26 +97,26 @@ You may want to install a different application, for example, an actual applicat
 
 <!-- The EC2 instances for the workshop don't have firewalld, but in case you are using this procedure somewhere that does, use these command to open the firewall:
 
-```
+```bash
 sudo firewall-cmd --add-port=8080/tcp
 sudo firewall-cmd --add-port=8080/tcp --permanent
 ```
 -->
 - We need to start the database server and create the database for our application. Use this command to enable and start the database:
 
-  ```
+  ```bash
   sudo systemctl enable --now mariadb
   ```
 
   Now use the `mysql` command line client to connect to the database server. For example:
 
-  ```
+  ```bash
   mysql --user root
   ```
 
   This should bring you to a `MariaDB [(none)]>` prompt. Enter the following SQL commands at this prompt:
 
-  ```
+  ```plaintext
   CREATE DATABASE IF NOT EXISTS petclinic;
   ALTER DATABASE petclinic DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
   GRANT ALL PRIVILEGES ON petclinic.* TO 'petclinic'@'localhost' IDENTIFIED BY 'petclinic';
@@ -126,19 +126,19 @@ sudo firewall-cmd --add-port=8080/tcp --permanent
 
 - Now we are ready to start the application web service. Use this command to run it in the background:
 
-  ```
+  ```bash
   echo 'cd $HOME/spring-petclinic && ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql >> $HOME/app.log 2>&1' | at now
   ```
 
 - The application will take a couple minute to come up the first time. Check the `app.log` file to follow the progress and verify the web service has started successfully:
 
-  ```
+  ```bash
   tailf ~/app.log
   ```
 
   When you see events listed at the bottom of the log output like this example, that means the application is started successfully and ready for testing:
 
-  ```
+  ```plaintext
   o.s.b.a.e.web.EndpointLinksResolver      : Exposing 13 endpoint(s) beneath base path '/actuator'
   o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
   o.s.s.petclinic.PetClinicApplication     : Started PetClinicApplication in 6.945 seconds (process running for 7.496)
@@ -152,7 +152,7 @@ Now that we have installed our application and verified it is running, it's time
 
 - Use this command to determine the application's external URL:
 
-  ```
+  ```bash
   echo "http://$(curl -s ifconfig.me):8080"
   ```
 
@@ -174,7 +174,7 @@ Right now, our application was started manually. We need to configure the app so
 
 - Use this command to configure a reboot cron entry so the application will be started automatically after every reboot:
 
-  ```
+  ```bash
   echo '@reboot cd $HOME/spring-petclinic && ./mvnw spring-boot:run -Dspring-boot.run.profiles=mysql >> $HOME/app.log 2>&1' | crontab -
   ```
 
@@ -185,7 +185,7 @@ Right now, our application was started manually. We need to configure the app so
 
 - Now reboot the server to verify this works:
 
-  ```
+  ```bash
   sudo reboot
   ```
 
@@ -195,7 +195,7 @@ Right now, our application was started manually. We need to configure the app so
   >
   > Because the external IP addresses of the EC2 instances provisioned for the workshop are dynamically assigned (i.e., using DHCP), it is possible that the web user interface URL might change after a reboot. If you are unable to access the app after the reboot, run this command again to determine the new URL for the application web user interface:
   >
-  > ```
+  > ```bash
   > echo "http://$(curl -s ifconfig.me):8080"
   > ```
   >

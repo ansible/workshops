@@ -1,4 +1,4 @@
-<h1>Welcome to the Cisco Live Virtual Infrastructure Automation Lab (DEVRHL-1006)</h1>
+<h1>Cisco Live Virtual Infrastructure Automation Lab (DEVRHL-1006)</h1>
 <p>We are excited to see you in our Virtual infrastructure automation lab that uses Red Hat Ansible Automation Platform.</p>
 <section class="page-contain">
 <!-- lab box -->

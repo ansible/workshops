@@ -2,10 +2,9 @@
 <p>We are excited to see you in our Virtual infrastructure automation lab that uses Red Hat Ansible Automation Platform.</p>
 <section class="page-contain">
 <!-- lab box -->
-<!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/whcf52xvqbej -->
   <a target="_new" href="https://play.instruqt.com/redhat/invite/whcf52xvqbej" class="data-card">
     <h3>Technical presentation</h3>
-    <h4>These are the slides the presenter will be using./h4>
+    <h4>These are the slides the presenter will be using</h4>
     <p>Text can go here!</p>
     <span class="link-text">
       Lab Page

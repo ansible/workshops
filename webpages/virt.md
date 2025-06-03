@@ -21,7 +21,7 @@
 </p>
 <section class="page-contain">
 <!-- lab box -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/whcf52xvqbej" class="data-card">
+  <a target="_new" href="https://interact.redhat.com/share/MXDLAtjqil4kdQ7Rh4Lx" class="data-card">
     <h3>Migrating VMs to OpenShift Virtualization</h3>
     <h4>Learn about MTV</h4>
     <p>This walkthrough covers OpenShift’s Migration Toolkit for Virtualization so you can see how to create a migration plan for one VM.</p>

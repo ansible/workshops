@@ -2,7 +2,7 @@
 <p>We are excited to see you in our Virtual infrastructure automation lab that uses Red Hat Ansible Automation Platform.</p>
 <section class="page-contain">
 <!-- lab box -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/whcf52xvqbej" class="data-card">
+  <a target="_new" href="Cisco Live San Diego 2025 - DEVRHL-1006 Virtualization Lab .pdf" class="data-card">
     <h3>Technical presentation</h3>
     <h4>These are the slides the presenter will be using</h4>
     <p>Text can go here!</p>

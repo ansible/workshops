@@ -1,7 +1,7 @@
 <h1>Cisco Live 2025 - NA</h1>
 <section class="page-contain">
 <!-- lab box -->
-<!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/whcf52xvqbej-->
+<!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/whcf52xvqbej -->
   <a target="_new" href="https://play.instruqt.com/redhat/invite/whcf52xvqbej" class="data-card">
     <h3>DEVRHL-1001</h3>
     <h4>Ansible for Network Automation Basics: Surveys and Workflows</h4>
@@ -40,7 +40,7 @@
   </a>
 <!-- lab box -->
 <!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/hjvqkq6mk54d -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/hjvqkq6mk54d" class="data-card">
+  <a target="_new" href="https://play.instruqt.com/manage/redhat/tracks/getting-started-meraki-clus-2025" class="data-card">
     <h3>DEVRHL-1004</h3>
     <h4>Extending automation to remote branch networks (Meraki)</h4>
     <p>Learn how to use the Ansible Automation Platform to configure a network, add Meraki devices, and configure specific settings.</p>

@@ -40,7 +40,7 @@
   </a>
 <!-- lab box -->
 <!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/hjvqkq6mk54d -->
-  <a target="_new" href="https://play.instruqt.com/manage/redhat/tracks/getting-started-meraki-clus-2025" class="data-card">
+  <a target="_new" href="https://play.instruqt.com/redhat/invite/hjvqkq6mk54d" class="data-card">
     <h3>DEVRHL-1004</h3>
     <h4>Extending automation to remote branch networks (Meraki)</h4>
     <p>Learn how to use the Ansible Automation Platform to configure a network, add Meraki devices, and configure specific settings.</p>

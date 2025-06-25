@@ -1,9 +1,6 @@
-# Ansible Automation Technical Workshops
+# Ansible Automation Technical Labs & Workshops
 
-**Read this in other languages**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語](README.ja.md)
-
-The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.
+The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced labs.
 
 <div id="website_explanation">
 <h1>Website</h1>
@@ -12,7 +9,7 @@ The Red Hat Ansible Automation Workshops project is intended for effectively dem
 </div>
 
 <div class="table-of-contents">
-  <h2>Workshop Catalog</h2>
+  <h2>Demos</h2>
   <ul>
     <li><a href="#ai_section">AI</a></li>
     <li><a href="#openshift_virt_section">OpenShift Virt</a></li>
@@ -347,6 +344,17 @@ You will find individual self-paced labs available here (15-30 minutes each):
 - [How to use the AWS Lab Provisioner](provisioner/README.md)
 - [FAQ](docs/faq.md)
 - [Release Process](docs/release.md)
+
+
+```
+- name: run this playbook
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: print out debug
+      ansible.builtin.debug:
+        msg: "hello world"
+```
 
 ---
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/raw/devel/images/rh-ansible-automation-platform.png)

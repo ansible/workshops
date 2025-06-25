@@ -345,16 +345,5 @@ You will find individual self-paced labs available here (15-30 minutes each):
 - [FAQ](docs/faq.md)
 - [Release Process](docs/release.md)
 
-
-```
-- name: run this playbook
-  hosts: all
-  gather_facts: false
-  tasks:
-    - name: print out debug
-      ansible.builtin.debug:
-        msg: "hello world"
-```
-
 ---
 ![Red Hat Ansible Automation](https://github.com/ansible/workshops/raw/devel/images/rh-ansible-automation-platform.png)

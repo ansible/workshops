@@ -457,3 +457,11 @@ div#lab_powered_by {
 div#lab_powered_by img {
   width: 30%;
 }
+
+pre code {
+  background-color: #f5f2f0;
+  color: #333;
+  display: block;
+  padding: 1em;
+  overflow-x: auto;
+}

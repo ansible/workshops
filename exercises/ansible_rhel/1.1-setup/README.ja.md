@@ -28,7 +28,7 @@
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - Ansibleコンテンツを実行および開発するためのテキストベースのユーザーインターフェイス（TUI）。
 - [ansible-core](https://docs.ansible.com/core.html) - `ansible`、`ansible-playbook`、`ansible-doc`などのCLIツールを含む、Ansibleオートメーションプラットフォームを支えるフレームワーク、言語、機能を提供するベース実行可能ファイル。
-- [実行環境](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Red Hatがサポートするコレクションを含む、事前に構築されたコンテナイメージ。
+- [実行環境](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/index) - Red Hatがサポートするコレクションを含む、事前に構築されたコンテナイメージ。
 - [ansible-builder](https://github.com/ansible/ansible-builder) - 実行環境の構築プロセスを自動化します。このワークショップでは主な焦点ではありません。
 
 新しいAnsibleオートメーションプラットフォームコンポーネントの詳細については、このランディングページをブックマークしてください [https://red.ht/AAP-20](https://red.ht/AAP-20)

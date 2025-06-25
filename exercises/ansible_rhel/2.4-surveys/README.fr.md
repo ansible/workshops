@@ -5,18 +5,20 @@
 
 ## Table des matières
 
-* [Objectif](#objectif)
-* [Guide](#guide)
-* [Le role de configuration Apache](#le-role-de-configuration-apache)
-* [Créer un Projet](#créer-un-projet)
-* [Créer un Modèle avec un Questionnaire](#créer-un-modèle-avec-un-questionnaire)
-  * [Create le Modèle](#créer-le-modèle)
-  * [Ajouter le Questionnaire](#ajouter-le-questionnaire)
-* [Lancer le Modèle](#lancer-le-modèle)
+- [Exercice - Questionnaires](#exercice---questionnaires)
+  - [Table des matières](#table-des-matières)
+  - [Objectif](#objectif)
+  - [Guide](#guide)
+  - [Le role de configuration Apache](#le-role-de-configuration-apache)
+    - [Créer un Projet](#créer-un-projet)
+    - [Créer un Modèle avec un Questionnaire](#créer-un-modèle-avec-un-questionnaire)
+      - [Créer le Modèle](#créer-le-modèle)
+      - [Ajouter le Questionnaire](#ajouter-le-questionnaire)
+    - [Lancer le Modèle](#lancer-le-modèle)
 
 ## Objectif
 
-Démontrer l'utilisation de la fonctionnalité [Questionnaire](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys) dans le Contrôleur Ansible Automation. Les Questionnaires ajoutent des Extra Variables aux playbooks à l'instar de la fonctionnalité de prompt, mais avec une expérience plus conviviale à l'aide questions-réponses. Les Questionnaires permettent également de valider les éléments entrés par les utilisateurs.
+Démontrer l'utilisation de la fonctionnalité [Questionnaire](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/controller-job-templates#controller-surveys-in-job-templates) dans le Contrôleur Ansible Automation. Les Questionnaires ajoutent des Extra Variables aux playbooks à l'instar de la fonctionnalité de prompt, mais avec une expérience plus conviviale à l'aide questions-réponses. Les Questionnaires permettent également de valider les éléments entrés par les utilisateurs.
 
 ## Guide
 
@@ -76,8 +78,8 @@ Le rôle déploie également une configuration statique pour Apache. Il s'agit d
    </tr>
  </table>
 
- Renseignez l'URL dans la configuration du Projet: 
- 
+ Renseignez l'URL dans la configuration du Projet:
+
  <table>
    <tr>
      <th>Paramètre</th>

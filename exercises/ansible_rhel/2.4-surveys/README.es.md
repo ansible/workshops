@@ -5,14 +5,15 @@
 
 ## Tabla de contenidos
 
-* [Objetivos](#Objetivos)
-* [Guía](#Guía)
-* [El role de configuración de Apache](#El-role-de-configuración-de-Apache)
-* [Crear una plantilla con una encuesta](#Crear-una-plantilla-con-una-encuesta)
-   * [Crear la Plantilla](#Crear-la-Plantilla)
-   * [Adicionar la encuesta](#adicionar-la-encuesta)
-* [Lanzar la plantilla](#Lanzar-la-plantilla)
-* [¿Qué hay de un poco de práctica?](#¿Qué-hay-de-un-poco-de-práctica)
+- [Workshop - Encuestas](#workshop---encuestas)
+  - [Tabla de contenidos](#tabla-de-contenidos)
+- [Objetivos](#objetivos)
+- [Guía](#guía)
+  - [El role de configuración de Apache](#el-role-de-configuración-de-apache)
+  - [Crear una plantilla con una encuesta](#crear-una-plantilla-con-una-encuesta)
+    - [Crear la Plantilla](#crear-la-plantilla)
+    - [Adicionar la encuesta](#adicionar-la-encuesta)
+  - [Lanzar la plantilla](#lanzar-la-plantilla)
 
 
 # Objetivos
@@ -98,7 +99,7 @@ Inténtalo por ti mismo, la solución está a continuación.
   <tr>
     <td>Project</td>
     <td>Workshop Project</td>
-  </tr>  
+  </tr>
   <tr>
     <td>PLAYBOOK</td>
     <td><code>rhel/apache/apache_role_install.yml</code></td>
@@ -110,7 +111,7 @@ Inténtalo por ti mismo, la solución está a continuación.
   <tr>
     <td>OPTIONS</td>
     <td>Enable Privilege Escalation</td>
-  </tr>          
+  </tr>
 </table>
 
 - Clic en **SAVE**
@@ -141,7 +142,7 @@ Inténtalo por ti mismo, la solución está a continuación.
   <tr>
     <td>ANSWER TYPE</td>
     <td>Text</td>
-  </tr>         
+  </tr>
 </table>
 
 - Clic en **+ADD**
@@ -164,7 +165,7 @@ Inténtalo por ti mismo, la solución está a continuación.
   <tr>
     <td>ANSWER TYPE</td>
     <td>Text</td>
-  </tr>         
+  </tr>
 </table>
 
 - Clic en **+ADD**

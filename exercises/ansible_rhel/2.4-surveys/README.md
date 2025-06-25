@@ -5,19 +5,19 @@
 
 ## Table of Contents
 
-- [Objective](#objective)
-- [Guide](#guide)
-- [The Apache-Configuration Role](#the-apache-configuration-role)
-- [Create the Project](#create-the-project)
-- [Create a Template with a Survey](#create-a-template-with-a-survey)
-  - [Create Template](#create-template)
-  - [Add the Survey](#add-the-survey)
-- [Launch the Template](#launch-the-template)
-- [What About Some Practice?](#what-about-some-practice)
+- [Exercise - Surveys](#exercise---surveys)
+  - [Table of Contents](#table-of-contents)
+  - [Objective](#objective)
+  - [Guide](#guide)
+    - [The Apache-Configuration Role](#the-apache-configuration-role)
+    - [Create a Template with a Survey](#create-a-template-with-a-survey)
+      - [Create Template](#create-template)
+      - [Add the Survey](#add-the-survey)
+    - [Launch the Template](#launch-the-template)
 
 ## Objective
 
-Demonstrate the use of the Ansible Automation Controller [survey feature](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys). Surveys allow for setting extra variables for the playbook, similar to ‘Prompt for Extra Variables,’ but in a user-friendly Q&A format. They also allow for validation of user input.
+Demonstrate the use of the Ansible Automation Controller [survey feature](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/controller-job-templates#controller-surveys-in-job-templates). Surveys allow for setting extra variables for the playbook, similar to ‘Prompt for Extra Variables,’ but in a user-friendly Q&A format. They also allow for validation of user input.
 
 ## Guide
 
@@ -29,7 +29,7 @@ You've installed Apache on all hosts in the job you just ran. Now, let's build o
 
 Additionally, the role will ensure that the Apache configuration is set up correctly for this exercise.
 
-> **Tip**  
+> **Tip**
 > The survey feature provides a simple query for data but does not support dynamic data queries, nested menus, or four-eye principles.
 
 ### The Apache-Configuration Role
@@ -72,7 +72,7 @@ Now, let's create a new Template that includes a survey.
 
 ![template details](images/template_details.png)
 
-> **Warning**  
+> **Warning**
 > **Do not run the template yet!**
 
 #### Add the Survey
@@ -140,4 +140,3 @@ Verify that the output result is as expected.
 {% else %}
 [Previous Exercise](../2.3-projects) - [Next Exercise](../2.5-rbac)
 {% endif %}
-

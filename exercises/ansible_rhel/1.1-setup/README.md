@@ -29,7 +29,7 @@ This workshop's initial phase focuses on the command-line utilities of the Ansib
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - a Text-based User Interface (TUI) for running and developing Ansible content.
 - [ansible-core](https://docs.ansible.com/core.html) - the base executable that provides the framework, language and functions that underpin the Ansible Automation Platform, including CLI tools like `ansible`, `ansible-playbook` and `ansible-doc`.
-- [Execution Environments](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Pre-built container images with Red Hat supported collections. 
+- [Execution Environments](https://docs.ansible.com/ansible/latest/getting_started_ee/introduction.html) - Pre-built container images with Red Hat supported collections.
 - [ansible-builder](https://github.com/ansible/ansible-builder) - automates the  process of building Execution Environments. Not a primary focus in this workshop.
 
 If you need more information on new Ansible Automation Platform components bookmark this landing page [https://red.ht/AAP-20](https://red.ht/AAP-20)
@@ -59,7 +59,7 @@ NOTE: There is a short YouTube video provided if you need additional clarity:
 
   ![launch page](images/launch_page.png)
 
-2. Enter the provided password to login. 
+2. Enter the provided password to login.
 
   ![login vs code](images/vscode_login.png)
 

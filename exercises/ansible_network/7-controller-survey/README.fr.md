@@ -11,14 +11,14 @@
     - [Étape 1 : Créer un modèle de job](#étape-1--créer-un-modèle-de-job)
     - [Étape 2 : Examiner le Playbook](#étape-2--examiner-le-playbook)
     - [Étape 3 : Créer un questionnaire](#étape-3--créer-un-questionnaire)
-    - [Étape 4 : Lancer le modèle de Job](#étape-4--lancer-le-modèle-de-job)
+    - [Étape 4 : Lancer le modèle de job](#étape-4--lancer-le-modèle-de-job)
     - [Étape 5 : Vérifier la Bannière](#étape-5--vérifier-la-bannière)
   - [Points Clés](#points-clés)
   - [Conclusion](#conclusion)
 
 ## Objectif
 
-Démontrer l'utilisation de la [fonctionnalité de questionnaire](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys) du Contrôleur d'Automatisation. Les questionnaires permettent de définir des variables supplémentaires pour le playbook de manière similaire à « Prompt for Extra Variables », mais sous la forme de questions-réponses conviviales. Elles permettent également de valider les entrées utilisateur.
+Démontrer l'utilisation de la [fonctionnalité de questionnaire](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/controller-job-templates#controller-surveys-in-job-templates) du Contrôleur d'Automatisation. Les questionnaires permettent de définir des variables supplémentaires pour le playbook de manière similaire à « Prompt for Extra Variables », mais sous la forme de questions-réponses conviviales. Elles permettent également de valider les entrées utilisateur.
 
 ## Guide
 
@@ -206,4 +206,3 @@ Dans le prochain exercice, nous examinerons les modèles de restauration de conf
 [Exercice précédent](../6-controller-job-template/README.fr.md) | [Exercice suivant](../8-controller-rbac/README.fr.md)
 
 [Retour à l'atelier d'automatisation réseau Ansible](../README.fr.md)
-

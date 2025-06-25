@@ -5,17 +5,19 @@
 
 ## 目次
 
-* [目的](#目的)
-* [ガイド](#ガイド)
-* [Apache-configuration ロール](#apache-configuration-ロール)
-* [Survey を持つテンプレートの作成](#survey-を持つテンプレートの作成)
-  * [テンプレートの作成](#テンプレートの作成)
-  * [Survey の追加](#survey-の追加)
-* [テンプレートの起動](#テンプレートの起動)
+- [演習 - Survey](#演習---survey)
+  - [目次](#目次)
+  - [目的](#目的)
+  - [ガイド](#ガイド)
+    - [Apache-configuration ロール](#apache-configuration-ロール)
+    - [Survey を持つテンプレートの作成](#survey-を持つテンプレートの作成)
+      - [テンプレートの作成](#テンプレートの作成)
+      - [Survey の追加](#survey-の追加)
+    - [テンプレートの起動](#テンプレートの起動)
 
 ## 目的
 
-Ansible 自動コントローラー [survey 機能](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys) の使用のデモンストレーションを行います。Survey は、「Prompt for Extra Variables (追加変数のプロンプト)」と同様に Playbook の追加変数を設定しますが、ユーザーが使いやすい質問と回答を使ってこれを実行します。また、Survey ではユーザー入力を検証することもできます。
+Ansible 自動コントローラー [survey 機能](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/controller-job-templates#controller-surveys-in-job-templates) の使用のデモンストレーションを行います。Survey は、「Prompt for Extra Variables (追加変数のプロンプト)」と同様に Playbook の追加変数を設定しますが、ユーザーが使いやすい質問と回答を使ってこれを実行します。また、Survey ではユーザー入力を検証することもできます。
 
 ## ガイド
 

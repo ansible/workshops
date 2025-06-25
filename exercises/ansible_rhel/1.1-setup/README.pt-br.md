@@ -29,7 +29,7 @@ A fase inicial deste workshop se concentra nas utilidades de linha de comando da
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - uma Interface de Usuário Baseada em Texto (TUI) para executar e desenvolver conteúdo Ansible.
 - [ansible-core](https://docs.ansible.com/core.html) - o executável base que fornece a estrutura, linguagem e funções que sustentam a Plataforma de Automação Ansible, incluindo ferramentas CLI como `ansible`, `ansible-playbook` e `ansible-doc`.
-- [Ambientes de Execução](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Imagens de contêiner pré-construídas com coleções suportadas pela Red Hat.
+- [Ambientes de Execução](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/index) - Imagens de contêiner pré-construídas com coleções suportadas pela Red Hat.
 - [ansible-builder](https://github.com/ansible/ansible-builder) - automatiza o processo de construção de Ambientes de Execução. Não é um foco principal neste workshop.
 
 Se você precisar de mais informações sobre os novos componentes da Plataforma de Automação Ansible, marque esta página inicial [https://red.ht/AAP-20](https://red.ht/AAP-20)

@@ -7,13 +7,15 @@
 
 - [Ejercicio del Taller - Verificar los Prerrequisitos](#ejercicio-del-taller---verificar-los-prerrequisitos)
   - [Tabla de Contenidos](#tabla-de-contenidos)
-  - [Objetivo](#objetivo)
+  - [Objetivos](#objetivos)
   - [Guía](#guía)
     - [Tu Entorno de Laboratorio](#tu-entorno-de-laboratorio)
     - [Paso 1 - Acceder al Entorno](#paso-1---acceder-al-entorno)
     - [Paso 2 - Usando la Terminal](#paso-2---usando-la-terminal)
     - [Paso 3 - Examinar los Entornos de Ejecución](#paso-3---examinar-los-entornos-de-ejecución)
     - [Paso 4 - Examinar la configuración de ansible-navigator](#paso-4---examinar-la-configuración-de-ansible-navigator)
+    - [Paso 5 - Desafíos del taller](#paso-5---desafíos-del-taller)
+- [Cada capítulo del taller viene con un desafío. Estas tareas prueban tu comprensión y aplicación de los conceptos aprendidos. Las soluciones se proporcionan bajo un signo de advertencia para referencia.](#cada-capítulo-del-taller-viene-con-un-desafío-estas-tareas-prueban-tu-comprensión-y-aplicación-de-los-conceptos-aprendidos-las-soluciones-se-proporcionan-bajo-un-signo-de-advertencia-para-referencia)
     - [Paso 5 - Labs de Desafío](#paso-5---labs-de-desafío)
 
 ## Objetivos
@@ -29,7 +31,7 @@ La fase inicial de este taller se centra en las utilidades de línea de comandos
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - una Interfaz de Usuario basada en Texto (TUI) para ejecutar y desarrollar contenido de Ansible.
 - [ansible-core](https://docs.ansible.com/core.html) - el ejecutable base que proporciona el marco, lenguaje y funciones que sustentan Ansible Automation Platform, incluyendo herramientas de línea de comandos como `ansible`, `ansible-playbook` y `ansible-doc`.
-- [Entornos de Ejecución](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Imágenes de contenedor pre-construidas con colecciones soportadas por Red Hat.
+- [Entornos de Ejecución](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/index) - Imágenes de contenedor pre-construidas con colecciones soportadas por Red Hat.
 - [ansible-builder](https://github.com/ansible/ansible-builder) - automatiza el proceso de construcción de Entornos de Ejecución. No es un enfoque principal en este taller.
 
 Si necesitas más información sobre los nuevos componentes de la Plataforma de Automatización Ansible, guarda esta página principal [https://red.ht/AAP-20](https://red.ht/AAP-20)

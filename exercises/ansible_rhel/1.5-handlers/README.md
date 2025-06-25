@@ -36,7 +36,11 @@ Conditionals, handlers, and loops are advanced features in Ansible that enhance 
 Conditionals in Ansible control whether a task should run based on certain conditions.
 Let's add to the system_setup.yml playbook the ability to install the Apache HTTP Server (`httpd`) only on hosts that belong to the `web` group in our inventory.
 
-> NOTE: Previous examples had hosts set to node1 but now it is set to all. This means when you run this updated Ansible playbook you will notice updates for the new systems being automated against, the user Roger created on all new systems and the Apache web server package httpd installed on all the hosts within the web group.
+
+> Note:
+>
+> Previous examples had hosts set to node1 but now it is set to all. This means when you run this updated Ansible playbook you will notice updates for the new systems being automated against, the user Roger created on all new systems and the Apache web server package httpd installed on all the hosts within the web group.
+>
 
 {% raw %}
 
@@ -119,7 +123,9 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
 
 The handler Restart Apache is triggered only if the task “Allow HTTP traffic on web servers” makes any changes.
 
-> NOTE: Notice how the name of the handler is used within the notify section of the “Reload Firewall” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
+> NOTE:
+>
+> Notice how the name of the handler is used within the notify section of the “Reload Firewall” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
 
 ```bash
 PLAY [Basic System Setup] ******************************************************

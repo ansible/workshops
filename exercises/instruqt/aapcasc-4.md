@@ -81,8 +81,7 @@ Recommended agenda for when there is an instructor teaching.
 <tbody>
 <tr>
 <td>Config as code Introduction to AAP</td>
-<td>Learn about the fundamentals of using Configuration of Code to maintain the Ansible Automation Platform</td>
-<td>This is a Red Hat or Partner Only Lab, and requires access to demo.redhat.com, please reach out to your account representative to coordinate access to the Lab</td>
+<td>Learn about the fundamentals of using Configuration of Code to maintain the Ansible Automation Platform. This is a Red Hat or Partner Only Lab, and requires access to demo.redhat.com, please reach out to your account representative to coordinate access to the Lab</td>
 <td><a target="_new" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/summit-2025.lb2193-config-as-code-aap.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 </tr>
 </tbody>

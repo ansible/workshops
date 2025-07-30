@@ -121,7 +121,7 @@
 
 <h1 id="4_hour_section">4 hour workshops</h1>
 <section class="page-contain">
-  <a target="_new" href="../webpages/eda-4" class="data-card">
+  <a target="_new" href="./exercises/instruqt/eda-4" class="data-card">
     <h3>EDA</h3>
     <h4>Event-Driven Ansible Technical Workshop</h4>
     <p>Covers EDA fundamentals such as sources, rules, and actions</p>

@@ -58,13 +58,13 @@ There is a collection of example custom actor at the GitHub repo [oamg/leapp-sup
 
 - Login to one of your pet app servers using the `ssh` command. For example:
 
-  ```
+  ```bash
   ssh tidy-bengal
   ```
 
 - Now we will install the RPM package that provides our custom actor. Run the following command on your pet app server:
 
-  ```
+  ```bash
   sudo yum -y --enablerepo=leapp-supplements install leapp-upgrade-\*-supplements
   ```
 
@@ -74,7 +74,7 @@ There is a collection of example custom actor at the GitHub repo [oamg/leapp-sup
 
 - This is an example of the output you should expect to see if the package is installed successfully:
 
-  ```
+  ```plaintext
   Resolving Dependencies
   --> Running transaction check
   ---> Package leapp-upgrade-el7toel8-supplements.noarch 0:1.0.0-47.demo.el7 will be installed
@@ -111,7 +111,7 @@ There is a collection of example custom actor at the GitHub repo [oamg/leapp-sup
 
 - To demonstrate the custom actor at work, let's create a condition that violates our policy so that an inhibitor finding will be reported. Use this command:
 
-  ```
+  ```bash
   sudo touch /boot/policy-violation
   ```
 
@@ -133,7 +133,7 @@ We are now ready to try running a pre-upgrade report including the checks from o
 
 - Reboot the host to resolve the inhibitor finding. For example:
 
-  ```
+  ```bash
   sudo reboot
   ```
 

@@ -32,7 +32,7 @@ In this step, we will be rolling back the CentOS conversion for our entire three
 
 > **Note**
 >
-> In this case, only one of our nodes has an issue. Depending on overall thoughts on how to best proceed, an argument could be made for just rolling back the PostgreSQL node, node6, and leave node4 and node5 as they are. However, in this case, we are going to demonstrate the ability to simulataneously roll back an entire application stack of systems at once.
+> In this case, only one of our nodes has an issue. Depending on overall thoughts on how to best proceed, an argument could be made for just rolling back the PostgreSQL node, node6, and leave node4 and node5 as they are. However, in this case, we are going to demonstrate the ability to simultaneously roll back an entire application stack of systems at once.
 
 - Return to the AAP Web UI tab in your web browser. Navigate to Resources > Templates and then open the "CONVERT2RHEL / 03 Rollback" workflow template. Here is what it looks like:
 
@@ -66,11 +66,11 @@ After launching the rollback workflow job, the AAP Web UI will navigate automati
 
   ![Rollback job "PLAY RECAP" as seen at the end of the job output](images/rollback_job_recap.png)
 
-  Notice in the example above, we see the job completed in aproximately two and a half minutes. However, most of that time was spent in the final "Wait for the snapshot to drain" task which holds the job until the snapshot merges finish in the background. The instance was actually rolled back and service ready in just under a minute. Impressive, right?
+  Notice in the example above, we see the job completed in approximately two and a half minutes. However, most of that time was spent in the final "Wait for the snapshot to drain" task which holds the job until the snapshot merges finish in the background. The instance was actually rolled back and service ready in just under a minute. Impressive, right?
 
 ### Step 3 - Check the CentOS Version
 
-Repeat the steps you followed with [Exercise 2.3: Step 2](../2.3-check-upg/README.md#step-2---verify-the-hosts-are-converted-to-next-rhel-version), this time to verify that the CentOS version is reverted back.
+Repeat the steps you followed with [Exercise 2.3: Step 2](../2.3-check-convert/README.md#step-2---verify-the-hosts-are-converted-to-next-rhel-version), this time to verify that the CentOS version is reverted back.
 
 - For example, if the three tier host you rolled back had been converted from CentOS7 to RHEL7, you should now see it is back to CentOS7:
 

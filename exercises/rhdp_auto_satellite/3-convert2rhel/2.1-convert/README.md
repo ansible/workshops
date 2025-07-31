@@ -7,13 +7,13 @@
   - [Objectives](#objectives)
   - [Guide](#guide)
     - [Step 1 - Launch the Conversion Workflow Job Template](#step-1---launch-the-conversion-workflow-job-template)
-    - [Step 2 - Learn More About Convert2RHEL](#step-2---learn-more-about-leapp)
+    - [Step 2 - Learn More About Convert2RHEL](#step-2---learn-more-about-convert2rhel)
   - [Conclusion](#conclusion)
 
 ## Objectives
 
 * Use a workflow job template to create snapshots and start the conversions
-* Learn about how the Convert2RHEL framework goes about converting CentOS to RHEL
+* Learn about how the Convert2RHEL utility goes about converting CentOS to RHEL
 
 ## Guide
 
@@ -29,7 +29,7 @@ We are about to start the CentOS conversion of our application servers. When the
 
 Conversions typically take less than an hour, although they can run for longer if there are applications that shutdown slowly or with bare metal hosts that have a long reboot cycle. The cloud instances provisioned for our workshop lab environment will convert fairly quickly as they are very lightweight compared to traditional enterprise app servers.
 
-One think that's needs to be taken care of first is to remove the snapshots that were taken prior to the analysis, as we will want to take fresh snapshots priore to launching the conversion workflow.
+One thing that's needs to be taken care of first is to remove the snapshots that were taken prior to the analysis, as we will want to take fresh snapshots prior to launching the conversion workflow.
 
 - Return to the AAP Web UI tab in your web browser. Navigate to Resources > Templates and then open the "UTILITY / Snapshot Instance" job template. Here is what it looks like:
 
@@ -73,13 +73,13 @@ One think that's needs to be taken care of first is to remove the snapshots that
 
 ### Step 2 - Learn More About Convert2RHEL
 
-After launching the conversion job, the AAP Web UI will navigate automatically to the workflow job output page of the job we just started. This job will take up to 20 minutes to finish, so let's take this time to learn a little more about how the Convert2RHEL framework converts your EL OS to the associated RHEL major version.
+After launching the conversion job, the AAP Web UI will navigate automatically to the workflow job output page of the job we just started. This job will take up to 20 minutes to finish, so let's take this time to learn a little more about how the Convert2RHEL utility converts your EL OS to the associated RHEL major version.
 
-- Keep in mind that the Convert2RHEL framework is responsible only for converting the CentOS packages. Additional tasks required for upgrading your standard agents, tools, middleware, etc., need to be included in the conversion playbooks you develop to deal with the specific requirements of your organization's environment.
+- Keep in mind that the Convert2RHEL utility is responsible only for converting the CentOS packages. Additional tasks required for upgrading your standard agents, tools, middleware, etc., need to be included in the conversion playbooks you develop to deal with the specific requirements of your organization's environment.
 
 ## Conclusion
 
-In this exercise, we launched a workflow job template to create snapshots and start the conversions of our CentOS app servers. We learned more about the Convert2RHEL framework to better understand what is happening as the CentOS systems are being converted.
+In this exercise, we launched a workflow job template to create snapshots and start the conversions of our CentOS app servers. We learned more about the Convert2RHEL utility to better understand what is happening as the CentOS systems are being converted.
 
 In the next exercise, we'll learn more about how snapshots work.
 

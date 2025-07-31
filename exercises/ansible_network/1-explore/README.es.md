@@ -1,6 +1,6 @@
 # Ejercicio 1 - Explorando el entorno de laboratorio
 
-**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
 ## Índice
 
@@ -260,7 +260,7 @@ Pulsa la tecla **Esc** para subir un nivel o para hacer zoom en una máquina en 
 
 ### Paso 8 - Connectándose a dispositivos de red
 
-Hay 4 enrutadores llamados rtr1, rtr2, rtr3 y rtr4. El diagrama de red está siempre disponible en [network automation workshop table of contents](../README.md). El fichero de configuración de SSH (`~/.ssh/config`) está ya configurado en el nodo de control. Es decir, puedes hacer SSH a cualquier enrutador desde el nodo de control sin necesidad de login:
+Hay 4 enrutadores llamados rtr1, rtr2, rtr3 y rtr4. El diagrama de red está siempre disponible en [network automation workshop table of contents](../README.fr.md). El fichero de configuración de SSH (`~/.ssh/config`) está ya configurado en el nodo de control. Es decir, puedes hacer SSH a cualquier enrutador desde el nodo de control sin necesidad de login:
 
 Por ejemplo, conectate a rtr1 desde el nodo de control de Ansible haciendo:
 

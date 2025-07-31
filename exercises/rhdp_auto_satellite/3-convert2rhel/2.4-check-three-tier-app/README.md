@@ -44,7 +44,7 @@ This should take ~15 seconds to complete.
 
 In [Exercise 2.2](../2.2-snapshots/README.md), we considered the potential pitfalls of including app data in the scope of our snapshot. Imagine what would happen if your app at first appeared fine after the conversion, but an issue was later discovered after the app had been returned to production use.
 
-- Wait at least one minute since running the previous smoke test job template and add a new table to the database via an additional run of of the **CONVERT2RHEL / 99 - Three Tier App smoke test** job template. Check the job template output for a task _similar_ to this, typically the last task in the job run:
+- Wait at least one minute since running the previous smoke test job template and add a new table to the database via an additional run of the **CONVERT2RHEL / 99 - Three Tier App smoke test** job template. Check the job template output for a task _similar_ to this, typically the last task in the job run:
 
 `TASK [Fail if database db01 did not contain table 06-06-2024-04-01]`
 

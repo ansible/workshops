@@ -6,7 +6,7 @@
   - [Table of Contents](#table-of-contents)
   - [Objectives](#objectives)
   - [Guide](#guide)
-    - [Step 1 - What are Snapshots and What are They Not](#step-1---what-are-snapshots-and-what-are-they-not)
+    - [Step 1 - What are Snapshots and What are They Not](#step-1---what-are-snapshots-and-what-they-are-not)
     - [Step 2 - Assessing Different Snapshot Solutions](#step-2---assessing-different-snapshot-solutions)
       - [LVM](#lvm)
       - [VMware](#vmware)
@@ -50,7 +50,7 @@ There are a number of different types of snapshot solutions you may choose from.
 
 | Snapshot type | Works with | Benefits | Drawbacks |
 | ------------- | ---------- | -------- | --------- |
-| LVM |<ul><li>Bare metal</li><li>On-prem VMs</li><li>Cloud*</li></ul>|<ul><li>No external API access required</li><li>Scope can be just OS or everything</li></ul>|<ul><li>Free space required in volume group</li>Snapshots can run out of space if not sized correctly</li><li>Automation must backup and restore /boot separately</ul>|
+| LVM |<ul><li>Bare metal</li><li>On-prem VMs</li><li>Cloud*</li></ul>|<ul><li>No external API access required</li><li>Scope can be just OS or everything</li></ul>|<ul><li>Free space required in volume group</li><li>Snapshots can run out of space if not sized correctly</li><li>Automation must backup and restore /boot separately</li></ul>|
 | VMware |<ul><li>On-prem VMs (ESX)</li></ul>|<ul><li>Simple and reliable</li><li>Scope includes everything</li></ul>|<ul><li>Doesn't support bare metal, etc.</li><li>Using VMware snapshot for over 3 days is discouraged</li><li>Getting API access can be difficult</li><li>No free space in datastores because of overcommitment</li><li>Everything scope might be too much</li></ul>|
 | Amazon EBS |<ul><li>Amazon EC2</li></ul>|<ul><li>Simple and reliable</li><li>Unlimited storage capacity</li><li>Scope can be just OS or everything</li></ul>|<ul><li>Only works on AWS</li></ul>|
 | Break Mirror |<ul><li>Bare metal</li></ul>|<ul><li>Alternative to LVM for servers with hardware RAID</li></ul>|<ul><li>Significant development and testing effort required</li><li>RAID and Redfish API standards vary across different vendors and hardware models</li></ul>|
@@ -66,9 +66,9 @@ The Logical Volume Manager (LVM) is a set of tools included in CentOS that provi
 >
 > The snapshot and rollback automation capability implemented for our workshop lab environment creates LVM snapshots managed using Ansible roles from the [`infra.lvm_snapshots`](https://github.com/swapdisk/infra.lvm_snapshots#readme) collection.
 
-Logical volumes are contained in a storage pool known as a volume group. The storage available in a volume group comes from one or more physical volumes, that is, block devices underlying actual disks or disk partitions. Typically, the logical volumes where the CentOS OS is installed will be in a "rootvg" volume group. If best practices are followed, applications and app data will be isolated in their own logicial volumes either in the same volume group or a separate volume group, "appvg" for example.
+Logical volumes are contained in a storage pool known as a volume group. The storage available in a volume group comes from one or more physical volumes, that is, block devices underlying actual disks or disk partitions. Typically, the logical volumes where the CentOS OS is installed will be in a "rootvg" volume group. If best practices are followed, applications and app data will be isolated in their own logical volumes either in the same volume group or a separate volume group, "appvg" for example.
 
-To create logical volume snapshots, there must be free space in the volume group. That is, the total size of the logical volumes in the volume group must be less than the total size of the volume group. The `vgs` command can be used query volume group free space. For example:
+To create logical volume snapshots, there must be free space in the volume group. That is, the total size of the logical volumes in the volume group must be less than the total size of the volume group. The `vgs` command can be used to query volume group free space. For example:
 
 ```
 # vgs
@@ -98,7 +98,7 @@ In our experience, having this access granted can be extremely challenging. The 
 
 The VMware team may resist supporting snapshots because of limited storage space. While standard VMDK files are fixed in size, COW snapshots will grow over time and require careful monitoring with data stores in VMware environments often running tight on capacity.
 
-Another justification for pushing back on supporting automated snapshots will be the VMware vendor recommendation that snapshots should never be used for more than 72 hours (see KB article [Best practices for using VMware snapshots in the vSphere environment](https://kb.vmware.com/s/article/1025279)). Unfortunately, app teams usually need more than 3 days of soak time before they are comfortable that no impact to their apps has resulted from a CentOS conversion.
+Another justification for pushing back on supporting automated snapshots will be the VMware vendor recommendation that snapshots should never be used for more than 72 hours (see KB article [Best practices for using VMware snapshots in the vSphere environment](https://knowledge.broadcom.com/external/article/318825/best-practices-for-using-vmware-snapshot.html)). Unfortunately, app teams usually need more than 3 days of soak time before they are comfortable that no impact to their apps has resulted from a CentOS conversion.
 
 VMware snapshots work great when they can be automated. If you are considering this option, engage early with the team that controls the VMware environment for your organization and be prepared for potential resistance.
 
@@ -128,7 +128,7 @@ Refer to the [Relax-and-Recover (ReaR) User Guide Documentation](https://relax-a
 
 ### Step 3 - Snapshot Scope
 
-A best practice for allocating the local storage of servers is to configure volumes that separate the OS from the apps and app data. For example, the OS filesystems would be under a "rootvg" volume group while the apps and app data would be in an "appvg" volume group or at least in their own dedicated logical volumes. This separation helps isolate the storage usage requirements of these two groups so they can be manged based on their individual requirements and are less likely to impact each other. For example, the backup profile for the OS is likely different than for the apps and app data.
+A best practice for allocating the local storage of servers is to configure volumes that separate the OS from the apps and app data. For example, the OS filesystems would be under a "rootvg" volume group while the apps and app data would be in an "appvg" volume group or at least in their own dedicated logical volumes. This separation helps isolate the storage usage requirements of these two groups so they can be managed based on their individual requirements and are less likely to impact each other. For example, the backup profile for the OS is likely different than for the apps and app data.
 
 This practice helps to enforce a key tenet of the CentOS conversion approach: that is that the OS conversion should leave the applications untouched with the expectation that system library forward compatibility and middleware runtime abstraction reduces the risk of the CentOS to RHEL conversion impacting app functionality.
 

@@ -10,7 +10,6 @@ body:
       options:
         - Ansible Red Hat Enterprise Linux Workshop
         - Ansible Network Automation Workshop
-        - Ansible F5 Workshop
         - Ansible Security Automation
         - Ansible Windows Automation Workshop
         - RHEL In-place Upgrade Automation Workshop

@@ -1,8 +1,8 @@
 # Ejercicio 4: Módulos de recursos de red de Ansible
 
-**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md)
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
-If you are using an **all Cisco workbench** (all four routers are Cisco IOS routers) please [switch to these directions](../supplemental/4-resource-module-cisco/README.md).
+If you are using an **all Cisco workbench** (all four routers are Cisco IOS routers) please [switch to these directions](../supplemental/4-resource-module-cisco/README.fr.md).
 
 ## Índice
 
@@ -155,7 +155,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
     * gathered
     * parsed
 
-    Sólo dos de estos valores se cubrirán en este ejercicio, pero se pueden ver más en los [ejercicios complementarios](../supplemental/README.md).
+    Sólo dos de estos valores se cubrirán en este ejercicio, pero se pueden ver más en los [ejercicios complementarios](../supplemental/README.fr.md).
   * `config:` configuración VLAN propuesta. Es una lista de diccionarios. Lo más importante a recordar es que si el módulo ha cambiado de `arista.eos.vlans` a `junipernetworks.junos.vlans` funcionará de manera idéntica. Esto permitirá a los ingenieros de red enfocarse en la red en sí (ej. configuración VLAN) en vez de en la sintáxis del fabricante y su implementación.
 
 ### Paso 4 - Ejecutar el Playbook de Ansible
@@ -334,7 +334,7 @@ El playbook de Ansible completo se puede obtener aquí:
 
 ¡Felicidades, has completado el ejercicio de laboratorio 4!
 
-Tal y como se explicó anteriormente, sólo dos de los parámetros de los módulos de recursos han sido cubiertos en este ejercicio, pero hay ejercicios adicionales en [ejercicios adicionales](../supplemental/README.md).
+Tal y como se explicó anteriormente, sólo dos de los parámetros de los módulos de recursos han sido cubiertos en este ejercicio, pero hay ejercicios adicionales en [ejercicios adicionales](../supplemental/README.fr.md).
 
 En el siguiente ejercicio empezaremos a utilizar el controlador de automatización (Automation controller).
 

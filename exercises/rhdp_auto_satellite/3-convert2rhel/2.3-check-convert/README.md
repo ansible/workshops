@@ -17,7 +17,7 @@
 
 ## Guide
 
-In the previous exercises, we reviewed pre-conversion analyis reports, as well as reviewing the potential for incorporating remediations. After all of that, you finally launched the Ansible workflow that initiated jobs with corresponding playbooks to run the CentOS conversions on your servers.
+In the previous exercises, we reviewed pre-conversion analysis reports, as well as reviewing the potential for incorporating remediations. After all of that, you finally launched the Ansible workflow that initiated jobs with corresponding playbooks to run the CentOS conversions on your servers.
 
 It's time to verify the results of the conversions and let our application team assess if their three tier application stack is in working order. We are here in our CentOS in-place conversion automation workflow:
 
@@ -51,13 +51,13 @@ The first thing we want to do is see if the job running the conversion playbook 
 
   If there are no failed runs, the CentOS in-place conversion is complete on all of our application servers.
 
-### Step 2 - Verify the Hosts are Upgraded to Next RHEL Version
+### Step 2 - Verify the Hosts are Converted to Next RHEL Version
 
 Now let's make sure our application servers have actually converted to RHEL.
 
-- In [Exercise 1.3: Step 2](../1.3-report/README.md#step-2---navigating-the-rhel-web-console), you used the RHEL Web Console to check the installed CentOS versions on your application servers. Let's repeat those steps to see the RHEL versions reported after our conversions.
+- In [Exercise 1.4: Step 2](../1.4-report/README.md#step-2---navigating-the-centos-web-console), you used the CentOS Web Console to check the installed CentOS versions on your application servers. Let's repeat those steps to see the RHEL versions reported after our conversions.
 
-  Return to your RHEL Web Console browser tab and use the remote host menu to navigate to the web consoles of each of your application servers. The RHEL Web Console system overview page should now show the converted versions.
+  Return to your Web Console browser tab and use the remote host menu to navigate to the web consoles of each of your application servers. The Web Console system overview page should now show the converted versions.
 
   > **Note**
   >
@@ -69,7 +69,7 @@ Now let's make sure our application servers have actually converted to RHEL.
 
 - Additionally, if you recorded the `Asset Tag` and `Machine ID`, note that they are the same, serving as verification that this is indeed the same system that was previously operating with CentOS 7.
 
-- You can also check the RHEL and kernel versions from the command line following the steps you used with [Exercise 1.4: Step 2](../1.4-report/README.md###step-3---review-convert2rhel-pre-conversion-report-of-centos-7-host).
+- You can also check the RHEL and kernel versions from the command line following the steps you used with [Exercise 1.4: Step 3](../1.4-report/README.md#step-3---review-convert2rhel-pre-conversion-report-of-centos-7-host).
 
   At the shell prompt of your application servers, use the `cat /etc/redhat-release` and `uname -r` commands. Here's an example showing that application server `node4` was converted to RHEL 7:
 

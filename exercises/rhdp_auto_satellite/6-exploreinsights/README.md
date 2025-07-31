@@ -19,13 +19,13 @@ This exercise is much less prescriptive and is designed to provide the student w
 
 -   Login to console.redhat.com using portal account credentials - https://console.redhat.com
 
--   Select Red Hat Enterprise Linux -> Red Hat Insights
+-   Select Services -> Red Hat Enterprise Linux
 
--   This will bring you to the Overview page which depicts a dashboard of the hosts that are registered to Insights
+-   This will bring you to the Dashboard page which provides an overview of the hosts that are registered to Insights
 
     - Explore this dashboard noting that each box addresses an Insights Service
 
--   Click on Inventory
+-   On the left side menu, click on Inventory -> Systems
 
     - Note that the hosts registered during the `Z / SETUP / Insights` workflow template job run are present at the top of the list
 
@@ -42,7 +42,10 @@ This exercise is much less prescriptive and is designed to provide the student w
 
 - Let's now look at all hosts associated with a Service.  In this example let's use Vulnerability service
 
-    - On the left hand navigation pane click on Vulnerability -> CVEs.  This view will show the vulnerabilities for all systems registered to Red Hat Insights
+    - On the left hand navigation pane click on Security -> Vulnerability -> CVEs.  This view will show the vulnerabilities for all systems registered to Red Hat Insights
+
+> NOTE
+> - Over time, the CVEs with known exploits, CVEs with security rules, CVEs with critical severity, and CVEs with important severity will all vary as updates are applied to the registered systems, the screenshot displayed is for example purposes only and will differ from your dashboard.
 
 ![account-vulnerability-information](images/5-exploreinsights-account-vulnerabilities.png)
 

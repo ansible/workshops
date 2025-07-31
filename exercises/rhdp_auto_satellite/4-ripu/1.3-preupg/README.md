@@ -51,7 +51,7 @@ After the analysis phase is done and the report indicates acceptable risk, a mai
 
 #### Commit
 
-If there are any application impacts discovered that can't be easily corrected within the scheduled maintenance window, the decision can be made to undo the upgrade by rolling back the snapshot. This will revert all changes and return the host back to the previous RHEL version. If there are no issues immediately found, the commit phase begins. During the commit phase, the host can be returned to normal operation while keeping the snapshot just in case any issues are uncovered later. <!-- This is LVM specific: However, while the snapshots are kept, regular disk writes to the rootvg volume group will continue to consume the free space allocated to the snapshots. The amount of time this takes will depend on the amount of free space initially available and the volume of write i/o activity to the rootvg volume group. Before the snapshot space is exhausted, the snapshots must be deleted and then there is no turning back. --> After everyone is comfortable with the upgraded host, the commit playbook should be executed to delete the snapshot. The RHEL in-place upgrade is done.
+If there are any application impacts discovered that can't be easily corrected within the scheduled maintenance window, the decision can be made to undo the upgrade by rolling back the snapshot. This will revert all changes and return the host back to the previous RHEL version. If there are no issues immediately found, the commit phase begins. During the commit phase, the host can be returned to normal operation while keeping the snapshot just in case any issues are uncovered later. <!-- This is LVM specific: However, while the snapshots are kept, regular disk writes to the rootvg volume group will continue to consume the free space allocated to the snapshots. The amount of time this takes will depend on the amount of free space initially available and the volume of write i/o activity to the rootvg volume group. Before the snapshot space is exhausted, the snapshots must be deleted and then there is no turning back. --> After everyone is comfortable with the upgraded host, the commit playbook should be executed to delete the snapshot. The RHEL in-place upgrade is complete.
 
 #### Let's Get Started
 
@@ -63,7 +63,7 @@ As we progress through the workshop, we'll refer back to this diagram to track w
 
 ![Automation approach workflow diagram with analysis step highlighted](images/ripu-workflow-hl-analysis.svg)
 
-The first step in upgrading our pet app hosts will be executing the analysis playbook to generate the Leapp pre-upgrade report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
+The first step in upgrading our three tier stack hosts will be executing the analysis playbook to generate the Leapp pre-upgrade report for each host. To do this, we will use the Ansible Automation Platform (AAP) automation controller host that has been pre-configured in your workshop lab environment.
 
 - Return to the AAP Web UI browser tab you opened in step 3 of the previous exercise. Navigate to Resources > Templates by clicking on "Templates" under the "Resources" group in the navigation menu. This will bring up a list of job templates that can be used to run playbook jobs on target hosts.
 
@@ -99,7 +99,7 @@ The first step in upgrading our pet app hosts will be executing the analysis pla
 
   !["OS / Patch OS to latest" job output](images/patch_os_job_output.png)
 
-- With a successful job completion, we are ready to proceed with the pre-upgrade OS analysis.
+- With a successful job completion, we are ready to proceed with the pre-upgrade OS analysis (or if you feel a post upgrade smoke test is called for, please go ahead and do that before continuing).
 
   !["LEAPP / 01 Analysis" job template seen on AAP Web UI](images/analysis_template.png)
 

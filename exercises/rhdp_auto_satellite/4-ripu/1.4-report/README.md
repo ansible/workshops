@@ -92,7 +92,7 @@ Now let's take a look at the report from one of our RHEL7 hosts.
   - Manually enable the relevant repository and install the packages after the in-place upgrade is finished; OR
   - Execute leapp with the --enablerepo option with the relevant repository during the in-place upgrade as below
 
-  We can always add follow-up automation that takes care of the package updates post upgrade. And the second option assumes we are manually running the `leapp` command. In an upcoming exercise, we'll explore how this option can be given by setting a variable when submitting the upgrade playbook job. However,the Leapp engineering team most likely has good reason for excluding certain repositories during the upgrade process, so most likely we would want to proceed with option one.
+  We can always add follow-up automation that takes care of the package updates post upgrade. And the second option assumes we are manually running the `leapp` command. In an upcoming exercise, we'll explore how this option can be specified by setting a variable when submitting the upgrade playbook job. However, the Leapp engineering team most likely has good reason for excluding certain repositories during the upgrade process, so most likely we would want to proceed with option one.
 
 - The next high risk entry on the list is the "Difference in Python versions and support in RHEL8" finding:
 
@@ -126,7 +126,7 @@ Now let's take a look at the report from one of our RHEL7 hosts.
 
   ![Details view of postgresql detection](images/postgresql_detection.png)
 
-  Details from the finding listing state: "PostgreSQL server component will be upgraded. Since RHEL-8 includes PostgreSQL server 10 by default, which is incompatible with 9.2 included in RHEL-7, it is necessary to proceed with additional steps for the complete upgrade of the PostgreSQL data."
+  Details from the finding listing state: "PostgreSQL server component will be upgraded. Since RHEL 8 includes PostgreSQL server 10 by default, which is incompatible with 9.2 included in RHEL 7, it is necessary to proceed with additional steps for the complete upgrade of the PostgreSQL data."
 
   Remediation recommendation in the listing states: "Back up your data before proceeding with the upgrade and follow steps in the documentation section 'Migrating to a RHEL 8 version of PostgreSQL' after the upgrade."
 

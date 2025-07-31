@@ -1,22 +1,24 @@
 # Ejercicio 7: Crear una Encuesta (Survey)
 
-**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md).
+**Leálo en otros idiomas**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Español](https://github.com/ansible/workshops/raw/devel/images/es.png) [Español](README.es.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
 ## Índice
 
-* [Objetivo](#objetivo)
-* [Guía](#guía)
-   * [Paso 1: Crear una plantilla de trabajo](#Paso-1-crear-una-plantilla-de-trabajo)
-   * [Paso 2: Examinar el playbook](#Paso-2-examinar-el-playbook)
-   * [Paso 3: Crear una encuesta o survey](#Paso-3-crear-una-encuesta-survey)
-   * [Paso 4: Ejecutar una plantilla de trabajo](#Paso-4-ejecutar-una-plantilla-de-trabajo)
-   * [Paso 5: Verificar la mensaje de bienvenida o banner](#Paso-5-verificar-la-mensaje de bienvenida-o-banner)
-* [Consejos a recordar](#consejos-a-recordar)
-* [Completado](#completado)
+- [Ejercicio 7: Crear una Encuesta (Survey)](#ejercicio-7-crear-una-encuesta-survey)
+  - [Índice](#índice)
+  - [Objetivo](#objetivo)
+  - [Guía](#guía)
+    - [Paso 1: Crear una plantilla de trabajo](#paso-1-crear-una-plantilla-de-trabajo)
+    - [Paso 2: Examinar el playbook](#paso-2-examinar-el-playbook)
+    - [Paso 3: Crear una Encuesta o Survey](#paso-3-crear-una-encuesta-o-survey)
+    - [Paso 4: Ejecutar una plantilla de trabajo](#paso-4-ejecutar-una-plantilla-de-trabajo)
+    - [Paso 5: Verificar la mensaje de bienvenida o banner](#paso-5-verificar-la-mensaje-de-bienvenida-o-banner)
+  - [Consejos a recordar](#consejos-a-recordar)
+  - [Completado](#completado)
 
 ## Objetivo
 
-Demostrar el uso de la [funcionalidad encuesta o survey](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html#surveys) del controlador de Automatización. Las encuestas (o surveys) configuran las variables extra para un playbook de forma similar a como el ‘Prompt for Extra Variables’ lo hace, pero de una manera amigable de pregunta y respuesta para el usuario. Las encuestas (o surveys) también proveen de validación de entrada de usuario.
+Demostrar el uso de la [funcionalidad encuesta o survey](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/controller-job-templates#controller-surveys-in-job-templates) del controlador de Automatización. Las encuestas (o surveys) configuran las variables extra para un playbook de forma similar a como el ‘Prompt for Extra Variables’ lo hace, pero de una manera amigable de pregunta y respuesta para el usuario. Las encuestas (o surveys) también proveen de validación de entrada de usuario.
 
 ## Guía
 
@@ -212,6 +214,6 @@ Has probado existosamente lo siguiente:
 ¡Felicidades, has completado el ejercicio de laboratorio 7!
 
 ---
-[Ejercicio Anterior](../6-controller-job-template/README.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
+[Ejercicio Anterior](../6-controller-job-template/README.fr.md) | [Próximo ejercicio](../8-controller-rbac/README.es.md)
 
 [Haz click aquí para volver al taller Ansible Network Automation](../README.es.md)

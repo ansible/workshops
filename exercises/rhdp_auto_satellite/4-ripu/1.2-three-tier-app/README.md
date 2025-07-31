@@ -23,13 +23,13 @@
 
 This use-case will focus on the in-place upgrade of RHEL to the next major version while maintaining a 3 tier application stack (do no harm). We will utilize an additional project in Ansible Automation Platform, "Three Tier App / Prod", which will allow us to install a three tier application stack, consisting of HAProxy, Tomcat, and PostgreSQL, across the three RHEL nodes. Additionally, the project also provides a means to test/verify functionality of the application components, which we will perform before and after RHEL in-place upgrades.
 
-| Role                     | Inventory name | 
-| -------------------------| ---------------|
-| Automation controller    | ansible-1      |
-| Satellite Server         | satellite      |
-| RHEL Host 1 - HAProxy    | node1          |
-| RHEL Host 2 - Tomcat     | node2          |
-| RHEL Host 3 - PostgreSQL | node3          |
+| Role                                   | Inventory name |
+| ---------------------------------------| ---------------|
+| Ansible Automation Platform controller | ansible-1      |
+| Satellite Server                       | satellite      |
+| RHEL Host 1 - HAProxy                  | node1          |
+| RHEL Host 2 - Tomcat                   | node2          |
+| RHEL Host 3 - PostgreSQL               | node3          |
 
 | **A Note about using Satellite vs. Ansible Automation Platform for this...**<br>  |
 | ------------- |

@@ -48,13 +48,122 @@ While COW snapshots are not a substitute for traditional full and incremental ba
 
 There are a number of different types of snapshot solutions you may choose from. Each has their own benefits and drawbacks as summarized in the table below:
 
-| Snapshot type | Works with | Benefits | Drawbacks |
-| ------------- | ---------- | -------- | --------- |
-| LVM |<ul><li>Bare metal</li><li>On-prem VMs</li><li>Cloud*</li></ul>|<ul><li>No external API access required</li><li>Scope can be just OS or everything</li></ul>|<ul><li>Free space required in volume group</li>Snapshots can run out of space if not sized correctly</li><li>Automation must backup and restore /boot separately</ul>|
-| VMware |<ul><li>On-prem VMs (ESX)</li></ul>|<ul><li>Simple and reliable</li><li>Scope includes everything</li></ul>|<ul><li>Doesn't support bare metal, etc.</li><li>Using VMware snapshot for over 3 days is discouraged</li><li>Getting API access can be difficult</li><li>No free space in datastores because of overcommitment</li><li>Everything scope might be too much</li></ul>|
-| Amazon EBS |<ul><li>Amazon EC2</li></ul>|<ul><li>Simple and reliable</li><li>Unlimited storage capacity</li><li>Scope can be just OS or everything</li></ul>|<ul><li>Only works on AWS</li></ul>|
-| Break Mirror |<ul><li>Bare metal</li></ul>|<ul><li>Alternative to LVM for servers with hardware RAID</li></ul>|<ul><li>Significant development and testing effort required</li><li>RAID and Redfish API standards vary across different vendors and hardware models</li></ul>|
-| ReaR |<ul><li>Bare metal</li><li>On-prem VMs</li></ul>|<ul><li>Method of last resort if no snapshot options will work</li></ul>|<ul><li>Not really a snapshot, but does offer boot ISO full recovery capability</li></ul>|
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Snapshot type</th>
+      <th>Works with</th>
+      <th>Benefits</th>
+      <th>Drawbacks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>LVM</td>
+      <td>
+        <ul>
+          <li>Bare metal</li>
+          <li>On-prem VMs</li>
+          <li>Cloud*</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>No external API access required</li>
+          <li>Scope can be just OS or everything</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Free space required in volume group</li>
+          <li>Snapshots can run out of space if not sized correctly</li>
+          <li>Automation must backup and restore /boot separately</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>VMware</td>
+      <td>
+        <ul>
+          <li>On-prem VMs (ESX)</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Simple and reliable</li>
+          <li>Scope includes everything</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Doesn't support bare metal, etc.</li>
+          <li>Using VMware snapshot for over 3 days is discouraged</li>
+          <li>Getting API access can be difficult</li>
+          <li>No free space in datastores because of overcommitment</li>
+          <li>Everything scope might be too much</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Amazon EBS</td>
+      <td>
+        <ul>
+          <li>Amazon EC2</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Simple and reliable</li>
+          <li>Unlimited storage capacity</li>
+          <li>Scope can be just OS or everything</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Only works on AWS</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Break Mirror</td>
+      <td>
+        <ul>
+          <li>Bare metal</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Alternative to LVM for servers with hardware RAID</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Significant development and testing effort required</li>
+          <li>RAID and Redfish API standards vary across different vendors and hardware models</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>ReaR</td>
+      <td>
+        <ul>
+          <li>Bare metal</li>
+          <li>On-prem VMs</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Method of last resort if no snapshot options will work</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Not really a snapshot, but does offer boot ISO full recovery capability</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 The following sections explain the pros and cons in detail.
 
@@ -70,7 +179,7 @@ Logical volumes are contained in a storage pool known as a volume group. The sto
 
 To create logical volume snapshots, there must be free space in the volume group. That is, the total size of the logical volumes in the volume group must be less than the total size of the volume group. The `vgs` command can be used query volume group free space. For example:
 
-```
+```bash
 # vgs
   VG         #PV #LV #SN Attr   VSize  VFree
   VolGroup00   1   7   0 wz--n- 29.53g 9.53g
@@ -134,11 +243,48 @@ This practice helps to enforce a key tenet of the RHEL in-place upgrade approach
 
 With these concepts in mind, let's consider if we want to include the apps and app data in what gets rolled back if we need to revert the RHEL upgrade:
 
-| Snapshot scope | Benefits | Drawbacks |
-| -------------- | -------- | --------- |
-| OS only |<ul><li>Simplifies storage requirements</li><li>Preserves isolation of OS changes from apps and app data</li><li>Reduces risk of rolling back impacting external apps</li></ul>|<ul><li>Probably not possible with VMware snapshots</li><li>Discipline required to avoid temptation of trying quick app changes to fix impacts</li></ul>|
-| OS and apps/data |<ul><li>Reduces risk if trying to fix app impact during maintenance window</li><li>Helpful if app impact could lead to app data corruption</li></ul>|<ul><li>More storage space required</li><li>Rolling back app data could impact external systems</li></ul>|
-
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Snapshot scope</th>
+      <th>Benefits</th>
+      <th>Drawbacks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OS only</td>
+      <td>
+        <ul>
+          <li>Simplifies storage requirements</li>
+          <li>Preserves isolation of OS changes from apps and app data</li>
+          <li>Reduces risk of rolling back impacting external apps</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Probably not possible with VMware snapshots</li>
+          <li>Discipline required to avoid temptation of trying quick app changes to fix impacts</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>OS and apps/data</td>
+      <td>
+        <ul>
+          <li>Reduces risk if trying to fix app impact during maintenance window</li>
+          <li>Helpful if app impact could lead to app data corruption</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>More storage space required</li>
+          <li>Rolling back app data could impact external systems</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 When snapshots only include the upgraded OS volumes, the best practice of isolating OS changes from app changes is followed. In this case, it is important to resist the temptation to make some heroic app changes in an attempt to avoid rolling back in the face of application impact after a RHEL upgrade. For the sake of safety and soundness, gather the evidence required to help understand what caused any app impact, but then do a rollback. Don't make any app changes that could be difficult to untangle after rolling back the OS.
 
 Unfortunately, a VMware snapshot saves the full state of a VM instance including all virtual disks irrespective of whether they contain OS or app data. This can prove challenging for a couple reasons. First, more storage space will be required for the snapshots and it is more difficult to anticipate how much snapshot growth will result because of app data activity. The other problem is that rolling back app data may result in the app state becoming out of sync with external systems leading to unpredictable issues. When rolling back app data for any reason, be aware of the potential headaches that may result.

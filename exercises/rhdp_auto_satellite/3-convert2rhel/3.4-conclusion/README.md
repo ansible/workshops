@@ -40,9 +40,9 @@ With these exercises, you gained hands-on experience while learning about a pres
 
 Hopefully, these exercises have opened your eyes to what is possible, but we have just scratched the surface.
 
-- Is it possible to convert/upgrade from CentOS7 directly to RHEL8 or RHEL9? While the Convert2RHEL and Leapp frameworks do not support a "conversion plus upgrades" directly, it is possible to take a host that was converted from CentOS7 to RHEL7 and then upgrade from there to RHEL8 and, if desired, upgrade onwards to RHEL 9. You can follow this path in this workshop via the next exercise in this workshop series, **Automated Satellite Workshop: RHEL In-place Upgrade Automation exercise**
+- Is it possible to convert/upgrade from CentOS7 directly to RHEL8 or RHEL9? While the Convert2RHEL and Leapp frameworks do not support a "conversion plus upgrades" directly, it is possible to take a host that was converted from CentOS7 to RHEL7 and then upgrade from there to RHEL8 and, if desired, upgrade onwards to RHEL 9. You can follow this path in this workshop via the next exercise in this workshop series, [Automated Satellite Workshop: RHEL In-place Upgrade Automation exercise](../../4-ripu/README.md).
 
-  There are a couple things to be aware of if you want to continue through to the RHEL In Place Upgrade content. If you stepped through the conversion rollback exercise, you will have to perform the conversion again and then verify the conversion as successful. You will then need to run the `SATELLITE / Change content source for content host` and select `CentOS7_Dev` for the inventory group and `RHEL7_Dev` for the target lifecycle environment.
+  There are a couple things to be aware of if you want to continue through to the RHEL In-Place Upgrade content. If you stepped through the conversion rollback exercise, you will have to perform the conversion again and then verify the conversion as successful. You will then need to run the `SATELLITE / Change content source for content host` and select `CentOS7_Dev` for the inventory group and `RHEL7_Dev` for the target lifecycle environment.
   
     ![Satellite Change content source for content host](images/content_host_change_source_survey.png)
 
@@ -60,7 +60,7 @@ All of the Ansible roles and playbooks used in this workshop are maintained in u
 
 #### [redhat-cop/infra.convert2rhel](https://github.com/redhat-cop/infra.convert2rhel)
 
-- The `infra.convert2rhel` Ansible collection provides the Ansible role that generates the pre-conversion analysis reports and another that is used to perform conversions for EL rebuild OS's. This collection serves as a framework around the Convert2RHEL utility for conversions from CentOS7, Oracle Linux 7 and more. The collection is published on Ansible Galaxy [here](https://galaxy.ansible.com/ui/repo/published/infra/convert2rhel/) and also available from Ansible Automation Hub validated content [here - Red Hat account required](https://console.redhat.com/ansible/automation-hub/repo/validated/infra/convert2rhel/). If you are planning to do EL conversions for your organization, these Ansible collections will help you quickly roll out proof-of-concept automation and start upgrading.
+- The `infra.convert2rhel` Ansible collection provides the Ansible role that generates the pre-conversion analysis reports and another that is used to perform conversions for EL rebuild OS's. This collection serves as a framework around the Convert2RHEL utility for conversions from CentOS7, Oracle Linux 7 and more. The collection is published on Ansible Galaxy [here](https://galaxy.ansible.com/ui/repo/published/infra/convert2rhel/) and also available from Ansible Automation Hub validated content [here - Red Hat account required](https://console.redhat.com/ansible/automation-hub/repo/validated/infra/convert2rhel/). If you are planning to do EL conversions for your organization, these Ansible collections will help you quickly roll out proof-of-concept automation and start converting.
 
 #### [redhat-partner-tech/automated-satellite](https://github.com/redhat-partner-tech/automated-satellite)
 

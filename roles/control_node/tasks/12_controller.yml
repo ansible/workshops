@@ -35,16 +35,14 @@
 
 - name: run the Automation Controller installer
   become: true
-  become_user: ec2-user
+  become_user: "{{ aap_install_user | default('ec2-user') }}"
   environment:
     ANSIBLE_COLLECTIONS_PATH: "{{ aap_dir }}/collections"
   shell: "{{ controller_install_command }}"
   args:
     chdir: "{{ aap_dir }}"
-  # timeout: 2400
   async: 3000
   poll: 15
-
 
 - name: wait for Automation Controller to be up
   ansible.builtin.uri:

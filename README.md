@@ -1,279 +1,324 @@
-# Ansible Automation Technical Workshops
+# Ansible Automation Technical Labs & Workshops
 
-**Read this in other languages**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語](README.ja.md)
-
-The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced exercises.
+The Red Hat Ansible Automation Workshops project is intended for effectively demonstrating Ansible's capabilities through instructor-led workshops or self-paced labs.
 
 <div id="website_explanation">
 <h1>Website</h1>
 
-- <a href="http://aap2.demoredhat.com">http://aap2.demoredhat.com</a> - Please use the website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).
+- <a href="http://labs.demoredhat.com">http://labs.demoredhat.com</a> - Please use the website which is rendered automatically from markdown files using [Github Pages](https://pages.github.com/).
 </div>
 
 <div class="table-of-contents">
-  <h2>Workshop Catalog</h2>
+  <h2>Demos</h2>
   <ul>
-    <li><a href="#90_minute_sectin">90 Minute Workshops</a></li>
-    <li><a href="#4_hour_section">4 Hour Workshops</a></li>
-    <li><a href="#6_hour_section">6 Hour Workshops</a></li>
-    <li><a href="#product_demos_section">Product Demos</a></li>
-    <li><a href="#arcade_section">Click-through demo</a></li>
+    <li><a href="#ai_section">AI</a></li>
+    <li><a href="#openshift_virt_section">OpenShift Virt</a></li>
+    <li><a href="#it_automation_section">IT Automation</a></li>
+    <li><a href="#cloud_section">Cloud</a></li>
+    <li><a href="#developer_section">Developer</a></li>
   </ul>
 </div>
 
-<h1 id="90_minute_sectin">90 minute workshops</h1>
+<h1 id="ai_section">AI</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/ansible_rhel_90" class="data-card">
-    <h3>RHEL 90</h3>
-    <h4>Ansible Red Hat Enterprise Linux Workshop</h4>
-    <p>Focused on automating Linux platforms like Red Hat Enterprise Linux</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/uDQwrwoTItuESXBJEQFK" class="data-card">
+    <h3>Infrastructure AI</h3>
+    <h4>AI infrastructure automation</h4>
+    <p>Standarize AI infrastructure operations</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="./exercises/instruqt/eda" class="data-card">
-    <h3>EDA</h3>
-    <h4>Event-Driven Ansible Technical Workshop</h4>
-    <p>Covers EDA fundamentals such as sources, rules, and actions</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/R3CN8TSwRGf2i4RPHbKc" class="data-card">
+    <h3>Ansible Lightspeed Intelligent Assistant</h3>
+    <h4>Use the AI powered chat assistant</h4>
+    <p>The Ansible administrator who never takes a day off</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="exercises/instruqt/ansible-cloud-lab" class="data-card">
-    <h3>Cloud</h3>
-    <h4>Introduction to cloud automation</h4>
-    <p>Focused on how to orchestrate, operationalize and govern your hybrid cloud environments</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/kCuEEAIeU2a8plQcDALz" class="data-card">
+    <h3>Unlocking AIOps</h3>
+    <h4>Use AI within IT operation workflows</h4>
+    <p>Red Hat Ansible Automation Platform unlocks AIOps</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="exercises/instruqt/lightspeed" class="data-card">
-    <h3>Lightspeed</h3>
-    <h4>Ansible Lightspeed and Development Technical Workshop</h4>
-    <p>Focused on the Ansible automation engineer or application developer. </p>
-    <span class="link-text">
-      Lab Page
-      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
-</svg>
-    </span>
-  </a>
-  <a target="_new" href="exercises/instruqt/network" class="data-card">
-    <h3>Network</h3>
-    <h4>Getting Started with Network Automation</h4>
-    <p>Focused on Ansible Automation with respect to routers and switches. </p>
-    <span class="link-text">
-      Lab Page
-      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
-</svg>
-    </span>
-  </a>
-  <a target="_new" href="exercises/instruqt/servicenow" class="data-card">
-    <h3>ServiceNow</h3>
-    <h4>Getting Started with ServiceNow Automation</h4>
-    <p>Focused on using Ansible Automation in conjunction with an IT Service Management (ITSM) tool</p>
-    <span class="link-text">
-      Lab Page
-      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
-</svg>
-    </span>
-  </a>
-  <a target="_new" href="exercises/instruqt/windows" class="data-card">
-    <h3>Windows</h3>
-    <h4>Getting Started with Windows Automation</h4>
-    <p>Focused on using Ansible Automation for automating tasks on a Windows host.</p>
-    <span class="link-text">
-      Lab Page
-      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
-</svg>
-    </span>
-  </a>
-  <a target="_new" href="exercises/instruqt/aapcasc" class="data-card">
-    <h3>CaC</h3>
-    <h4>CaC for Ansible Automation Platform</h4>
-    <p>Focused on Configuration as Code for Ansible Automation Platform.</p>
-    <span class="link-text">
-      Lab Page
-      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
-</svg>
-    </span>
-  </a>
+<!-- lab -->
 </section>
 
-
-<h1 id="4_hour_section">4 hour workshops</h1>
+<h1 id="openshift_virt_section">OpenShift Virt</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/instruqt/eda-4" class="data-card">
-    <h3>EDA</h3>
-    <h4>Event-Driven Ansible Technical Workshop</h4>
-    <p>Covers EDA fundamentals such as sources, rules, and actions</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/nOMqJgJKjLnHrJTNzwne" class="data-card">
+    <h3>Scaling VM Migration</h3>
+    <h4>Automate VM migrations with Ansible</h4>
+    <p>Scale VM migration to OpenShift with AAP</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="exercises/instruqt/lightspeed-4" class="data-card">
-    <h3>Lightspeed</h3>
-    <h4>Ansible Lightspeed and Development Technical Workshop</h4>
-    <p>Focused on the Ansible automation engineer or application developer. </p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/Ce4FwI060iaYltYJYLHq" class="data-card">
+    <h3>Inventory Mangement</h3>
+    <h4>Effortless inventory management</h4>
+    <p>Save time and adapt quickly to changes</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="exercises/instruqt/aapcasc-4" class="data-card">
-    <h3>CaC</h3>
-    <h4>CaC for Ansible Automation Platform</h4>
-    <p>Focused on Configuration as Code for Ansible Automation Platform.</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/NHQztyi9saczG39JyMdz" class="data-card">
+    <h3>Patching RHEL VMs</h3>
+    <h4>Patch RHEL VMs in OpenShift Virtualization</h4>
+    <p>Learn how to create custom-built reporting for patch compliance</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
+<!-- lab -->
 </section>
 
-<h1 id="6_hour_section">6 hour workshops</h1>
+<h1 id="it_automation_section">IT Automation</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/ansible_rhel" class="data-card">
-    <h3>RHEL</h3>
-    <h4>Ansible Red Hat Enterprise Linux Workshop</h4>
-    <p>Focused on automating Linux platforms like Red Hat Enterprise Linux</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/8wSFxhB1CT2w7Z7OWsyz" class="data-card">
+    <h3>Hashicorp Vault</h3>
+    <h4>Integrate AAP and Hashicorp Vault</h4>
+    <p>Managing your Ansible secrets with Hashicorp Vault</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="./exercises/ansible_network" class="data-card">
-    <h3>Network</h3>
-    <h4>Ansible Network Automation Workshop</h4>
-    <p>Focused on router and switch platforms like Arista, Cisco, Juniper</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/ld4BGpJnfILzJughA3QF" class="data-card">
+    <h3>AAP Automation Dashboard</h3>
+    <h4>Measure automation intiatives</h4>
+    <p>Create reports about automation successes</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="./exercises/ansible_windows" class="data-card">
-    <h3>Windows</h3>
-    <h4>Ansible Windows Automation Workshop</h4>
-    <p>Focused on automation of Microsoft Windows </p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/bHLVVsWPJnUzDR3EMxCg" class="data-card">
+    <h3>Policy Enforcement</h3>
+    <h4>Apply OPA policies to automation workflows</h4>
+    <p>Learn how to put guard rails on enterprise automation</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="./exercises/ansible_smart_mgmt" class="data-card">
-    <h3>Smart Management</h3>
-    <h4>Automated Smart Management Workshop</h4>
-    <p>Focused on automation of security and lifecycle management with Red Hat Satellite Server</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/CFupJLjcEZRTnhItsnGQ" class="data-card">
+    <h3>Red Hat Insights</h3>
+    <h4>Integrate Insights into AAP</h4>
+    <p>Remediate and manage vulnerabilities and compliance</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="./exercises/ansible_ripu" class="data-card">
-    <h3>RIPU</h3>
-    <h4>RHEL In-place Upgrade Automation Workshop</h4>
-    <p>Focused on automation of RHEL in-place upgrades at enterprise scale</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/iaIlwC3A7UmSTjv2IhBM" class="data-card">
+    <h3>Network Automation</h3>
+    <h4>Manage network devices like a pro</h4>
+    <p>Network visbility, config management and operations</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/WLz8bjVZ1Tw1ie8KBv7f" class="data-card">
+    <h3>Deploying and Removing RHEL apps</h3>
+    <h4>Automate application deployement</h4>
+    <p>Use Ansible to quickly automate app deployments</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
 </section>
 
-<h1 id="product_demos_section">Product-Demos</h1>
+<h1 id="cloud_section">Cloud</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/product_demos/" class="data-card">
-    <h3>Product Demos</h3>
-    <h4>Ansible Product Demos</h4>
-    <p>Sandbox for demoing, development, and experimentation</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/g5FvwGvIJdX9vGQpjrC8" class="data-card">
+    <h3>Hashicorp Terraform</h3>
+    <h4>IT automation workflows for the cloud</h4>
+    <p>See how Terraform and Ansible can work together</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/Ce4FwI060iaYltYJYLHq" class="data-card">
+    <h3>Infra visibility & Reports</h3>
+    <h4>Use Ansible to gain infra awareness</h4>
+    <p>Dyanmic documentation is key for automation success</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/QIkx7TMuu22RDi0nUjRA" class="data-card">
+    <h3>AIOps on Google Cloud</h3>
+    <h4>Apply an AIOps workflow on Google Cloud</h4>
+    <p>Learn how to combine AI solutions with your IT infra workflows</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/g25qlmX59RI0r6OjRjL2" class="data-card">
+    <h3>AAP Service on AWS</h3>
+    <h4>Automation in Minutes with AAP on AWS</h4>
+    <p>Get your automation infrastructure online quickly</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
 </section>
 
-<h1 id="arcade_section">Click-through demos</h1>
+<h1 id="developer_section">Developer</h1>
 <section class="page-contain">
-  <a target="_new" href="https://app.arcade.software/share/Xe9tI8rUVc2JrEI5LprL" class="data-card">
-    <h3>AAP on AWS</h3>
-    <h4>Red Hat Ansible Automation Platform Service on AWS - Managed Service - Getting Started.</h4>
-    <p>Get started provisioning your Red Hat Ansible Automation Platform Service on AWS instance.</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/hCaq4jsAc1wMsd6gD3Ch" class="data-card">
+    <h3>One-click AAP trial</h3>
+    <h4>Use the developer sandbox</h4>
+    <p>Provisioning AAP in Red Hat Developer Sandbox</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
-  <a target="_new" href="https://app.arcade.software/share/liRbTzSPhtuQZwTI3JSV" class="data-card">
-    <h3>AAP on Azure</h3>
-    <h4>Red Hat Ansible Automation Platform on Microsoft Azure - Managed Application - Getting Started</h4>
-    <p>How to get started with Ansible Automation Platform on Microsoft Azure, the Managed Application</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/iKoPpilaNueRFTUzWnqL" class="data-card">
+    <h3>All-in one Ansible Developer Tools</h3>
+    <h4>Develop Ansible content quicker</h4>
+    <p>Introduction to Ansible Dev Container in VS Code</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
- <a target="_new" href="https://app.arcade.software/share/ZiJZMunDn0fg4YUHy2Br" class="data-card">
-    <h3>Lightspeed Trial</h3>
-    <h4>Ansible Lightspeed 90-day trial demo.</h4>
-    <p>Walkthrough on how to setup Ansible Lightspeed's 90-day trial.</p>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/iZCzyLhoGOq2920v7WEC" class="data-card">
+    <h3>Self-Service Automation</h3>
+    <h4>Self-Service Automation - Technology Preview</h4>
+    <p>Help your organization get up and going faster</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
   </a>
+<!-- lab -->
+  <a target="_new" href="https://interact.redhat.com/share/Q6WUPXFAXZnivlzS9abr" class="data-card">
+    <h3>Red Hat Developer Hub</h3>
+    <h4>Ansible plugins for Red Hat Developers Hub</h4>
+    <p>How to get Ansible integrated into Developer Hub</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
+</svg>
+    </span>
+    <div id="lab_powered_by"><img src="assets/images/arcade-logo.png"></div>
+  </a>
+<!-- lab -->
 </section>
+
+## Workshops
+
+For a list of all workshops [click here](README-WORKSHOPS.md)
 
 ## Self Paced Exercises
 
-In addition to the workshops there are 15 minute to 60 minute individual learning scenarios available!
+You will find individual self-paced labs available here (15-30 minutes each):
 
 - [Ansible Automation Platform Self-Paced Labs
 ](https://red.ht/ansible-labs) - These interactive learning scenarios provide you with a pre-configured Ansible Automation Platform environment to experiment, learn, and see how the platform can help you solve real-world problems. The environment runs entirely in your browser, enabling you to learn more about our technology at your pace and time.
 
-## Video Content
+## YouTube Channels
 
-- [Ansible YouTube](https://youtube.com/ansibleautomation)
-- [Ansible Events](https://www.youtube.com/@AnsibleEvents-zz1ux)
+- [The Ansible Playbook](https://youtube.com/ansibleautomation) - Join the Tech Marketing Engineers online here!
+- [Red Hat Ansible](https://www.youtube.com/@RedHatAnsible) - Ansiblefest sessions, product announcements and more!
 
 ## Documentation
 

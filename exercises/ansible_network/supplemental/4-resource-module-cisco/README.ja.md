@@ -1,6 +1,6 @@
 # Exercise 4: Ansible Network Resource Modules - Cisco Example
 
-**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)
+**Read this in other languages**: ![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md), ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png) [日本語](README.ja.md), ![Français](https://github.com/ansible/workshops/raw/devel/images/fr.png) [Français](README.fr.md).
 
 ## Table of Contents
 
@@ -177,7 +177,7 @@ Cisco router.
     * gathered
     * parsed
 
-    Only two of these parameters will be covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.md).
+    Only two of these parameters will be covered in this exercise, but additional are available in the [supplemental exercises](../supplemental/README.fr.md).
   * `config:` - this is the supplied VLAN configuration.  It is a list of dictionaries. The most important takeaway is that if the module was change from `arista.eos.vlans` to `junipernetworks.junos.vlans` it would work identically.  This allows network engineers to focus on the network (e.g. VLAN configuration) versus the vendor syntax and implementation.
 
 ### Step 4 - Execute the Ansible Playbook
@@ -388,12 +388,12 @@ You have completed lab exercise 4
 
 As stated previously only two of the resource modules parameters were
 covered in this exercise, but additional are available in the [supplemental
-exercises](../supplemental/README.md).
+exercises](../supplemental/README.fr.md).
 
 In the next exercise we will start using Automation controller.
 ---
-[Previous Exercise](../3-facts/README.md) | [Next
-Exercise](../5-explore-controller/README.md)
+[Previous Exercise](../3-facts/README.fr.md) | [Next
+Exercise](../5-explore-controller/README.fr.md)
 
 [Click here to return to the Ansible Network Automation
-Workshop](../README.md)
+Workshop](../README.fr.md)

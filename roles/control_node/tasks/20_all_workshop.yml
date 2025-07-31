@@ -42,3 +42,11 @@
     owner: "{{ username }}"
     group: "{{ username }}"
     mode: 0700
+
+- name: Copy over ssh config file for ec2-user
+  ansible.builtin.template:
+    src: sshconfig.j2
+    dest: /home/ec2-user/.ssh/config
+    owner: "ec2-user"
+    group: "username"
+    mode: 0700

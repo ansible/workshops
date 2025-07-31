@@ -39,7 +39,7 @@ This should take ~15 seconds to complete.
 
   ![3tier-smoke-test-output](images/rhel8_smoke_test_output_01.png)
 
-- Uh oh! Something with the application stack is malfunctioning. No worries, though...we have systems snapshots we can rollback to when needed. Inthe meantime, we can begin the debugging process to determine where the problem resides. Hmmm, remember when we were reviewing the high, medium, and low risk factors while reviewing the pre upgrade report? node3 had a medium risk factor that listed postgreSQL as something to keep in mind.
+- Uh oh! Something with the application stack is malfunctioning. No worries, though...we have systems snapshots we can rollback to when needed. In the meantime, we can begin the debugging process to determine where the problem resides. Hmmm, remember when we were reviewing the high, medium, and low risk factors while reviewing the pre upgrade report? node3 had a medium risk factor that listed postgreSQL as something to keep in mind.
 
 - Let's check the PostgreSQL service from the command line following the steps you used with [Exercise 1.1: Step 2](../1.1-setup/README.md#step-2---open-a-terminal-session).
 
@@ -47,7 +47,7 @@ This should take ~15 seconds to complete.
 
   ![command output showing postgresql error](images/postgresql_commands.png)
 
-- Back in when reviewing the pre-upgrade analysis reports in [Exercise 1.4: Step 3](../1.1-setup/README.md# step-3---review-leapp-pre---upgrade-report-of-rhel7-host), for node3, there was a medium risk factor finding for PostgreSQL and the detailed information for that finding stated "...it is necessary to proceed with additional steps for the complete upgrade of the PostgreSQL data."
+- Back when reviewing the pre-upgrade analysis reports in [Exercise 1.4: Step 3](../1.1-setup/README.md# step-3---review-leapp-pre---upgrade-report-of-rhel7-host), for node3, there was a medium risk factor finding for PostgreSQL and the detailed information for that finding stated "...it is necessary to proceed with additional steps for the complete upgrade of the PostgreSQL data."
 
   This scenario is where the automation team would circle up with the three tier stack PostgreSQL DBAs and put together some automation to work through upgrading the PostgreSQL database to the new version format. For example, the [UpgradePostgres_3TA_AWS.yml](https://github.com/heatmiser/ansible-3tier-app/blob/production/UpgradePostgres_3TA_AWS.yml) playbook in the `Three Tier App / Prod` project.
 

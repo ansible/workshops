@@ -28,16 +28,16 @@
 
 The workshop is provisioned with a pre-configured lab environment. You will have access to a host deployed with Ansible Automation Platform (AAP) which you will use to control the playbook and workflow jobs that automation the RHEL in-place upgrade workflow steps. You will also have access to three RHEL hosts.  These are the hosts where we will be upgrading the RHEL operating system (OS).
 
-| Role                                | Inventory name |
-| ------------------------------------| ---------------|
-| Automation controller               | ansible-1      |
-| Satellite Server                    | satellite      |
-| Managed Host 1 - RHEL               | node1          |
-| Managed Host 2 - RHEL               | node2          |
-| Managed Host 3 - RHEL               | node3          |
-| Managed Host 4 - CentOS/OracleLinux | node4          |
-| Managed Host 5 - CentOS/OracleLinux | node5          |
-| Managed Host 6 - CentOS/OracleLinux | node6          |
+| Role                                   | Inventory name |
+| ---------------------------------------| ---------------|
+| Ansible Automation Platform controller | ansible-1      |
+| Satellite Server                       | satellite      |
+| Managed Host 1 - RHEL                  | node1          |
+| Managed Host 2 - RHEL                  | node2          |
+| Managed Host 3 - RHEL                  | node3          |
+| Managed Host 4 - CentOS/OracleLinux    | node4          |
+| Managed Host 5 - CentOS/OracleLinux    | node5          |
+| Managed Host 6 - CentOS/OracleLinux    | node6          |
 
 ### Step 1 - Access the AAP Web UI
 
@@ -49,7 +49,7 @@ The AAP Web UI is where we will go to submit and check the status of the Ansible
 
 - Enter the username `admin` and the password provided. This will bring you to your AAP Web UI dashboard like the example below:
 
-  ![Example AAP Web UI dashboard](images/aap_console_example.svg)
+  ![Example AAP Web UI dashboard](images/aap_console_example.png)
 
 - We will learn more about how to use the AAP Web UI in the next exercise.
 
@@ -119,7 +119,7 @@ We will use the RHEL Web Console to review the results of the Leapp pre-upgrade 
 
   ![Enter RIPU filter on AAP Web UI](images/ripu_cac_02.png)
 
-- Click ![launch](images/ripu_aap2_launch.png) to the right of **Z / CaC / Controller / RIPU scenario** to launch the job.
+- Click ![launch](images/ripu_aap2_launch.png) to the right of **Z / CaC / Controller / C2R - RIPU scenario** to launch the job.
 
   ![RIPU other prompts survey on AAP Web UI](images/ripu_cac_03.png)
 
@@ -135,11 +135,11 @@ We will use the RHEL Web Console to review the results of the Leapp pre-upgrade 
 
   ![RIPU job output on AAP Web UI](images/ripu_cac_06.png)
 
-- The **Z / CaC / Controller / RIPU scenario** job should require just under 2 minutes to complete.
+- The **Z / CaC / Controller / C2R - RIPU scenario** job should require just under 2 minutes to complete.
 
   ![RIPU job templates on AAP Web UI](images/ripu_cac_07.png)
 
-- Once the **Z / CaC / Controller / RIPU scenario** job has completed, on the left menu bar, select `Resources > Templates`. In the filter box, enter `leapp` and click the magnifying glass to filter the job templates displayed. The newly populated job templates for our RHEL In-place Upgrade Automation exercises are now available to use.
+- Once the **Z / CaC / Controller / C2R - RIPU scenario** job has completed, on the left menu bar, select `Resources > Templates`. In the filter box, enter `leapp` and click the magnifying glass to filter the templates displayed. The newly populated job and workflow templates for our RHEL In-place Upgrade Automation exercises are now available to use.
 
 ### Step 7 - Challenge Labs
 
@@ -147,7 +147,7 @@ You will soon discover that many exercises in the workshop come with a "Challeng
 
 ## Conclusion
 
-In this exercise, we learned about the lab environment we will be using to continue through the workshop exercises. We verified that we are able to use VS Code in our web browser and from there we can open terminal sessions. We also made sure we are able to access the AAP Web UI which will be the "self-service portal" we use to perform the next steps of the RHEL in-place upgrade automation workflow. We also made sure we are able to access the Satellite Web UI where we can review the repositories providing the packages for the RHEL in-place upgrade automation workflow, as well as the status of the hosts themselves. Finally, we connected to the RHEL Web Console where we will soon be reviewing pre-upgrade reports.
+In this exercise, we learned about the lab environment we will be using to continue through the workshop exercises. We verified that we are able to use VS Code in our web browser and from there we can open terminal sessions. We also made sure we are able to access the AAP Web UI which will be the "self-service portal" we use to perform the next steps of the RHEL in-place upgrade automation workflow. We also made sure we are able to access the Satellite Web UI where we can review the repositories providing the packages for the RHEL in-place upgrade automation workflow, as well as the status of the hosts themselves. Next, we connected to the RHEL Web Console where we will soon be reviewing pre-upgrade reports. Finally, we ran a job template which employed Configuration as Code (CaC) to populate additional job and workflow templates, as well as additional Ansible inventory sources.
 
 Use the link below to move on the the next exercise.
 

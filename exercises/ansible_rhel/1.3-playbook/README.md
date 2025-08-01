@@ -155,7 +155,7 @@ node1                      : ok=3    changed=1    unreachable=0    failed=0    s
 ---
 **Navigation**
 {% if page.url contains 'ansible_rhel_90' %}
-[Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
+[Previous Exercise](../2-thebasics) - [Next Exercise](../4-variables)
 {% else %}
 [Previous Exercise](../1.2-thebasics) - [Next Exercise](../1.4-variables)
 {% endif %}

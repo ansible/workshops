@@ -4,7 +4,7 @@ paramiko==3.4.0
 boto3==1.21.15
 netaddr==0.8.0
 passlib==1.7.4
-requests==2.31.0
+requests==2.32.4
 pywinrm==0.4.1
 requests-credssp==1.2.0
 ipaddr==2.2.0

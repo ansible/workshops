@@ -89,9 +89,29 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
 - name: Basic System Setup
   hosts: all
   become: true
-  .
-  .
-  .
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
+  tasks:
+    - name: Update all security-related packages
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+
+    - name: Create a new user
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+
+    - name: Install Apache on web servers
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
+
     - name: Install firewalld
       ansible.builtin.package:
         name: firewalld

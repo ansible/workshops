@@ -86,39 +86,54 @@ Disons que nous voulons nous assurer que le pare-feu est correctement configuré
 - name: Configuration Système de Base
   hosts: all
   become: true
-  .
-  .
-  .
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
+  tasks:
+    - name: Mettre à jour tous les paquets liés à la sécurité
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: Créer un nouvel utilisateur
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Installer Apache sur les serveurs web
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
     - name: Installer firewalld
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: firewalld
         state: present
-
+      when: inventory_hostname in groups['web']
     - name: S'assurer que firewalld est en cours d'exécution
       ansible.builtin.service:
         name: firewalld
         state: started
         enabled: true
-
-    - name: Autoriser le trafic HTTPS sur les serveurs web
+      when: inventory_hostname in groups['web']
+    - name: Autoriser le trafic HTTP sur les serveurs web
       ansible.posix.firewalld:
-        service: https
+        service: http
         permanent: true
         state: enabled
       when: inventory_hostname in groups['web']
       notify: Recharger le Pare-feu
-
   handlers:
     - name: Recharger le Pare-feu
       ansible.builtin.service:
         name: firewalld
         state: reloaded
-
 ```
 
 <!-- {% endraw %} -->
 
-Le gestionnaire Recharger le Pare-feu est déclenché uniquement si la tâche "Autoriser le trafic HTTPS sur les serveurs web" effectue des modifications.
+Le gestionnaire Recharger le Pare-feu est déclenché uniquement si la tâche "Autoriser le trafic HTTP sur les serveurs web" effectue des modifications.
 
 > REMARQUE : Remarquez comment le nom du gestionnaire est utilisé dans la section notify de la tâche de configuration "Recharger le Pare-feu". Cela garantit que le bon gestionnaire est exécuté car il peut y avoir plusieurs gestionnaires dans un playbook Ansible.
 
@@ -161,7 +176,7 @@ changed: [ansible-1]
 changed: [node2]
 changed: [node1]
 
-TASK [Autoriser le trafic HTTPS sur les serveurs web] **************************************
+TASK [Autoriser le trafic HTTP sur les serveurs web] **************************************
 skipping: [ansible-1]
 changed: [node2]
 changed: [node1]

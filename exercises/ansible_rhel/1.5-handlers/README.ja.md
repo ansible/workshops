@@ -77,28 +77,44 @@ Ansible の条件分岐は、特定の条件に基づいてタスクが実行さ
 - name: 基本的なシステム設定
   hosts: all
   become: true
-  .
-  .
-  .
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
+  tasks:
+    - name: セキュリティ関連のパッケージをすべて更新
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: 新しいユーザーを作成
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Web サーバーに Apache をインストール
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
     - name: firewalld をインストール
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: firewalld
         state: present
-
+      when: inventory_hostname in groups['web']
     - name: firewalld が実行中であることを確認
       ansible.builtin.service:
         name: firewalld
         state: started
         enabled: true
-
-    - name: Web サーバーで HTTPS トラフィックを許可
+      when: inventory_hostname in groups['web']
+    - name: Web サーバーで HTTP トラフィックを許可
       ansible.posix.firewalld:
-        service: https
+        service: http
         permanent: true
         state: enabled
       when: inventory_hostname in groups['web']
       notify: ファイアウォールをリロード
-
   handlers:
     - name: ファイアウォールをリロード
       ansible.builtin.service:
@@ -106,7 +122,7 @@ Ansible の条件分岐は、特定の条件に基づいてタスクが実行さ
         state: reloaded
 ```
 
-「Web サーバーで HTTPS トラフィックを許可」タスクに変更がある場合にのみ、ハンドラー「ファイアウォールをリロード」がトリガーされます。
+「Web サーバーで HTTP トラフィックを許可」タスクに変更がある場合にのみ、ハンドラー「ファイアウォールをリロード」がトリガーされます。
 
 > 注: 「ファイアウォールをリロード」設定タスクの notify セクション内でハンドラーの名前が使用されていることに注意してください。これにより、Ansible プレイブック内に複数のハンドラーが存在する場合でも、適切なハンドラーが実行されることが保証されます。
 
@@ -150,7 +166,7 @@ changed: [ansible-1]
 changed: [node2]
 changed: [node1]
 
-TASK [Web サーバーで HTTPS トラフィックを許可] **************************************
+TASK [Web サーバーで HTTP トラフィックを許可] **************************************
 skipping: [ansible-1]
 changed: [node2]
 changed: [node1]

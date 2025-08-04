@@ -56,17 +56,53 @@ OS: {{ ansible_distribution }} {{ ansible_distribution_version }}
 
 ```yaml
 ---
-- name: 基本的なシステムセットアップ
+- name: 基本的なシステム設定
   hosts: all
   become: true
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
   tasks:
+    - name: セキュリティ関連のパッケージをすべて更新
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: 新しいユーザーを作成
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Web サーバーに Apache をインストール
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: firewalld をインストール
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: firewalld が実行中であることを確認
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+      when: inventory_hostname in groups['web']
+    - name: Web サーバーで HTTP トラフィックを許可
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+      when: inventory_hostname in groups['web']
+      notify: ファイアウォールをリロード
     - name: Jinja2 テンプレートから MOTD を更新
       ansible.builtin.template:
         src: templates/motd.j2
         dest: /etc/motd
-
   handlers:
-    - name: ファイアウォールの再読み込み
+    - name: ファイアウォールをリロード
       ansible.builtin.service:
         name: firewalld
         state: reloaded

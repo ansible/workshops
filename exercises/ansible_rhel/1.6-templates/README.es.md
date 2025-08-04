@@ -59,8 +59,45 @@ Modifica el Playbook `system_setup.yml` con el siguiente contenido:
 - name: Configuración Básica del Sistema
   hosts: all
   become: true
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
   tasks:
-    - name: Actualizar MOTD desde Plantilla Jinja2
+    - name: Actualizar todos los paquetes relacionados con la seguridad
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: Crear un nuevo usuario
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Instalar Apache en servidores web
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: Instalar firewalld
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: Asegurar que firewalld esté ejecutándose
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+      when: inventory_hostname in groups['web']
+    - name: Permitir tráfico HTTP en servidores web
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+      when: inventory_hostname in groups['web']
+      notify: Recargar Firewall
+    - name: Actualizar MOTD desde plantilla Jinja2
       ansible.builtin.template:
         src: templates/motd.j2
         dest: /etc/motd

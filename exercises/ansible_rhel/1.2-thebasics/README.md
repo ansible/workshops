@@ -195,10 +195,10 @@ For example in the screenshot above, the number `0` corresponds to
 
 Directly access detailed documentation for any module by specifying its
 corresponding number. For
-example the module `ec2_tag` corresponds to `24`.
+example the module `ec2_tag` corresponds to `27`.
 
 ```bash
-:24
+:27
 ```
 
 Scrolling down using the arrow keys or page-up and page-down can show us

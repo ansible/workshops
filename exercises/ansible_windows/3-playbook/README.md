@@ -243,7 +243,7 @@ click **Yes** or **No**.
 If you're interested in validating the code is in git, you can connect
 to Gitea to verify. Go back to the workshop page, and click the link under **Gitea Access** taking note of your username and password.
 
-![Gitea access](images/3-vscode-gitlab-access.png)
+![Gitea access](images/3-vscode-gitea-access.png)
 
 You are ready to automate!
 

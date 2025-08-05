@@ -105,6 +105,11 @@ of this exercise.
       ansible.windows.win_feature:
         name: Web-Server
         state: present
+      register: win_feature
+
+    - name: Reboot if installing Web Server feature requires it
+      ansible.windows.win_reboot:
+      when: win_feature.reboot_required
 
     - name: Start iis service
       ansible.windows.win_service:
@@ -137,8 +142,11 @@ of this exercise.
         state: present
 ```
 
-* These three lines are calling the Ansible module **`win_feature`** to
-  install the IIS Web Server. [Click
+* These lines are calling the Ansible module **`win_feature`** to
+  install the IIS Web Server, followed by a conditional reboot task.
+  The `register` keyword captures the result of the feature installation,
+  and the `win_reboot` module will only run if the installation requires
+  a system restart. [Click
   here](https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_feature_module.html)
   to see all options for the `win_feature` module.
 
@@ -251,6 +259,11 @@ You are ready to automate!
       ansible.windows.win_feature:
         name: Web-Server
         state: present
+      register: win_feature
+
+    - name: Reboot if installing Web-Server feature requires it
+      ansible.windows.win_reboot:
+      when: win_feature.reboot_required
 
     - name: Start iis service
       ansible.windows.win_service:

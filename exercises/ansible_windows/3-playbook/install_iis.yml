@@ -7,6 +7,11 @@
       ansible.windows.win_feature:
         name: Web-Server
         state: present
+      register: win_feature
+
+    - name: Reboot if installing Web-Server feature requires it
+      ansible.windows.win_reboot:
+      when: win_feature.reboot_required
 
     - name: Start iis service
       ansible.windows.win_service:

@@ -140,12 +140,21 @@ Verifica los cambios conectándote por SSH al nodo, y deberías ver el mensaje d
 ```bash
 [rhel@control ~]$ ssh node1
 
-Bienvenido a node1.
-SO: RedHat 8.7
-Arquitectura: x86_64
-Registra este sistema en Red Hat Insights: insights-client --register
-Crea una cuenta o ve todos tus sistemas en https://red.ht/insights-dashboard
-Último acceso: Lun Ene 29 16:30:31 2024 desde 10.5.1.29
+Welcome to node1.
+OS: RedHat 8.7
+Architecture: x86_64
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
+```
+
+Salga de la sesión SSH para regresar a su nodo de control antes de continuar con el siguiente ejercicio:
+
+```plaintext
+[rhel@node1 ~]$ exit
+logout
+Connection to node1 closed.
+[rhel@control ~]$
 ```
 
 ----

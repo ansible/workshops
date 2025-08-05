@@ -142,12 +142,21 @@ Verifique as alterações fazendo SSH para o nó, e você deverá ver a mensagem
 ```plaintext
 [rhel@control ~]$ ssh node1
 
-Bem-vindo ao node1.
-SO: RedHat 8.7
-Arquitetura: x86_64
-Registre este sistema no Red Hat Insights: insights-client --register
-Crie uma conta ou visualize todos os seus sistemas em https://red.ht/insights-dashboard
-Último login: Seg Jan 29 16:30:31 2024 de 10.5.1.29
+Welcome to node1.
+OS: RedHat 8.7
+Architecture: x86_64
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
+```
+
+Saia da sessão SSH para retornar ao seu nó de controle antes de continuar para o próximo exercício:
+
+```plaintext
+[rhel@node1 ~]$ exit
+logout
+Connection to node1 closed.
+[rhel@control ~]$
 ```
 
 ----

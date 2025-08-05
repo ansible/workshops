@@ -140,6 +140,11 @@ of this exercise.
       ansible.windows.win_feature:
         name: Web-Server
         state: present
+      register: win_feature
+
+    - name: Reboot if installing Web Server feature requires it                 
+      ansible.windows.win_reboot:                                               
+      when: win_feature.reboot_required  
 ```
 
 * These lines are calling the Ansible module **`win_feature`** to
@@ -218,22 +223,27 @@ versions.
 
 Now you need to push the committed changes to your repository.
 
-On the bottom left blue bar, click the section that contains the
-circular arrows to push the changes.
+**For your first commit:** Click the **"Publish Branch"** button in the Source Control panel on the left side of VS Code.
+
+![Git Publish Branch](images/3-vscode-publish.png)
+
+**For subsequent commits:** Use the circular arrows in the bottom left blue bar to push changes.
 
 ![Git Push Origin](images/3-vscode-push.png)
 
-This may take as long as 30 seconds to push. After your first push, you
+This may take as long as 30 seconds to push. After publishing your branch for the first time, you
 may get a pop-up message asking if you would like to periodically run
-git fetch. Because you’re the only one working on the git repo, you can
+git fetch. Because you're the only one working on the git repo, you can
 click **Yes** or **No**.
+
+**Note:** After your initial "Publish Branch", all future commits will use the standard push workflow with the circular arrows in the bottom status bar.
 
 ![Git Push Origin](images/3-vscode-push-initial-pop-up.png)
 
-If you’re interested in validating the code is in git, you can connect
-to GitLab to verify. Go back to the workshop page, and click the link under **GitLab Access** taking note of your username and password.
+If you're interested in validating the code is in git, you can connect
+to Gitea to verify. Go back to the workshop page, and click the link under **Gitea Access** taking note of your username and password.
 
-![GitLab access](images/3-vscode-gitlab-access.png)
+![Gitea access](images/3-vscode-gitlab-access.png)
 
 You are ready to automate!
 

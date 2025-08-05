@@ -140,6 +140,11 @@ of this exercise.
       ansible.windows.win_feature:
         name: Web-Server
         state: present
+      register: win_feature
+
+    - name: Reboot if installing Web Server feature requires it                 
+      ansible.windows.win_reboot:                                               
+      when: win_feature.reboot_required  
 ```
 
 * These lines are calling the Ansible module **`win_feature`** to
@@ -220,7 +225,7 @@ Now you need to push the committed changes to your repository.
 
 **For your first commit:** Click the **"Publish Branch"** button in the Source Control panel on the left side of VS Code.
 
-![Git Publish Branch](images/3-vscode-push.png)
+![Git Publish Branch](images/3-vscode-publish.png)
 
 **For subsequent commits:** Use the circular arrows in the bottom left blue bar to push changes.
 

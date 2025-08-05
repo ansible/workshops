@@ -152,14 +152,22 @@ Vérifiez les changements en vous connectant au nœud via SSH, et vous devriez v
 ```plaintext
 [rhel@control ~]$ ssh node1
 
-Bienvenue sur node1.
-OS : RedHat 8.7
-Architecture : x86_64
-Enregistrez ce système auprès de Red Hat Insights : insights-client --register
-Créez un compte ou consultez tous vos systèmes sur https://red.ht/insights-dashboard
-Dernière connexion : Lun 29 Jan 16:30:31 2024 depuis 10.5.1.29
+Welcome to node1.
+OS: RedHat 8.7
+Architecture: x86_64
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
 ```
 
+Quittez la session SSH pour retourner à votre nœud de contrôle avant de continuer vers l'exercice suivant :
+
+```plaintext
+[rhel@node1 ~]$ exit
+logout
+Connection to node1 closed.
+[rhel@control ~]$
+```
 
 ----
 **Navigation**

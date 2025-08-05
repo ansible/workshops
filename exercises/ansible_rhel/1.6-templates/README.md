@@ -166,6 +166,15 @@ Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
 
 ```
 
+Exit the SSH session to return to your control node before continuing to the next exercise:
+
+```plaintext
+[rhel@node1 ~]$ exit
+logout
+Connection to node1 closed.
+[rhel@control ~]$
+```
+
 **Navigation**
 <br>
 [Previous Exercise](../1.5-handlers) - [Next Exercise](../1.7-collection)

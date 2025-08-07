@@ -149,6 +149,9 @@ header {
   margin: 0;
   border-radius: 0;
   height: 88px;
+  background: black;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  border-bottom: 1px solid #333;
 }
 
 .header-container {
@@ -156,32 +159,114 @@ header {
   width: 100%;
   height: 100%;
   max-width: 1170px;
-  padding: 0;
+  padding: 0 20px;
   float: initial;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .header-logo {
-  width: 137px;
+  width: 120px;
+  height: auto;
   border: 0;
   margin: 0;
-  margin-left: 15px;
+  flex-shrink: 0;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  flex-shrink: 1;
+  overflow: hidden;
 }
 
 .header-link {
-  margin-left: 40px;
-  text-decoration: none;
+  text-decoration: none !important;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 15px;
-  font-family: 'Red Hat Text';
-  font-weight: 500;
+  font-size: 13px;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  color: white !important;
+  letter-spacing: 0.3px;
+  border: 1px solid transparent;
 }
 
 .header-link:hover {
-  text-shadow: 0 0 0.02px white;
-  text-decoration: none;
+  background-color: #ee0000 !important;
+  color: white !important;
+  text-decoration: none !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(238, 0, 0, 0.4);
+  border-color: #ee0000;
+}
+
+// Responsive adjustments to keep items on one row
+@media screen and (max-width: 1200px) {
+  .header-nav {
+    gap: 18px;
+  }
+  
+  .header-link {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-container {
+    padding: 0 15px;
+  }
+  
+  .header-logo {
+    width: 110px;
+  }
+  
+  .header-nav {
+    gap: 15px;
+  }
+  
+  .header-link {
+    font-size: 10px;
+    padding: 6px 8px;
+    letter-spacing: 0.2px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .header-logo {
+    width: 100px;
+  }
+  
+  .header-nav {
+    gap: 12px;
+  }
+  
+  .header-link {
+    font-size: 9px;
+    padding: 5px 6px;
+    letter-spacing: 0.1px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header-nav {
+    gap: 8px;
+  }
+  
+  .header-link {
+    font-size: 8px;
+    padding: 4px 5px;
+  }
 }
 
 // custom footer

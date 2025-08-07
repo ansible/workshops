@@ -189,15 +189,15 @@ header {
   text-decoration: none !important;
   cursor: pointer;
   text-transform: uppercase;
-  font-size: 11px;
+  font-size: 12px;
   font-family: 'Red Hat Text', sans-serif;
   font-weight: 600;
   white-space: nowrap;
-  padding: 6px 8px;
+  padding: 7px 10px;
   border-radius: 4px;
   transition: all 0.3s ease;
   color: white !important;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.25px;
   border: 1px solid transparent;
 }
 
@@ -213,23 +213,23 @@ header {
 // Responsive adjustments to keep items on one row
 @media screen and (max-width: 1600px) {
   .header-nav {
-    gap: 14px;
+    gap: 16px;
   }
   
   .header-link {
-    font-size: 10px;
-    padding: 5px 7px;
+    font-size: 11px;
+    padding: 6px 8px;
   }
 }
 
 @media screen and (max-width: 1400px) {
   .header-nav {
-    gap: 12px;
+    gap: 14px;
   }
   
   .header-link {
-    font-size: 9px;
-    padding: 5px 6px;
+    font-size: 10px;
+    padding: 6px 7px;
   }
 }
 

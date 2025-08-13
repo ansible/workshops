@@ -91,7 +91,7 @@ Fill out the form:
 
 ![Create Job Template](images/7-win_update-template.png)
 
-Click **Save**.
+Click **Create job template**.
 
 ---
 

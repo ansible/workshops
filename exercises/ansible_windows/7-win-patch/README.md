@@ -22,8 +22,6 @@ In Visual Studio Code:
 
 You should now have an empty editor pane open for creating your playbook.  
 
-![Student Playbooks](images/7-vscode-existing-folders.png)
-
 ![Empty site.yml](images/7-create-win_updates.png)
 
 
@@ -89,7 +87,7 @@ Fill out the form:
 | **Execution Environment** | Default Execution Environment |
 | **Credentials**    | Student Account            |
 | **Limit**          | windows                    |
-| **Options**        | Enable Fact Cache          |
+| **Options**        | Enable fact storage          |
 
 ![Create Job Template](images/7-win_update-template.png)
 

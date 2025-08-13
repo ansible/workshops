@@ -28,7 +28,7 @@
   </a>
 <!-- lab -->
   <a target="_new" href="https://rhpds.github.io/showroom-virt-aap-day-2/modules/index.html" class="data-card">
-    <h3>Day 2 Operations</h3>
+    <h3>Day 2 Ops</h3>
     <h4>Automation with OpenShift Virtualization</h4>
     <p>Activities we can perform with OpenShift Virtualization and AAP</p>
     <span class="link-text">

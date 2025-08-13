@@ -81,10 +81,10 @@ Fill out the form:
 | **Name**           | Windows Updates            |
 | **Description**    | (optional)                 |
 | **Job Type**       | Run                        |
-| **Inventory**      | Workshop Inventory         |
+| **Inventory**      | Windows Workshop Inventory         |
 | **Project**        | Ansible Workshop Project   |
 | **Playbook**       | `win_updates/site.yml`     |
-| **Execution Environment** | Default Execution Environment |
+| **Execution Environment** | Default execution environment |
 | **Credentials**    | Student Account            |
 | **Limit**          | windows                    |
 | **Options**        | Enable fact storage          |

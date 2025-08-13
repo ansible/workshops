@@ -1,56 +1,39 @@
-**Read this in other languages**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md).
+**Read this in other languages**:  
+<br>![uk](../../../images/uk.png) [English](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md)  
 <br>
 
-Section 1 - Creating your Playbook
-==================================
+---
 
-The `win_updates` module is used to either check for or to install
-Windows Updates. The module utilizes the built in Windows Update service
-to function. This means that you still will need a backend system like
-WSUS or the online Windows Update Servers to download updates from. If
-your server’s Windows Update configuration is set to automatically
-download but not install, you can also utilize the module to stage
-updates by telling it to `search` for updates. We also have the ability
-to whitelist or blacklist updates. For example we could tell it to only
-install one particular security update instead of every update
-available.
+# Section 1 – Creating your Playbook
 
-To begin, we are going to create a new playbook. We will be repeating
-the steps you performed in the earlier exercises.
+The `win_updates` module is used to either check for or install Windows Updates. It uses the built-in Windows Update service, so you’ll still need a backend such as WSUS or the Microsoft Update servers. If your server’s Windows Update configuration is set to automatically download but not install, you can use this module to stage updates by telling it to `search` for them. You can also whitelist or blacklist specific updates — for example, installing only one security update instead of all available updates.
 
-Step 1
-------
+To begin, we’ll create a new playbook, following a similar process to earlier exercises.
 
-Within Visual Studio Code, we will now create a new directory in your
-git repository and create a new playbook file.
+---
 
-In the Explorer accordion you should have a *student\#* section where
-you previously made iis\_basic.
+## Step 1 – Create the Playbook File
+
+In Visual Studio Code:
+
+1. In the **Explorer** view, locate your *student#* section where you previously made `iis_basic`.  
+2. Hover over the **WORKSHOP_PROJECT** folder and click the **New Folder** button. Name the folder `win_updates` and press Enter.  
+3. Right-click the new `win_updates` folder, select **New File**, name it `site.yml`, and press Enter.  
+
+You should now have an empty editor pane open for creating your playbook.  
 
 ![Student Playbooks](images/7-vscode-existing-folders.png)
 
-Hover over the *WORKSHOP_PROJECT* section and click the *New Folder* button. Type `win_updates` and hit enter.
-
-Now right-click the `win_updates` folder and click the *New File* button. Type `site.yml` and hit enter.
-
-You should now have an editor open in the right pane that can be used
-for creating your playbook.
-
 ![Empty site.yml](images/7-create-win_updates.png)
 
-Section 2: Write your Playbook
-==============================
 
-Edit your site.yml and add a play definition and some tasks to your
-playbook. This will cover a very basic playbook for installing Windows
-Updates. Typically you would have even more tasks to accomplish the
-entire update process. This might entail creating service tickets,
-creating snapshots, or disabling monitoring.
+---
 
-<!-- {% raw %} -->
+# Section 2 – Write Your Playbook
 
-```yaml
+Edit `site.yml` and add the following:
+
+~~~yaml
 ---
 - hosts: windows
   name: This is my Windows patching playbook
@@ -58,159 +41,114 @@ creating snapshots, or disabling monitoring.
     - name: Install Windows Updates
       win_updates:
         category_names: "{{ categories | default(omit) }}"
-        reboot: '{{ reboot_server | default(true) }}'
-```
+        reboot: "{{ reboot_server | default(true) }}"
+~~~
 
-<!-- {% endraw %} -->
+> **Note**  
+> - `win_updates`: Checks for or installs updates.  
+> - `category_names`: Allows you to limit updates to specific categories via a variable.  
+> - `reboot`: If `true`, the remote host will reboot automatically when required, continuing the update process afterward. This is controlled via a survey variable so you can choose whether to reboot.
 
-> **Note**
->
-> **What are we doing?**
->
-> - `win_updates:` This module is used for checking or installing
->    updates. We tell it to only install updates from specific
->    categories using a variable. `reboot` attribute will automatically
->    reboot the remote host if it is required and continue to install
->    updates after the reboot. We will also use a survey variable to
->    stop us from rebooting even if needed. If the reboot\_server value
->    is not specified we will set the reboot attribute to true.
+---
 
-Section 3: Save and Commit
-==========================
+# Section 3 – Save and Commit
 
-Your playbook is done! But remember we still need to commit the changes
-to source code control.
-
-Click `File` → `Save All` to save the files you’ve written
+1. In VS Code, click **File → Save All**.  
 
 ![site.yml](images/7-win_update-playbook.png)
 
-Click the Source Code icon (1), type in a commit message such as *Adding
-windows update playbook* (2), and click the check box above (3).
+2. Click the Source Code icon (1), type in a commit message such as *Adding
+windows update playbook* (2), and click the check box above (3). 
 
 ![Commit site.yml](images/7-win_update-commit.png)
 
-Sync to gitlab by clicking the arrows on the lower left blue bar.
+3. Push your changes to GitLab by clicking the arrows on the lower left blue bar.
 
 ![Push to Gitlab.yml](images/7-push.png)
 
-It should take 5-30 seconds to finish the commit. The blue bar should
-stop rotating and indicate 0 problems…
+---
 
-Section 4: Create your Job Template
-===================================
+# Section 4 – Create Your Job Template
 
-Now, back in Controller, you will need to resync your Project so that the new
-files show up.
+In **automation controller**:
 
-Next we need to create a new Job Template to run this playbook. So go to
-*Template*, click *Add* and select `Job Template` to create a new job
-template.
+1. Go to **Projects**, and resync your project so the new playbook appears.  
+2. Go to **Templates**.  
+3. Click **Create template**, then select **Create job template**.  
 
-Step 1
-------
+Fill out the form:
 
-Complete the form using the following values
-
-| Key                | Value                      | Note |
-|--------------------|----------------------------|------|
-| NAME               | Windows Updates            |      |
-| DESCRIPTION        |                            |      |
-| JOB TYPE           | Run                        |      |
-| INVENTORY          | Workshop Inventory |      |
-| PROJECT            | Ansible Workshop Project   |      |
-| Playbook           | `win_updates/site.yml`     |      |
-| MACHINE CREDENTIAL | Student Account            |      |
-| LIMIT              | windows                    |      |
-| OPTIONS            | [\*] ENABLE FACT CACHE      |      |
+| Field              | Value                      |
+|--------------------|----------------------------|
+| **Name**           | Windows Updates            |
+| **Description**    | (optional)                 |
+| **Job Type**       | Run                        |
+| **Inventory**      | Workshop Inventory         |
+| **Project**        | Ansible Workshop Project   |
+| **Playbook**       | `win_updates/site.yml`     |
+| **Execution Environment** | Default Execution Environment |
+| **Credentials**    | Student Account            |
+| **Limit**          | windows                    |
+| **Options**        | Enable Fact Cache          |
 
 ![Create Job Template](images/7-win_update-template.png)
 
-Step 2
-------
+Click **Save**.
 
-Click SAVE ![Save](images/at_save.png) and then select ADD SURVEY
-![Add](images/at_add_survey.png)
+---
 
-Step 3
-------
+## Add a Survey
 
-Complete the survey form with following values
+1. On the Windows Updates job template page, click **Survey** tab and select the **Create survey question** button.  
+2. Fill in the first survey question:  
 
-| Key                     | Value                                                                                                                                                  | Note                                         |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| PROMPT                  | Categories                                                                                                                                             |                                              |
-| DESCRIPTION             | Which Categories to install?                                                                                                                           |                                              |
-| ANSWER VARIABLE NAME    | categories                                                                                                                                             |                                              |
-| ANSWER TYPE             | Multiple Choice (multiple select)                                                                                                                      | **There's also a *single* selection option** |
-| MULTIPLE CHOICE OPTIONS |  Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |                                              |
-| DEFAULT ANSWER          |  CriticalUpdates<br>SecurityUpdates                                                                                                                       |                                              |
-| REQUIRED                | Selected                                                                                                                                               |                                              |
-|                         |                                                                                                                                                        |                                              |
+| Field                     | Value                                                                                                          |
+|---------------------------|----------------------------------------------------------------------------------------------------------------|
+| **Question**                | Which categories to install?                                                                                                     |
+| **Description**           | (Optional)                                                                                  |
+| **Answer Variable Name**  | categories                                                                                                     |
+| **Answer Type**           | Multiple Choice (multiple select)                                                                             |
+| **Multiple Choice Options** | Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |
+| **Default option**        | CriticalUpdates<br>SecurityUpdates                                                                            |
+| **Options**              |Required                                                                                                       |
+
 
 ![Category Survey Form](images/7-category-survey.png)
 
-Once complete, click the ADD ![Add](images/at_add.png) button. You will
-see your new field off to the right. Now add another field by filling
-out the form on the left again.
+Click **Create survey question** to save the question.
 
-| Key                     | Value                                                   | Note |
-|-------------------------|---------------------------------------------------------|------|
-| PROMPT                  | Reboot after install?                                   |      |
-| DESCRIPTION             | If the server needs to reboot, then do so after install |      |
-| ANSWER VARIABLE NAME    | `reboot_server`                                         |      |
-| ANSWER TYPE             | Multiple Choice (single select)                         |      |
-| MULTIPLE CHOICE OPTIONS | Yes<br>No                                               |      |
-| DEFAULT ANSWER          | Yes                                                     |      |
-| REQUIRED                | Selected                                                |      |
+3. Add the second survey question:  
+
+| Field                     | Value                                                   |
+|---------------------------|---------------------------------------------------------|
+| **Question**                | Reboot after install?                                   |
+| **Description**           | (Optional) |
+| **Answer Variable Name**  | reboot_server                                            |
+| **Answer Type**           | Multiple Choice (single select)                         |
+| **Multiple Choice Options** | Yes<br>No                                             |
+| **Default option**        | Yes                                                     |
+| **Options**              | Required                                                |
 
 ![Reboot Survey Form](images/7-reboot-survey.png)
 
-Step 4
-------
+4. Click **Create survey question**.
 
-Select ADD ![Add](images/at_add.png)
+5. Back on the job template page, toggle the **Survey Enabled** button.
 
-Step 5
-------
+---
 
-Select SAVE ![Add](images/at_save.png)
+# Section 5 – Run Your Playbook
 
-Step 6
-------
+1. Go to **Templates** in automation controller.  
+2. Locate the **Windows Updates** job template and click the **Launch** button (rocket icon).  
+3. When prompted:  
+   - Select the update categories.  
+   - Choose **Yes** for *Reboot after install?*  
+   - Click **Next**, then **Launch**.  
 
-Back on the main Job Template page, select SAVE
-![Add](images/at_save.png) again.
+You’ll be redirected to the job output page to watch progress in real-time.
 
-Section 6: Running your new playbook
-====================================
+---
 
-Now let’s run it and see how it works.
-
-Step 1
-------
-
-Select TEMPLATES
-
-> **Note**
->
-> Alternatively, if you haven’t navigated away from the job templates
-> creation page, you can scroll down to see all existing job templates
-
-Step 2
-------
-
-Click the rocketship icon ![Add](images/at_launch_icon.png) for the
-**Windows Updates** Job Template.
-
-Step 3
-------
-
-When prompted, enter select the update categories. Answer `Yes` to the
-*Reboot after install?* prompt and click **NEXT**.
-
-After the job launches, you should be redirected and can watch the
-output of the job in realtime.
-
-<br><br>
 [Click here to return to the Ansible for Windows Workshop](../README.md)
+

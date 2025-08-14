@@ -59,9 +59,8 @@ It’ll look like this when finished:
 
 ### Step 3 — Add the IIS Advanced job template
 
-1. Hover over **Windows Updates** and click the green **+**.  
-2. Choose **IIS Advanced**.  
-3. Set:
+1. Choose **IIS Advanced** job template.
+2. Set:
 
 | Key           | Value   | Note |
 |---------------|---------|------|
@@ -85,7 +84,7 @@ At this point, you have a two-stage process: **Windows Updates** → **IIS Advan
 |---------------|---------|------|
 | **Node type**       | Job Template  |      |
 | **Job template**       | Chocolatey - Install Packages  |      |
-| **Status**       | Run on Succcess  |      |
+| **Status**       | Run on success  |      |
 | **Convergence** | Any   |      |
 
 
@@ -99,7 +98,7 @@ At this point, you have a two-stage process: **Windows Updates** → **IIS Advan
 |---------------|---------|------|
 | **Node type**       | Job Template  |      |
 | **Job template**       | Chocolatey - Facts and configuration  |      |
-| **Status**       | Run on Succcess  |      |
+| **Status**       | Run on success  |      |
 | **Convergence** | Any   |      |
 
 4. Click **Next** → **Finish**.

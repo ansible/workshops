@@ -1,148 +1,122 @@
-この手順は、すでにまとめたものをすべてワークフローと呼ばれるもので使用するように設計されています。
+# Ansible ワークフローの作成
 
-ワークフローはエンドツーエンドの自動化オーケストレーションプロセスと考えることができます。これにより、自動化プレイおよびロールを論理フローにリンクして何かを行うことができます。
+この演習では、**Ansible Automation Platform (AAP) 2.x** の **Automation Controller ワークフロー** を作成します。  
+ワークフローとは、ジョブテンプレート（および他のノード）を条件付きパスで論理的にリンクするエンドツーエンドのオーケストレーションです。
 
-今回のケースでは、以下のような流れになります。選択された最新の Windows アップデートをインストールします。 IIS のインストール (アドバンス
-ロール) を行います。追加パッケージをインストール (chocolatey を使用) します。最後に chocolatey ファクトと設定を確認します。
+今回のフローは以下の通りです。
 
-また、基本的な条件付きロジックを設定し、うまくいかない場合にはロールバック機能などを利用することもできます。
+- 選択した最新の Windows 更新プログラムをインストール  
+- IIS をインストール（高度なロールを使用）  
+- Chocolatey を使って追加パッケージをインストール  
+- 最後に Chocolatey のファクトと設定を確認  
 
-セクション 1 - ワークフローの作成
-===============================================
+条件付きロジック（成功時／失敗時／常時実行）やロールバックパスを追加することも可能です。  
+以下の手順は **AAP 2.5 UI** に基づいています。
 
-新しいワークフローテンプレートを作成し、そこに既存のオートメーションを追加していきます。
+## セクション 1 — ワークフローの作成
 
-終了時には、以下のようになります。
+**Workflow Job Template** を作成し、既存のジョブテンプレートをノードとして追加します。
 
-![ワークフローの例](images/9-win-workflow-0.png)
+完成形は次のようになります。
 
-ステップ 1:
----------------
+![Workflow Example](images/9-win-workflow-0.png)
 
-*Template* に移動し、*Add* をクリックして `Workflow Template`
-を選択し、新しいワークフローテンプレートを作成します。
+### ステップ 1 — 新しいワークフローテンプレート
 
-次の値を使用してフォームに記入します
+1. AAP Web UI で **Automation Execution → Templates** に移動します。  
+   **Create template** をクリックし、**Create workflow job template** を選択します。
 
-| Key                | Value                      | Note |
-|--------------------|----------------------------|------|
-| NAME               | Example Workflow           |      |
-| DESCRIPTION        | End-to-end process         |      |
-| ORGANIZATION       | Default                    |      |
-| INVENTORY          | Windows Workshop Inventory |      |
-| LIMIT              | windows                    |      |
+2. 次の値でフォームを入力します。
 
-![ワークフローテンプレートの作成](images/9-win-workflow-1.png)
+| キー            | 値                          | 備考 |
+|-----------------|-----------------------------|------|
+| **Name**        | Example Workflow            |      |
+| **Description** | End-to-end process          |      |
+| **Organization**| Default                     |      |
+| **Inventory**   | Windows Workshop Inventory  |      |
+| **Limit**       | windows                     |      |
 
-SAVE ![保存](images/at_save.png) をクリックすると、ワークフロービジュアライザーに入ります。
+![Create Workflow Template](images/9-win-workflow-1.png)
 
-ステップ 2:
----------------
+3. **Create workflow job template** をクリックします。**Workflow Visualizer** が表示されます。（終了した場合は、テンプレートの **Details** ページから再度開くことができます。）
 
-スタートボックスをクリックし、右側の選択項目から**Windows Update**を選びます。
+### ステップ 2 — 最初のジョブテンプレート（Windows Updates）の追加
 
-以下のプロパティーを選択します。
+1. **Add step** ボタンをクリックし、右側パネルから **Windows Updates** ジョブテンプレートを選択します。  
+2. 次の設定を行います。
 
-| Key                | Value                      | Note |
-|--------------------|----------------------------|------|
-| RUN                | Always                     |      |
-| CONVERGENCE        | Any                        |      |
+| キー              | 値               | 備考 |
+|-------------------|------------------|------|
+| **Node Type**     | Job Template     |      |
+| **Job template**  | Windows Updates  |      |
+| **Convergence**   | Any              |      |
 
-![最初のノードの追加](images/9-win-workflow-2.png)
+![Add First JT](images/9-win-workflow-2.png)
 
-ポップアップで Prompt、Next、および Confirm をクリックします。
-
-メインビジュアライザー画面に戻り、Select をクリックします。
+3. **Next** をクリックし、次に **Finish** をクリックします。  
+4. ビジュアライザーで 3 点リーダーをクリックし、**Add Step and link** を選択します。
 
 ![Workflow Visualizer1](images/9-win-workflow-3.png)
 
-ワークフローの第一段階を追加しました。
+### ステップ 3 — IIS Advanced ジョブテンプレートの追加
 
-**Windows Update** ボックスにカーソルを合わせ、緑色の + をクリックします。
+1. **IIS Advanced** ジョブテンプレートを選択します。  
+2. 次の設定を行います。
 
-次のステップで、**IIS Advanced** テンプレートを選択します。
-
-以下のプロパティーを選択します。
-
-| Key                | Value                      | Note |
-|--------------------|----------------------------|------|
-| RUN                | Always                     |      |
-| CONVERGENCE        | Any                        |      |
+| キー              | 値              | 備考 |
+|-------------------|-----------------|------|
+| **Node type**     | Job Template    |      |
+| **Job template**  | IIS Advanced    |      |
+| **Status**        | Always run      |      |
+| **Convergence**   | Any             |      |
 
 ![Workflow Visualizer2](images/9-win-workflow-4.png)
 
-プロンプトをクリックします。
+4. **Next** → **Finish** をクリックします。
 
-メッセージを Created in our workflow example (または同様の表現) に変更し、ポップアップで Next と
-Confirm を押します。
+これで、**Windows Updates** → **IIS Advanced** の 2 段階プロセスになりました。IIS は更新結果に関係なく実行されます。（後で失敗時の通知を追加できます。）
 
-メインビジュアライザー画面に戻り、Select をクリックします。
+### ステップ 4 — Chocolatey ステップの追加
 
-![Workflow Visualizer3](images/9-win-workflow-5.png)
+1. **IIS Advanced** 上にマウスを置き、3 点リーダーをクリックして **Add step and link** を選択し、**Chocolatey – Install Packages** を選択します。  
+   設定は以下の通りです。
 
-現在、2 段階のプロセスを採用しています。まず、Windows のアップデートを行い、その後、アップデートがうまくいくか **どうかにかかわらず**
-IIS
-の詳細インストールを行います。更新がうまくいくかどうかはこの時点では気にしないかもしれませんが、誰かに警告するために失敗したときに通知が発せられるように設定できます。
+| キー              | 値                           | 備考 |
+|-------------------|------------------------------|------|
+| **Node type**     | Job Template                 |      |
+| **Job template**  | Chocolatey - Install Packages|      |
+| **Status**        | Run on success               |      |
+| **Convergence**   | Any                          |      |
 
-その他にもアプリケーションデプロイメントの一部を表現してみましょう。
+![Workflow Visualizer4](images/9-win-workflow-5.png)
 
-**IIS Advanced** ボックスにカーソルを合わせ、緑色の + をクリックします。
+2. **Next** → **Finish** をクリックします。  
+3. **Chocolatey – Install Packages** 上にマウスを置き、3 点リーダーをクリックして **Add step and link** を選択し、**Chocolatey – Facts and configuration** を選びます。  
+   設定は以下の通りです。
 
-次のステップで、**Chocolatey - Install Packages** テンプレートを選択します。
+| キー              | 値                                  | 備考 |
+|-------------------|-------------------------------------|------|
+| **Node type**     | Job Template                        |      |
+| **Job template**  | Chocolatey - Facts and configuration|      |
+| **Status**        | Run on success                      |      |
+| **Convergence**   | Any                                 |      |
 
-以下のプロパティーを選択します。
+4. **Next** → **Finish** をクリックします。
 
-| Key                | Value                      | Note |
-|--------------------|----------------------------|------|
-| RUN                | On Success                 |      |
-| CONVERGENCE        | Any                        |      |
+![Workflow Visualizer5](images/9-win-workflow-6.png)
 
-![Workflow Visualizer4](images/9-win-workflow-6.png)
+5. ビジュアライザーで **Save** をクリックしてフローを保存します。
 
-メインビジュアライザー画面に戻り、Select をクリックします。
+![Workflow Visualizer Save](images/9-win-workflow-7.png)
 
-**Chocolatey - Install Packages** ボックスにカーソルを合わせ、緑色の + をクリックします。
+## セクション 2 — ワークフローの実行
 
-次のボックスで、**Chocolatey - Facts and configuration** テンプレートを選択します。
+1. 左ナビゲーションから **Automation Execution → Templates** に移動します。  
+2. **Example Workflow** の **ロケット（Launch）** アイコンをクリックして開始します。テンプレートを開き、**Launch template** をクリックすることもできます。
 
-以下のプロパティーを選択します。
+各ノードの実行結果がリアルタイムで表示されます。
 
-| Key                | Value                      | Note |
-|--------------------|----------------------------|------|
-| RUN                | On Success                 |      |
-| CONVERGENCE        | Any                        |      |
+すべてが正常に動作すれば、結果は次のようになります。
 
-**選択** をクリックします。
+![Workflow Visualizer](images/9-win-workflow-8.png)
 
-![Workflow Visualizer5](images/9-win-workflow-7.png)
-
-**保存** をクリックします。
-
-テンプレート画面に戻ります。ここで **保存** をクリックします。
-
-セクション 2: 新しいワークフローの実行
-=======================================================
-
-それを実行して、どのように機能するかを見てみましょう。
-
-ステップ 1:
----------------
-
-テンプレートを選択します
-
-> **注意**
->
-> あるいは、テンプレートから移動していない場合
-> 作成ページでは、下にスクロールして既存のすべてのテンプレートを表示できます
-
-ステップ 2:
----------------
-
-ワークフローテンプレート **Example Workflow** のロケットシップアイコン
-![Add](images/at_launch_icon.png) をクリックします。
-
-ワークフローの起動後は、ワークフローの出力をリアルタイムで確認できます。
-
-すべてが正常に終了すると、以下のような出力が表示されるはずです。
-
-![Workflow Visualizer6](images/9-win-workflow-8.png)

@@ -41,8 +41,9 @@ This workshop was created to last about 90 minutes and focuses more on targeting
  - [Exercise 2 - The Ansible Basics](2-thebasics)
  - [Exercise 3 - Deploying applications to linux hosts](3-playbook)
  - [Exercise 4 - Retrieving information from automation hosts](4-variables)
- - [Exercise 5 - Self-service IT via surveys](5-surveys)
- - [Exercise 6 - Overview of system roles for RHEL](6-system-roles)
+ - [Exercise 5 - Projects & Job Templates](5-projects)
+ - [Exercise 6 - Self-service IT via surveys](6-surveys)
+ - [Exercise 7 - Overview of system roles for RHEL](7-system-roles)
 
 ---
 ![Red Hat Ansible Automation](../../images/rh-ansible-automation-platform.png)

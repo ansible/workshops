@@ -136,7 +136,10 @@ Verify that the output result is as expected.
 <br>
 
 {% if page.url contains 'ansible_rhel_90' %}
-[Previous Exercise](../4-variables) - [Next Exercise](../../ansible_rhel_90/6-system-roles/)
-{% else %}
+[Previous Exercise](../5-projects) - [Next Exercise](../ansible_rhel_90/7-system-roles)
+{% else %}                       
 [Previous Exercise](../2.3-projects) - [Next Exercise](../2.5-rbac)
-{% endif %}
+{% endif %}                      
+<br><br>                         
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+

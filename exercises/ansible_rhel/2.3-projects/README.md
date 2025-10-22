@@ -252,7 +252,7 @@ Verify that the output result is as expected.
 <br>
 
 {% if page.url contains 'ansible_rhel_90' %}
-[Previous Exercise](../4-variables) - [Next Exercise](../6-projects)
+[Previous Exercise](../4-variables) - [Next Exercise](../6-surveys)
 {% else %}
 [Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
 {% endif %}

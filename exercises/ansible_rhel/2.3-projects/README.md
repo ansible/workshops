@@ -250,6 +250,12 @@ Verify that the output result is as expected.
 ---
 **Navigation**
 <br>
-[Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
 
-[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md#section-2---ansible-tower-exercises)
+{% if page.url contains 'ansible_rhel_90' %}
+[Previous Exercise](../4-variables) - [Next Exercise](../6-projects)
+{% else %}
+[Previous Exercise](../2.2-cred) - [Next Exercise](../2.4-surveys)
+{% endif %}
+<br><br>
+[Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+

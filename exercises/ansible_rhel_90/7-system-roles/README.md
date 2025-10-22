@@ -194,6 +194,12 @@ You have completed lab exercise
 ----
 **Navigation**
 <br>
-[Previous Exercise](../5-surveys)
-<br><br>
+
+{% if page.url contains 'ansible_rhel_90' %}                             
+[Previous Exercise](../6-surveys)
+{% else %}                                                               
+[Previous Exercise](../2.4-surveys)
+{% endif %}                                                              
+<br><br>                                                                 
 [Click here to return to the Ansible for Red Hat Enterprise Linux Workshop](../README.md)
+

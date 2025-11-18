@@ -118,17 +118,17 @@ Additional material for Event-Driven Ansible
 <td>Learn how to set up Ansible Lightspeed with watsonx Code Assistant—from installation and configuration to content creation.
 </td>
 <td>Step-by-step guide</td>
-<td><a target="_new" href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">📖 Read Guide</a></td>
+<td><a target="_blank" href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">📖 Read Guide</a></td>
 </tr>
 <tr>
 <td>Red Hat talks to RedMonk</td>
 <td>Analyst material</td>
-<td><a target="_new" href="https://redmonk.com/videos/a-redmonk-conversation-ai-and-it-automation-with-ansible">🎥 Watch Interview</a></td>
+<td><a target="_blank" href="https://redmonk.com/videos/a-redmonk-conversation-ai-and-it-automation-with-ansible">🎥 Watch Interview</a></td>
 </tr>
 <tr>
 <td>Explore this playlist of announcements and demo</td>
 <td>YouTube playlist</td>
-<td><a target="_new" href="https://www.youtube.com/playlist?list=PLdu06OJoEf2bVLR899FuKc3AiuJvbIRZU">🎥 Ansible Lightspeed with watsonx Code Assistant</a></td>
+<td><a target="_blank" href="https://www.youtube.com/playlist?list=PLdu06OJoEf2bVLR899FuKc3AiuJvbIRZU">🎥 Ansible Lightspeed with watsonx Code Assistant</a></td>
 </tr>
 </tbody>
 </table>

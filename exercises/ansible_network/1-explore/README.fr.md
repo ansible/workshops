@@ -34,7 +34,7 @@ Pour plus d'informations sur les nouveaux composants de la plateforme d'automati
 
 > Rejoignez notre forum communautaire !
 >
-> Avant de commencer, rejoignez-nous sur <a target="_new" href="https://forum.ansible.com/">https://forum.ansible.com/</a>. Cela vous permettra d'obtenir de l'aide après les ateliers.
+> Avant de commencer, rejoignez-nous sur <a target="_blank" href="https://forum.ansible.com/">https://forum.ansible.com/</a>. Cela vous permettra d'obtenir de l'aide après les ateliers.
 
 ## Diagramme
 

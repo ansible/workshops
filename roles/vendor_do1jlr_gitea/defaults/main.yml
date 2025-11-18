@@ -97,7 +97,7 @@ gitea_enable_captcha: true
 gitea_show_registration_button: true
 gitea_only_allow_external_registration: false
 gitea_enable_notify_mail: false
-gitea_auto_watch_new_repos: true
+gitea_auto_watch_blank_repos: true
 gitea_service_extra_config: ''
 
 # Mailer [mailer]

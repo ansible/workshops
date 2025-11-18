@@ -29,8 +29,8 @@ Optional module **Terraforming Clouds with Ansible** deck:
 
 - **Infrastructure optimization** [Estimated Time ⏰ 20 minutes]  
   <br>In this lab we will guide you in understanding some basic optimization exercises that can help you tame your public clouds.
-    - <a href="https://developers.redhat.com/content-gateway/link/3884775" target="_blank" rel="noopener noreferrer">Start exercise on AWS</a>
-    - <a href="https://developers.redhat.com/content-gateway/link/3884829" target="_blank" rel="noopener noreferrer">Start exercise on Azure</a>
+    - <a target="_blank" href="https://developers.redhat.com/content-gateway/link/3884775" target="_blank" rel="noopener noreferrer">Start exercise on AWS</a>
+    - <a target="_blank" href="https://developers.redhat.com/content-gateway/link/3884829" target="_blank" rel="noopener noreferrer">Start exercise on Azure</a>
 
   
 Optional Lab

@@ -82,7 +82,7 @@ Comme vous pouvez le voir dans la sortie ci-dessus, il n'y a aucune configuratio
 
 * Créez un nouveau fichier dans Visual Studio Code nommé `resource.yml`
 
-   ![nouveau fichier](images/step1_new_file.png)
+   ![nouveau fichier](images/step1_blank_file.png)
 
 * Copiez le playbook Ansible suivant dans votre fichier `resource.yml`
 

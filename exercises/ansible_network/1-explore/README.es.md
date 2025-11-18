@@ -35,7 +35,7 @@ Si necesitaás más informacion sobre los nuevos componentes de Ansible Automati
 
 > Join our community forum!
 >
-> Before you get started, please join us on <a target="_new" href="https://forum.ansible.com/">https://forum.ansible.com/</a>.  This will allow you to get Ansible help after the workshops concludes.
+> Before you get started, please join us on <a target="_blank" href="https://forum.ansible.com/">https://forum.ansible.com/</a>.  This will allow you to get Ansible help after the workshops concludes.
 
 ## Diagrama
 

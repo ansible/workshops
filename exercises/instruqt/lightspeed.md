@@ -65,13 +65,13 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td>Get started with ansible-builder</td>
 <td>Install ansible-builder v3 and learn how to create custom execution environments.</td>
-<td><a target="_new" href="https://developers.redhat.com/content-gateway/link/3884763">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://developers.redhat.com/content-gateway/link/3884763">🚀 Launch Lab</a></td>
 <td>⏱️ 30 minutes</td>
 </tr>
 <tr>
 <td>Get started with Ansible Lightspeed with IBM watsonx Code Assistant</td>
 <td>Learn how to configure, activate, and use Ansible Lightspeed to generate Ansible content.</td>
-<td><a target="_new" href="https://red.ht/lab-lightspeed-101">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://red.ht/lab-lightspeed-101">🚀 Launch Lab</a></td>
   <!-- NOTE: This Lightspeed lab is deprecated and the commercial lab requires Red Hat supervision-->
 <td>⏱️ 30 minutes</td>
 </tr>
@@ -95,17 +95,17 @@ Additional material for Event-Driven Ansible
 <td>Learn how to set up Ansible Lightspeed with watsonx Code Assistant—from installation and configuration to content creation.
 </td>
 <td>Step-by-step guide</td>
-<td><a target="_new" href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">📖 Read Guide</a></td>
+<td><a target="_blank" href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">📖 Read Guide</a></td>
 </tr>
 <tr>
 <td>Red Hat talks to RedMonk</td>
 <td>Analyst material</td>
-<td><a target="_new" href="https://redmonk.com/videos/a-redmonk-conversation-ai-and-it-automation-with-ansible">🎥 Watch Interview</a></td>
+<td><a target="_blank" href="https://redmonk.com/videos/a-redmonk-conversation-ai-and-it-automation-with-ansible">🎥 Watch Interview</a></td>
 </tr>
 <tr>
 <td>Explore this playlist of announcements and demo</td>
 <td>YouTube playlist</td>
-<td><a target="_new" href="https://www.youtube.com/playlist?list=PLdu06OJoEf2bVLR899FuKc3AiuJvbIRZU">🎥 Ansible Lightspeed with watsonx Code Assistant</a></td>
+<td><a target="_blank" href="https://www.youtube.com/playlist?list=PLdu06OJoEf2bVLR899FuKc3AiuJvbIRZU">🎥 Ansible Lightspeed with watsonx Code Assistant</a></td>
 </tr>
 </tbody>
 </table>

@@ -143,7 +143,7 @@ Either you define exactly which release you install. Or you use the option ``lat
 | `gitea_show_registration_button` | `true` | Here you can hide the registration button. This will not disable registration! (true/false)|
 | `gitea_only_allow_external_registration` | `false` | Set to true to force registration only using third-party services (true/false) |
 | `gitea_enable_notify_mail` | `false` | Enable this to send e-mail to watchers of a repository when something happens, like creating issues (true/false) |
-| `gitea_auto_watch_new_repos` | `true` | Enable this to let all organisation users watch new repos when they are created (true/false) |
+| `gitea_auto_watch_blank_repos` | `true` | Enable this to let all organisation users watch new repos when they are created (true/false) |
 | `gitea_service_extra_config` | `''` | you can use this variable to pass additional config parameters in the `[service]` section of the config. |
 
 ### Mailer ([mailer](https://docs.gitea.io/en-us/config-cheat-sheet/#mailer-mailer))

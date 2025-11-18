@@ -14,7 +14,7 @@
 <h1 id="90_minute_sectin">90 minute workshops</h1>
 <section class="page-contain">
 <!-- lab -->
-  <a target="_new" href="https://rhpds.github.io/showroom-ai-driven-ansible-automation/modules/index.html" class="data-card">
+  <a target="_blank" href="https://rhpds.github.io/showroom-ai-driven-ansible-automation/modules/index.html" class="data-card">
     <h3>AI + Ansible</h3>
     <h4>Introduction to AI-Driven Ansible Automation</h4>
     <p>Build an intelligent, self-healing automation workflow</p>
@@ -28,7 +28,7 @@
   </a>
 
 <!-- lab -->
-  <a target="_new" href="./exercises/ansible_rhel_90" class="data-card">
+  <a target="_blank" href="./exercises/ansible_rhel_90" class="data-card">
     <h3>RHEL 90</h3>
     <h4>Ansible Red Hat Enterprise Linux Workshop</h4>
     <p>Focused on automating Linux platforms like Red Hat Enterprise Linux</p>
@@ -41,7 +41,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
 <!-- lab -->
-  <a target="_new" href="./exercises/instruqt/eda" class="data-card">
+  <a target="_blank" href="./exercises/instruqt/eda" class="data-card">
     <h3>EDA</h3>
     <h4>Event-Driven Ansible Technical Workshop</h4>
     <p>Covers EDA fundamentals such as sources, rules, and actions</p>
@@ -54,7 +54,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/ansible-cloud-lab" class="data-card">
+  <a target="_blank" href="exercises/instruqt/ansible-cloud-lab" class="data-card">
     <h3>Cloud</h3>
     <h4>Introduction to cloud automation</h4>
     <p>Focused on how to orchestrate, operationalize and govern your hybrid cloud environments</p>
@@ -67,7 +67,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/lightspeed" class="data-card">
+  <a target="_blank" href="exercises/instruqt/lightspeed" class="data-card">
     <h3>Lightspeed</h3>
     <h4>Ansible Lightspeed and Development Technical Workshop</h4>
     <p>Focused on the Ansible automation engineer or application developer. </p>
@@ -79,7 +79,7 @@
     </span>
   <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
-  <a target="_new" href="exercises/instruqt/network" class="data-card">
+  <a target="_blank" href="exercises/instruqt/network" class="data-card">
     <h3>Network</h3>
     <h4>Getting Started with Network Automation</h4>
     <p>Focused on Ansible Automation with respect to routers and switches. </p>
@@ -91,7 +91,7 @@
     </span>
   <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
-  <a target="_new" href="exercises/instruqt/servicenow" class="data-card">
+  <a target="_blank" href="exercises/instruqt/servicenow" class="data-card">
     <h3>ServiceNow</h3>
     <h4>Getting Started with ServiceNow Automation</h4>
     <p>Focused on using Ansible Automation in conjunction with an IT Service Management (ITSM) tool</p>
@@ -104,7 +104,7 @@
   <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/windows" class="data-card">
+  <a target="_blank" href="exercises/instruqt/windows" class="data-card">
     <h3>Windows</h3>
     <h4>Getting Started with Windows Automation</h4>
     <p>Focused on using Ansible Automation for automating tasks on a Windows host.</p>
@@ -121,7 +121,7 @@
 
 <h1 id="4_hour_section">4 hour workshops</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/instruqt/eda-4" class="data-card">
+  <a target="_blank" href="./exercises/instruqt/eda-4" class="data-card">
     <h3>EDA</h3>
     <h4>Event-Driven Ansible Technical Workshop</h4>
     <p>Covers EDA fundamentals such as sources, rules, and actions</p>
@@ -134,7 +134,7 @@
   <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/lightspeed-4" class="data-card">
+  <a target="_blank" href="exercises/instruqt/lightspeed-4" class="data-card">
     <h3>Lightspeed</h3>
     <h4>Ansible Lightspeed and Development Technical Workshop</h4>
     <p>Focused on the Ansible automation engineer or application developer. </p>
@@ -147,7 +147,7 @@
   <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/aapcasc-4" class="data-card">
+  <a target="_blank" href="exercises/instruqt/aapcasc-4" class="data-card">
     <h3>CaC</h3>
     <h4>CaC for Ansible Automation Platform</h4>
     <p>Focused on Configuration as Code for Ansible Automation Platform.</p>
@@ -163,7 +163,7 @@
 
 <h1 id="6_hour_section">6 hour workshops</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/ansible_rhel" class="data-card">
+  <a target="_blank" href="./exercises/ansible_rhel" class="data-card">
     <h3>RHEL</h3>
     <h4>Ansible Red Hat Enterprise Linux Workshop</h4>
     <p>Focused on automating Linux platforms like Red Hat Enterprise Linux</p>
@@ -176,7 +176,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="./exercises/ansible_network" class="data-card">
+  <a target="_blank" href="./exercises/ansible_network" class="data-card">
     <h3>Network</h3>
     <h4>Ansible Network Automation Workshop</h4>
     <p>Focused on router and switch platforms like Arista, Cisco, Juniper</p>
@@ -189,7 +189,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="./exercises/ansible_windows" class="data-card">
+  <a target="_blank" href="./exercises/ansible_windows" class="data-card">
     <h3>Windows</h3>
     <h4>Ansible Windows Automation Workshop</h4>
     <p>Focused on automation of Microsoft Windows </p>
@@ -202,7 +202,7 @@
   <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="./exercises/rhdp_auto_satellite" class="data-card">
+  <a target="_blank" href="./exercises/rhdp_auto_satellite" class="data-card">
     <h3>Satellite </h3>
     <h4>Ansible + Satellite Workshop</h4>
     <p>Focused on automation of security and lifecycle management with Red Hat Satellite Server</p>
@@ -215,7 +215,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="./exercises/ansible_ripu" class="data-card">
+  <a target="_blank" href="./exercises/ansible_ripu" class="data-card">
     <h3>RIPU</h3>
     <h4>RHEL In-place Upgrade Automation Workshop</h4>
     <p>Focused on automation of RHEL in-place upgrades at enterprise scale</p>
@@ -231,7 +231,7 @@
 
 <h1 id="product_demos_section">Product-Demos</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/product_demos/" class="data-card">
+  <a target="_blank" href="./exercises/product_demos/" class="data-card">
     <h3>Product Demos</h3>
     <h4>Ansible Product Demos</h4>
     <p>Sandbox for demoing, development, and experimentation</p>

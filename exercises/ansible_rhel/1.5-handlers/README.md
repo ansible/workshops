@@ -83,6 +83,7 @@ Handlers are used for tasks that should only run when notified by another task. 
 
 Let's say we want to ensure the firewall is configured correctly on all web servers and then reload the firewall service to apply any new settings. We'll define a handler that reloads the firewall service and is notified by a task ^that ensures the desired firewall rules are in place. Add the following tasks to the existing playbook to install firewalld and enable firewalld and reload the service with the help of handlers.
 
+{% raw %}
 
 ```yaml
 ---
@@ -140,6 +141,8 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
         state: reloaded
 
 ```
+
+{% endraw %}
 
 The handler "Reload Firewall" is triggered only if the task “Allow HTTP traffic on web servers” makes any changes.
 

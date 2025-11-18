@@ -100,7 +100,7 @@ Additional material for Event-Driven Ansible
 <tr>
 <td>Red Hat talks to RedMonk</td>
 <td>Analyst material</td>
-<td><a targete="_new" href="https://redmonk.com/videos/a-redmonk-conversation-ai-and-it-automation-with-ansible">🎥 Watch Interview</a></td>
+<td><a target="_new" href="https://redmonk.com/videos/a-redmonk-conversation-ai-and-it-automation-with-ansible">🎥 Watch Interview</a></td>
 </tr>
 <tr>
 <td>Explore this playlist of announcements and demo</td>

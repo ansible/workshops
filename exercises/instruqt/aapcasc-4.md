@@ -108,7 +108,7 @@ Additional material for Configuration as Code for Ansible Automation Platform 2
 <tr>
 <td>Infra Collections in Ansible Galaxy</td>
 <td>Collections</td>
-<td><a targete="_new" href="https://galaxy.ansible.com/ui/namespaces/infra/">📒 Download collections used in this lab and get links to their repos</a></td>
+<td><a target="_new" href="https://galaxy.ansible.com/ui/namespaces/infra/">📒 Download collections used in this lab and get links to their repos</a></td>
 </tr>
 </tbody>
 </table>

@@ -56,17 +56,53 @@ OS: {{ ansible_distribution }} {{ ansible_distribution_version }}
 
 ```yaml
 ---
-- name: 基本的なシステムセットアップ
+- name: 基本的なシステム設定
   hosts: all
   become: true
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
   tasks:
+    - name: セキュリティ関連のパッケージをすべて更新
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: 新しいユーザーを作成
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Web サーバーに Apache をインストール
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: firewalld をインストール
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: firewalld が実行中であることを確認
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+      when: inventory_hostname in groups['web']
+    - name: Web サーバーで HTTP トラフィックを許可
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+      when: inventory_hostname in groups['web']
+      notify: ファイアウォールをリロード
     - name: Jinja2 テンプレートから MOTD を更新
       ansible.builtin.template:
         src: templates/motd.j2
         dest: /etc/motd
-
   handlers:
-    - name: ファイアウォールの再読み込み
+    - name: ファイアウォールをリロード
       ansible.builtin.service:
         name: firewalld
         state: reloaded
@@ -106,12 +142,21 @@ node3                      : ok=8    changed=1    unreachable=0    failed=0    s
 ```plaintext
 [rhel@control ~]$ ssh node1
 
-node1 へようこそ。
+Welcome to node1.
 OS: RedHat 8.7
-アーキテクチャ: x86_64
-このシステムを Red Hat Insights に登録する：insights-client --register
-アカウントを作成するか、https://red.ht/insights-dashboard で全てのシステムを表示する
-最終ログイン：2024年1月29日 月曜日 16:30:31 から 10.5.1.29
+Architecture: x86_64
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
+```
+
+次の演習に進む前に、SSHセッションを終了してコントロールノードに戻ります：
+
+```plaintext
+[rhel@node1 ~]$ exit
+logout
+Connection to node1 closed.
+[rhel@control ~]$
 ```
 
 

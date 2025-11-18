@@ -59,8 +59,45 @@ Modifica el Playbook `system_setup.yml` con el siguiente contenido:
 - name: Configuración Básica del Sistema
   hosts: all
   become: true
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
   tasks:
-    - name: Actualizar MOTD desde Plantilla Jinja2
+    - name: Actualizar todos los paquetes relacionados con la seguridad
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: Crear un nuevo usuario
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Instalar Apache en servidores web
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: Instalar firewalld
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: Asegurar que firewalld esté ejecutándose
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+      when: inventory_hostname in groups['web']
+    - name: Permitir tráfico HTTP en servidores web
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+      when: inventory_hostname in groups['web']
+      notify: Recargar Firewall
+    - name: Actualizar MOTD desde plantilla Jinja2
       ansible.builtin.template:
         src: templates/motd.j2
         dest: /etc/motd
@@ -103,12 +140,21 @@ Verifica los cambios conectándote por SSH al nodo, y deberías ver el mensaje d
 ```bash
 [rhel@control ~]$ ssh node1
 
-Bienvenido a node1.
-SO: RedHat 8.7
-Arquitectura: x86_64
-Registra este sistema en Red Hat Insights: insights-client --register
-Crea una cuenta o ve todos tus sistemas en https://red.ht/insights-dashboard
-Último acceso: Lun Ene 29 16:30:31 2024 desde 10.5.1.29
+Welcome to node1.
+OS: RedHat 8.7
+Architecture: x86_64
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
+```
+
+Salga de la sesión SSH para regresar a su nodo de control antes de continuar con el siguiente ejercicio:
+
+```plaintext
+[rhel@node1 ~]$ exit
+logout
+Connection to node1 closed.
+[rhel@control ~]$
 ```
 
 ----

@@ -69,12 +69,48 @@ Modifiez le playbook `system_setup.yml` avec le contenu suivant :
 - name: Configuration Système de Base
   hosts: all
   become: true
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
   tasks:
-    - name: Mise à jour de MOTD à partir du modèle Jinja2
+    - name: Mettre à jour tous les paquets liés à la sécurité
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: Créer un nouvel utilisateur
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Installer Apache sur les serveurs web
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: Installer firewalld
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+      when: inventory_hostname in groups['web']
+    - name: S'assurer que firewalld est en cours d'exécution
+      ansible.builtin.service:
+        name: firewalld
+        state: started
+        enabled: true
+      when: inventory_hostname in groups['web']
+    - name: Autoriser le trafic HTTP sur les serveurs web
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+      when: inventory_hostname in groups['web']
+      notify: Recharger le Pare-feu
+    - name: Mettre à jour MOTD depuis le modèle Jinja2
       ansible.builtin.template:
         src: templates/motd.j2
         dest: /etc/motd
-
   handlers:
     - name: Recharger le Pare-feu
       ansible.builtin.service:
@@ -116,14 +152,22 @@ Vérifiez les changements en vous connectant au nœud via SSH, et vous devriez v
 ```plaintext
 [rhel@control ~]$ ssh node1
 
-Bienvenue sur node1.
-OS : RedHat 8.7
-Architecture : x86_64
-Enregistrez ce système auprès de Red Hat Insights : insights-client --register
-Créez un compte ou consultez tous vos systèmes sur https://red.ht/insights-dashboard
-Dernière connexion : Lun 29 Jan 16:30:31 2024 depuis 10.5.1.29
+Welcome to node1.
+OS: RedHat 8.7
+Architecture: x86_64
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Mon Jan 29 16:30:31 2024 from 10.5.1.29
 ```
 
+Quittez la session SSH pour retourner à votre nœud de contrôle avant de continuer vers l'exercice suivant :
+
+```plaintext
+[rhel@node1 ~]$ exit
+logout
+Connection to node1 closed.
+[rhel@control ~]$
+```
 
 ----
 **Navigation**

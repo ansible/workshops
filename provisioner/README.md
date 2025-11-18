@@ -156,7 +156,7 @@ ee_images:
 # "Default execution environment" for controller
 ee_default_image: "{{ ee_registry_name }}/ee-supported-rhel8:latest"
 
-# By default pre_build is set to true, this allows people with access to specific AMIs 
+# By default pre_build is set to true, this allows people with access to specific AMIs
 # built by the Red Hat Ansible Team to be shared with AWS organizations/accounts to speed up
 # provisioning and reduce errors
 pre_build: false
@@ -164,7 +164,7 @@ pre_build: false
 ```
 ### Automation controller license
 
-In order to use Automation controller (i.e. `controllerinstall: true`), which is the default behavior (as seen in group_vars/all.yml) you need to have a valid subscription via a `manifest.zip` file.  To retrieve your manifest.zip file you need to download it from access.redhat.com.  
+In order to use Automation controller (i.e. `controllerinstall: true`), which is the default behavior (as seen in group_vars/all.yml) you need to have a valid subscription via a `manifest.zip` file.  To retrieve your manifest.zip file you need to download it from access.redhat.com.
 
 - Here is a video by Colin McNaughton to help you retrieve your manifest.zip:
  [https://youtu.be/FYtilnsk7sM](https://youtu.be/FYtilnsk7sM).
@@ -214,7 +214,7 @@ These are the ways to integrate your license file with the workshop:
   manifest_download_password: password
   ```
 
-### Automating the download of aap.tar.gz 
+### Automating the download of aap.tar.gz
 
 If you have the aap.tar.gz tarball in a secure URL, you can automate the downloading of it by specifying the following variables.
 Note that the tarball specified in the URL must match the SHA value defined in provided_sha_value
@@ -254,7 +254,7 @@ testworkshop-student1-ansible
 
 ### Accessing student documentation and slides
 
-* Exercises and instructor slides are hosted at [aap2.demoredhat.com](aap2.demoredhat.com)
+* Exercises and instructor slides are hosted at [labs.demoredhat.com](labs.demoredhat.com)
 
 * Workbench information is stored in two places after you provision:
 
@@ -291,7 +291,7 @@ The Automated Satellite Lab relies on a prebuilt AMI for Red Hat Satellite Serve
 The Automated Satellite Lab also requires AWS DNS to be enabled. See [sample vars](./sample_workshops/sample-vars-auto_satellite.yml) for required configuration.
 ### devcontainer
 
-For convenience, a devcontainer has been configured for use within this project. This setup allows workshop developers to run the workspace along with provisioner within a Docker container. The devcontainer has support for docker-in-docker so that `ansible-navigator` can run against the workshop execution environment to provision workshops. 
+For convenience, a devcontainer has been configured for use within this project. This setup allows workshop developers to run the workspace along with provisioner within a Docker container. The devcontainer has support for docker-in-docker so that `ansible-navigator` can run against the workshop execution environment to provision workshops.
 
 See the `devcontainer.json` in the `.devcontainer` directory at the top level of this repository. For more information regarding devcontainers, see [here](https://code.visualstudio.com/docs/devcontainers/containers).
 

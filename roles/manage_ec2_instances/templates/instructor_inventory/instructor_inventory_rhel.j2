@@ -26,6 +26,23 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 {{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
 {% endif %}
 {% endfor %}
+{% if ol7 is defined %}
+{% for host in node4_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node5_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% for host in node6_node_facts.instances %}
+{% if 'student' ~ number == host.tags.Student %}
+{{host.tags.Student}}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }}
+{% endif %}
+{% endfor %}
+{% endif %}
 {% if centos7 is defined %}
 {% for host in node4_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}

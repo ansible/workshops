@@ -11,7 +11,7 @@
 
 This is the documentation for Ansible Automation Platform 1.2.  If you are
 looking for Ansible Automation Platform 2, please go to
-[http://aap2.demoredhat.com/](http://aap2.demoredhat.com/).
+[http://labs.demoredhat.com/](http://labs.demoredhat.com/).
 
 ## プレゼンテーション
 プレゼンテーションの資料が必要ですか? ここから入手いただけます:

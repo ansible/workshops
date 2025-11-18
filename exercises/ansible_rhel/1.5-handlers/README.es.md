@@ -76,38 +76,52 @@ Digamos que queremos asegurarnos de que el firewall esté configurado correctame
 - name: Configuración Básica del Sistema
   hosts: all
   become: true
-  .
-  .
-  .
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
+  tasks:
+    - name: Actualizar todos los paquetes relacionados con la seguridad
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: Crear un nuevo usuario
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Instalar Apache en servidores web
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
     - name: Instalar firewalld
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: firewalld
         state: present
-
-    - name: Asegurar que firewalld esté corriendo
+      when: inventory_hostname in groups['web']
+    - name: Asegurar que firewalld esté ejecutándose
       ansible.builtin.service:
         name: firewalld
         state: started
         enabled: true
-
-    - name: Permitir tráfico HTTPS en servidores web
+      when: inventory_hostname in groups['web']
+    - name: Permitir tráfico HTTP en servidores web
       ansible.posix.firewalld:
-        service: https
+        service: http
         permanent: true
         state: enabled
       when: inventory_hostname in groups['web']
       notify: Recargar Firewall
-
   handlers:
     - name: Recargar Firewall
       ansible.builtin.service:
         name: firewalld
         state: reloaded
-
-
 ```
 
-El manejador Recargar Firewall solo se activa si la tarea "Permitir tráfico HTTPS en servidores web" realiza algún cambio.
+El manejador Recargar Firewall solo se activa si la tarea "Permitir tráfico HTTP en servidores web" realiza algún cambio.
 
 > NOTA: Observa cómo el nombre del manejador se utiliza dentro de la sección notify de la tarea de configuración "Recargar Firewall". Esto asegura que se ejecute el manejador adecuado ya que puede haber múltiples manejadores dentro de un libro de jugadas de Ansible.
 
@@ -150,7 +164,7 @@ changed: [ansible-1]
 changed: [node2]
 changed: [node1]
 
-TASK [Permitir tráfico HTTPS en servidores web] **************************************
+TASK [Permitir tráfico HTTP en servidores web] **************************************
 skipping: [ansible-1]
 changed: [node2]
 changed: [node1]

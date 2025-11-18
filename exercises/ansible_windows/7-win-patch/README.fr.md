@@ -1,158 +1,150 @@
-**Lisez ceci dans d'autres langues**:
-<br>![uk](../../../images/uk.png) [English](README.md),  ![japan](../../../images/japan.png)[日本語](README.ja.md), ![france](../../../images/fr.png) [Française](README.fr.md).
+**Lire ceci dans d'autres langues** :  
+<br>![uk](../../../images/uk.png) [English](README.md), ![japan](../../../images/japan.png) [日本語](README.ja.md), ![france](../../../images/fr.png) [Français](README.fr.md)  
+<br>
 
-Section 1 - Créer un Playbook
-==================================
+---
 
-Le module `win_updates` est utilisé pour rechercher ou installer les mises à jour Windows. Le module utilise le service Windows Update intégré pour fonctionner. Cela signifie que vous aurez toujours besoin d'un système principal comme WSUS ou les serveurs Windows Update en ligne pour télécharger les mises à jour. Si la configuration de Windows Update de votre serveur est définie pour télécharger automatiquement mais ne pas installer, vous pouvez également utiliser le module pour organiser les mises à jour en lui disant de «rechercher» les mises à jour. Nous avons également la possibilité de mettre en liste blanche ou noire les mises à jour. Par exemple, nous pourrions lui dire de n'installer qu'une seule mise à jour de sécurité particulière au lieu de chaque mise à jour disponible.
+# Section 1 – Création de votre Playbook
 
-Pour commencer, nous allons créer un nouveau playbook. Nous répéterons les étapes que vous avez effectuées dans les exercices précédents.
+Le module `win_updates` est utilisé pour vérifier ou installer des mises à jour Windows. Il utilise le service Windows Update intégré, ce qui signifie que vous devez toujours disposer d’un système en arrière-plan comme WSUS ou les serveurs Microsoft Update.  
+Si la configuration Windows Update de votre serveur est définie pour télécharger automatiquement sans installer, vous pouvez utiliser ce module pour préparer les mises à jour en utilisant `search`.  
+Vous pouvez également créer une liste blanche ou noire de mises à jour — par exemple, installer uniquement une mise à jour de sécurité précise au lieu de toutes les mises à jour disponibles.
 
+Pour commencer, nous allons créer un nouveau playbook, en suivant un processus similaire aux exercices précédents.
 
-Étape 1:
---------
+---
 
-Dans Visual Studio Code, nous allons maintenant créer un nouveau répertoire dans votre référentiel git et créer un nouveau fichier playbook.
+## Étape 1 – Créer le fichier Playbook
 
-Dans l'Explorer, vous devriez avoir le repertoire où vous avez précédemment créé `iis_basic`.
+Dans Visual Studio Code :
 
-![Student Playbooks](images/7-vscode-existing-folders.png)
+1. Dans la vue **Explorer**, trouvez votre section *student#* où vous avez précédemment créé `iis_basic`.  
+2. Survolez le dossier **WORKSHOP_PROJECT** et cliquez sur le bouton **New Folder**. Nommez le dossier `win_updates` et appuyez sur Entrée.  
+3. Faites un clic droit sur le dossier `win_updates`, sélectionnez **New File**, nommez-le `site.yml`, puis appuyez sur Entrée.  
 
-Allez sur la section *WORKSHOP_PROJECT* et cliquez sur le bouton *Nouveau dossier*. Tapez `win_updates` et appuyez sur Entrée.
+Vous devriez maintenant avoir un éditeur vide ouvert, prêt à recevoir votre playbook.  
 
-Maintenant, cliquez sur le dossier `win_updates` et cliquez sur le bouton *Nouveau fichier*. Tapez `site.yml` et appuyez sur Entrée.
-
-Vous devriez maintenant avoir un éditeur ouvert dans le volet droit qui peut être utilisé pour modifier votre playbook.
 ![Empty site.yml](images/7-create-win_updates.png)
 
-Section 2: Ecrire votre Playbook
-================================
+---
 
-Modifiez le fichier site.yml et ajoutez une définition et quelques tâches à votre playbook. Cela couvrira un playbook très basique pour l'installation des mises à jour Windows. En règle générale, vous auriez encore plus de tâches pour accomplir l'ensemble du processus de mise à jour. Cela peut impliquer la création de tickets de service, la création d'instantanés (snapshot) ou la désactivation de la surveillance. 
+# Section 2 – Écrire votre Playbook
 
-<!-- {% raw %} -->
-```yaml
+Éditez `site.yml` et ajoutez le contenu suivant :
+
+~~~yaml
 ---
 - hosts: windows
-  name: This is my Windows patching playbook
+  name: Ceci est mon playbook de mise à jour Windows
   tasks:
-    - name: Install Windows Updates
+    - name: Installer les mises à jour Windows
       win_updates:
         category_names: "{{ categories | default(omit) }}"
-        reboot: '{{ reboot_server | default(true) }}'
-```
-<!-- {% endraw %} -->
+        reboot: "{{ reboot_server | default(true) }}"
+~~~
 
-> **Note**
->
-> **Que faisons-nous ici ?**
->
-> -   `win_updates:` Ce module est utilisé pour vérifier ou installer des mises à jour. Nous lui demandons d'installer uniquement les mises à jour de catégories spécifiques à l'aide d'une variable. L'attribut `reboot` redémarrera automatiquement l'hôte distant s'il est requis et continuera à installer les mises à jour après le redémarrage. Nous utiliserons également une variable modifiable via un formulaire pour nous permettre d'empécher le rédemarrage quand c'est nécessaire. Si la valeur reboot_server n'est pas spécifiée, nous définirons l'attribut par defaut à true.
+> **Remarque**  
+> - `win_updates` : vérifie ou installe les mises à jour.  
+> - `category_names` : permet de limiter les mises à jour à certaines catégories via une variable.  
+> - `reboot` : si `true`, redémarre automatiquement l’hôte distant si nécessaire et poursuit le processus. Contrôlé via une variable de sondage (survey).
 
+---
 
-Section 3: Enregistrer et valider
-=================================
+# Section 3 – Enregistrer et valider
 
-Votre playbook est terminé! Mais n'oubliez pas que nous devons encore valider les modifications apportées au SCM.
-
-Cliquez sur «Fichier» → «Tout enregistrer» pour enregistrer les fichiers que vous avez écrits
+1. Dans VS Code, cliquez sur **File → Save All**.  
 
 ![site.yml](images/7-win_update-playbook.png)
 
-Cliquez sur l'icône du code source (1), saisissez un message de validation tel que *Ajout d'un playbook de mise à jour Windows* (2), puis cochez la case ci-dessus (3).
+2. Cliquez sur l’icône **Source Control** (1), saisissez un message de commit comme *Ajout du playbook Windows update* (2), puis cliquez sur la case de validation (3).  
 
 ![Commit site.yml](images/7-win_update-commit.png)
 
-Synchronisez-vous avec gitlab en cliquant sur les flèches dans la barre bleue en bas à gauche.
+3. Envoyez vos changements vers GitLab en cliquant sur les flèches en bas à gauche dans la barre bleue.
 
 ![Push to Gitlab.yml](images/7-push.png)
 
-Cela devrait prendre 5 à 30 secondes pour terminer la validation. La barre bleue devrait s'arrêter de tourner et indiquer 0 problème…
+---
 
-Section 4: Création du modèle de tache
-======================================
+# Section 4 – Créer votre Job Template
 
-Maintenant, de retour dans Controller, vous devrez resynchroniser votre projet pour que les nouveaux fichiers s'affichent.
+Dans **automation controller** :
 
-Ensuite, nous devons créer un nouveau modèle de tache pour exécuter ce playbook. Allez donc dans *Modèle*, cliquez sur *Ajouter* et sélectionnez "Modèle de tache".
+1. Allez dans **Projects**, et resynchronisez votre projet pour que le nouveau playbook apparaisse.  
+2. Allez dans **Templates**.  
+3. Cliquez sur **Create template**, puis sélectionnez **Create job template**.  
 
-Étape 1:
---------
+Remplissez le formulaire :
 
-Remplissez le formulaire en utilisant les valeurs suivantes
+| Champ                | Valeur                          |
+|----------------------|---------------------------------|
+| **Name**             | Windows Updates                 |
+| **Description**      | (optionnel)                     |
+| **Job Type**         | Run                             |
+| **Inventory**        | Windows Workshop Inventory      |
+| **Project**          | Ansible Workshop Project        |
+| **Playbook**         | `win_updates/site.yml`          |
+| **Execution Environment** | Default execution environment |
+| **Credentials**      | Student Account                 |
+| **Limit**            | windows                         |
+| **Options**          | Enable fact storage             |
 
-| Clé                | Valeur                     | Note |
-|--------------------|----------------------------|------|
-| NOM                | Windows Updates            |      |
-| DESCRIPTION        |                            |      |
-| JOB TYPE           | Run                        |      |
-| INVENTAIRE         | Workshop Inventory |      |
-| PROJET             | Ansible Workshop Project   |      | 
-| Execution Environnment             | windowws workshop environnement   |      |
-| Playbook           | `win_updates/site.yml`     |      |
-| CREDENTIAL | Student Account            |      |
-| LIMIT              | windows                    |      |
-| OPTIONS            | [*] ENABLE FACT STORAGE      |      |
+![Create Job Template](images/7-win_update-template.png)
 
-Étape 2:
---------
+Cliquez sur **Create job template**.
 
-Cliquez sur ENREGISTRER ![Save](images/at_save.png) puis cliquez sur Survey en haut à droite !
+---
 
-Étape 3:
---------
+## Ajouter un sondage (Survey)
 
-Cliquez sur Ajouter ou ADD et remplissez le questionnaire avec les valeurs suivantes
+1. Sur la page du job template **Windows Updates**, cliquez sur l’onglet **Survey** et sélectionnez le bouton **Create survey question**.  
+2. Remplissez la première question :
 
-| Clé                     | Valeur                                                                                                                                                 | Note                                         |
-|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------|
-| PROMPT                  | Categories                                                                                                                                             |                                              |
-| DESCRIPTION             | Which Categories to install?                                                                                                                           |                                              |
-| ANSWER VARIABLE NAME    | categories                                                                                                                                             |                                              |
-| ANSWER TYPE             | Multiple Choice (multiple select)                                                                                                                      | **There's also a *single* selection option** |
-| MULTIPLE CHOICE OPTIONS |  Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |                                              |
-| DEFAULT ANSWER          |  CriticalUpdates<br>SecurityUpdates                                                                                                                       |                                              |
-| REQUIRED                | Selected                                                                                                                                               |                                              |
-|                         |                                                                                                                                                        |                                              |
+| Champ                  | Valeur                                                                                                        |
+|------------------------|---------------------------------------------------------------------------------------------------------------|
+| **Question**           | Which categories to install?                                                                                  |
+| **Description**        | (Optional)                                                                                                    |
+| **Answer Variable Name** | categories                                                                                                   |
+| **Answer Type**        | Multiple Choice (multiple select)                                                                             |
+| **Multiple Choice Options** | Application<br>Connectors<br>CriticalUpdates<br>DefinitionUpdates<br>DeveloperKits<br>FeaturePacks Guidance<br>SecurityUpdates<br>ServicePacks<br>Tools<br>UpdateRollups<br>Updates |
+| **Default option**     | CriticalUpdates<br>SecurityUpdates                                                                            |
+| **Options**            | Required                                                                                                      |
 
+![Category Survey Form](images/7-category-survey.png)
 
-Une fois terminé, cliquez sur le bouton save. 
-Ajoutez une second questionnaire avec ces valeurs : 
+Cliquez sur **Create survey question** pour enregistrer.
 
-| Clé                     | Valeur                                                  | Note |
-|-------------------------|---------------------------------------------------------|------|
-| PROMPT                  | Redémarrer après l'installation?                        |      |
-| DESCRIPTION             | If the server needs to reboot, then do so after install |      |
-| ANSWER VARIABLE NAME    | `reboot_server`                                         |      |
-| ANSWER TYPE             | Multiple Choice (single select)                         |      |
-| MULTIPLE CHOICE OPTIONS | Yes<br>No                                               |      |
-| DEFAULT ANSWER          | Yes                                                     |      |
-| REQUIRED                | Selected                                                |      |
+3. Ajoutez la deuxième question :
 
-Cliquez sur Save, n'oubliez pas d'activer le formulaire ! 
+| Champ                  | Valeur                                                   |
+|------------------------|----------------------------------------------------------|
+| **Question**           | Reboot after install?                                    |
+| **Description**        | (Optional)                                               |
+| **Answer Variable Name** | reboot_server                                           |
+| **Answer Type**        | Multiple Choice (single select)                          |
+| **Multiple Choice Options** | Yes<br>No                                           |
+| **Default option**     | Yes                                                       |
+| **Options**            | Required                                                  |
 
+![Reboot Survey Form](images/7-reboot-survey.png)
 
-Section 6: lancer votre nouveau playbook
-========================================
+4. Cliquez sur **Create survey question**.  
+5. Sur la page du job template, activez **Survey Enabled**.
 
-Maintenant, exécutons-le et voyons comment il fonctionne.
+---
 
-Étape 1:
---------
+# Section 5 – Exécuter votre Playbook
 
-Cliquez sur `Modeles`
+1. Allez dans **Templates** dans l’automation controller.  
+2. Trouvez le job template **Windows Updates** et cliquez sur le bouton **Launch** (icône de fusée).  
+3. Lors des invites :  
+   - Sélectionnez les catégories de mise à jour.  
+   - Choisissez **Yes** pour *Reboot after install?*.  
+   - Cliquez sur **Next**, puis **Launch**.  
 
+Vous serez redirigé vers la page de sortie du job pour suivre l’avancement en temps réel.
 
-Étape 2:
---------
+---
 
-Cliquez sur l'icône de la fusée ![Add](images/at_launch_icon.png) pour éxécuter la tache **Windows Updates**.
+[Retour à l’atelier Ansible pour Windows](../README.md)
 
-Étape 3:
---------
-
-Lorsque vous y êtes invité, sélectionnez la catégories de mise à jour. Puis répondez "Oui" à la question **Redémarrer après l'installation?** Et cliquez sur **SUIVANT**.
-
-Après le lancement de la tache, vous pouvez voir le résultat de la tache en cours en temps réel.
-<br><br>
-[Cliquez ici pour revenir à l'atelier Ansible pour Windows](../README.fr.md)

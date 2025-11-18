@@ -36,7 +36,11 @@ Conditionals, handlers, and loops are advanced features in Ansible that enhance 
 Conditionals in Ansible control whether a task should run based on certain conditions.
 Let's add to the system_setup.yml playbook the ability to install the Apache HTTP Server (`httpd`) only on hosts that belong to the `web` group in our inventory.
 
-> NOTE: Previous examples had hosts set to node1 but now it is set to all. This means when you run this updated Ansible playbook you will notice updates for the new systems being automated against, the user Roger created on all new systems and the Apache web server package httpd installed on all the hosts within the web group.
+
+> Note:
+>
+> Previous examples had hosts set to node1 but now it is set to all. This means when you run this updated Ansible playbook you will notice updates for the new systems being automated against, the user Roger created on all new systems and the Apache web server package httpd installed on all the hosts within the web group.
+>
 
 {% raw %}
 
@@ -85,9 +89,29 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
 - name: Basic System Setup
   hosts: all
   become: true
-  .
-  .
-  .
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
+  tasks:
+    - name: Update all security-related packages
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+
+    - name: Create a new user
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+
+    - name: Install Apache on web servers
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
+
     - name: Install firewalld
       ansible.builtin.package:
         name: firewalld
@@ -117,9 +141,11 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
 
 ```
 
-The handler Restart Apache is triggered only if the task “Allow HTTP traffic on web servers” makes any changes.
+The handler "Reload Firewall" is triggered only if the task “Allow HTTP traffic on web servers” makes any changes.
 
-> NOTE: Notice how the name of the handler is used within the notify section of the “Reload Firewall” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
+
+NOTE: Notice how the name of the handler is used within the notify section of the “Allow HTTP traffic on web servers” configuration task. This ensures that the proper handler is executed as there can be multiple handlers within an Ansible playbook.
+
 
 ```bash
 PLAY [Basic System Setup] ******************************************************

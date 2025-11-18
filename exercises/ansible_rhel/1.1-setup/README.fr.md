@@ -28,7 +28,7 @@ La phase initiale de cet atelier se concentre sur les utilitaires en ligne de co
 
 - [ansible-navigator](https://github.com/ansible/ansible-navigator) - une Interface Utilisateur Textuelle (TUI) pour exécuter et développer du contenu Ansible.
 - [ansible-core](https://docs.ansible.com/core.html) - l'exécutable de base qui fournit le cadre, le langage et les fonctions qui sous-tendent la Plateforme d'Automatisation Ansible, y compris les outils CLI comme `ansible`, `ansible-playbook` et `ansible-doc`.
-- [Environnements d'Exécution](https://docs.ansible.com/automation-controller/latest/html/userguide/execution_environments.html) - Images de conteneurs pré-construites avec des collections soutenues par Red Hat.
+- [Environnements d'Exécution](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/latest/html/using_automation_execution/index) - Images de conteneurs pré-construites avec des collections soutenues par Red Hat.
 - [ansible-builder](https://github.com/ansible/ansible-builder) - automatise le processus de construction des Environnements d'Exécution. Pas un focus principal dans cet atelier.
 
 Si vous avez besoin de plus d'informations sur les nouveaux composants de la Plateforme d'Automatisation Ansible, mettez cette page d'accueil en signet [https://red.ht/AAP-20](https://red.ht/AAP-20)

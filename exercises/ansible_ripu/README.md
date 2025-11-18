@@ -6,7 +6,7 @@ There are four key features that the solution approach recommends to deliver suc
 
 ![Automate Everything, Snapshot/rollback, Custom Modules, Reporting Dashboard](images/ripu_key_features.svg)
 
-As you progress through this workshop, you will learn more about the importance of these features and the different options for how you might implement them in your enterprise. For this workshop, we assume you have at least some experience using Ansible Automation Platform and working with Ansible playbooks and roles. If you're new to Ansible, consider first completing the workshop [Ansible for Red Hat Enterprise Linux](https://aap2.demoredhat.com/exercises/ansible_rhel).
+As you progress through this workshop, you will learn more about the importance of these features and the different options for how you might implement them in your enterprise. For this workshop, we assume you have at least some experience using Ansible Automation Platform and working with Ansible playbooks and roles. If you're new to Ansible, consider first completing the workshop [Ansible for Red Hat Enterprise Linux](https://labs.demoredhat.com/exercises/ansible_rhel).
 
 ## Table of Contents
 
@@ -19,7 +19,6 @@ As you progress through this workshop, you will learn more about the importance 
     - [Section 1 - Pre-upgrade Analysis](#section-1---pre-upgrade-analysis)
     - [Section 2 - RHEL OS Upgrade](#section-2---rhel-os-upgrade)
     - [Section 3 - Rolling Back](#section-3---rolling-back)
-    - [Supplemental Exercises](#supplemental-exercises)
   - [Workshop Navigation](#workshop-navigation)
 
 ## Presentations

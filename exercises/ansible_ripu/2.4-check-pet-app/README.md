@@ -29,7 +29,7 @@ It's time to repeat the testing you did for [Step 3](../1.6-my-pet-app/README.md
   >
   > Because the external IP addresses of the EC2 instances provisioned for the workshop are dynamically assigned (i.e., using DHCP), it is possible that the web user interface URL may change after a reboot. If that happens, run this command at the shell prompt of the app server to determine the new URL for the application web user interface:
   >
-  > ```
+  > ```bash
   > echo "http://$(curl -s ifconfig.me):8080"
   > ```
 

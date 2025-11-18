@@ -77,37 +77,52 @@ Vamos supor que queremos garantir que o firewall esteja configurado corretamente
 - name: Configuração Básica do Sistema
   hosts: all
   become: true
-  .
-  .
-  .
+  vars:
+    user_name: 'Roger'
+    package_name: httpd
+  tasks:
+    - name: Atualizar todos os pacotes relacionados à segurança
+      ansible.builtin.package:
+        name: '*'
+        state: latest
+        security: true
+        update_only: true
+    - name: Criar um novo usuário
+      ansible.builtin.user:
+        name: "{{ user_name }}"
+        state: present
+        create_home: true
+    - name: Instalar o Apache em servidores web
+      ansible.builtin.package:
+        name: "{{ package_name }}"
+        state: present
+      when: inventory_hostname in groups['web']
     - name: Instalar firewalld
-      ansible.builtin.dnf:
+      ansible.builtin.package:
         name: firewalld
         state: present
-
+      when: inventory_hostname in groups['web']
     - name: Garantir que o firewalld esteja em execução
       ansible.builtin.service:
         name: firewalld
         state: started
         enabled: true
-
-    - name: Permitir tráfego HTTPS em servidores web
+      when: inventory_hostname in groups['web']
+    - name: Permitir tráfego HTTP em servidores web
       ansible.posix.firewalld:
-        service: https
+        service: http
         permanent: true
         state: enabled
       when: inventory_hostname in groups['web']
       notify: Recarregar Firewall
-
   handlers:
     - name: Recarregar Firewall
       ansible.builtin.service:
         name: firewalld
         state: reloaded
-
 ```
 
-O manipulador Recarregar Firewall é acionado apenas se a tarefa "Permitir tráfego HTTPS em servidores web" fizer alguma mudança.
+O manipulador Recarregar Firewall é acionado apenas se a tarefa "Permitir tráfego HTTP em servidores web" fizer alguma mudança.
 
 > NOTA: Observe como o nome do manipulador é usado na seção `notify` da tarefa de configuração "Recarregar Firewall". Isso garante que o manipulador correto seja executado, pois pode haver vários manipuladores dentro de um playbook Ansible.
 
@@ -151,7 +166,7 @@ changed: [ansible-1]
 changed: [node2]
 changed: [node1]
 
-TASK [Permitir tráfego HTTPS em servidores web] **************************************
+TASK [Permitir tráfego HTTP em servidores web] **************************************
 skipping: [ansible-1]
 changed: [node2]
 changed: [node1]

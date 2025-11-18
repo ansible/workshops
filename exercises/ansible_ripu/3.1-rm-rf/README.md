@@ -44,7 +44,7 @@ In the next exercise, we will be rolling back the RHEL upgrade on one of our ser
 
 - At the shell prompt, use the `sudo -i` command to switch to the root user. For example:
 
-  ```
+  ```plaintext
   [ec2-user@cute-bedbug ~]$ sudo -i
   [root@cute-bedbug ~]#
   ```
@@ -57,13 +57,13 @@ In the next exercise, we will be rolling back the RHEL upgrade on one of our ser
 
   But what if this package did get removed? Our pet app requires the JDK runtime to function. Without it, our application will be broken. We can simulate this by manually removing the package like this:
 
-  ```
+  ```bash
   dnf -y remove temurin-17-jdk
   ```
 
   Now if you `reboot` the app server, the pet app will not come back up and the following error will be seen at the end of the `~/app.log` file:
 
-  ```
+  ```plaintext
   ...
   which: no javac in (/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin)
   Error: JAVA_HOME is not defined correctly.

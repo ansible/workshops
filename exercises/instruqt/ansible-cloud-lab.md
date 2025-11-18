@@ -17,18 +17,21 @@ Optional module **Terraforming Clouds with Ansible** deck:
 
 ## Lab Agenda
 
-- **Infrastructure visibility** [Estimated Time ⏰ 20 minutes] 
+- **Infrastructure visibility** [Estimated Time ⏰ 20 minutes]  
   <br>In this lab we will illustrate how we can retrieve Ansible facts (key, value pairs), also known as structured data, from public clouds and how we can use this data to provide us awareness of our cloud footprint easily
-    - [Start exercise on AWS](https://developers.redhat.com/content-gateway/link/3884773)
-    - [Start exercise on  Azure](https://developers.redhat.com/content-gateway/link/3884777)
-- **Cloud Operations** [Estimated Time ⏰ 20 minutes] 
+    - <a href="https://developers.redhat.com/content-gateway/link/3884773" target="_blank" rel="noopener noreferrer">Start exercise on AWS</a>
+    - <a href="https://developers.redhat.com/content-gateway/link/3884777" target="_blank" rel="noopener noreferrer">Start exercise on Azure</a>
+
+- **Cloud Operations** [Estimated Time ⏰ 20 minutes]  
   <br>This lab will illustrate how Ansible Automation Platform can help you automate common day-2 cloud operations tasks across your public cloud. Our focus here will be on AWS, but the use cases here are ones you can extend across the hybrid cloud.
-     - [Start exercise on AWS](https://developers.redhat.com/content-gateway/link/3884774)
-     - [Start exercise on Azure](https://developers.redhat.com/content-gateway/link/3884828)
-- **Infrastructure optimization** [Estimated Time ⏰ 20 minutes] 
+    - <a href="https://developers.redhat.com/content-gateway/link/3884774" target="_blank" rel="noopener noreferrer">Start exercise on AWS</a>
+    - <a href="https://developers.redhat.com/content-gateway/link/3884828" target="_blank" rel="noopener noreferrer">Start exercise on Azure</a>
+
+- **Infrastructure optimization** [Estimated Time ⏰ 20 minutes]  
   <br>In this lab we will guide you in understanding some basic optimization exercises that can help you tame your public clouds.
-    - [Start exercise on AWS](https://developers.redhat.com/content-gateway/link/3884775)
-    - [Start exercise on Azure](https://developers.redhat.com/content-gateway/link/3884829)
+    - <a href="https://developers.redhat.com/content-gateway/link/3884775" target="_blank" rel="noopener noreferrer">Start exercise on AWS</a>
+    - <a href="https://developers.redhat.com/content-gateway/link/3884829" target="_blank" rel="noopener noreferrer">Start exercise on Azure</a>
+
   
 Optional Lab
 - [Terraforming Clouds with Ansible](https://developers.redhat.com/content-gateway/link/3884776) [Estimated Time ⏰ 60 minutes] - 

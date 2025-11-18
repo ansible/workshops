@@ -37,7 +37,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td><b>Lab 1</b>: Getting Started with Event-Driven Ansible</td>
 <td>Learn about the fundamental components of Event-Driven Ansible and go through some examples</td>
-<td><a target="_new" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-rulebook.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-rulebook.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
@@ -49,7 +49,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td><b>Lab 2</b>: Getting Started with EDA Controller</td>
 <td>Learn how to adopt EDA into your organization with EDA Controller, which integrates into the Ansible Automation Platform with a webUI</td>
-<td><a target="_new" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/zt-ansiblebu.zt-ans-bu-eda-controller.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/zt-ansiblebu.zt-ans-bu-eda-controller.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 35 minutes</td>
 </tr>
 <tr>
@@ -61,7 +61,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td><b>Lab 3</b>: Advanced EDA: Event-Driven Ansible and NetOps</td>
 <td>Use Event-Driven Ansible to react to network events as well as work with ChatOps.</td>
-<td><a target="_new" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/zt-ansiblebu.zt-ans-bu-eda-netbox.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/zt-ansiblebu.zt-ans-bu-eda-netbox.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 30 minutes</td>
 </tr>
 <tr>
@@ -74,7 +74,7 @@ Recommended agenda for when there is an instructor teaching.
 <td><b>Lab 5</b>: Get started with ServiceNow automation</td>
 <td>Explore the basic functionality of the ServiceNow collection for Red Hat Ansible Automation Platform.
 </td>
-<td><a target="_new" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-servicenow.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-servicenow.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 60 minutes</td>
 </tr>
 </tbody>
@@ -96,7 +96,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td>Event-driven Ansible with OpenShift Demo</td>
 <td>Use Red Hat OpenShift events as a trigger showcasing the adaptability and effectiveness of Event-Driven Ansible</td>
-<td><a target="_new" href="https://demo.redhat.com/catalog/babylon-catalog-prod/order/enterprise.event-driven-ansible.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://demo.redhat.com/catalog/babylon-catalog-prod/order/enterprise.event-driven-ansible.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 40 minutes</td>
 <td><table class="important"><tr><td><div class="infobutton"><i class="icon-info-sign"></i></div>Important</td></tr><tr><td>This runs on demo.redhat.com and is only available to Red Hat employees</td></tr></table></td>
 </tr>
@@ -119,17 +119,17 @@ Additional material for Event-Driven Ansible
 <tr>
 <td>Automate IT response with Event-Driven Ansible</td>
 <td>E-Book</td>
-<td><a target="_new" href="https://www.redhat.com/en/engage/build-innovation-automation-20230414">📖 Download E-Book</a></td>
+<td><a target="_blank" href="https://www.redhat.com/en/engage/build-innovation-automation-20230414">📖 Download E-Book</a></td>
 </tr>
 <tr>
 <td>The impact of event-driven automation on IT operations</td>
 <td>Analyst material</td>
-<td><a target="_new" href="https://www.redhat.com/en/resources/event-driven-impact-on-it-operations-analyst-material">📒 Download Analyst Material</a></td>
+<td><a target="_blank" href="https://www.redhat.com/en/resources/event-driven-impact-on-it-operations-analyst-material">📒 Download Analyst Material</a></td>
 </tr>
 <tr>
 <td>Work smarter using event-driven automation across IT operations</td>
 <td>Webinar</td>
-<td><a target="_new" href="https://www.redhat.com/en/events/webinar/work-smarter-using-event-driven-automation-across-IT-operations">🎥 Watch recording from June 20, 2023</a></td>
+<td><a target="_blank" href="https://www.redhat.com/en/events/webinar/work-smarter-using-event-driven-automation-across-IT-operations">🎥 Watch recording from June 20, 2023</a></td>
 </tr>
 </tbody>
 </table>

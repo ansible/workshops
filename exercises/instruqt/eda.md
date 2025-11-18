@@ -56,7 +56,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td>Getting Started with Event-Driven Ansible</td>
 <td>Learn about the fundamental components of Event-Driven Ansible and go through some examples</td>
-<td><a target="_new" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-rulebook.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-rulebook.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>

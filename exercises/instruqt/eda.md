@@ -56,13 +56,13 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td>Getting Started with Event-Driven Ansible</td>
 <td>Learn about the fundamental components of Event-Driven Ansible and go through some examples</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-rulebook.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=get+started+with+event-driven&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-ansible-rulebook.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
 <td>Getting Started with EDA Controller</td>
 <td>Learn how to adopt EDA into your organization with EDA Controller, which integrates into the Ansible Automation Platform with a webUI</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/zt-ansiblebu.zt-ans-bu-eda-controller.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=event-driven+ansible+control&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-controller.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 40 minutes</td>
 </tr>
 </tbody>
@@ -84,7 +84,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td>Advanced EDA: Event-Driven Ansible and NetOps (Arista)</td>
 <td>Use Event-Driven Ansible to react to network events as well as work with ChatOps.</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/zt-ansiblebu.zt-ans-bu-eda-netbox.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=netbo&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-netbox.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 40 minutes</td>
 <td></td>
 </tr>

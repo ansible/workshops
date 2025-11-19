@@ -19,27 +19,21 @@ The Ansible Network Automation Workshop is a 90 minute, hands-on workshop coveri
 
 <ul>
 <li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 10  minutes]<br>
-<a href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
+<a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
 </li>
 <li><b>Lab 1:  Network automation basics - First playbook</b> [Estimated Time ⏱️ 20 minutes]<br>
 Learn the fundamentals of Red Hat Ansible Automation Platform for network automation using ansible-navigator.<br>
-<a href="https://developers.redhat.com/content-gateway/link/3884830">[ 🚀 Launch the lab ]</a>
+<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=network+basics&item=zt-ansiblebu.ansible-network-automation-basics-lab-1.prod">[ 🚀 Launch the lab ]</a>
 </li>
 <li><b>Slides: Brief for Lab 2</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
+<a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
 </li>
 <li><b>Lab 2: Network automation - Backup and restore</b> [Estimated Time ⏱️ 20 minutes]<br>
 Learn how to automate network configurations and backups using Red Hat Ansible Automation Platform.<br>
-<a href="https://developers.redhat.com/content-gateway/link/3884831">[ 🚀 Launch the lab ]</a>
+<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=backup+and+restore&item=zt-ansiblebu.zt-ans-bu-network-lab-1.prod">[ 🚀 Launch the lab ]</a>
 </li>
 <li><b>Slides: Brief for Lab 3</b> [Estimated Time ⏱️ 5 minutes]<br>
-<a href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li>
-<li><b>Lab 3: Red Hat Ansible Automation Platform for network administrators</b> [Estimated Time ⏱️ 25 minutes]<br>
-Simplify network administration and operations using Red Hat Ansible Automation Platform.<br>
-<a href="https://developers.redhat.com/content-gateway/link/3884837">[ 🚀 Launch the lab ]</a>
-</li>
-<li>Wrap Up
+<a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
 </li>
 </ul>
 
@@ -59,38 +53,31 @@ Simplify network administration and operations using Red Hat Ansible Automation 
 <tr>
 <td>Network automation basics: Resource modules</td>
 <td>Learn Red Hat Ansible Automation Platform playbook basics for network automation.</td>
-<td><a target="_blank" href="https://developers.redhat.com/content-gateway/link/3884832">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=resource+module&item=zt-ansiblebu.ansible-network-automation-basics-lab-3.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
 <td></td>
 </tr>
 <tr>
 <td>Network automation basics: Facts</td>
 <td>Learn about retrieving facts from a Cisco IOS-XE device.</td>
-<td><a target="_blank" href="https://developers.redhat.com/content-gateway/link/3884833">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=facts&item=zt-ansiblebu.ansible-network-automation-basics-lab-2.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
 <td></td>
 </tr>
 <tr>
 <td>Network automation basics: Infrastructure visability and awareness</td>
 <td>Learn how to use Red Hat Ansible Automation Platform to retrieve facts from network infrastructure and create dynamic documentation.</td>
-<td><a target="_blank" href="https://developers.redhat.com/content-gateway/link/3884834">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=network+automation+-+infra&item=zt-ansiblebu.zt-ans-bu-network-lab-2.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
 <td></td>
 </tr>
 <tr>
 <td>Network automation basics: Surveys</td>
 <td>Learn how to create an automation controller survey to configure a Cisco IOS network device.</td>
-<td><a target="_blank" href="https://developers.redhat.com/content-gateway/link/3884835">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=network+automation+basics+-&item=babylon-catalog-prod%2Fzt-ansiblebu.ansible-network-automation-basics-lab-4.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
 <td></td>  
-</tr>
-<tr>
-<td>Firewall automation with Palo Alto Networks</td>
-<td>Learn how to automate Palo Alto Networks firewalls using Ansible Automation Platform.</td>
-<td><a target="_blank" href="https://developers.redhat.com/content-gateway/link/3884838">🚀 Launch Lab</a></td>
-<td>⏱️ 45 minutes</td>
-<td></td>  
-</tr>  
+</tr> 
 </tbody>
 </table>
 

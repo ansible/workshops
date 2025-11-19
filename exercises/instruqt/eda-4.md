@@ -31,13 +31,13 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td><b>Slides</b></td>
 <td>Introduction + Workshp Brief</td>
-<td><a href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">🖥️ Google Slides</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td><b>Lab 1</b>: Getting Started with Event-Driven Ansible</td>
 <td>Learn about the fundamental components of Event-Driven Ansible and go through some examples</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-rulebook.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=get+started+with+event-driven&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-ansible-rulebook.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
@@ -49,7 +49,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td><b>Lab 2</b>: Getting Started with EDA Controller</td>
 <td>Learn how to adopt EDA into your organization with EDA Controller, which integrates into the Ansible Automation Platform with a webUI</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/zt-ansiblebu.zt-ans-bu-eda-controller.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=event-driven+ansible+control&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-controller.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 35 minutes</td>
 </tr>
 <tr>
@@ -61,7 +61,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td><b>Lab 3</b>: Advanced EDA: Event-Driven Ansible and NetOps</td>
 <td>Use Event-Driven Ansible to react to network events as well as work with ChatOps.</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/zt-ansiblebu.zt-ans-bu-eda-netbox.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=netbo&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-netbox.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 30 minutes</td>
 </tr>
 <tr>
@@ -71,10 +71,10 @@ Recommended agenda for when there is an instructor teaching.
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
-<td><b>Lab 5</b>: Get started with ServiceNow automation</td>
+<td><b>Lab 4</b>: Get started with ServiceNow automation</td>
 <td>Explore the basic functionality of the ServiceNow collection for Red Hat Ansible Automation Platform.
 </td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod/order/openshift-cnv.ansible-servicenow.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=servicenow&item=zt-ansiblebu.zt-ans-bu-servicenow.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 60 minutes</td>
 </tr>
 </tbody>

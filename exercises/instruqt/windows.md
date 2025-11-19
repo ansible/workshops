@@ -29,7 +29,7 @@ Tasks in this lab include:
 <a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">[ 🖥️ Slides ]</a>
 </li><br>
 <li><b>Lab 1: Getting Started with Windows Automation</b> [Estimated Time ⏱️ 15 minutes]<br>
-<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=Ansible+Automation+Platform+and+Active+Directory&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-windows-ad.prod">[ 🚀 Launch the lab ]</a>
+<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=windows+90&item=zt-ansiblebu.zt-ans-bu-windows90.prod">[ 🚀 Launch the lab ]</a>
 <ul><li>Exercise 1 - Configure Automation Controller
 </li></ul>
 </li><br>

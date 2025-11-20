@@ -164,7 +164,7 @@ Review the output to confirm the user existence check is correctly using the var
 <br>
 
 {% if page.url contains 'ansible_rhel_90' %}
-[Previous Exercise](../3-playbook) - [Next Exercise](../5-surveys)
+[Previous Exercise](../3-playbook) - [Next Exercise](../5-projects)
 {% else %}
 [Previous Exercise](../1.3-playbook) - [Next Exercise](../1.5-handlers)
 {% endif %}

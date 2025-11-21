@@ -34,7 +34,7 @@ If you need more information on new Ansible Automation Platform components bookm
 
 > Join our community forum!
 >
-> Before you get started, please join us on <a target="_new" href="https://forum.ansible.com/">https://forum.ansible.com/</a>.  This will allow you to get Ansible help after the workshops concludes.
+> Before you get started, please join us on <a target="_blank" href="https://forum.ansible.com/">https://forum.ansible.com/</a>.  This will allow you to get Ansible help after the workshops concludes.
 
 
 ## Diagram

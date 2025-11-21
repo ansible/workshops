@@ -12,6 +12,6 @@ This self-paced lab will demonstrate how to use automation controller.
   
 ## Access Lab
 
-- <a target="_new" href="https://play.instruqt.com/embed/redhat/tracks/controller-101?token=em_mUfT4xw1TXybXnBr">🚀 Launch the lab</a>
+- <a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/controller-101?token=em_mUfT4xw1TXybXnBr">🚀 Launch the lab</a>
 
 

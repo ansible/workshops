@@ -80,7 +80,7 @@ Como se puede observar en la salida anterior, no hay configuración VLAN fuera d
 
 *  Crea un nuevo fichero en Visual Studio Code llamado `resource.yml`
 
-   ![new file](images/step1_new_file.png)
+   ![new file](images/step1_blank_file.png)
 
 * Copia el siguiente Playbook de Ansible en tu fichero `resource.yml`
 

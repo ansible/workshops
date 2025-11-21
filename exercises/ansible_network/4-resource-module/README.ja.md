@@ -93,7 +93,7 @@ Ansible
 
 *  Visual Studio Code で `resource.yml` という名前の新規ファイルを作成します。
 
-   ![new file](images/step1_new_file.png)
+   ![new file](images/step1_blank_file.png)
 
 * 以下の Ansible Playbook を `resource.yml` にコピーします。
 

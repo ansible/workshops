@@ -97,7 +97,7 @@ Ansible Playbook は [**YAML** ファイル](https://yaml.org/) です。YAML
 は構造化されたエンコーディング形式であり、人間が非常に読みやすくなっています (サブセットとは異なり、JSON 形式) 。
 
 Visual Studio コードで新規ファイルを作成します: ![vscode new
-file](images/vscode_new_file.png)
+file](images/vscode_blank_file.png)
 
 分かりやすくするために、Playbook に `facts.yml` という名前を付けます: ![vscode save
 file](images/vscode_save_as.png)

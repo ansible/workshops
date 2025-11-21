@@ -46,7 +46,7 @@ After finishing this lab you are ready to start taking advantage of the numerous
 <tr>
 <td><b>Lab 1</b>: Get started with ansible-builder</td>
 <td>Install ansible-builder v3 and learn how to create custom execution environments.</td>
-<td><a href="https://developers.redhat.com/content-gateway/link/3884763">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=ansible+builder&item=zt-ansiblebu.zt-ans-bu-ansible-builder.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 30 minutes</td>
 </tr>
 <tr>
@@ -58,7 +58,7 @@ After finishing this lab you are ready to start taking advantage of the numerous
 <tr>
 <td><b>Lab 2</b>: Get started with Ansible Lightspeed with IBM watsonx Code Assistant</td>
 <td>Learn how to configure, activate, and use Ansible Lightspeed to generate Ansible content.</td>
-<td><a href="https://red.ht/lab-lightspeed-101">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=lightspeed&item=zt-ansiblebu.zt-ans-lightspeed-101.prod">🚀 Launch Lab</a></td>
   <!-- NOTE: This Lightspeed lab is deprecated and the commercial lab requires Red Hat supervision-->
 <td>⏱️ 30 minutes</td>
 </tr>
@@ -71,32 +71,8 @@ After finishing this lab you are ready to start taking advantage of the numerous
 <tr>
 <td><b>Lab 3</b>: Sign and verify projects with Red Hat Ansible Automation Platform</td>
 <td>Sign source repositories that include Ansible Playbooks and content, and validate signed content in the automation controller.</td>
-<td><a href="https://developers.redhat.com/content-gateway/link/3884770">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=sign+and+verify&item=zt-ansiblebu.zt-ans-bu-verify-sign.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 40 minutes</td>
-</tr>
-<tr>
-<td><b>Slides</b></td>
-<td>Introduction to Private automation hub and lab brief for lab 4</td>
-<td><i>continue slides from above</i></td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td><b>Lab 4</b>: Sign Ansible Content Collections with private automation hub	</td>
-<td>Learn how to sign Ansible Content Collections using a private automation hub and install collections with ansible-galaxy CLI.</td>
-<td><a href="https://developers.redhat.com/content-gateway/link/3884765">🚀 Launch Lab</a></td>
-<td>⏱️ 45 minutes</td>
-</tr>
-<tr>
-<td><b>Slides</b></td>
-<td>Introduction to RBAC</td>
-<td><i>continue slides from above</i></td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td><b>Lab 5</b>: Manage user access and content policies using private automation hub	</td>
-<td>Create groups so your automation hub users have appropriate system permissions or grant view-only access to unauthorized users.	</td>
-<td><a href="https://developers.redhat.com/content-gateway/link/3884769">🚀 Launch Lab</a></td>
-<td>⏱️ 45 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -118,17 +94,17 @@ Additional material for Event-Driven Ansible
 <td>Learn how to set up Ansible Lightspeed with watsonx Code Assistant—from installation and configuration to content creation.
 </td>
 <td>Step-by-step guide</td>
-<td><a target="_new" href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">📖 Read Guide</a></td>
+<td><a target="_blank" href="https://www.redhat.com/en/blog/getting-started-red-hat-ansible-lightspeed-ibm-watsonx-code-assistant">📖 Read Guide</a></td>
 </tr>
 <tr>
 <td>Red Hat talks to RedMonk</td>
 <td>Analyst material</td>
-<td><a target="_new" href="https://redmonk.com/videos/a-redmonk-conversation-ai-and-it-automation-with-ansible">🎥 Watch Interview</a></td>
+<td><a target="_blank" href="https://redmonk.com/videos/a-redmonk-conversation-ai-and-it-automation-with-ansible">🎥 Watch Interview</a></td>
 </tr>
 <tr>
 <td>Explore this playlist of announcements and demo</td>
 <td>YouTube playlist</td>
-<td><a target="_new" href="https://www.youtube.com/playlist?list=PLdu06OJoEf2bVLR899FuKc3AiuJvbIRZU">🎥 Ansible Lightspeed with watsonx Code Assistant</a></td>
+<td><a target="_blank" href="https://www.youtube.com/playlist?list=PLdu06OJoEf2bVLR899FuKc3AiuJvbIRZU">🎥 Ansible Lightspeed with watsonx Code Assistant</a></td>
 </tr>
 </tbody>
 </table>

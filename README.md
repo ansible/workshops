@@ -14,7 +14,7 @@
 <h1 id="90_minute_sectin">90 minute workshops</h1>
 <section class="page-contain">
 <!-- lab -->
-  <a target="_new" href="https://rhpds.github.io/showroom-ai-driven-ansible-automation/modules/index.html" class="data-card">
+  <a target="_blank" href="https://rhpds.github.io/showroom-ai-driven-ansible-automation/modules/index.html" class="data-card">
     <h3>AI + Ansible</h3>
     <h4>Introduction to AI-Driven Ansible Automation</h4>
     <p>Build an intelligent, self-healing automation workflow</p>
@@ -40,7 +40,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
 <!-- lab -->
-  <a target="_new" href="./exercises/instruqt/eda" class="data-card">
+  <a target="_blank" href="./exercises/instruqt/eda" class="data-card">
     <h3>EDA</h3>
     <h4>Event-Driven Ansible Technical Workshop</h4>
     <p>Covers EDA fundamentals such as sources, rules, and actions</p>
@@ -50,10 +50,10 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
-    <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
+    <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/ansible-cloud-lab" class="data-card">
+  <a target="_blank" href="exercises/instruqt/ansible-cloud-lab" class="data-card">
     <h3>Cloud</h3>
     <h4>Introduction to cloud automation</h4>
     <p>Focused on how to orchestrate, operationalize and govern your hybrid cloud environments</p>
@@ -63,10 +63,10 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
-    <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
+    <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/lightspeed" class="data-card">
+  <a target="_blank" href="exercises/instruqt/lightspeed" class="data-card">
     <h3>Lightspeed</h3>
     <h4>Ansible Lightspeed and Development Technical Workshop</h4>
     <p>Focused on the Ansible automation engineer or application developer. </p>
@@ -76,10 +76,9 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
-  <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
+  <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
-  <!-- lab -->
-  <a target="_new" href="exercises/instruqt/network" class="data-card">
+  <a target="_blank" href="exercises/instruqt/network" class="data-card">
     <h3>Network</h3>
     <h4>Getting Started with Network Automation</h4>
     <p>Focused on Ansible Automation with respect to routers and switches. </p>
@@ -89,7 +88,7 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
-  <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
+  <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
 <!-- lab -->
   <a target="_new" href="./exercises/ansible_rhel_90" class="data-card">
@@ -115,10 +114,10 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
-  <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
+  <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/windows" class="data-card">
+  <a target="_blank" href="exercises/instruqt/windows" class="data-card">
     <h3>Windows</h3>
     <h4>Getting Started with Windows Automation</h4>
     <p>Focused on using Ansible Automation for automating tasks on a Windows host.</p>
@@ -128,14 +127,14 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
-  <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
+  <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
 </section>
 
 
 <h1 id="4_hour_section">4 hour workshops</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/instruqt/eda-4" class="data-card">
+  <a target="_blank" href="./exercises/instruqt/eda-4" class="data-card">
     <h3>EDA</h3>
     <h4>Event-Driven Ansible Technical Workshop</h4>
     <p>Covers EDA fundamentals such as sources, rules, and actions</p>
@@ -145,10 +144,10 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
-  <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
+  <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/lightspeed-4" class="data-card">
+  <a target="_blank" href="exercises/instruqt/lightspeed-4" class="data-card">
     <h3>Lightspeed</h3>
     <h4>Ansible Lightspeed and Development Technical Workshop</h4>
     <p>Focused on the Ansible automation engineer or application developer. </p>
@@ -158,10 +157,10 @@
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
     </span>
-  <div id="lab_powered_by"><img src="assets/images/instruqt-logo.svg"></div>
+  <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="exercises/instruqt/aapcasc-4" class="data-card">
+  <a target="_blank" href="exercises/instruqt/aapcasc-4" class="data-card">
     <h3>CaC</h3>
     <h4>CaC for Ansible Automation Platform</h4>
     <p>Focused on Configuration as Code for Ansible Automation Platform.</p>
@@ -177,7 +176,7 @@
 
 <h1 id="6_hour_section">6 hour workshops</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/ansible_rhel" class="data-card">
+  <a target="_blank" href="./exercises/ansible_rhel" class="data-card">
     <h3>RHEL</h3>
     <h4>Ansible Red Hat Enterprise Linux Workshop</h4>
     <p>Focused on automating Linux platforms like Red Hat Enterprise Linux</p>
@@ -190,7 +189,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="./exercises/ansible_network" class="data-card">
+  <a target="_blank" href="./exercises/ansible_network" class="data-card">
     <h3>Network</h3>
     <h4>Ansible Network Automation Workshop</h4>
     <p>Focused on router and switch platforms like Arista, Cisco, Juniper</p>
@@ -203,7 +202,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="./exercises/ansible_windows" class="data-card">
+  <a target="_blank" href="./exercises/ansible_windows" class="data-card">
     <h3>Windows</h3>
     <h4>Ansible Windows Automation Workshop</h4>
     <p>Focused on automation of Microsoft Windows </p>
@@ -216,7 +215,7 @@
   <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="./exercises/rhdp_auto_satellite" class="data-card">
+  <a target="_blank" href="./exercises/rhdp_auto_satellite" class="data-card">
     <h3>Satellite </h3>
     <h4>Ansible + Satellite Workshop</h4>
     <p>Focused on automation of security and lifecycle management with Red Hat Satellite Server</p>
@@ -229,7 +228,7 @@
     <div id="lab_powered_by">Red Hat Demo Platform</div>
   </a>
   <!-- lab -->
-  <a target="_new" href="./exercises/ansible_ripu" class="data-card">
+  <a target="_blank" href="./exercises/ansible_ripu" class="data-card">
     <h3>RIPU</h3>
     <h4>RHEL In-place Upgrade Automation Workshop</h4>
     <p>Focused on automation of RHEL in-place upgrades at enterprise scale</p>
@@ -245,7 +244,7 @@
 
 <h1 id="product_demos_section">Product-Demos</h1>
 <section class="page-contain">
-  <a target="_new" href="./exercises/product_demos/" class="data-card">
+  <a target="_blank" href="./exercises/product_demos/" class="data-card">
     <h3>Product Demos</h3>
     <h4>Ansible Product Demos</h4>
     <p>Sandbox for demoing, development, and experimentation</p>

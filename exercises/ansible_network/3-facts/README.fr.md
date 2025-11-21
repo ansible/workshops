@@ -89,7 +89,7 @@ Nous utiliserons le module facts dans notre playbook.
 Les playbooks Ansible sont des fichiers <a target="_blank" href="https://yaml.org/">**YAML**</a>. YAML est un format de codage structuré qui est également très lisible par l'humain (contrairement à son sous-ensemble - le format JSON).
 
 Créez un nouveau fichier dans Visual Studio Code :
-![nouveau fichier vscode](images/vscode_new_file.png)
+![nouveau fichier vscode](images/vscode_blank_file.png)
 
 Pour plus de simplicité, nommez le playbook : `facts.yml` :
 ![enregistrer fichier vscode](images/vscode_save_as.png)

@@ -13,13 +13,13 @@
 
 <style>
 .data-card .features-text {
-  color: #000000;
+  color: #000000 !important;
 }
 .data-card:hover .features-text {
   color: #ffffff !important;
 }
 .data-card #lab_powered_by {
-  color: #000000;
+  color: #000000 !important;
 }
 .data-card:hover #lab_powered_by {
   color: #ffffff !important;

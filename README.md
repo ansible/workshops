@@ -18,7 +18,7 @@
     <h3>AI + Ansible</h3>
     <h4>Introduction to AI-Driven Ansible Automation & AIOps</h4>
     <p>Build an intelligent, self-healing automation workflow</p>
-    <p style="font-size: 85%; margin-top: 0.5em;">Features Splunk</p>
+    <p style="font-size: 85%; margin-top: 0.5em; opacity: 1; visibility: visible; color: inherit;">Features Splunk</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">

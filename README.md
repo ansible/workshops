@@ -14,10 +14,11 @@
 <h1 id="90_minute_sectin">90 minute workshops</h1>
 <section class="page-contain">
 <!-- lab -->
-  <a target="_blank" href="https://rhpds.github.io/showroom-ai-driven-ansible-automation/modules/index.html" class="data-card">
+  <a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html" class="data-card">
     <h3>AI + Ansible</h3>
-    <h4>Introduction to AI-Driven Ansible Automation</h4>
+    <h4>Introduction to AI-Driven Ansible Automation & AIOps</h4>
     <p>Build an intelligent, self-healing automation workflow</p>
+    <p style="font-size: 85%; margin-top: 0.5em;">Features Splunk</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">

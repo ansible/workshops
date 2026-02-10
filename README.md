@@ -12,13 +12,16 @@
 </div>
 
 <style>
-.data-card:hover #lab_powered_by {
-  color: #ffffff !important;
-}
-.data-card p[style*="Features Splunk"] {
+.data-card .features-text {
   color: #000000;
 }
-.data-card:hover p[style*="Features Splunk"] {
+.data-card:hover .features-text {
+  color: #ffffff !important;
+}
+.data-card #lab_powered_by {
+  color: #000000;
+}
+.data-card:hover #lab_powered_by {
   color: #ffffff !important;
 }
 </style>
@@ -30,7 +33,7 @@
     <h3>AI + Ansible</h3>
     <h4>Introduction to AI-Driven Ansible Automation & AIOps</h4>
     <p>Build an intelligent, self-healing automation workflow</p>
-    <p style="font-size: 85%; margin-top: 0.5em; opacity: 1; visibility: visible; color: #000000;">Features Splunk</p>
+    <p class="features-text" style="font-size: 85%; margin-top: 0.5em;">Features Splunk</p>
     <span class="link-text">
       Lab Page
       <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">

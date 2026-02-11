@@ -12,17 +12,13 @@
 </div>
 
 <style>
-.card-with-features {
-  position: relative;
-}
-.card-with-features .features-text {
+.data-card .features-text {
   font-size: 85%;
   margin-top: 0.5em;
-  color: #000000;
-  text-align: center;
+  color: #000000 !important;
 }
-.card-with-features:hover .features-text {
-  color: #ffffff;
+.data-card:hover .features-text {
+  color: #ffffff !important;
 }
 .data-card #lab_powered_by {
   color: #000000;
@@ -35,21 +31,19 @@
 <h1 id="90_minute_sectin">90 minute workshops</h1>
 <section class="page-contain">
 <!-- lab -->
-  <div class="card-with-features">
-    <a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html" class="data-card">
-      <h3>AI + Ansible</h3>
-      <h4>Introduction to AI-Driven Ansible Automation & AIOps</h4>
-      <p>Build an intelligent, self-healing automation workflow</p>
-      <span class="link-text">
-        Lab Page
-        <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html" class="data-card">
+    <h3>AI + Ansible</h3>
+    <h4>Introduction to AI-Driven Ansible Automation & AIOps</h4>
+    <p>Build an intelligent, self-healing automation workflow</p>
+    <p class="features-text">Features Splunk</p>
+    <span class="link-text">
+      Lab Page
+      <svg width="25" height="16" viewBox="0 0 25 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M17.8631 0.929124L24.2271 7.29308C24.6176 7.68361 24.6176 8.31677 24.2271 8.7073L17.8631 15.0713C17.4726 15.4618 16.8394 15.4618 16.4489 15.0713C16.0584 14.6807 16.0584 14.0476 16.4489 13.657L21.1058 9.00019H0.47998V7.00019H21.1058L16.4489 2.34334C16.0584 1.95281 16.0584 1.31965 16.4489 0.929124C16.8394 0.538599 17.4726 0.538599 17.8631 0.929124Z" fill="#000000"/>
 </svg>
-      </span>
-      <div id="lab_powered_by" style="color: #000000;">Red Hat Demo Platform</div>
-    </a>
-    <p class="features-text">Features Splunk</p>
-  </div>
+    </span>
+    <div id="lab_powered_by" style="color: #000000;">Red Hat Demo Platform</div>
+  </a>
 <!-- lab -->
   <a target="_new" href="https://rhpds.github.io/showroom-virt-aap-day-2/modules/index.html" class="data-card">
     <h3>Day 2 Ops</h3>

@@ -565,6 +565,24 @@ div#lab_powered_by img {
   width: 30%;
 }
 
+.data-card .features-text {
+  font-size: 85%;
+  margin-top: 0.5em;
+  color: #000000 !important;
+}
+
+.data-card:hover .features-text {
+  color: #ffffff !important;
+}
+
+.data-card #lab_powered_by {
+  color: #000000;
+}
+
+.data-card:hover #lab_powered_by {
+  color: #ffffff !important;
+}
+
 pre code {
   background-color: #f5f2f0;
   color: #333;

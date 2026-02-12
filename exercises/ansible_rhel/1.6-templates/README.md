@@ -63,7 +63,6 @@ Modify the `system_setup.yml` Playbook with the following content:
 
 ```yaml
 ---
----
 - name: Basic System Setup
   hosts: all
   become: true

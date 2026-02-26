@@ -184,7 +184,7 @@ This step will allow us to scan a single RHEL 7 host with the ```PCI_Compliance`
 
 #### 6\. Navigate back to Satellite to examine the Asset Reporting File (ARF).
 
--   Switch to the browser tab with the Satellite UI and hover over 'Hosts' from the side pane menu and then click on 'Reports'.
+-   Switch to the browser tab with the Satellite UI and click on the 'Hosts' dropdown menu pane on the left, then click on the 'Compliance' dropdown, followed by clicking on 'Reports'.
 
 ![aap_arf](images/1-compliance-aap2-Satellite_ARF.png)
 
@@ -270,7 +270,7 @@ This step will expand our OpenSCAP policy scan to add another XCCDF compliance p
 
 #### 8\. Navigate back to Satellite to examine the Asset Reporting File (ARF).
 
--   Switch to the browser tab with the Satellite UI and hover over "Hosts" from the menu on the left side of the screen, and then click on "Reports".
+-   Switch to the browser tab with the Satellite UI and click on the 'Hosts' dropdown menu pane on the left, then click on the 'Compliance' dropdown, followed by clicking on 'Reports'.
 
 -   Notice that we've now easily scaled to six policy scans, with each node being scanned for the ```PCI_Compliance``` policy and for ```STIG_Compliance``` policy.
 

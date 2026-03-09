@@ -38,7 +38,7 @@ ansible-1 ansible_host=44.55.66.77
 Pour voir votre inventaire avec ansible-navigator, utilisez la commande `ansible-navigator inventory --list -m stdout`. Cette commande affiche tous les nœuds et leurs groupes respectifs.
 
 ```bash
-[student@ansible-1 rhel_workshop]$ cd /home/student
+[student@ansible-1 rhel_workshop]$ cd /home/student1
 [student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
 {
     "_meta": {

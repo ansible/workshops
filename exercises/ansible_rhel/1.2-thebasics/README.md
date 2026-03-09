@@ -48,7 +48,7 @@ To view your inventory with ansible-navigator, use the command
 and their respective groups.
 
 ```bash
-[student@ansible-1 rhel_workshop]$ cd /home/student
+[student@ansible-1 rhel_workshop]$ cd /home/student1
 [student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
 {
     "_meta": {

@@ -38,7 +38,7 @@ ansible-1 ansible_host=44.55.66.77
 Para visualizar seu inventário com ansible-navigator, use o comando `ansible-navigator inventory --list -m stdout`. Este comando exibe todos os nós e seus respectivos grupos.
 
 ```bash
-[student@ansible-1 rhel_workshop]$ cd /home/student
+[student@ansible-1 rhel_workshop]$ cd /home/student1
 [student@ansible-1 ~]$ ansible-navigator inventory --list -m stdout
 {
     "_meta": {

@@ -40,7 +40,7 @@ body {
 
 .wrapper {
   width: initial;
-  overflow: hidden;
+  overflow: visible;
 }
 
 section {
@@ -59,6 +59,7 @@ section > * {
   width: calc(100% - 40px);
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: 15px;
 }
 
 section > ul, section > ol {
@@ -90,6 +91,58 @@ blockquote p:first-child:before {
 blockquote {
     font-style: normal;
 }
+
+// tighten spacing between bold labels and lists
+p + ul, p + ol {
+  margin-top: -12px;
+}
+
+// collapsible sections
+details {
+  margin: 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0;
+}
+
+details summary {
+  font-family: 'Red Hat Display', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 12px 16px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::before {
+  content: "\f054";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 12px;
+  margin-right: 10px;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details[open] summary {
+  border-bottom: 1px solid #ddd;
+  border-radius: 4px 4px 0 0;
+}
+
+details > *:not(summary) {
+  padding: 0 16px;
+}
+
 // Centre images using ?style=centreme
 img[src*="#centreme"] {
   display: block;
@@ -133,10 +186,79 @@ td {
   background: #f2f2f2;
 }
 
+tr:nth-child(odd) td {
+  background-color: #ffffff;
+}
+
+// copy-to-clipboard button
+
+.copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-family: 'Red Hat Text', sans-serif;
+  font-weight: 600;
+  color: #999;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+  z-index: 2;
+}
+
+div:hover > .copy-btn {
+  opacity: 1;
+}
+
+.copy-btn:hover {
+  background: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+.copy-btn--success {
+  color: #5cb85c !important;
+  border-color: #5cb85c !important;
+}
+
 // codeblock tweaks
 
 .highlighter-rouge pre.highlight {
   background-color: #f5f2f0;
+}
+
+code {
+  background-color: #000000;
+  padding: 3px;
+  color: #ffffff;
+}
+
+code.language-yaml {
+  padding: 0;
+}
+
+code.language-bash {
+  padding: 0;
+}
+
+code.language-ini {
+  padding: 0;
+}
+
+code.language-json {
+  padding: 0;
+}
+
+pre code {
+  background-color: #f5f2f0;
+  color: #333;
+  display: block;
+  padding: 1em;
+  overflow-x: auto;
 }
 
 // custom header
@@ -167,6 +289,24 @@ header {
   flex-wrap: nowrap;
 }
 
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none !important;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-family: 'Red Hat Display', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: #fff;
+  white-space: nowrap;
+  border-left: 1px solid #555;
+  padding-left: 14px;
+}
+
 .header-logo {
   width: 120px;
   height: auto;
@@ -182,57 +322,147 @@ header {
   flex-wrap: nowrap;
   justify-content: flex-end;
   flex-shrink: 1;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .header-link {
   text-decoration: none !important;
   cursor: pointer;
-  text-transform: uppercase;
-  font-size: 12px;
+  font-size: 13px;
   font-family: 'Red Hat Text', sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
-  padding: 7px 10px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+  padding: 8px 10px 6px;
+  transition: all 0.2s ease;
   color: white !important;
-  letter-spacing: 0.25px;
-  border: 1px solid transparent;
+  letter-spacing: 0.15px;
+  border-bottom: 3px solid transparent;
+  position: relative;
 }
 
 .header-link:hover {
-  background-color: #ee0000 !important;
   color: white !important;
   text-decoration: none !important;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(238, 0, 0, 0.4);
+  border-bottom-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-link--active {
+  border-image: linear-gradient(90deg, #ee0000, #5e40be) 1;
+  border-bottom-width: 3px;
+  border-bottom-style: solid;
+}
+
+// Header dropdown menu
+.header-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-dropdown__toggle {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.header-dropdown__icon {
+  font-size: 9px;
+  transition: transform 0.2s ease;
+}
+
+.header-dropdown--open .header-dropdown__icon {
+  transform: rotate(180deg);
+}
+
+.header-dropdown__menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px 0;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+}
+
+.header-dropdown--open .header-dropdown__menu {
+  display: block;
+}
+
+.header-dropdown__item {
+  display: block;
+  padding: 8px 16px;
+  font-family: 'Red Hat Text', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ccc !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.header-dropdown__item:hover {
+  background: #2a2a2a;
+  color: #fff !important;
+}
+
+// Header search bar
+.header-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-search__icon {
+  position: absolute;
+  left: 10px;
+  color: #999;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.header-search__input {
+  font-family: 'Red Hat Text', sans-serif;
+  font-size: 13px;
+  padding: 6px 10px 6px 30px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background: #1a1a1a;
+  color: #fff;
+  width: 160px;
+  outline: none;
+  transition: border-color 0.2s ease, width 0.2s ease;
+}
+
+.header-search__input::placeholder {
+  color: #777;
+}
+
+.header-search__input:focus {
   border-color: #ee0000;
+  width: 200px;
 }
 
-// Responsive adjustments to keep items on one row
-@media screen and (max-width: 1600px) {
-  .header-nav {
-    gap: 16px;
-  }
-
-  .header-link {
-    font-size: 11px;
-    padding: 6px 8px;
-  }
+// Hamburger button (hidden on desktop)
+.header-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px 10px;
+  margin-left: auto;
 }
 
-@media screen and (max-width: 1400px) {
-  .header-nav {
-    gap: 14px;
-  }
-
-  .header-link {
-    font-size: 10px;
-    padding: 6px 7px;
-  }
-}
-
+// Responsive header adjustments
 @media screen and (max-width: 1200px) {
   .header-nav {
     gap: 14px;
@@ -264,30 +494,100 @@ header {
   }
 }
 
-@media screen and (max-width: 900px) {
-  .header-logo {
-    width: 100px;
-  }
-
-  .header-nav {
-    gap: 10px;
-  }
-
-  .header-link {
-    font-size: 9px;
-    padding: 5px 6px;
-    letter-spacing: 0.1px;
-  }
-}
-
 @media screen and (max-width: 768px) {
+  .header-hamburger {
+    display: block;
+  }
+
   .header-nav {
-    gap: 8px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #1a1a1a;
+    flex-direction: column;
+    padding: 12px 20px 16px;
+    gap: 0;
+    z-index: 1000;
+    border-top: 1px solid #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .header-nav--open {
+    display: flex;
+  }
+
+  .header-container {
+    position: relative;
   }
 
   .header-link {
-    font-size: 8px;
-    padding: 4px 5px;
+    font-size: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    width: 100%;
+  }
+
+  .header-link:last-of-type {
+    border-bottom: none;
+  }
+
+  .header-link:hover {
+    border-bottom-color: #333;
+  }
+
+  .header-link--active {
+    border-bottom-color: #ee0000;
+    border-image: none;
+  }
+
+  .header-dropdown {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .header-dropdown__toggle {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    justify-content: space-between;
+  }
+
+  .header-dropdown__menu {
+    position: static;
+    transform: none;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .header-dropdown__item {
+    padding: 8px 0 8px 16px;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 13px;
+    color: #999 !important;
+  }
+
+  .header-dropdown__item:last-child {
+    border-bottom: 1px solid #333;
+  }
+
+  .header-search {
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .header-search__input {
+    width: 100%;
+  }
+
+  .header-title {
+    display: none;
   }
 }
 
@@ -385,6 +685,8 @@ footer {
   }
 }
 
+// misc
+
 a h3 {
     color: #EE0000;
     text-decoration: underline;
@@ -395,198 +697,465 @@ a h3:hover {
     color: #5F0000;
 }
 
-
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&display=swap');
-
-* {
-  box-sizing: border-box;
-}
-
-.page-contain {
-  display: flex;
-  flex-wrap: wrap; /* Allow wrapping if necessary */
-  align-items: stretch; /* Stretch items to the same height */
-  justify-content: center;
-  padding: 2em;
-  font-family: 'Open Sans', sans-serif;
-}
-
-.data-card {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Ensure cards take equal height */
-  flex-basis: 20.75em; /* Base size of each card */
-  max-width: 20.75em;
-  max-height: 27.0em;
-  overflow: hidden;
-  border-radius: .5em;
-  text-decoration: none !important; /* Remove underline from links */
-  background: white;
-  margin: 1em;
-  padding: 2.75em 2.5em;
-  box-shadow: 0 1.5em 2.5em -.5em rgba(0, 0, 0, .1);
-  transition: transform .45s ease, background .45s ease;
-}
-
-.data-card h3, .data-card h4, .data-card p, .data-card .link-text {
-  text-decoration: none; /* Ensure no underline on child elements */
-}
-
-.data-card h3 {
-  color: #2E3C40;
-  font-size: 2.2em;
-  font-weight: 600;
-  line-height: 1;
-  padding-bottom: .5em;
-  border-bottom: 2px solid #ee0000;
-  transition: color .45s ease, border .45s ease;
-  margin:0px;
-}
-
-.data-card h4 {
-  color: #627084;
-  font-size: 1.125em;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.1em;
-  transition: color .45s ease;
-  padding-top:5px;
-}
-
-.data-card p {
-  opacity: 0;
-  color: #FFFFFF;
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 0 0 1.25em;
-  transform: translateY(-1em);
-  transition: opacity .45s ease, transform .5s ease;
-}
-
-.data-card .link-text {
-  display: block;
-  color: #ee0000;
-  font-size: 1.125em;
-  font-weight: 600;
-  line-height: 1.2;
-  margin: auto 0 0;
-  transition: color .45s ease;
-}
-
-.data-card .link-text svg {
-  margin-left: .5em;
-  transition: transform .6s ease;
-}
-
-.data-card .link-text svg path {
-  transition: fill .45s ease;
-}
-
-.data-card:hover {
-  background: #ee0000;
-  transform: scale(1.02);
-}
-
-.data-card:hover h3 {
-  color: #FFFFFF;
-  border-bottom-color: #5f0000;
-}
-
-.data-card:hover h4 {
-  color: #FFFFFF;
-}
-
-.data-card:hover p {
-  opacity: 1;
-  transform: none;
-}
-
-.data-card:hover .link-text {
-  color: #FFFFFF;
-}
-
-.data-card:hover .link-text svg {
-  animation: point 1.25s infinite alternate;
-}
-
-.data-card:hover .link-text svg path {
-  fill: #FFFFFF;
-}
-
-@keyframes point {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(.125em);
-  }
-}
-
-
-.cisco-image-container {
-  width: 800px; /* Set the width of the container */
-  height: 300px; /* Set the height of the container */
-  background-image: url("{{ site.baseurl }}/assets/images/cisco_workshops.png"); /* Image on hover */
-  background-size: cover; /* Cover the entire container */
-  background-position: center; /* Center the image */
-  transition: background-image 0.3s ease; /* Smooth transition */
-}
-
-.cisco-image-container:hover {
-  background-image: url("{{ site.baseurl }}/assets/images/cisco_workshops_tony.png"); /* Image on hover */
+b {
+  font-weight: bold;
 }
 
 #website_explanation {
   display: none;
 }
 
-code {
-  background-color: #000000;
-  padding: 3px;
-  color: #ffffff;
+// Workshop Cards (homepage) — uses PatternFly 6 components
+
+.cards-hero {
+  text-align: center;
+  padding: 40px 20px 20px;
 }
 
-code.language-yaml {
+.cards-hero h1 {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.cards-hero p {
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
+
+// Sidebar + main content layout
+.cards-layout {
+  display: flex;
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 20px;
+  gap: 24px;
+  width: calc(100% - 40px) !important;
+}
+
+.cards-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  padding-top: 14px;
+}
+
+.cards-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-family: 'Red Hat Display', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.cards-sidebar__clear {
+  background: none;
+  border: none;
+  color: #ee0000;
+  font-family: 'Red Hat Text', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
   padding: 0;
+  display: none;
 }
 
-code.language-bash {
-  padding: 0;
+.cards-sidebar__clear:hover {
+  text-decoration: underline;
 }
 
-div#lab_powered_by {
-  color: #627084;
-  font-size: 12px;
-  margin-bottom:-30px;
-  padding-top: 10px;
-}
-
-div#lab_powered_by img {
-  width: 30%;
-}
-
-.data-card .features-text {
-  font-size: 85%;
-  margin-top: 0.5em;
-  color: #5d009c !important;
-}
-
-.data-card:hover .features-text {
-  color: #ffffff !important;
-}
-
-.data-card #lab_powered_by {
-  color: #000000;
-}
-
-.data-card:hover #lab_powered_by {
-  color: #ffffff !important;
-}
-
-pre code {
-  background-color: #f5f2f0;
+.cards-sidebar__title {
+  font-family: 'Red Hat Display', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
   color: #333;
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cards-sidebar__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Red Hat Text', sans-serif;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.cards-sidebar__checkbox input {
+  accent-color: #ee0000;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.cards-main {
+  flex: 1;
+  min-width: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .cards-layout {
+    flex-direction: column;
+    padding: 0 12px;
+    gap: 12px;
+  }
+
+  .cards-sidebar {
+    width: 100%;
+    padding-top: 8px;
+  }
+
+  .cards-sidebar__header {
+    cursor: pointer;
+    margin-bottom: 0;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .cards-sidebar__header::after {
+    content: '\f078';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 12px;
+    color: #6a6e73;
+    transition: transform 0.2s ease;
+  }
+
+  .cards-sidebar.sidebar--open .cards-sidebar__header::after {
+    transform: rotate(180deg);
+  }
+
+  .cards-sidebar__section {
+    display: none;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    padding-top: 8px;
+  }
+
+  .cards-sidebar.sidebar--open .cards-sidebar__section {
+    display: flex;
+  }
+
+  .cards-sidebar__title {
+    width: 100%;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .cards-sidebar__checkbox {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .cards-layout {
+    padding: 0 8px;
+  }
+}
+
+// Search bar
+.cards-search {
+  padding: 0;
+  width: 100% !important;
+  margin-bottom: 4px;
+}
+
+.cards-search__input-wrapper {
+  position: relative;
+  max-width: 480px;
+}
+
+.cards-search__icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.cards-search__input {
+  width: 100%;
+  padding: 10px 36px 10px 38px;
+  font-family: 'Red Hat Text', sans-serif;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.cards-search__input:focus {
+  border-color: #ee0000;
+  box-shadow: 0 0 0 2px rgba(238, 0, 0, 0.15);
+}
+
+.cards-search__input::placeholder {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.cards-search__clear {
+  display: none;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #999;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+}
+
+.cards-search__clear:hover {
+  color: #333;
+}
+
+.cards-search__count {
+  font-size: 13px;
+  color: #6a6e73;
+  margin: 8px 0 0;
+  min-height: 20px;
+}
+
+.cards-gallery {
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+}
+
+@media screen and (max-width: 1100px) {
+  #main-gallery {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cards-gallery {
+    grid-template-columns: 1fr !important;
+  }
+
+  #main-gallery {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.cards-gallery > * {
+  min-width: 0;
+  margin: 0 !important;
+}
+
+.card-link {
+  text-decoration: none !important;
+  color: inherit !important;
   display: block;
-  padding: 1em;
-  overflow-x: auto;
+}
+
+.card-link .pf-v6-c-card {
+  height: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  cursor: pointer;
+}
+
+.card-link .pf-v6-c-card:hover {
+  border-color: #ee0000;
+  box-shadow: 0 4px 16px rgba(238, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.card-link .pf-v6-c-card:hover .pf-v6-c-card__title-text {
+  color: #ee0000;
+}
+
+.card-link .pf-v6-c-card__title-text {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.card-link .pf-v6-c-card__body {
+  font-family: 'Red Hat Text', sans-serif;
+  font-size: 14px;
+  color: #6a6e73;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.card-link .pf-v6-c-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.card-link .pf-v6-c-label__icon {
+  margin-right: 4px;
+}
+
+.cards-contributing {
+  margin: 20px 0 40px;
+  padding: 0;
+  width: 100% !important;
+}
+
+.cards-contributing h2 {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.cards-contributing p {
+  font-size: 15px;
+  color: #555;
+}
+
+.cards-resources {
+  margin: 0 0 40px;
+  width: 100% !important;
+}
+
+.cards-resources h2 {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.cards-resources ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cards-resources li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 15px;
+}
+
+.cards-resources li:last-child {
+  border-bottom: none;
+}
+
+.cards-resources a {
+  font-weight: 500;
+}
+
+.card-partner-logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+// Guide sidebar for subpages
+.guide-layout {
+  display: flex;
+  gap: 0;
+  max-width: 100%;
+}
+
+.guide-layout > section {
+  flex: 1;
+  min-width: 0;
+}
+
+.guide-sidebar {
+  width: 240px;
+  min-width: 240px;
+  padding: 20px 16px 20px 16px;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  border-right: 1px solid #e0e0e0;
+  margin-right: 24px;
+}
+
+.guide-sidebar__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0066cc;
+  text-decoration: none;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+}
+
+.guide-sidebar__back:hover {
+  color: #004080;
+  text-decoration: underline;
+}
+
+.guide-sidebar__title {
+  display: block;
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6a6e73;
+  margin-bottom: 8px;
+}
+
+.guide-sidebar__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.guide-sidebar__list li {
+  margin: 0;
+  padding: 0;
+}
+
+.guide-sidebar__link {
+  display: block;
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+  padding: 5px 0 5px 12px;
+  border-left: 2px solid transparent;
+  line-height: 1.4;
+}
+
+.guide-sidebar__link:hover {
+  color: #0066cc;
+}
+
+.guide-sidebar__link--active {
+  color: #0066cc;
+  font-weight: 600;
+  border-left-color: #0066cc;
+}
+
+@media screen and (max-width: 900px) {
+  .guide-sidebar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .cards-hero h1 {
+    font-size: 28px;
+  }
 }

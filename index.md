@@ -1,35 +1,35 @@
 ---
 layout: default
-title: Ansible ワークショップ
+title: Ansible Workshops
 patternfly: true
 ---
 
-**他の言語でもお読みいただけます**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }})、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})
+**Read this in other languages**:
+<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }}),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})
 
 <div class="cards-layout">
   <aside class="cards-sidebar">
     <div class="cards-sidebar__header">
-      <span>フィルター</span>
-      <button id="filter-clear" class="cards-sidebar__clear">フィルターをクリア</button>
+      <span>Filter by</span>
+      <button id="filter-clear" class="cards-sidebar__clear">Clear filters</button>
     </div>
     <div class="cards-sidebar__section">
-      <h4 class="cards-sidebar__title">種類</h4>
+      <h4 class="cards-sidebar__title">Type</h4>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="90-minute"> 90分
+        <input type="checkbox" value="90-minute"> 90-Minute
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="4-hour"> 4時間
+        <input type="checkbox" value="4-hour"> 4-Hour
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="6-hour"> 6時間
+        <input type="checkbox" value="6-hour"> 6-Hour
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="product-demos"> 製品デモ
+        <input type="checkbox" value="product-demos"> Product Demos
       </label>
     </div>
     <div class="cards-sidebar__section">
-      <h4 class="cards-sidebar__title">パートナー</h4>
+      <h4 class="cards-sidebar__title">Partner</h4>
       <label class="cards-sidebar__checkbox">
         <input type="checkbox" value="splunk"> Splunk
       </label>
@@ -50,7 +50,7 @@ patternfly: true
 
     <div class="pf-v6-l-gallery pf-m-gutter cards-gallery" id="main-gallery">
 
-      <!-- 90分ワークショップ -->
+      <!-- 90-Minute Workshops -->
 
       <a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html" class="card-link" data-tags="90-minute,splunk">
         <div class="pf-v6-c-card">
@@ -58,7 +58,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
@@ -66,7 +66,7 @@ patternfly: true
             <h3 class="pf-v6-c-card__title-text">AI + Ansible</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            AI 駆動型 Ansible 自動化と AIOps の入門。インテリジェントな自己修復型の自動化ワークフローを構築します。
+            Introduction to AI-Driven Ansible Automation & AIOps. Build an intelligent, self-healing automation workflow.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Splunk</span></span>
@@ -81,15 +81,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Day 2 運用</h3>
+            <h3 class="pf-v6-c-card__title-text">Day 2 Ops</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            OpenShift Virtualization を活用した自動化。AAP と OpenShift Virtualization で実行できる運用タスクを学びます。
+            Automation with OpenShift Virtualization. Activities we can perform with OpenShift Virtualization and AAP.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -103,15 +103,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">イベント駆動型 Ansible</h3>
+            <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            EDA テクニカルワークショップ。ソース、ルール、アクションなど EDA の基礎を学びます。
+            EDA Technical Workshop. Covers EDA fundamentals such as sources, rules, and actions.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -125,15 +125,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">クラウド自動化</h3>
+            <h3 class="pf-v6-c-card__title-text">Cloud Automation</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            クラウド自動化の入門。ハイブリッドクラウド環境のオーケストレーション、運用、ガバナンスを学びます。
+            Introduction to cloud automation. Focused on how to orchestrate, operationalize and govern your hybrid cloud environments.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -147,7 +147,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
@@ -155,7 +155,7 @@ patternfly: true
             <h3 class="pf-v6-c-card__title-text">Ansible Lightspeed</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible Lightspeed と開発テクニカルワークショップ。自動化エンジニアやアプリケーション開発者向けの内容です。
+            Ansible Lightspeed and Development Technical Workshop. Focused on the Ansible automation engineer or application developer.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -169,15 +169,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">ネットワーク自動化</h3>
+            <h3 class="pf-v6-c-card__title-text">Network Automation</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            ネットワーク自動化入門。ルーターやスイッチに対する Ansible 自動化を学びます。
+            Getting Started with Network Automation. Focused on Ansible Automation with respect to routers and switches.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Cisco</span></span>
@@ -192,15 +192,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">RHEL 自動化</h3>
+            <h3 class="pf-v6-c-card__title-text">RHEL Automation</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible Red Hat Enterprise Linux ワークショップ。RHEL などの Linux プラットフォームの自動化を学びます。
+            Ansible Red Hat Enterprise Linux Workshop. Focused on automating Linux platforms like Red Hat Enterprise Linux.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -214,15 +214,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">ServiceNow 自動化</h3>
+            <h3 class="pf-v6-c-card__title-text">ServiceNow Automation</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            ServiceNow 自動化入門。IT サービスマネジメント（ITSM）ツールと連携した Ansible 自動化を学びます。
+            Getting Started with ServiceNow Automation. Focused on using Ansible Automation in conjunction with an IT Service Management (ITSM) tool.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">ServiceNow</span></span>
@@ -237,15 +237,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90分
+                90-Minute
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Windows 自動化</h3>
+            <h3 class="pf-v6-c-card__title-text">Windows Automation</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Windows 自動化入門。Windows ホスト上のタスクを Ansible で自動化する方法を学びます。
+            Getting Started with Windows Automation. Focused on using Ansible Automation for automating tasks on a Windows host.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Microsoft</span></span>
@@ -254,7 +254,7 @@ patternfly: true
         </div>
       </a>
 
-      <!-- 4時間ワークショップ -->
+      <!-- 4-Hour Workshops -->
 
       <a target="_blank" href="./exercises/instruqt/eda-4" class="card-link" data-tags="4-hour">
         <div class="pf-v6-c-card">
@@ -262,15 +262,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-blue">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4時間
+                4-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">イベント駆動型 Ansible（拡張版）</h3>
+            <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible (Extended)</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            EDA テクニカルワークショップ。ソース、ルール、アクションなど EDA の基礎を、より深いハンズオン演習で学びます。
+            EDA Technical Workshop. Covers EDA fundamentals such as sources, rules, and actions with deeper hands-on exercises.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -284,15 +284,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-blue">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4時間
+                4-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible Lightspeed（拡張版）</h3>
+            <h3 class="pf-v6-c-card__title-text">Ansible Lightspeed (Extended)</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible Lightspeed と開発テクニカルワークショップ。自動化エンジニアやアプリケーション開発者向けの内容です。
+            Ansible Lightspeed and Development Technical Workshop. Focused on the Ansible automation engineer or application developer.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -306,7 +306,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-blue">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4時間
+                4-Hour
               </span>
             </span>
           </div>
@@ -314,7 +314,7 @@ patternfly: true
             <h3 class="pf-v6-c-card__title-text">Configuration as Code</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible Automation Platform の構成管理をコードとして実現。CaC の考え方と実践を学びます。
+            CaC for Ansible Automation Platform. Focused on Configuration as Code for Ansible Automation Platform.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -322,7 +322,7 @@ patternfly: true
         </div>
       </a>
 
-      <!-- 6時間ワークショップ -->
+      <!-- 6-Hour Workshops -->
 
       <a target="_blank" href="./exercises/ansible_rhel" class="card-link" data-tags="6-hour">
         <div class="pf-v6-c-card">
@@ -330,15 +330,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6時間
+                6-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">RHEL 自動化（終日版）</h3>
+            <h3 class="pf-v6-c-card__title-text">RHEL Automation (Full Day)</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible Red Hat Enterprise Linux ワークショップ。RHEL などの Linux プラットフォームの自動化を学びます。
+            Ansible Red Hat Enterprise Linux Workshop. Focused on automating Linux platforms like Red Hat Enterprise Linux.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -352,15 +352,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6時間
+                6-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">ネットワーク自動化（終日版）</h3>
+            <h3 class="pf-v6-c-card__title-text">Network Automation (Full Day)</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible ネットワーク自動化ワークショップ。Arista、Cisco、Juniper などのルーター・スイッチの自動化を学びます。
+            Ansible Network Automation Workshop. Focused on router and switch platforms like Arista, Cisco, Juniper.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Cisco</span></span>
@@ -375,15 +375,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6時間
+                6-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Windows 自動化（終日版）</h3>
+            <h3 class="pf-v6-c-card__title-text">Windows Automation (Full Day)</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible Windows 自動化ワークショップ。Microsoft Windows の自動化を学びます。
+            Ansible Windows Automation Workshop. Focused on automation of Microsoft Windows.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Microsoft</span></span>
@@ -398,7 +398,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6時間
+                6-Hour
               </span>
             </span>
           </div>
@@ -406,7 +406,7 @@ patternfly: true
             <h3 class="pf-v6-c-card__title-text">Ansible + Satellite</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible + Satellite ワークショップ。Red Hat Satellite Server を使ったセキュリティおよびライフサイクル管理の自動化を学びます。
+            Ansible + Satellite Workshop. Focused on automation of security and lifecycle management with Red Hat Satellite Server.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -420,15 +420,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6時間
+                6-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">RHEL インプレースアップグレード</h3>
+            <h3 class="pf-v6-c-card__title-text">RHEL In-place Upgrade</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            RHEL インプレースアップグレード自動化ワークショップ。エンタープライズ規模での RHEL インプレースアップグレードの自動化を学びます。
+            RHEL In-place Upgrade Automation Workshop. Focused on automation of RHEL in-place upgrades at enterprise scale.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -436,7 +436,7 @@ patternfly: true
         </div>
       </a>
 
-      <!-- 製品デモ -->
+      <!-- Product Demos -->
 
       <a target="_blank" href="./exercises/product_demos/" class="card-link" data-tags="product-demos">
         <div class="pf-v6-c-card">
@@ -444,15 +444,15 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-orange">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-play-circle pf-v6-c-label__icon"></i>
-                製品デモ
+                Product Demos
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible 製品デモ</h3>
+            <h3 class="pf-v6-c-card__title-text">Ansible Product Demos</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible Automation Platform のデモ、開発、実験のためのサンドボックス環境です。
+            Sandbox for demoing, development, and experimentation with Ansible Automation Platform.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -463,41 +463,41 @@ patternfly: true
     </div>
 
     <div class="cards-contributing">
-      <h2>その他のリソース</h2>
+      <h2>Additional Resources</h2>
     </div>
 
     <div class="cards-resources">
-      <h2>セルフペースの演習</h2>
-      <p><a href="https://red.ht/ansible-labs">Ansible Automation Platform セルフペースラボ</a> — 事前構成済みの環境で実験・学習できるインタラクティブなシナリオです。プラットフォームが実際の問題解決にどのように役立つかをご自分のペースで体験できます（各15〜30分）。</p>
+      <h2>Self Paced Exercises</h2>
+      <p><a href="https://red.ht/ansible-labs">Ansible Automation Platform Self-Paced Labs</a> — Interactive learning scenarios with a pre-configured environment to experiment, learn, and see how the platform can help you solve real-world problems (15-30 minutes each).</p>
     </div>
 
     <div class="cards-resources">
-      <h2>YouTube チャンネル</h2>
+      <h2>YouTube Channels</h2>
       <ul>
-        <li><a href="https://youtube.com/ansibleautomation">The Ansible Playbook</a> — テクニカルマーケティングエンジニアによる情報発信</li>
-        <li><a href="https://www.youtube.com/@RedHatAnsible">Red Hat Ansible</a> — AnsibleFest セッション、製品発表など</li>
+        <li><a href="https://youtube.com/ansibleautomation">The Ansible Playbook</a> — Join the Tech Marketing Engineers online</li>
+        <li><a href="https://www.youtube.com/@RedHatAnsible">Red Hat Ansible</a> — Ansiblefest sessions, product announcements and more</li>
       </ul>
     </div>
 
     <div class="cards-resources">
-      <h2>ドキュメントとトレーニング</h2>
+      <h2>Documentation & Training</h2>
       <ul>
-        <li><a href="https://docs.ansible.com/ansible/latest/getting_started/index.html">Ansible 入門ガイド</a></li>
-        <li><a href="https://docs.ansible.com/ansible/latest/network/getting_started/index.html">Ansible ネットワーク自動化 — 入門ガイド</a></li>
-        <li><a href="https://red.ht/aap_training">Red Hat Ansible Automation Platform トレーニングと認定資格</a></li>
-        <li><a href="http://red.ht/try_ansible">Ansible Automation Platform のトライアルサブスクリプション</a></li>
-        <li><a href="https://forum.ansible.com/">Ansible コミュニティフォーラム</a></li>
+        <li><a href="https://docs.ansible.com/ansible/latest/getting_started/index.html">Ansible Getting Started Guide</a></li>
+        <li><a href="https://docs.ansible.com/ansible/latest/network/getting_started/index.html">Ansible Network Automation — Getting Started</a></li>
+        <li><a href="https://red.ht/aap_training">Red Hat Training and Certification for AAP</a></li>
+        <li><a href="http://red.ht/try_ansible">Get a Trial Subscription for AAP</a></li>
+        <li><a href="https://forum.ansible.com/">Ansible Community Forum</a></li>
       </ul>
     </div>
 
     <div class="cards-resources">
-      <h2>ワークショップドキュメント</h2>
+      <h2>Workshop Documentation</h2>
       <ul>
-        <li><a href="docs/attendance/attendance.md">ワークショップ参加者向け Web サイト</a></li>
-        <li><a href="docs/contribute.md">コントリビューションガイド</a></li>
-        <li><a href="provisioner/README.md">AWS Lab Provisioner の使い方</a></li>
-        <li><a href="docs/faq.md">よくある質問（FAQ）</a></li>
-        <li><a href="docs/release.md">リリースプロセス</a></li>
+        <li><a href="docs/attendance/attendance.md">Workshop attendance website</a></li>
+        <li><a href="docs/contribute.md">How to contribute</a></li>
+        <li><a href="provisioner/README.md">How to use the AWS Lab Provisioner</a></li>
+        <li><a href="docs/faq.md">FAQ</a></li>
+        <li><a href="docs/release.md">Release Process</a></li>
       </ul>
     </div>
   </div>
@@ -553,8 +553,8 @@ patternfly: true
 
     if (query || activeFilters.length) {
       countEl.textContent = visible === 0
-        ? 'フィルター条件に一致するワークショップはありません。'
-        : visible + ' 件のワークショップが見つかりました。';
+        ? 'No workshops match your filters.'
+        : visible + ' workshop' + (visible !== 1 ? 's' : '') + ' found.';
     } else {
       countEl.textContent = '';
     }

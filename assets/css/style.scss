@@ -352,6 +352,67 @@ header {
   border-bottom-style: solid;
 }
 
+// Header dropdown menu
+.header-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-dropdown__toggle {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.header-dropdown__icon {
+  font-size: 9px;
+  transition: transform 0.2s ease;
+}
+
+.header-dropdown--open .header-dropdown__icon {
+  transform: rotate(180deg);
+}
+
+.header-dropdown__menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 6px 0;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+}
+
+.header-dropdown--open .header-dropdown__menu {
+  display: block;
+}
+
+.header-dropdown__item {
+  display: block;
+  padding: 8px 16px;
+  font-family: 'Red Hat Text', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #ccc !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.header-dropdown__item:hover {
+  background: #2a2a2a;
+  color: #fff !important;
+}
+
 // Header search bar
 .header-search {
   position: relative;
@@ -479,6 +540,41 @@ header {
   .header-link--active {
     border-bottom-color: #ee0000;
     border-image: none;
+  }
+
+  .header-dropdown {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .header-dropdown__toggle {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    justify-content: space-between;
+  }
+
+  .header-dropdown__menu {
+    position: static;
+    transform: none;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .header-dropdown__item {
+    padding: 8px 0 8px 16px;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 13px;
+    color: #999 !important;
+  }
+
+  .header-dropdown__item:last-child {
+    border-bottom: 1px solid #333;
   }
 
   .header-search {

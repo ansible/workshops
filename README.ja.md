@@ -5,7 +5,7 @@ patternfly: true
 ---
 
 **他の言語でもお読みいただけます**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md)、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語](README.ja.md)
+<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }})、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})
 
 <div class="cards-layout">
   <aside class="cards-sidebar">

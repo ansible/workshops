@@ -25,7 +25,7 @@ ansible_ssh_private_key_file="{{ playbook_dir }}/{{ ec2_name_prefix }}/{{ ec2_na
 {% endfor %}
 {% for host in rtr1_node_facts.instances %}
 {% if 'student' ~ number == host.tags.Student %}
-{{ host.tags.Student }}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }} ansible_connection=network_cli
+{{ host.tags.Student }}-{{ host.tags.short_name }} ansible_host={{ host.public_ip_address }} ansible_user={{ host.tags.username }} ansible_network_os={{ host.tags.ansible_network_os }} ansible_connection=network_cli ansible_libssh_publickey_algorithms=ssh-rsa
 {% endif %}
 {% endfor %}
 {% for host in rtr2_node_facts.instances %}

@@ -2,7 +2,7 @@
 <section class="page-contain">
 <!-- lab box -->
 <!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/whcf52xvqbej -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/whcf52xvqbej" class="data-card">
+  <a target="_blank" href="https://play.instruqt.com/redhat/invite/whcf52xvqbej" class="data-card">
     <h3>DEVRHL-1001</h3>
     <h4>Ansible for Network Automation Basics: Surveys and Workflows</h4>
     <p>Learn how to create an automation controller survey to configure a Cisco IOS network device with specific settings</p>
@@ -14,7 +14,7 @@
     </span>
   </a>
 <!-- lab box -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/kivvxnx8xqdy" class="data-card">
+  <a target="_blank" href="https://play.instruqt.com/redhat/invite/kivvxnx8xqdy" class="data-card">
     <h3>DEVRHL-1002</h3>
     <h4>Ansible for Network automation: Writing playbooks and completing Backups and Restores</h4>
     <p>Learn how to write Ansible Playbooks, which describe what actions to take when running the automation.</p>
@@ -27,7 +27,7 @@
   </a>
 <!-- lab box -->
 <!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/ev2kjalwikzi -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/ev2kjalwikzi" class="data-card">
+  <a target="_blank" href="https://play.instruqt.com/redhat/invite/ev2kjalwikzi" class="data-card">
     <h3>DEVRHL-1003</h3>
     <h4>Ansible for network automation: network visibility and resource modules</h4>
     <p>Retrieve facts from across the network infrastructure and create dynamic documentation.</p>
@@ -40,7 +40,7 @@
   </a>
 <!-- lab box -->
 <!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/hjvqkq6mk54d -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/hjvqkq6mk54d" class="data-card">
+  <a target="_blank" href="https://play.instruqt.com/redhat/invite/hjvqkq6mk54d" class="data-card">
     <h3>DEVRHL-1004</h3>
     <h4>Extending automation to remote branch networks (Meraki)</h4>
     <p>Learn how to use the Ansible Automation Platform to configure a network, add Meraki devices, and configure specific settings.</p>
@@ -53,7 +53,7 @@
   </a>
 <!-- lab box -->
 <!-- to edit in instruqt: https://play.instruqt.com/manage/redhat/invites/d0o2sbmqe89c -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/d0o2sbmqe89c" class="data-card">
+  <a target="_blank" href="https://play.instruqt.com/redhat/invite/d0o2sbmqe89c" class="data-card">
     <h3>DEVRHL-1005</h3>
     <h4>Network automation and Sources of Truth</h4>
     <p>Learn how to centralize your resources in a network Source of Truth such as NetBox or Git.</p>
@@ -65,7 +65,7 @@
     </span>
   </a>
 <!-- lab box -->
-  <a target="_new" href="https://play.instruqt.com/redhat/invite/ef97o71frzjm" class="data-card">
+  <a target="_blank" href="https://play.instruqt.com/redhat/invite/ef97o71frzjm" class="data-card">
     <h3>DEVRHL-1007</h3>
     <h4>Event-Driven Ansible for Cisco routers and switches</h4>
     <p>Event-driven automation is a method for automatically responding to changing conditions on your network.</p>

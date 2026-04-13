@@ -77,7 +77,7 @@ Comme vous pouvez le voir, il n'y a aucune configuration SNMP sur le routeur Cis
 
 * Créez un nouveau fichier dans Visual Studio Code nommé `resource.yml`
 
-   ![nouveau fichier](images/step1_new_file.png)
+   ![nouveau fichier](images/step1_blank_file.png)
 
 * Copiez le playbook Ansible suivant dans `resource.yml`
 

@@ -26,10 +26,10 @@ Tasks in this lab include:
 
 <ul>
 <li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 15  minutes]<br>
-<a href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">[ 🖥️ Slides ]</a>
+<a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">[ 🖥️ Slides ]</a>
 </li><br>
 <li><b>Lab 1: Getting Started with Windows Automation</b> [Estimated Time ⏱️ 15 minutes]<br>
-<a href="https://developers.redhat.com/content-gateway/link/3884845">[ 🚀 Launch the lab ]</a>
+<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=windows+90&item=zt-ansiblebu.zt-ans-bu-windows90.prod">[ 🚀 Launch the lab ]</a>
 <ul><li>Exercise 1 - Configure Automation Controller
 </li></ul>
 </li><br>

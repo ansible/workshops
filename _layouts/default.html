@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="{{ site.lang | default: "en-US" }}">
-    <head>
+  <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJWQBHM62Z"></script>
   <script>
@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% if page.patternfly %}
+    <link rel="stylesheet" href="https://unpkg.com/@patternfly/patternfly@6.2.3/patternfly.min.css">
+    {% endif %}
     <link rel="stylesheet" href="{{ '/assets/css/prism-vsc-dark-plus.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   </head>
@@ -33,37 +36,54 @@
     <div class="wrapper">
       <header>
         <div class="header-container">
-          <a href="{{ '/' | relative_url }}">
+          <a href="{{ '/' | relative_url }}" class="header-brand">
             <img
               class="header-logo"
               src="{{ '/assets/images/redhat-ansible-logo.svg' | relative_url }}"
               title="Red Hat Ansible"
               alt="Red Hat Ansible"
             />
+            <span class="header-title">Workshops</span>
           </a>
-          <div class="header-nav">
+          <button class="header-hamburger" id="header-hamburger" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="header-nav" id="header-nav">
             <a class="header-link" href="{{ '/' | relative_url }}">
-               Home
+              Home
             </a>
-
-            <a class="header-link" href="https://ansible.github.io/slides">
-              Slides
-            </a>
-            <a class="header-link" href="https://ansible.github.io/slides/ebooks">
-              E-Books
-            </a>
-            <a class="header-link" href="https://ansible.github.io/slides/customer_references">
-              Customer References
-            </a>
-            <a class="header-link" href="https://ansible.github.io/slides/datasheets">
-              Collateral
-            </a>
-            <a class="header-link" target="_new" href="https://www.redhat.com/aap-interact">
+            <div class="header-dropdown">
+              <button class="header-link header-dropdown__toggle">
+                Resources <i class="fas fa-chevron-down header-dropdown__icon"></i>
+              </button>
+              <div class="header-dropdown__menu">
+                <a class="header-dropdown__item" href="https://ansible.github.io/slides">
+                  Slides
+                </a>
+                <a class="header-dropdown__item" href="https://ansible.github.io/slides/ebooks">
+                  E-Books
+                </a>
+                <a class="header-dropdown__item" href="https://ansible.github.io/slides/customer_references">
+                  Customer References
+                </a>
+                <a class="header-dropdown__item" href="https://ansible.github.io/slides/datasheets">
+                  Collateral
+                </a>
+              </div>
+            </div>
+            <a class="header-link" target="_blank" href="https://www.redhat.com/aap-interact">
               Interactive Experiences
+            </a>
+            <a class="header-link" target="_blank" href="https://www.redhat.com/en/interactive-labs/ansible">
+              Interactive Labs
             </a>
             <a class="header-link" href="https://github.com/ansible/workshops/issues/new/choose">
               Open an Issue
             </a>
+            <div class="header-search">
+              <i class="fas fa-search header-search__icon"></i>
+              <input type="text" id="header-search" class="header-search__input" placeholder="Search..." autocomplete="off">
+            </div>
           </div>
         </div>
       </header>
@@ -82,11 +102,9 @@
               alt="Red Hat"
             />
           </a>
-          <p class="footer-copyright">Copyright © 2025 Red Hat, Inc.</p>
+          <p class="footer-copyright">Copyright &copy; 2026 Red Hat, Inc.</p>
           <div class="footer-linkContainer">
             <a href="https://www.redhat.com/en/about/privacy-policy" class="footer-link">Privacy statement</a>
-            <span class="footer-linkSpacer">|</span>
-            <a href="https://www.redhat.com/en/about/terms-use" class="footer-link">Terms of use</a>
             <span class="footer-linkSpacer">|</span>
             <a href="https://www.ansible.com/security?hsLang=en-us" class="footer-link">Security disclosure</a>
             <span class="footer-linkSpacer">|</span>
@@ -96,6 +114,119 @@
       </footer>
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+    <!-- Copy-to-clipboard buttons for code blocks -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('pre').forEach(function(pre) {
+          var wrapper = document.createElement('div');
+          wrapper.style.position = 'relative';
+          pre.parentNode.insertBefore(wrapper, pre);
+          wrapper.appendChild(pre);
+
+          var btn = document.createElement('button');
+          btn.className = 'copy-btn';
+          btn.textContent = 'Copy';
+          btn.setAttribute('aria-label', 'Copy code to clipboard');
+          wrapper.appendChild(btn);
+
+          btn.addEventListener('click', function() {
+            var code = pre.querySelector('code');
+            var text = code ? code.textContent : pre.textContent;
+            navigator.clipboard.writeText(text).then(function() {
+              btn.textContent = 'Copied!';
+              btn.classList.add('copy-btn--success');
+              setTimeout(function() {
+                btn.textContent = 'Copy';
+                btn.classList.remove('copy-btn--success');
+              }, 2000);
+            });
+          });
+        });
+      });
+    </script>
+
+    <!-- Hamburger menu toggle -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('header-hamburger');
+        var nav = document.getElementById('header-nav');
+        if (!btn || !nav) return;
+        btn.addEventListener('click', function() {
+          nav.classList.toggle('header-nav--open');
+          var icon = btn.querySelector('i');
+          if (nav.classList.contains('header-nav--open')) {
+            icon.className = 'fas fa-times';
+          } else {
+            icon.className = 'fas fa-bars';
+          }
+        });
+      });
+    </script>
+
+    <!-- Header dropdown menus -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.header-dropdown__toggle').forEach(function(toggle) {
+          toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var dropdown = toggle.closest('.header-dropdown');
+            var wasOpen = dropdown.classList.contains('header-dropdown--open');
+            document.querySelectorAll('.header-dropdown--open').forEach(function(d) {
+              d.classList.remove('header-dropdown--open');
+            });
+            if (!wasOpen) dropdown.classList.add('header-dropdown--open');
+          });
+        });
+        document.addEventListener('click', function() {
+          document.querySelectorAll('.header-dropdown--open').forEach(function(d) {
+            d.classList.remove('header-dropdown--open');
+          });
+        });
+      });
+    </script>
+
+    <!-- Collapsible sidebar filter on mobile -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var sidebar = document.querySelector('.cards-sidebar');
+        var header = document.querySelector('.cards-sidebar__header');
+        if (!sidebar || !header) return;
+        header.addEventListener('click', function(e) {
+          if (e.target.id === 'filter-clear') return;
+          if (window.innerWidth <= 768) {
+            sidebar.classList.toggle('sidebar--open');
+          }
+        });
+      });
+    </script>
+
+    <!-- Active nav link indicator -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var path = window.location.pathname.replace(/\/$/, '').replace(/\/index\.html$/, '');
+        document.querySelectorAll('.header-link').forEach(function(link) {
+          var href = link.getAttribute('href').replace(/\/$/, '');
+          if (path === href || (href !== '{{ "/" | relative_url }}'.replace(/\/$/, '') && path.indexOf(href) === 0)) {
+            link.classList.add('header-link--active');
+          }
+        });
+      });
+    </script>
+
+    <!-- External links open in new tabs -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var host = window.location.hostname;
+        document.querySelectorAll('a[href]').forEach(function(link) {
+          if (link.hostname && link.hostname !== host) {
+            link.setAttribute('target', '_blank');
+            link.setAttribute('rel', 'noopener noreferrer');
+          }
+        });
+      });
+    </script>
+
     {% if site.google_analytics %}
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

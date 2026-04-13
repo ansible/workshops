@@ -11,7 +11,7 @@ Learn the basics of writing a Red Hat Ansible Automation Platform playbook to au
   
 ## Access Lab
 
-- <a target="_new" href="https://play.instruqt.com/embed/redhat/tracks/writing-first-playbook?token=em_epihlg9zuxia3gzi&show_challenges=true">🚀 Launch the lab</a>
+- <a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/writing-first-playbook?token=em_epihlg9zuxia3gzi&show_challenges=true">🚀 Launch the lab</a>
 
 # Agenda
 

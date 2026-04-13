@@ -82,7 +82,7 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td>Config as code Introduction to AAP</td>
 <td>Learn about the fundamentals of using Configuration of Code to maintain the Ansible Automation Platform. This is a Red Hat or Partner Only Lab, and requires access to demo.redhat.com, please reach out to your account representative to coordinate access to the Lab</td>
-<td><a target="_new" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/summit-2025.lb2193-config-as-code-aap.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/summit-2025.lb2193-config-as-code-aap.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 </tr>
 </tbody>
 </table>
@@ -103,12 +103,12 @@ Additional material for Configuration as Code for Ansible Automation Platform 2
 <tr>
 <td>Demystifying Ansible Automation Platform</td>
 <td>Book</td>
-<td><a target="_new" href="https://www.packtpub.com/product/demystifying-ansible-automation-platform/9781803244884">📖 Demystifying Ansible Automation Platform - Book from Packt</a></td>
+<td><a target="_blank" href="https://www.packtpub.com/product/demystifying-ansible-automation-platform/9781803244884">📖 Demystifying Ansible Automation Platform - Book from Packt</a></td>
 </tr>
 <tr>
 <td>Infra Collections in Ansible Galaxy</td>
 <td>Collections</td>
-<td><a targete="_new" href="https://galaxy.ansible.com/ui/namespaces/infra/">📒 Download collections used in this lab and get links to their repos</a></td>
+<td><a target="_blank" href="https://galaxy.ansible.com/ui/namespaces/infra/">📒 Download collections used in this lab and get links to their repos</a></td>
 </tr>
 </tbody>
 </table>

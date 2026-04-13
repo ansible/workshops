@@ -3,18 +3,23 @@
 - name: BLOCK FOR CISCO AMI
   block:
     - name: find ami for cisco (NETWORKING MODE)
-      ec2_ami_info:
+      amazon.aws.ec2_ami_info:
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:
-          name: "Cisco-C8K-17.14.01a-42cb6e93-8d9d-490b-a73c-e3e56077ffd1"
+          name: "Cisco-C8K*42cb6e93-8d9d-490b-a73c-e3e56077ffd1"
           architecture: "x86_64"
+          state: "available"
       register: cisco_ami_list
 
     - name: save ami for cisco (NETWORKING MODE)
       set_fact:
         cisco_ami: >
           {{ cisco_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
+
+    - name: debug cisco ami selected
+      ansible.builtin.debug:
+        msg: "Selected Cisco AMI: {{ cisco_ami.name }} ({{ cisco_ami.image_id }}) created {{ cisco_ami.creation_date }}"
   when: 'network_type == "multivendor" or network_type == "cisco"'
 
 #### ARISTA AMI

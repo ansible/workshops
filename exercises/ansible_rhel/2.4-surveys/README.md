@@ -52,7 +52,7 @@ Now, let's create a new Template that includes a survey.
 
 #### Create Template
 
-1. Go to **Automation Execution → Templates**, click the **Create template** button, and choose **Create job template**.
+1. Go to **Resources → Templates**, click the **Add** button, and choose **Add job Template**.
 
 2. Fill out the following details:
 

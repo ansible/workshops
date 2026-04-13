@@ -59,8 +59,9 @@ Utilize the `ansible.builtin.template` module in a playbook to distribute and re
 
 Modify the `system_setup.yml` Playbook with the following content:
 
+{% raw %}
+
 ```yaml
----
 ---
 - name: Basic System Setup
   hosts: all
@@ -120,6 +121,8 @@ Modify the `system_setup.yml` Playbook with the following content:
         name: firewalld
         state: reloaded
 ```
+
+{% endraw %}
 
 The `ansible.builtin.template` module takes the `motd.j2` template and generates an `/etc/motd` file on each host, filling in the template's placeholders with the actual host facts.
 

@@ -1,3 +1,5 @@
 Host *
      StrictHostKeyChecking no
      User {{ ansible_user }}
+     PubkeyAcceptedAlgorithms +ssh-rsa
+     HostKeyAlgorithms +ssh-rsa

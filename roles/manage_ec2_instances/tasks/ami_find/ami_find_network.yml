@@ -7,7 +7,7 @@
         region: "{{ ec2_region }}"
         owners: "679593333241"
         filters:
-          name: "Cisco-C8K*"
+          name: "Cisco-C8K*42cb6e93-8d9d-490b-a73c-e3e56077ffd1"
           architecture: "x86_64"
           state: "available"
       register: cisco_ami_list
@@ -15,7 +15,7 @@
     - name: save ami for cisco (NETWORKING MODE)
       set_fact:
         cisco_ami: >
-          {{ cisco_ami_list.images | selectattr('name', 'defined') | rejectattr('name', 'search', 'PAYG') | sort(attribute='creation_date') | last }}
+          {{ cisco_ami_list.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}
 
     - name: debug cisco ami selected
       ansible.builtin.debug:

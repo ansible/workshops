@@ -165,6 +165,7 @@ controller_groups:
     variables:
       ansible_network_os: ios
       ansible_connection: network_cli
+      ansible_network_cli_ssh_type: paramiko
   - name: arista
     inventory: "Workshop Inventory"
     variables:

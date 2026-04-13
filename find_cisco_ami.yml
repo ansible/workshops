@@ -1,0 +1,36 @@
+---
+- name: Find latest Cisco C8K AMI on AWS
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ec2_region: us-east-2
+  tasks:
+    - name: find all available Cisco C8K AMIs
+      amazon.aws.ec2_ami_info:
+        region: "{{ ec2_region }}"
+        owners: "679593333241"
+        filters:
+          name: "Cisco-C8K*"
+          architecture: "x86_64"
+          state: "available"
+      register: cisco_amis
+
+    - name: show all available Cisco C8K AMIs
+      ansible.builtin.debug:
+        msg: "{{ item.name }} | {{ item.image_id }} | {{ item.creation_date }}"
+      loop: "{{ cisco_amis.images | sort(attribute='creation_date') }}"
+      loop_control:
+        label: "{{ item.image_id }}"
+
+    - name: show the latest (what the workshop will use)
+      ansible.builtin.debug:
+        msg: >-
+          LATEST: {{ (cisco_amis.images | sort(attribute='creation_date') | last).name }}
+          ({{ (cisco_amis.images | sort(attribute='creation_date') | last).image_id }})
+      when: cisco_amis.images | length > 0
+
+    - name: warn if no AMIs found
+      ansible.builtin.debug:
+        msg: "WARNING: No Cisco C8K AMIs found in {{ ec2_region }}. Check your AWS subscription to the Cisco C8K Marketplace listing."
+      when: cisco_amis.images | length == 0

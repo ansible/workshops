@@ -181,6 +181,35 @@ Installing 'amazon.aws:3.1.1' to '/Users/sean/.ansible/collections/ansible_colle
 amazon.aws:3.1.1 was installed successfully
 ```
 
+## Problem: Cisco SSH fails with PUBLICKEY_ACCEPTED_TYPES error in AAP / Execution Environments on RHEL 9
+
+```
+fatal: [rtr1]: FAILED! => {"changed": false, "msg": "ssh connection failed: Failed to authenticate public key: The key algorithm 'ssh-rsa' is not allowed to be used by PUBLICKEY_ACCEPTED_TYPES configuration option"}
+```
+
+This affects any Execution Environment built on a RHEL 9 base image (e.g. `ee-supported-rhel9`, `ee-minimal-rhel9`). Older network devices like Cisco IOS only support the `ssh-rsa` key algorithm, but RHEL 9's system-wide crypto policy blocks `ssh-rsa` at the OS level inside the container.
+
+**Why common fixes don't work:** Setting `ansible_libssh_publickey_algorithms`, `[libssh_connection]` in `ansible.cfg`, or the `ANSIBLE_LIBSSH_PUBLICKEY_ALGORITHMS` environment variable will NOT fix this. The rejection happens in the system `libssh` C library which reads `/etc/crypto-policies/back-ends/libssh.config` — below the Ansible layer entirely.
+
+### Solution:
+
+Add a custom crypto sub-policy to your `execution-environment.yml` that re-enables `ssh-rsa` for SSH only:
+
+```yaml
+additional_build_steps:
+    append_final:
+        - RUN printf '[libssh]\npubkey_algorithms = +ssh-rsa\n[openssh]\nPubkeyAcceptedAlgorithms = +ssh-rsa\nHostKeyAlgorithms = +ssh-rsa\n' > /etc/crypto-policies/policies/modules/ANSIBLE-SSH-RSA.pmod && update-crypto-policies --set DEFAULT:ANSIBLE-SSH-RSA
+```
+
+Rebuild and push the EE image. You can verify the fix by checking:
+
+```
+podman run --rm <ee-image> cat /etc/crypto-policies/state/current
+# Should show: DEFAULT:ANSIBLE-SSH-RSA
+```
+
+**Note:** Setting `ansible_network_cli_ssh_type=paramiko` on Cisco hosts can work as a temporary workaround since paramiko is pure Python and bypasses the system crypto policy, but it may cause credential injection issues in AAP.
+
 ## Getting Help
 
 Please [file issues on Github](https://github.com/ansible/workshops/issues).  Please fill out all required information.  Your issue will be closed if you skip required information in the Github issues template.

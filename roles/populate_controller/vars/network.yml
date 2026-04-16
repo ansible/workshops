@@ -165,6 +165,7 @@ controller_groups:
     variables:
       ansible_network_os: ios
       ansible_connection: network_cli
+      ansible_libssh_publickey_algorithms: ssh-rsa
   - name: arista
     inventory: "Workshop Inventory"
     variables:

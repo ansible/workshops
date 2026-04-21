@@ -15,7 +15,7 @@ Visit the live site at [ansible.github.io/workshops](https://ansible.github.io/w
 | [Cloud Automation](exercises/instruqt/ansible-cloud-lab) | Orchestrate, operationalize and govern hybrid cloud environments |
 | [Ansible Lightspeed](exercises/instruqt/lightspeed) | Ansible Lightspeed and Development Technical Workshop |
 | [Network Automation](exercises/instruqt/network) | Getting Started with Network Automation |
-| [RHEL Automation](./exercises/ansible_rhel_90) | Ansible Red Hat Enterprise Linux Workshop |
+| [RHEL Automation](./exercises/instruqt/rhel-90) | Ansible Red Hat Enterprise Linux Workshop |
 | [ServiceNow](exercises/instruqt/servicenow) | Getting Started with ServiceNow Automation |
 | [Windows](exercises/instruqt/windows) | Getting Started with Windows Automation |
 
@@ -31,7 +31,7 @@ Visit the live site at [ansible.github.io/workshops](https://ansible.github.io/w
 
 | Workshop | Description |
 |---|---|
-| [RHEL](./exercises/ansible_rhel) | Ansible Red Hat Enterprise Linux Workshop |
+| [RHEL](./exercises/instruqt/rhel) | Ansible Red Hat Enterprise Linux Workshop |
 | [Network](./exercises/ansible_network) | Ansible Network Automation Workshop |
 | [Windows](./exercises/ansible_windows) | Ansible Windows Automation Workshop |
 | [Satellite](./exercises/rhdp_auto_satellite) | Ansible + Satellite Workshop |

@@ -48,37 +48,43 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td>Exercise 1 — Writing Your First Playbook</td>
 <td>Create and run your first Ansible playbook</td>
-<td rowspan="7"><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>Exercise 2 — Using Variables</td>
 <td>Learn how to use variables and facts in playbooks</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 3 — Projects & Job Templates</td>
 <td>Create projects and job templates in automation controller</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 4 — Surveys</td>
 <td>Add surveys to job templates for user-driven input</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 5 — Role-based Access Control</td>
 <td>Configure RBAC to manage user access and permissions</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 6 — RHEL System Roles</td>
 <td>Use RHEL System Roles for firewall and timesync configuration</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 7 — Wrap-Up</td>
 <td>Capstone exercise combining inventory, templates, surveys, and RBAC</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 </tbody>

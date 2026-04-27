@@ -133,23 +133,6 @@ Recommended agenda for when there is an instructor teaching.
 </tbody>
 </table>
 
-## Supplemental Exercises
-
-<table>
-<thead>
-<tr>
-<th>Lab Title</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>RHEL Image Mode</td>
-<td>Bonus exercise exploring RHEL Image Mode with Ansible</td>
-</tr>
-</tbody>
-</table>
-
 # Going Further
 
 Additional material for Ansible and RHEL Automation

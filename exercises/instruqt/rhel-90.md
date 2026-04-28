@@ -22,10 +22,12 @@ Recommended agenda for when there is an instructor teaching.
 <tbody>
 <tr>
 <td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/10rltay3pr3ZLzFMGTPnc6CAtsm0AwQ3L_XbwmmMNMdc/edit?usp=sharing">🖥️ Google Slides</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td><b>Lab</b>: Exercises 1–7</td>
+<td></td>
 <td>⏱️ 75 minutes</td>
 </tr>
 </tbody>

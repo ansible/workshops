@@ -37,10 +37,30 @@ Recommended agenda for when there is an instructor teaching.
 <td>⏱️ 60 minutes</td>
 </tr>
 <tr>
-<td><b>Lab</b>: Ansible for RHEL</td>
-<td>Complete all exercises: command-line Ansible fundamentals (1.1–1.7) and Ansible Automation Platform (2.1–2.8)</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
-<td>⏱️ 4-5 hours</td>
+<td><b>Lab</b>: Section 1 — Command-line Ansible (Exercises 1.1–1.4)</td>
+<td>Writing playbooks, variables, conditionals/handlers/loops, and templates</td>
+<td rowspan="5"><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td>⏱️ 80 minutes</td>
+</tr>
+<tr>
+<td>☕ <b>Break</b></td>
+<td>Suggested break</td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td><b>Lab</b>: Section 1 — Command-line Ansible (Exercises 1.5–1.7)</td>
+<td>Collections, Ansible Navigator & execution environments, debugging</td>
+<td>⏱️ 55 minutes</td>
+</tr>
+<tr>
+<td>☕ <b>Break</b></td>
+<td>Suggested break</td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td><b>Lab</b>: Section 2 — Ansible Automation Platform (Exercises 2.1–2.8)</td>
+<td>Automation controller: inventories, credentials, projects, job templates, surveys, RBAC, workflows, system roles, and wrap-up</td>
+<td>⏱️ 145 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -54,36 +74,44 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <th>Exercise</th>
 <th>Description</th>
+<th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1.1 Writing Your First Playbook</td>
 <td>Create and run your first Ansible playbook</td>
+<td>⏱️ 25 minutes</td>
 </tr>
 <tr>
 <td>1.2 Using Variables</td>
 <td>Learn how to use variables in playbooks</td>
+<td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>1.3 Conditionals, Handlers and Loops</td>
 <td>Implement conditionals, handlers, and loops</td>
+<td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>1.4 Templates</td>
 <td>Use Jinja2 templates to create dynamic configurations</td>
+<td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>1.5 Collections</td>
 <td>Explore and use Ansible collections</td>
+<td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>1.6 Ansible Navigator & Execution Environments</td>
 <td>Introduction to Ansible Navigator and execution environments</td>
+<td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>1.7 Debugging and Error Handling</td>
 <td>Debug playbooks and handle errors effectively</td>
+<td>⏱️ 20 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -95,40 +123,49 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <th>Exercise</th>
 <th>Description</th>
+<th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>2.1 Introduction to Automation Platform</td>
 <td>Get familiar with the Ansible Automation Controller web UI</td>
+<td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>2.2 Inventories and Credentials</td>
 <td>Manage inventories and credentials in automation controller</td>
+<td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>2.3 Projects & Job Templates</td>
 <td>Create projects and job templates to run automation</td>
+<td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>2.4 Surveys</td>
 <td>Add surveys to job templates for user-driven input</td>
+<td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>2.5 Role-based Access Control</td>
 <td>Configure RBAC to manage user access and permissions</td>
+<td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>2.6 Workflows</td>
 <td>Build multi-step automation workflows</td>
+<td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>2.7 System Roles</td>
 <td>Use RHEL System Roles for firewall and timesync configuration</td>
+<td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>2.8 Wrap Up</td>
 <td>Capstone exercise combining inventory, templates, surveys, and RBAC</td>
+<td>⏱️ 25 minutes</td>
 </tr>
 </tbody>
 </table>

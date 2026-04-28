@@ -14,7 +14,6 @@ exclude:
   - "provisioner/workshop_specific"
   - "exercises/ansible_f5"
   - "exercises/ansible_config_as_code/answer_files/workshop_project/playbooks/"
-  - "find_cisco_ami.yml"
 kramdown:
   syntax_highlighter_opts:
     disable: true

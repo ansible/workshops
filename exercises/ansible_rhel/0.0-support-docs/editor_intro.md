@@ -1,6 +1,6 @@
 # Editor Alternatives
 
-If you don’t like **Vim** as an editor feel free to use **Nano** or **Midnight Commander** (**mc**) in the SSH terminal. Here is a quick intro to both. And no, I’ll refuse to talk about Emacs…​ ;-)
+If you don’t like **Vim** as an editor feel free to use **Nano** or **Midnight Commander** (**mc**) in the SSH terminal. Here is a quick introduction to both. And no, I’ll refuse to talk about Emacs…​ ;-)
 
 ## Midnight Commander (mc)
 

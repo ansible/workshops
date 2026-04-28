@@ -19,16 +19,28 @@ This condensed workshop provides a quick introduction to Ansible Automation, sta
 Recommended agenda for when there is an instructor teaching.
 
 <table>
+<thead>
+<tr>
+<th>Agenda Item</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td><b>Slides</b>: Introduction + Workshop Brief</td>
 <td><a target="_blank" href="https://docs.google.com/presentation/d/10rltay3pr3ZLzFMGTPnc6CAtsm0AwQ3L_XbwmmMNMdc/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 15 minutes</td>
+<td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td><b>Lab</b>: Exercises 1–7</td>
-<td></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 75 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Close Out & Q&A</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/10rltay3pr3ZLzFMGTPnc6CAtsm0AwQ3L_XbwmmMNMdc/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 5 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -42,7 +54,6 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <th>Exercise</th>
 <th>Description</th>
-<th>Link</th>
 <th>Estimated Time</th>
 </tr>
 </thead>
@@ -50,43 +61,36 @@ Recommended agenda for when there is an instructor teaching.
 <tr>
 <td>Exercise 1 — Writing Your First Playbook</td>
 <td>Create and run your first Ansible playbook</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>Exercise 2 — Using Variables</td>
 <td>Learn how to use variables and facts in playbooks</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 3 — Projects & Job Templates</td>
 <td>Create projects and job templates in automation controller</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 4 — Surveys</td>
 <td>Add surveys to job templates for user-driven input</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 5 — Role-based Access Control</td>
 <td>Configure RBAC to manage user access and permissions</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 6 — RHEL System Roles</td>
 <td>Use RHEL System Roles for firewall and timesync configuration</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 7 — Wrap-Up</td>
 <td>Capstone exercise combining inventory, templates, surveys, and RBAC</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 </tbody>

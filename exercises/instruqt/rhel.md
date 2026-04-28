@@ -34,33 +34,55 @@ Recommended agenda for when there is an instructor teaching.
 <td><b>Slides</b></td>
 <td>Introduction + Workshop Brief</td>
 <td><a target="_blank" href="https://docs.google.com/presentation/d/1V2IbX4hux4__6nZZMZZp3HMUFgYrt0ZH9LL6r30CBhs/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 60 minutes</td>
+<td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td><b>Lab</b>: Section 1 — Command-line Ansible (Exercises 1.1–1.4)</td>
 <td>Writing playbooks, variables, conditionals/handlers/loops, and templates</td>
-<td rowspan="5"><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 80 minutes</td>
 </tr>
 <tr>
 <td>☕ <b>Break</b></td>
 <td>Suggested break</td>
+<td></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td><b>Lab</b>: Section 1 — Command-line Ansible (Exercises 1.5–1.7)</td>
 <td>Collections, Ansible Navigator & execution environments, debugging</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 55 minutes</td>
 </tr>
 <tr>
 <td>☕ <b>Break</b></td>
 <td>Suggested break</td>
+<td></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td><b>Lab</b>: Section 2 — Ansible Automation Platform (Exercises 2.1–2.8)</td>
-<td>Automation controller: inventories, credentials, projects, job templates, surveys, RBAC, workflows, system roles, and wrap-up</td>
-<td>⏱️ 145 minutes</td>
+<td><b>Lab</b>: Section 2 — Ansible Automation Platform (Exercises 2.1–2.4)</td>
+<td>Automation controller: inventories, credentials, projects, job templates, and surveys</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td>⏱️ 70 minutes</td>
+</tr>
+<tr>
+<td>☕ <b>Break</b></td>
+<td>Suggested break</td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td><b>Lab</b>: Section 2 — Ansible Automation Platform (Exercises 2.5–2.8)</td>
+<td>RBAC, workflows, system roles, and wrap-up</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td>⏱️ 75 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b></td>
+<td>Close Out & Q&A</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1V2IbX4hux4__6nZZMZZp3HMUFgYrt0ZH9LL6r30CBhs/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
 </tr>
 </tbody>
 </table>

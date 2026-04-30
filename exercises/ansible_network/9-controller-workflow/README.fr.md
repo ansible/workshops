@@ -136,7 +136,11 @@ Dans cet exercice, nous créerons une sauvegarde horodatée. Si le travail de sa
 
 ### Étape 5 : Ajouter le modèle de job Network-Restore
 
-1. Survolez le nœud **Network-Banner** et cliquez sur les trois points **\u22ee**. La fenêtre **Ajouter une étape et lier** apparaîtra à nouveau.
+> Note :
+>
+> Si **Network Automation - Restore** échoue en tirant **Default execution environment** depuis `registry.redhat.io`, le modèle **Backup network configurations** (exercice 6) doit inclure `restore_ee: network-ee` ([acme_corp/network-ee sur Quay](https://quay.io/repository/acme_corp/network-ee)), ou modifiez **Network Automation - Restore** pour utiliser **network-ee**. Voir l’exercice 6 pour le détail.
+
+1. Survolez le nœud **Network-Banner** et cliquez sur les trois points **⋮**. La fenêtre **Ajouter une étape et lier** apparaîtra à nouveau.
 
 2. Remplissez les valeurs suivantes :
 

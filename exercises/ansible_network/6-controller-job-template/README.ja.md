@@ -66,6 +66,20 @@
 
   ![controller credential](images/controller_cred_multiple.png)
 
+* **Variables** を展開し、プロンプトがあれば余分な変数に **YAML** を選び、次を追加します。プレイブック [`network_backup.yml`](https://github.com/network-automation/toolkit/blob/master/playbooks/network_backup.yml) は **Network Automation - Restore** ジョブテンプレートを作成または更新します。`restore_ee` がないと **Default execution environment** で登録され、`registry.redhat.io` からの取得に失敗する場合があります。値はワークショップ用イメージ [Quay acme_corp/network-ee](https://quay.io/repository/acme_corp/network-ee) に対応する **`network-ee`** にします。
+
+  <!-- {% raw %} -->
+
+  ```yaml
+  restore_ee: network-ee
+  ```
+
+  <!-- {% endraw %} -->
+
+  > 注記:
+  >
+  > コントローラーに表示される **実行環境** の名前（**`network-ee`**。Quay のワークショップ用イメージ [acme_corp/network-ee](https://quay.io/repository/acme_corp/network-ee)）を使ってください。すでに **Backup network configurations** をこの変数を追加する前に実行した場合は、**Network Automation - Restore** の **実行環境** を **network-ee** にするか、テンプレートを削除してから余分な変数を保存し、バックアップジョブを再実行してください。
+
 * 下にスクロールして、青い `Save` ボタンをクリックします。
 
 ### ステップ 2: ジョブテンプレートの起動

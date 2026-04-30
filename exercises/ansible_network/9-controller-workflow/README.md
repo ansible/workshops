@@ -180,6 +180,10 @@ For this exercise we will create a time-stamped backup, if the backup job succes
 
 ### Step 5: Add the Network-Restore Job Template
 
+> Note:
+>
+> If **Network Automation - Restore** fails while pulling **Default execution environment** from `registry.redhat.io`, the **Backup network configurations** job template in Exercise 6 must include extra variable `restore_ee: network-ee` (image [acme_corp/network-ee on Quay](https://quay.io/repository/acme_corp/network-ee)), or edit **Network Automation - Restore** to use **network-ee**. See Exercise 6 for details.
+
 1. Hover over the **Network-Banner** node and click the three dots **⋮**  The **Add step and link** window will appear again.
 
 2. Fill out the following values:

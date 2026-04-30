@@ -65,19 +65,19 @@ Para ejecutar un Playbook de Ansible en el controlador de Automatización necesi
 
   ![controller credential](images/controller_cred_multiple.png)
 
-* Despliega **Variables**, elige **YAML** si se solicita variables adicionales, y añade lo siguiente. El playbook [`network_backup.yml`](https://github.com/network-automation/toolkit/blob/master/playbooks/network_backup.yml) crea o actualiza la plantilla **Network Automation - Restore**; sin `restore_ee` queda registrada con **Default execution environment**, que descarga desde `registry.redhat.io` y puede fallar cuando el controller no puede obtener esa imagen. Usa **`network-ee`** (imagen del taller en [Quay acme_corp/network-ee](https://quay.io/repository/acme_corp/network-ee)):
+* Despliega **Variables**, elige **YAML** si se solicita variables adicionales, y añade el YAML que aparece abajo. El playbook [`network_backup.yml`](https://github.com/network-automation/toolkit/blob/master/playbooks/network_backup.yml) crea o actualiza la plantilla **Network Automation - Restore**; sin `restore_ee` queda registrada con **Default execution environment**, que descarga desde `registry.redhat.io` y puede fallar cuando el controller no puede obtener esa imagen. El entorno de ejecución del taller corresponde a la imagen [acme_corp/network-ee en Quay](https://quay.io/repository/acme_corp/network-ee), registrada como **network-ee** en el controller.
 
-  <!-- {% raw %} -->
+<!-- {% raw %} -->
 
-  ```yaml
-  restore_ee: network-ee
-  ```
+```yaml
+restore_ee: network-ee
+```
 
-  <!-- {% endraw %} -->
+<!-- {% endraw %} -->
 
-  > Nota:
-  >
-  > El valor debe ser el nombre del **Execution environment** en el controller (**`network-ee`**; imagen del taller en Quay [acme_corp/network-ee](https://quay.io/repository/acme_corp/network-ee)). Si ya ejecutaste **Backup network configurations** antes de añadir esta variable, edita **Network Automation - Restore** y pon **Execution Environment** en **network-ee**, o elimina esa plantilla y vuelve a lanzar la copia de seguridad después de guardar las variables extra.
+> Nota:
+>
+> **network-ee** debe coincidir exactamente con el nombre del **Execution environment** en automation controller. Si ya ejecutaste **Backup network configurations** antes de añadir esta variable, edita **Network Automation - Restore** y pon **Execution Environment** en **network-ee**, o elimina esa plantilla y vuelve a lanzar la copia de seguridad después de guardar las variables extra.
 
 * Haz click en la cajita `Escalate Privileges`.
 

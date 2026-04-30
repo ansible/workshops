@@ -63,6 +63,20 @@ Capture d’écran des paramètres du modèle de job remplis :
 
   ![sélection identifiant](images/controller_cred.png)
 
+* Développez **Variables**, choisissez **YAML** si l’interface le propose pour les variables supplémentaires, puis ajoutez le YAML ci-dessous. Le playbook [`network_backup.yml`](https://github.com/network-automation/toolkit/blob/master/playbooks/network_backup.yml) crée ou met à jour le modèle de travail **Network Automation - Restore** ; sans `restore_ee`, il est enregistré avec **Default execution environment**, ce qui télécharge depuis `registry.redhat.io` et peut échouer lorsque la plate-forme ne peut pas récupérer cette image. L’environnement d’exécution du workshop correspond à l’image [acme_corp/network-ee sur Quay](https://quay.io/repository/acme_corp/network-ee), enregistrée sous le nom **network-ee** dans le controller.
+
+<!-- {% raw %} -->
+
+```yaml
+restore_ee: network-ee
+```
+
+<!-- {% endraw %} -->
+
+> **Note :**
+>
+> **network-ee** doit correspondre exactement au nom d’**Execution environment** affiché dans automation controller. Si vous avez déjà exécuté **Backup network configurations** avant d’ajouter cette variable, modifiez **Network Automation - Restore** et réglez **Execution Environment** sur **network-ee**, ou supprimez ce modèle et relancez la sauvegarde après avoir enregistré les variables supplémentaires.
+
 * Faites défiler la page vers le bas et cliquez sur le bouton bleu `Enregistrer`.
 
 ### Étape 2 : Lancer le modèle de job

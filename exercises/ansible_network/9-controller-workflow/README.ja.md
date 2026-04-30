@@ -136,6 +136,10 @@
 
 ### ステップ 5: ネットワーク復元ジョブテンプレートの追加
 
+> 注記:
+>
+> **Network Automation - Restore** が `registry.redhat.io` から **Default execution environment** を取得できずに失敗する場合は、演習 6 の **Backup network configurations** に `restore_ee: network-ee`（Quay の [acme_corp/network-ee](https://quay.io/repository/acme_corp/network-ee)）を入れるか、**Network Automation - Restore** の実行環境を **network-ee** に編集してください。詳細は演習 6 を参照してください。
+
 1. **Network-Banner** ノードにカーソルを合わせ、**+** 記号をクリックします。**Add Node**
    ウィンドウが再び表示されます。
 

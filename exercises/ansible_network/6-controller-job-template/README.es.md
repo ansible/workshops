@@ -48,7 +48,7 @@ Para ejecutar un Playbook de Ansible en el controlador de Automatización necesi
   |  Job Type |  Run |
   |  Inventory |  Workshop Inventory |
   |  Project |  Workshop Project |
-  |  Execution Environment | Default execution environment |
+  |  Execution Environment | network workshop execution environment |
   |  Playbook |  playbooks/network_backup.yml |
   |  Credential |  Workshop Credential |
 
@@ -64,6 +64,20 @@ Para ejecutar un Playbook de Ansible en el controlador de Automatización necesi
   Cuando ambas credenciales se hayan añadido a la plantilla de trabajo, verás algo similar a la imágen:
 
   ![controller credential](images/controller_cred_multiple.png)
+
+* Despliega **Variables**, elige **YAML** si se solicita variables adicionales, y añade el YAML que aparece abajo. El playbook [`network_backup.yml`](https://github.com/network-automation/toolkit/blob/master/playbooks/network_backup.yml) crea o actualiza la plantilla **Network Automation - Restore**; sin `restore_ee` queda registrada con **Default execution environment**, que descarga desde `registry.redhat.io` y puede fallar cuando el controller no puede obtener esa imagen. El entorno de ejecución del taller corresponde a la imagen [acme_corp/network-ee en Quay](https://quay.io/repository/acme_corp/network-ee), registrada como **network-ee** en el controller.
+
+<!-- {% raw %} -->
+
+```yaml
+restore_ee: network-ee
+```
+
+<!-- {% endraw %} -->
+
+> Nota:
+>
+> **network-ee** debe coincidir exactamente con el nombre del **Execution environment** en automation controller. Si ya ejecutaste **Backup network configurations** antes de añadir esta variable, edita **Network Automation - Restore** y pon **Execution Environment** en **network-ee**, o elimina esa plantilla y vuelve a lanzar la copia de seguridad después de guardar las variables extra.
 
 * Haz click en la cajita `Escalate Privileges`.
 

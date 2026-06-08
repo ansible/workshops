@@ -33,7 +33,6 @@ Visit the live site at [ansible.github.io/workshops](https://ansible.github.io/w
 |---|---|
 | [RHEL](./exercises/instruqt/rhel) | Ansible Red Hat Enterprise Linux Workshop |
 | [Network](./exercises/ansible_network) | Ansible Network Automation Workshop |
-| [Windows](./exercises/ansible_windows) | Ansible Windows Automation Workshop |
 | [Satellite](./exercises/rhdp_auto_satellite) | Ansible + Satellite Workshop |
 | [RIPU](./exercises/ansible_ripu) | RHEL In-place Upgrade Automation Workshop |
 

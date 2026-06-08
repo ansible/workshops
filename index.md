@@ -369,29 +369,6 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/ansible_windows" class="card-link" data-tags="6-hour,microsoft">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Windows Automation (Full Day)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Windows Automation Workshop. Focused on automation of Microsoft Windows.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Microsoft</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
       <a target="_blank" href="./exercises/rhdp_auto_satellite" class="card-link" data-tags="6-hour">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">

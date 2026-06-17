@@ -126,6 +126,7 @@
       restore_inventory: "Workshop Inventory"
       restore_credential: "Workshop Credential"
       restore_project: "Workshop Project"
+      restore_ee: "network-ee"
     controller_username: admin
     controller_password: "{{ admin_password }}"
     controller_host: "https://{{ ansible_host }}:{{ aap_port | default('443') }}"

@@ -27,6 +27,12 @@ patternfly: true
       <label class="cards-sidebar__checkbox">
         <input type="checkbox" value="product-demos"> Product Demos
       </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="events"> Events
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="resources"> Resources
+      </label>
     </div>
     <div class="cards-sidebar__section">
       <h4 class="cards-sidebar__title">Partner</h4>
@@ -254,7 +260,204 @@ patternfly: true
         </div>
       </a>
 
+      <!-- Events -->
+
+      <a target="_blank" href="./exercises/instruqt/ansible-automates" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automates</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Full-day, one-track conference presenting the best AnsibleFest content to regional audiences around the world.
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/instruqt/ansible-automates-events" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automates Events</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            In-person and virtual Ansible Automates event kits with session content repository and marketing assets.
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/instruqt/automation-connection" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Connection</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Account-specific 3-hour IT automation event for account expansion and community building within an account.
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/instruqt/automation-everywhere" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Everywhere</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            3-hour non-technical event for decision makers when an Ansible Automation Platform opportunity has been identified.
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/instruqt/automation-roundtable" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Roundtable</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Executive roundtable for peer-to-peer discussions with key IT decision-makers.
+          </div>
+        </div>
+      </a>
+
+      <!-- Resources -->
+
+      <a target="_blank" href="./exercises/instruqt/one-stop-shop" class="card-link" data-tags="resources">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-gold">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-book pf-v6-c-label__icon"></i>
+                Resources
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">ONE-STOP SHOP</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            IT Automation Workshops and Events hub — select the event or workshop that best fits your scenario.
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/instruqt/ansible-workshops" class="card-link" data-tags="resources">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-gold">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-book pf-v6-c-label__icon"></i>
+                Resources
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Workshops</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Catalog of all Ansible technical workshops and event kits with duration and target audience guidance.
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/instruqt/automation-home" class="card-link" data-tags="resources">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-gold">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-book pf-v6-c-label__icon"></i>
+                Resources
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Home Page</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Archived automation home page — redirects to the ONE-STOP SHOP workshops and events catalog.
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/instruqt/automation-workshop-old" class="card-link" data-tags="resources">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-gold">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-book pf-v6-c-label__icon"></i>
+                Resources
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Workshop (Legacy)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Archived IT Automation Workshop homepage — redirects to the ONE-STOP SHOP catalog.
+          </div>
+        </div>
+      </a>
+
       <!-- 4-Hour Workshops -->
+
+      <a target="_blank" href="./exercises/instruqt/mission-critical" class="card-link" data-tags="4-hour">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-blue">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                4-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Mission-Critical Automation</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            3.5-hour hands-on journey from infrastructure awareness to mission-critical automation with Event-Driven Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
 
       <a target="_blank" href="./exercises/instruqt/eda-4" class="card-link" data-tags="4-hour">
         <div class="pf-v6-c-card">
@@ -267,10 +470,10 @@ patternfly: true
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible (Extended)</h3>
+            <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible &amp; ServiceNow</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            EDA Technical Workshop. Covers EDA fundamentals such as sources, rules, and actions with deeper hands-on exercises.
+            Extended EDA workshop with GitOps, NetOps, and ServiceNow automation labs.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>

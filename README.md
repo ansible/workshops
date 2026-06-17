@@ -19,11 +19,29 @@ Visit the live site at [ansible.github.io/workshops](https://ansible.github.io/w
 | [ServiceNow](exercises/instruqt/servicenow) | Getting Started with ServiceNow Automation |
 | [Windows](exercises/instruqt/windows) | Getting Started with Windows Automation |
 
+## Events
+
+| Event | Description |
+|---|---|
+| [Ansible Automates](./exercises/instruqt/ansible-automates) | Full-day regional AnsibleFest-style conference |
+| [Ansible Automates Events](./exercises/instruqt/ansible-automates-events) | In-person and virtual event kits |
+| [Automation Connection](./exercises/instruqt/automation-connection) | 3-hour account expansion event |
+| [Automation Everywhere](./exercises/instruqt/automation-everywhere) | 3-hour decision-maker nurturing event |
+| [Automation Roundtable](./exercises/instruqt/automation-roundtable) | Executive peer-to-peer roundtable |
+
+## Resources
+
+| Resource | Description |
+|---|---|
+| [ONE-STOP SHOP](./exercises/instruqt/one-stop-shop) | IT Automation workshops and events hub |
+| [Ansible Workshops](./exercises/instruqt/ansible-workshops) | Full workshop catalog from Source |
+
 ## 4 Hour Workshops
 
 | Workshop | Description |
 |---|---|
-| [Event-Driven Ansible](./exercises/instruqt/eda-4) | EDA Technical Workshop (extended) |
+| [Mission-Critical Automation](./exercises/instruqt/mission-critical) | 3.5-hour automation journey with EDA |
+| [Event-Driven Ansible & ServiceNow](./exercises/instruqt/eda-4) | Extended EDA + ServiceNow workshop |
 | [Ansible Lightspeed](exercises/instruqt/lightspeed-4) | Lightspeed and Development Technical Workshop (extended) |
 | [Configuration as Code](exercises/instruqt/aapcasc-4) | CaC for Ansible Automation Platform |
 

@@ -54,9 +54,11 @@ patternfly: true
   <div class="cards-main">
     <p id="guide-search-count" class="cards-search__count"></p>
 
-    <div class="pf-v6-l-gallery pf-m-gutter cards-gallery" id="main-gallery">
+    <div class="cards-sections">
 
-      <!-- 90-Minute Workshops -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">90-Minute Workshops</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
       <a target="_blank" href="./exercises/instruqt/ai-ansible" class="card-link" data-tags="90-minute,splunk">
         <div class="pf-v6-c-card">
@@ -259,8 +261,229 @@ patternfly: true
           </div>
         </div>
       </a>
+        </div>
+      </section>
 
-      <!-- Events -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">4-Hour Workshops</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a target="_blank" href="./exercises/instruqt/mission-critical" class="card-link" data-tags="4-hour">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-blue">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                4-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Mission-Critical Automation</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            3.5-hour hands-on journey from infrastructure awareness to mission-critical automation with Event-Driven Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/instruqt/eda-4" class="card-link" data-tags="4-hour">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-blue">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                4-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible &amp; ServiceNow</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Extended EDA workshop with GitOps, NetOps, and ServiceNow automation labs.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="exercises/instruqt/lightspeed-4" class="card-link" data-tags="4-hour">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-blue">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                4-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Lightspeed (Extended)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Lightspeed and Development Technical Workshop. Focused on the Ansible automation engineer or application developer.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="exercises/instruqt/aapcasc-4" class="card-link" data-tags="4-hour">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-blue">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                4-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Configuration as Code</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            CaC for Ansible Automation Platform. Focused on Configuration as Code for Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+        </div>
+      </section>
+
+      <section class="cards-section">
+        <h2 class="cards-section__heading">6-Hour Workshops</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a target="_blank" href="./exercises/instruqt/rhel" class="card-link" data-tags="6-hour">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                6-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">RHEL Automation (Full Day)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Red Hat Enterprise Linux Workshop. Focused on automating Linux platforms like Red Hat Enterprise Linux.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/ansible_network" class="card-link" data-tags="6-hour,cisco">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                6-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Network Automation (Full Day)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Network Automation Workshop. Focused on router and switch platforms like Arista, Cisco, Juniper.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Cisco</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/rhdp_auto_satellite" class="card-link" data-tags="6-hour">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                6-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible + Satellite</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible + Satellite Workshop. Focused on automation of security and lifecycle management with Red Hat Satellite Server.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="./exercises/ansible_ripu" class="card-link" data-tags="6-hour">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                6-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">RHEL In-place Upgrade</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            RHEL In-place Upgrade Automation Workshop. Focused on automation of RHEL in-place upgrades at enterprise scale.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+        </div>
+      </section>
+
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Product Demos</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a target="_blank" href="./exercises/product_demos/" class="card-link" data-tags="product-demos">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-play-circle pf-v6-c-label__icon"></i>
+                Product Demos
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Product Demos</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Sandbox for demoing, development, and experimentation with Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+          </div>
+        </div>
+      </a>
+        </div>
+      </section>
+
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Events</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
       <a target="_blank" href="./exercises/instruqt/ansible-automates" class="card-link" data-tags="events">
         <div class="pf-v6-c-card">
@@ -356,8 +579,12 @@ patternfly: true
           </div>
         </div>
       </a>
+        </div>
+      </section>
 
-      <!-- Resources -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Resources</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
       <a target="_blank" href="./exercises/instruqt/one-stop-shop" class="card-link" data-tags="resources">
         <div class="pf-v6-c-card">
@@ -434,211 +661,8 @@ patternfly: true
           </div>
         </div>
       </a>
-
-      <!-- 4-Hour Workshops -->
-
-      <a target="_blank" href="./exercises/instruqt/mission-critical" class="card-link" data-tags="4-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-blue">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Mission-Critical Automation</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            3.5-hour hands-on journey from infrastructure awareness to mission-critical automation with Event-Driven Ansible.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
         </div>
-      </a>
-
-      <a target="_blank" href="./exercises/instruqt/eda-4" class="card-link" data-tags="4-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-blue">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible &amp; ServiceNow</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Extended EDA workshop with GitOps, NetOps, and ServiceNow automation labs.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="exercises/instruqt/lightspeed-4" class="card-link" data-tags="4-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-blue">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible Lightspeed (Extended)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Lightspeed and Development Technical Workshop. Focused on the Ansible automation engineer or application developer.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="exercises/instruqt/aapcasc-4" class="card-link" data-tags="4-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-blue">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Configuration as Code</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            CaC for Ansible Automation Platform. Focused on Configuration as Code for Ansible Automation Platform.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <!-- 6-Hour Workshops -->
-
-      <a target="_blank" href="./exercises/instruqt/rhel" class="card-link" data-tags="6-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">RHEL Automation (Full Day)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Red Hat Enterprise Linux Workshop. Focused on automating Linux platforms like Red Hat Enterprise Linux.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/ansible_network" class="card-link" data-tags="6-hour,cisco">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Network Automation (Full Day)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Network Automation Workshop. Focused on router and switch platforms like Arista, Cisco, Juniper.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Cisco</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/rhdp_auto_satellite" class="card-link" data-tags="6-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible + Satellite</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible + Satellite Workshop. Focused on automation of security and lifecycle management with Red Hat Satellite Server.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/ansible_ripu" class="card-link" data-tags="6-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">RHEL In-place Upgrade</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            RHEL In-place Upgrade Automation Workshop. Focused on automation of RHEL in-place upgrades at enterprise scale.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Product Demos -->
-
-      <a target="_blank" href="./exercises/product_demos/" class="card-link" data-tags="product-demos">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-orange">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-play-circle pf-v6-c-label__icon"></i>
-                Product Demos
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible Product Demos</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Sandbox for demoing, development, and experimentation with Ansible Automation Platform.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
+      </section>
 
     </div>
 
@@ -729,6 +753,15 @@ patternfly: true
       var show = textMatch && filterMatch;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
+    });
+
+    document.querySelectorAll('.cards-section').forEach(function (section) {
+      var sectionCards = section.querySelectorAll('.card-link');
+      var sectionVisible = false;
+      sectionCards.forEach(function (card) {
+        if (card.style.display !== 'none') sectionVisible = true;
+      });
+      section.style.display = sectionVisible ? '' : 'none';
     });
 
     if (query || activeFilters.length) {

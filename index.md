@@ -52,7 +52,7 @@ patternfly: true
 
       <!-- 90-Minute Workshops -->
 
-      <a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html" class="card-link" data-tags="90-minute,splunk">
+      <a target="_blank" href="./exercises/instruqt/ai-ansible" class="card-link" data-tags="90-minute,splunk">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -75,7 +75,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://rhpds.github.io/showroom-virt-aap-day-2/modules/index.html" class="card-link" data-tags="90-minute">
+      <a target="_blank" href="./exercises/instruqt/day-2-ops" class="card-link" data-tags="90-minute">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">

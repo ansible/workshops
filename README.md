@@ -9,8 +9,8 @@ Visit the live site at [ansible.github.io/workshops](https://ansible.github.io/w
 
 | Workshop | Description |
 |---|---|
-| [AI + Ansible](https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html) | Introduction to AI-Driven Ansible Automation & AIOps |
-| [Day 2 Ops](https://rhpds.github.io/showroom-virt-aap-day-2/modules/index.html) | Automation with OpenShift Virtualization |
+| [AI + Ansible](./exercises/instruqt/ai-ansible) | Introduction to AI-Driven Ansible Automation & AIOps |
+| [Day 2 Ops](./exercises/instruqt/day-2-ops) | Automation with OpenShift Virtualization |
 | [Event-Driven Ansible](./exercises/instruqt/eda) | EDA fundamentals — sources, rules, and actions |
 | [Cloud Automation](exercises/instruqt/ansible-cloud-lab) | Orchestrate, operationalize and govern hybrid cloud environments |
 | [Ansible Lightspeed](exercises/instruqt/lightspeed) | Ansible Lightspeed and Development Technical Workshop |

@@ -1,6 +1,6 @@
 # Getting Started with Network Automation
 
-The Ansible Network Automation Workshop is a 90 minute, hands-on workshop covering Ansible Automation with respect to routers and switches. Attendees will learn how to use ansible-navigator, backup and restore network configurations, and apply these concepts at scale with Ansible Automation Platform. You’ll put it all together by exploring the job templates, workflows and more.
+The Ansible Network Automation Workshop is a 90 minute, hands-on workshop covering Ansible Automation with respect to routers and switches. Attendees will learn how to pull facts from devices, build templated network configurations, and apply these concepts at scale with Ansible Automation Platform. You'll put it all together by exploring the job templates, surveys, access controls and more.
 
 > **NOTE** 
 >
@@ -11,31 +11,97 @@ The Ansible Network Automation Workshop is a 90 minute, hands-on workshop coveri
 > This workshop is also known as the Network Automation 90-min Technical Workshop
 > 
 
+## Workshop Resources
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workshop content and exercises</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/webpages/network">labs.demoredhat.com/webpages/network</a></td>
+</tr>
+<tr>
+<td>Follow-up assets</td>
+<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1zZk8Cqs0gXAKfrEE_OMn_edYHXsv6rPtMMO4rG0KVpk/edit?usp=sharing">Follow-up assets spreadsheet</a></td>
+</tr>
+<tr>
+<td>Post-event survey</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1Wph4-abRIClCC8y1M91xZMntl0pzs6Br10fNXQW4rIQ/edit?usp=drive_link">Post-event survey</a></td>
+</tr>
+<tr>
+<td>Certain registration page &amp; promotional email copy</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1AntZfBybq_yOKJKb0khrRY63XI3_-CIT20SYrF2_Aqg/edit?usp=sharing">Registration page &amp; promotional email copy</a></td>
+</tr>
+<tr>
+<td>Presenter instructions and guide</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/webpages/network">Presenter instructions and guide</a></td>
+</tr>
+<tr>
+<td>Certain event banners</td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/1NPKWa3IUqURjAS2c38LM_LgpqXO0AeKL?usp=drive_link">Event banners (Google Drive)</a></td>
+</tr>
+</tbody>
+</table>
+
+## Who is this workshop best for?
+
+This workshop is intended as an introductory course for Ansible Network Automation. For more in-depth training please refer to [Red Hat Training Ansible for Network Automation](https://www.redhat.com/en/services/training/do457-ansible-network-automation). The intended audience is someone who has limited or no exposure to writing Ansible Playbooks or using Ansible Automation Platform. This workshop will cover common network scenarios and topics and is best suited for network engineers or folks interested in network automation.
+
+## Target audience
+
+This workshop is geared toward network operators, network engineers, cloud administrators, DevOps engineers, security professionals and anyone interested in network automation.
+
+## Attendee Prerequisites
+
+* A basic understanding of working with Linux systems
+* A basic understanding of [Visual Studio Code](https://code.visualstudio.com/). [Available for MacOS, Windows and Linux]
+* Attendees must bring/use a laptop with ADMIN rights and the ability to SSH to a lab environment hosted in a public cloud.
+* Must bring/use a laptop with Chrome 73+, Firefox 60+, Edge 40+, or Safari 12+ installed.
+
+There is no student prep work required prior to the workshop. It is recommended to complete the free Red Hat training course [Ansible Basics: Automation Technical Overview](https://www.redhat.com/en/services/training/do007-ansible-essentials-simplicity-automation-technical-overview).
+
 ## Presentation Deck
 
 - [Google Slides](https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing) - For Red Hat employees
   
 ## Lab Agenda (Estimate total time ⏱️ 90 minutes)
 
+A sample 90 agenda can be found below.
+
 <ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 10  minutes]<br>
+<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 10 minutes]<br>
 <a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li>
-<li><b>Lab 1:  Network automation basics - First playbook</b> [Estimated Time ⏱️ 20 minutes]<br>
+</li><br>
+<li><b>Lab 1: Network automation basics - First playbook</b> [Estimated Time ⏱️ 20 minutes]<br>
 Learn the fundamentals of Red Hat Ansible Automation Platform for network automation using ansible-navigator.<br>
-<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=network+basics&item=zt-ansiblebu.ansible-network-automation-basics-lab-1.prod">[ 🚀 Launch the lab ]</a>
-</li>
+<a target="_blank" href="https://www.redhat.com/en/interactive-labs/network-automation-basics-first-playbook">[ 🚀 Start Exercise ]</a>
+</li><br>
 <li><b>Slides: Brief for Lab 2</b> [Estimated Time ⏱️ 10 minutes]<br>
 <a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li>
+</li><br>
 <li><b>Lab 2: Network automation - Backup and restore</b> [Estimated Time ⏱️ 20 minutes]<br>
 Learn how to automate network configurations and backups using Red Hat Ansible Automation Platform.<br>
-<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=backup+and+restore&item=zt-ansiblebu.zt-ans-bu-network-lab-1.prod">[ 🚀 Launch the lab ]</a>
-</li>
+<a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/network-lab-1?token=em_bkpb1mcbod8qprrg">[ 🚀 Start Exercise ]</a>
+</li><br>
 <li><b>Slides: Brief for Lab 3</b> [Estimated Time ⏱️ 5 minutes]<br>
 <a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
+</li><br>
+<li><b>Lab 3: Red Hat Ansible Automation Platform for network administrators</b> [Estimated Time ⏱️ 25 minutes]<br>
+Simplify network administration and operations using Red Hat Ansible Automation Platform.<br>
+<a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/network-oper-tasks?token=em_sH26Rq5FE7u1WeWC">[ 🚀 Start Exercise ]</a>
+</li><br>
+<li><b>Wrap Up</b>
 </li>
 </ul>
+
+## Demos
+
+Any of the individual labs (that make up the workshop) can be used as a standalone demo.
 
 ## Supplemental Labs
 
@@ -83,6 +149,15 @@ Learn how to automate network configurations and backups using Red Hat Ansible A
 
 # Learning Resources
 
+- [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
+
+## Documentation
+
+- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
+- [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+
+Here is some additional collateral:
+
 <table>
 <thead>
 <tr>
@@ -95,7 +170,7 @@ Learn how to automate network configurations and backups using Red Hat Ansible A
 <tr>
 <td>Network automation for everyone</td>
 <td><a target="_blank" href="https://www.redhat.com/en/engage/network-automation-everyone-s-202101221234">on redhat.com</a></td>
-<td><a  target="_blank" href="https://content.redhat.com/content/rhcc/us/en/assets/display.html?id=026234ee-52b2-4cb4-84b8-66489678236a">Content Center</a></td>
+<td><a target="_blank" href="https://content.redhat.com/content/rhcc/us/en/assets/display.html?id=026234ee-52b2-4cb4-84b8-66489678236a">Content Center</a></td>
 </tr>
 <tr>
 <td>Network automation guide: Expand automation across multivendor networks</td>
@@ -110,7 +185,7 @@ Learn how to automate network configurations and backups using Red Hat Ansible A
 <tr>
 <td>Automate your network with Red Hat</td>
 <td><a target="_blank" href="https://www.redhat.com/en/resources/network-automation-technical-e-book">on redhat.com</a></td>
-<td><a  target="_blank" href="https://content.redhat.com/content/rhcc/us/en/assets/display.html?id=363c136c-0c30-4d74-a3d0-59f3d1eea97a">Content Center</a></td>
+<td><a target="_blank" href="https://content.redhat.com/content/rhcc/us/en/assets/display.html?id=363c136c-0c30-4d74-a3d0-59f3d1eea97a">Content Center</a></td>
 </tr>
 </tbody>
 </table>

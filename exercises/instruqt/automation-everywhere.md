@@ -2,7 +2,7 @@
 
 Automation Everywhere is a 3-hour event that should be run for a small group of accounts in which a Red Hat Ansible Automation Platform opportunity has been identified. These accounts need some additional nurturing to help close the opportunity. The non-technical event is targeted at the opportunity decision maker and key influencers on the opportunity.
 
-These are not meant to provide technical overviews of the products — for all technical considerations, please view our [Ansible technical workshops](ansible-workshops.md). Available event themes include: Business value of automation, network automation, infrastructure automation and cloud automation.
+These are not meant to provide technical overviews of the products — for all technical considerations, please view our [Ansible technical workshops](ansible-workshops). Available event themes include: Business value of automation, network automation, infrastructure automation and cloud automation.
 
 ## Event Resources
 

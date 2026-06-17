@@ -623,44 +623,6 @@ patternfly: true
           </div>
         </div>
       </a>
-
-      <a target="_blank" href="./exercises/instruqt/automation-home" class="card-link" data-tags="resources">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-gold">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-book pf-v6-c-label__icon"></i>
-                Resources
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Automation Home Page</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Archived automation home page — redirects to the ONE-STOP SHOP workshops and events catalog.
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/instruqt/automation-workshop-old" class="card-link" data-tags="resources">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-gold">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-book pf-v6-c-label__icon"></i>
-                Resources
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Automation Workshop (Legacy)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Archived IT Automation Workshop homepage — redirects to the ONE-STOP SHOP catalog.
-          </div>
-        </div>
-      </a>
         </div>
       </section>
 

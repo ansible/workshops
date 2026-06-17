@@ -2,7 +2,7 @@
 
 > **IMPORTANT TO NOTE** 
 > 
-> This is the 90 minute version of this workshop.  For the longer 4-hour session please [🔬 click here](eda-4.md)
+> This is the 90 minute version of this workshop.  For the longer 4-hour session please [🔬 click here](eda-4)
 >
 
 As a part of Red Hat Ansible Automation Platform, Event-Driven Ansible can process events containing discrete intelligence about conditions in the IT environment, determine the appropriate response to the event, then execute automated actions to address or remediate the event. This workshop will demonstrate Event-Driven Ansible and how it provides the event-handling capability needed to automate time-consuming tasks and respond to changing conditions in any IT domain.

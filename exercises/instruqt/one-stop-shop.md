@@ -37,23 +37,23 @@ The [Red Hat Ansible Automation Platform self-paced labs](https://red.ht/ansible
 
 Live and on-demand webinars about all automation use cases: Network, Security, Cloud Automation, Edge and Infrastructure. Primarily a top of funnel and lead generation activity.
 
-### [Ansible Automates](ansible-automates.md) (solution consideration)
+### [Ansible Automates](ansible-automates) (solution consideration)
 
 Full-day, one-track conferences that take the best AnsibleFest content and present it to regional audiences around the world. Designed to create a space for interaction and community building.
 
-### [Ansible Technical Workshops](ansible-workshops.md) (solution consideration)
+### [Ansible Technical Workshops](ansible-workshops) (solution consideration)
 
 Hands-on technical workshops for people who want to learn the basics of Ansible Automation and more. Usually used later in the sales cycle to support opportunity progression. Workshops are by invite only and held at specific times.
 
-### [Automation Everywhere](automation-everywhere.md) (solution consideration)
+### [Automation Everywhere](automation-everywhere) (solution consideration)
 
 3-hour event for a small group of accounts where a Red Hat Ansible Automation Platform opportunity has been identified. Non-technical event targeted at decision makers and key influencers.
 
-### [Automation Connection](automation-connection.md) (selection consideration)
+### [Automation Connection](automation-connection) (selection consideration)
 
 3-hour account-specific IT automation event designed as an account expansion program. Creates space for interaction and community building within the account.
 
-### [Automation Roundtable](automation-roundtable.md)
+### [Automation Roundtable](automation-roundtable)
 
 Designed for Red Hat to showcase expertise in helping companies maintain business resilience. Creates trust and partnership with key IT decision-makers in a small, peer-to-peer setting.
 

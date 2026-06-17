@@ -2,7 +2,7 @@
 
 > **IMPORTANT TO NOTE** 
 > 
-> This is the extended version of this workshop (~6 hours).  For the shorter 90 minute session please [🔬 click here](rhel-90.md)
+> This is the extended version of this workshop (~6 hours).  For the shorter 90 minute session please [🔬 click here](rhel-90)
 >
 
 If you're new to Ansible Automation, this workshop consists of two parts: 1) starting with the basic fundamentals and 2) applying what you've learned to implement Ansible automation controller to your enterprise use cases. You'll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you'll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.

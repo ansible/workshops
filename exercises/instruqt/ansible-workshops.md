@@ -20,19 +20,19 @@ These beginner-level and advanced workshops introduce you to running Ansible Aut
 <td>Network Automation 90-min Workshop</td>
 <td>90 minutes</td>
 <td>System admin, developers, architects (limited/no previous Ansible knowledge)</td>
-<td><a href="network.md">🚀 Launch</a></td>
+<td><a href="network">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Ansible Red Hat Enterprise Linux 90-min Workshop</td>
 <td>90 minutes</td>
 <td>System administrators and operators who manage enterprise Linux systems</td>
-<td><a href="rhel-90.md">🚀 Launch</a></td>
+<td><a href="rhel-90">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Windows Automation Technical 90-min Workshop</td>
 <td>90 minutes</td>
 <td>Windows admin, cloud admin, DevOps eng, security professionals</td>
-<td><a href="windows.md">🚀 Launch</a></td>
+<td><a href="windows">🚀 Launch</a></td>
 </tr>
 </tbody>
 </table>
@@ -53,61 +53,61 @@ These beginner-level and advanced workshops introduce you to running Ansible Aut
 <td>Ansible Red Hat Enterprise Linux Workshop</td>
 <td>6 hours</td>
 <td>System admin, developers, architects with a technical background</td>
-<td><a href="rhel.md">🚀 Launch</a></td>
+<td><a href="rhel">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Cloud Automation Technical Workshop (AWS or Azure)</td>
 <td>1.5 / 2.5 hours</td>
 <td>Cloud operators, SREs, system administrators</td>
-<td><a href="ansible-cloud-lab.md">🚀 Launch</a></td>
+<td><a href="ansible-cloud-lab">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Ansible Network Automation Workshop</td>
 <td>6 hours</td>
 <td>Network engineers and folks interested in network automation</td>
-<td><a href="../ansible_network/">🚀 Launch</a></td>
+<td><a href="../ansible_network">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Working with Ansible Development Tools and AI</td>
 <td>90 min – 4 hours</td>
 <td>Ansible playbook writers and content administrators</td>
-<td><a href="lightspeed.md">90-min</a> · <a href="lightspeed-4.md">4-hour</a></td>
+<td><a href="lightspeed">90-min</a> · <a href="lightspeed-4">4-hour</a></td>
 </tr>
 <tr>
 <td>Event-Driven Ansible Technical Workshop</td>
 <td>1.5 – 4 hours</td>
 <td>Automation specialists and site reliability engineers</td>
-<td><a href="eda.md">90-min</a> · <a href="eda-4.md">4-hour</a></td>
+<td><a href="eda">90-min</a> · <a href="eda-4">4-hour</a></td>
 </tr>
 <tr>
 <td>Mission-Critical Automation Workshop</td>
 <td>3.5 hours</td>
 <td>IT infrastructure engineers, DevOps engineers, operations teams</td>
-<td><a href="mission-critical.md">🚀 Launch</a></td>
+<td><a href="mission-critical">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Windows Automation Technical Workshop</td>
 <td>1 – 3 hours</td>
 <td>Windows admin, cloud admin, DevOps eng, security professionals</td>
-<td><a href="windows.md">🚀 Launch</a></td>
+<td><a href="windows">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Introduction to AI with Ansible Automation Platform</td>
 <td>90 minutes</td>
 <td>Design application/system architects</td>
-<td><a href="ai-ansible.md">🚀 Launch</a></td>
+<td><a href="ai-ansible">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Getting Started with ServiceNow Automation</td>
 <td>60 minutes</td>
 <td>Automation engineers, DevOps engineers, operations teams</td>
-<td><a href="servicenow.md">🚀 Launch</a></td>
+<td><a href="servicenow">🚀 Launch</a></td>
 </tr>
 <tr>
 <td>Day 2 Operations and Automation with AAP</td>
 <td>90 minutes</td>
 <td>System administrators, virtual infrastructure administrators</td>
-<td><a href="day-2-ops.md">🚀 Launch</a></td>
+<td><a href="day-2-ops">🚀 Launch</a></td>
 </tr>
 </tbody>
 </table>
@@ -124,27 +124,27 @@ These beginner-level and advanced workshops introduce you to running Ansible Aut
 <tbody>
 <tr>
 <td>Ansible Automates Event</td>
-<td><a href="ansible-automates-events.md">Event kit</a></td>
+<td><a href="ansible-automates-events">Event kit</a></td>
 </tr>
 <tr>
 <td>Automation Everywhere</td>
-<td><a href="automation-everywhere.md">Event kit</a></td>
+<td><a href="automation-everywhere">Event kit</a></td>
 </tr>
 <tr>
 <td>Automation Connection</td>
-<td><a href="automation-connection.md">Event kit</a></td>
+<td><a href="automation-connection">Event kit</a></td>
 </tr>
 <tr>
 <td>Automation Roundtable</td>
-<td><a href="automation-roundtable.md">Event kit</a></td>
+<td><a href="automation-roundtable">Event kit</a></td>
 </tr>
 </tbody>
 </table>
 
 ## Catalog &amp; planning
 
-* [ONE-STOP SHOP: IT Automation Workshops and Events](one-stop-shop.md)
-* [Ansible Automates](ansible-automates.md)
+* [ONE-STOP SHOP: IT Automation Workshops and Events](one-stop-shop)
+* [Ansible Automates](ansible-automates)
 
 ## When to run an Ansible Technical Workshop
 

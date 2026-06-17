@@ -2,7 +2,7 @@
 
 > **IMPORTANT TO NOTE** 
 > 
-> This is the 4-hour version of this workshop.  For the shorter 90-minute session please [🔬 click here](lightspeed.md)
+> This is the 4-hour version of this workshop.  For the shorter 90-minute session please [🔬 click here](lightspeed)
 >
 
 This workshop is for the Ansible automation engineer or application developer.  While their experience, skills, and job roles differ, both of these personas create automation.  This includes writing Ansible Playbooks, Ansible Roles, and Ansible Content Collections and learning how to distribute these throughout the organization. This workshop will provide an opinionated experience for both of these roles.

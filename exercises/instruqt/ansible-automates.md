@@ -32,18 +32,22 @@ This event is designed to create a space for interaction and community building 
 </tr>
 <tr>
 <td>Sessions repository</td>
-<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1V2vUg0mi60MfWHOCW1i6TpodHrR9iiyDciisuoIGgVs/edit#gid=808251397">Sessions repository</a></td>
+<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1V2vUg0mi60MfWHOCW1i6TpodHrR9iiyDciisuoIGgVs/edit?usp=sharing#gid=808251397">Sessions repository</a></td>
 </tr>
 </tbody>
 </table>
 
-## Who should attend?
+## Target audience
 
 Automation Engineers, Developers, DevOps Engineers, Engineering Directors, IT Managers, IT Automation Enthusiasts, Network Technicians, Operations Engineers, Product/Project Managers, IT Decision Makers, Release Engineers, Security Engineers, Security Professionals, Solutions Architects, Software Engineers, Systems Administrators, Systems Engineers, Systems Managers.
 
+## Presentation Deck
+
+- [Event kit (Google Slides)](https://docs.google.com/presentation/d/18PEIgrm-M26Hp9KfaEO4TTIaMrhsF8rQlaIyITbwMYY/edit?usp=sharing) - For Red Hat employees
+
 ## Sample agenda
 
-Agenda should be published no later than two weeks before the event. We suggest creating one track for technical audience and one track for business audience. See the [sessions repository](https://docs.google.com/spreadsheets/d/1V2vUg0mi60MfWHOCW1i6TpodHrR9iiyDciisuoIGgVs/edit#gid=808251397) to start building your agenda.
+Agenda should be published no later than two weeks before the event. We suggest creating one track for technical audience and one track for business audience. See the [sessions repository](https://docs.google.com/spreadsheets/d/1V2vUg0mi60MfWHOCW1i6TpodHrR9iiyDciisuoIGgVs/edit?usp=sharing#gid=808251397) to start building your agenda.
 
 ## When to run Ansible Automates
 

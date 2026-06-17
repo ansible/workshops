@@ -26,6 +26,10 @@ Through hands-on experience, you will learn to build intelligent, self-healing a
 <td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html">rhpds.github.io/ai-driven-automation-showroom</a></td>
 </tr>
 <tr>
+<td>Follow-up assets</td>
+<td><a target="_blank" href="http://red.ht/ansible_trial">Start your free trial (red.ht/ansible_trial)</a> · <a target="_blank" href="http://red.ht/AAP_AI_KBASE">AI solution guides (red.ht/AAP_AI_KBASE)</a> · <a target="_blank" href="https://www.redhat.com/en/topics/automation/automation-ai">Learn more at redhat.com/automation-ai</a></td>
+</tr>
+<tr>
 <td>Post-event survey</td>
 <td><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfzvaspmjjWuOG-pUIWnHZcq65-5dkA950rWfAyArPJg-H6pw/viewform?usp=header">Post-event survey</a></td>
 </tr>
@@ -48,7 +52,11 @@ Design application/system architects.
 
 None.
 
-## Lab Agenda
+## Presentation Deck
+
+- [Google Slides](https://docs.google.com/presentation/d/1Zpi7AIWf4zqIBgqZ72mC8HXsFryA0D-PPWWh5760pHk/edit?usp=sharing) - For Red Hat employees (ABU — Introduction to AI with Ansible Automation Platform)
+
+## Lab Agenda (Estimate total time ⏱️ 90 minutes)
 
 This hands-on lab consists of four main parts:
 
@@ -60,42 +68,30 @@ This hands-on lab consists of four main parts:
 </ul>
 
 <ul>
-<li><b>Slides: Introduction + Workshop Brief</b><br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1Zpi7AIWf4zqIBgqZ72mC8HXsFryA0D-PPWWh5760pHk/edit?slide=id.g36d753e1d62_0_0#slide=id.g36d753e1d62_0_0">[ 🖥️ Slides ]</a>
+<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 15 minutes]<br>
+<a target="_blank" href="https://docs.google.com/presentation/d/1Zpi7AIWf4zqIBgqZ72mC8HXsFryA0D-PPWWh5760pHk/edit?usp=sharing">[ 🖥️ Slides ]</a>
 </li><br>
-<li><b>Lab: AI-Driven Ansible Automation Showroom</b><br>
+<li><b>Lab: AI-Driven Ansible Automation Showroom</b> [Estimated Time ⏱️ 75 minutes]<br>
 <a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html">[ 🚀 Start Exercise ]</a>
 </li>
 </ul>
 
-## Follow-up assets
+## Lab provisioner
 
-Include recommendations for timely webinars or events to attend in your region as next steps:
-
-* Start your free trial at: [red.ht/ansible_trial](http://red.ht/ansible_trial)
-* Already a customer? View new AI solution guides here: [red.ht/AAP_AI_KBASE](http://red.ht/AAP_AI_KBASE)
-* Learn more: [redhat.com/automation-ai](https://www.redhat.com/en/topics/automation/automation-ai)
-
-## Lab provisioning guide
-
-* Lab Documentation: [https://rhpds.github.io/ai-driven-automation-showroom/](https://rhpds.github.io/ai-driven-automation-showroom/)
+* Lab documentation: [https://rhpds.github.io/ai-driven-automation-showroom/](https://rhpds.github.io/ai-driven-automation-showroom/)
 * Demo Platform (RHDP) [direct link](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/published.ai-driven-aap.prod&utm_source=webapp&utm_medium=share-link)
 
 **List of Proctors:** Anshul Behl, Sean Cavanaugh, Marty Turner, Alex Dworjan, Tony Dubiel, Chris Renwick, Jason Breitweg
 
 If you are an SA, SSP, or TMM you will have no problem proctoring this lab. If you have any questions around proctoring this lab, reach out to Anshul Behl or Sean Cavanaugh (Ansible TMMs).
 
-## Presenter enablement materials
-
-* Google slide deck for workshop: [ABU | Introduction to AI with Ansible Automation Platform](https://docs.google.com/presentation/d/1Zpi7AIWf4zqIBgqZ72mC8HXsFryA0D-PPWWh5760pHk/edit?slide=id.g36d753e1d62_0_0#slide=id.g36d753e1d62_0_0)
-* Workshop exercises: [https://github.com/ansible-tmm/aiops-summitlab/](https://github.com/ansible-tmm/aiops-summitlab/)
-* Instructor resources: [Permanent Lab Guide](https://rhpds.github.io/showroom-ai-driven-ansible-automation/modules/index.html)
-
 # Learning Resources
 
-* YouTube playlist — [AI+Ansible](https://www.youtube.com/playlist?list=PLdu06OJoEf2Y9-d7vPaKSh6ED_rO6AQFF)
-* [3 use cases to unlock AI value in IT operations with Red Hat Ansible Automation Platform](https://www.youtube.com/watch?v=R6vRvD408RU)
-* [What is AIOps?](https://www.redhat.com/en/topics/automation/what-is-aiops)
+- [Workshop exercises (GitHub)](https://github.com/ansible-tmm/aiops-summitlab/)
+- [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
+- YouTube playlist — [AI+Ansible](https://www.youtube.com/playlist?list=PLdu06OJoEf2Y9-d7vPaKSh6ED_rO6AQFF)
+- [3 use cases to unlock AI value in IT operations with Red Hat Ansible Automation Platform](https://www.youtube.com/watch?v=R6vRvD408RU)
+- [What is AIOps?](https://www.redhat.com/en/topics/automation/what-is-aiops)
 
 # Ansible Workshop
 

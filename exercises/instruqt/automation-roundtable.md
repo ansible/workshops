@@ -17,11 +17,19 @@ Automation Roundtable is designed for Red Hat to showcase its expertise in helpi
 <td><a target="_blank" href="https://docs.google.com/presentation/d/1qodTuFc6p3e6AArZ7A1H4PWPC76HfzidGgAp7JFoNPw/edit?usp=sharing">Event kit (Google Slides)</a></td>
 </tr>
 <tr>
-<td>Certain templates</td>
-<td><a target="_blank" href="https://drive.google.com/drive/folders/1Zuf9InmiruOhjjqwfuV-B1FpXGQKEkMc?usp=sharing">Certain templates (Google Drive)</a></td>
+<td>Certain event banners</td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/1Zuf9InmiruOhjjqwfuV-B1FpXGQKEkMc?usp=sharing">Event templates (Google Drive)</a></td>
 </tr>
 </tbody>
 </table>
+
+## Target audience
+
+CxOs and key IT decision-makers at accounts with established relationships or net new/upsell opportunities.
+
+## Presentation Deck
+
+- [Event kit (Google Slides)](https://docs.google.com/presentation/d/1qodTuFc6p3e6AArZ7A1H4PWPC76HfzidGgAp7JFoNPw/edit?usp=sharing) - For Red Hat employees
 
 ## Sample agenda
 
@@ -53,12 +61,6 @@ Automation Roundtable is designed for Red Hat to showcase its expertise in helpi
 </table>
 
 **Total Time:** ~95 minutes
-
-## Who should attend?
-
-Accounts in either enterprise or commercial segments where we have identified established relationships or net new/upsell opportunities to help accelerate existing deals and serve as a way to build relationships with targeted accounts.
-
-**Persona:** CxOs
 
 ## When to run Automation Executive Roundtable
 

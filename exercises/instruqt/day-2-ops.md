@@ -18,22 +18,26 @@ The Day 2 Operations and Automation with Ansible Automation Platform Workshop is
 </tr>
 <tr>
 <td>Follow-up assets</td>
-<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1xhy4t2-CsqgQtzpAGAKdpkMsKQWmv9S5urfj5Rz-z9Q/edit?gid=0#gid=0">Follow-up assets spreadsheet</a></td>
+<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1xhy4t2-CsqgQtzpAGAKdpkMsKQWmv9S5urfj5Rz-z9Q/edit?usp=sharing">Follow-up assets spreadsheet</a></td>
 </tr>
 <tr>
 <td>Post-event survey</td>
 <td><a target="_blank" href="https://docs.google.com/document/d/11Cib3wAwuncnspt9_0zEKx-5sV6xMFujeTN9NXTf9lQ/edit?tab=t.0">Post-event survey</a></td>
 </tr>
 <tr>
-<td>Registration page &amp; promotional email copy</td>
+<td>Certain registration page &amp; promotional email copy</td>
 <td><a target="_blank" href="https://docs.google.com/document/d/1vMtfmBFHQddl41Dd13PfBrDDmvg0ppM96HGaaT4Tl8g/edit?tab=t.0#heading=h.iiordtojdgqd">Registration page &amp; promotional email copy</a></td>
 </tr>
 <tr>
-<td>Presenter enablement</td>
+<td>Presenter instructions and guide</td>
 <td><a target="_blank" href="https://videos.learning.redhat.com/media/Virt%20Power%2090%20-%20Day%202%20with%20AAP%20-%20Aug%2014%202025/1_p3ybw100">Presenter enablement video</a></td>
 </tr>
 </tbody>
 </table>
+
+## Who is this workshop best for?
+
+This workshop is a follow-up to the popular Experience OpenShift Virtualization Roadshow lab. It equips virtual machine administrators with the knowledge and tools to manage environments and perform critical Day 2 operational tasks long after initial deployment.
 
 ## Target audience
 
@@ -50,13 +54,13 @@ There is no student prep work required prior to the workshop. A basic understand
 
 ## Presentation Deck
 
-- [Google Slides](https://docs.google.com/presentation/d/16_xKqBb1AI_VHCROlQjz4B59P76Si-vpCNyuiaSsoUY/edit?slide=id.g3702378504c_0_97#slide=id.g3702378504c_0_97) - For Red Hat employees
+- [Google Slides](https://docs.google.com/presentation/d/16_xKqBb1AI_VHCROlQjz4B59P76Si-vpCNyuiaSsoUY/edit?usp=sharing) - For Red Hat employees
 
 ## Lab Agenda (Estimate total time ⏱️ 90 minutes)
 
 <ul>
 <li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/16_xKqBb1AI_VHCROlQjz4B59P76Si-vpCNyuiaSsoUY/edit?slide=id.g3702378504c_0_97#slide=id.g3702378504c_0_97">[ 🖥️ Slides ]</a>
+<a target="_blank" href="https://docs.google.com/presentation/d/16_xKqBb1AI_VHCROlQjz4B59P76Si-vpCNyuiaSsoUY/edit?usp=sharing">[ 🖥️ Slides ]</a>
 </li><br>
 <li><b>Lab: OpenShift Virtualization Advanced Ops Showroom</b> [Estimated Time ⏱️ 80 minutes]<br>
 In this lab, which is a follow-up to our very popular Experience OpenShift Virtualization Roadshow lab, we intend to equip you with the knowledge and tools to manage your environment and perform critical operational tasks often required of virtual machine administrators from day-2 onward. This ensures that your virtualized workloads are efficiently managed and maintained long after the initial deployment.<br>
@@ -75,6 +79,10 @@ The lab consists of five main sections:
 ## Lab provisioner
 
 There is no RHPDS lab provisioner associated with this workshop. This simply uses RHDP to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+
+## Demos
+
+The showroom lab can be used as a standalone demo for OpenShift Virtualization Day 2 operations with Ansible Automation Platform.
 
 # Learning Resources
 

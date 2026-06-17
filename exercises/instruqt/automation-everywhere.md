@@ -23,13 +23,21 @@ These are not meant to provide technical overviews of the products — for all t
 <td><a target="_blank" href="https://docs.google.com/presentation/d/13lcwHffIK3BDmDv66DGXHAiWyE0Cuhuj1vjaVmcduHw/edit?usp=sharing">RainFocus template</a></td>
 </tr>
 <tr>
-<td>Email copy</td>
+<td>Certain registration page &amp; promotional email copy</td>
 <td><a target="_blank" href="http://red.ht/automate">red.ht/automate</a></td>
 </tr>
 </tbody>
 </table>
 
-## Agenda themes
+## Target audience
+
+Opportunity decision makers and key influencers at accounts where a Red Hat Ansible Automation Platform opportunity has been identified.
+
+## Presentation Deck
+
+- [Event kit (Google Slides)](https://docs.google.com/presentation/d/1_tw8dwmnvVYH94ZKOViAPUb3R1Ka-LCR1nGK1ZKGUrg/edit?usp=sharing) - For Red Hat employees
+
+## Sample agenda
 
 Choose from four pre-packaged event agendas that best align with the account opportunity. To decide which event topic is right for your account(s), determine what the single biggest barrier to closing the opportunity might be.
 

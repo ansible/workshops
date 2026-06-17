@@ -13,28 +13,24 @@ The Mission-Critical Automation Workshop is a dynamic 3.5-hour hands-on experien
 </thead>
 <tbody>
 <tr>
-<td>Reference document</td>
+<td>Workshop content and exercises</td>
 <td><a target="_blank" href="https://docs.google.com/document/d/1xxhC5Jl2bLTbJZNZpr4rH5ZjWe0iSCSgGAjqd7n99VE/edit?tab=t.0#heading=h.5hcmln32awdf">Reference document</a></td>
 </tr>
 <tr>
-<td>Lab request form</td>
-<td><a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSfdQOdhdEVggbJbIc2To0QM1UYruSwarfQibSkQl9GlT0QmxA/viewform">Lab request form</a></td>
-</tr>
-<tr>
-<td>Presentation materials</td>
-<td><a target="_blank" href="https://drive.google.com/drive/folders/1s-75X7xSbDJHguk8ZgxUZdJfq30YLRk8">Presentation materials (Google Drive)</a></td>
-</tr>
-<tr>
-<td>Train-the-trainer video</td>
-<td><a target="_blank" href="https://drive.google.com/file/d/1CnGdPZLuScLQWBy9Bzn2Z9ezPK3cJqam/view?usp=sharing">Train-the-trainer video</a></td>
+<td>Follow-up assets</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing">Red Hat Ansible Automation Platform - Training + Certification slides</a></td>
 </tr>
 <tr>
 <td>Certain registration page &amp; promotional email copy</td>
 <td><a target="_blank" href="https://docs.google.com/document/d/1t3TpwQFsMP73kHYY1OFeqlNPjNJTPWyDtmdOVMrPOA8/edit?tab=t.0">Registration page &amp; promotional email copy</a></td>
 </tr>
 <tr>
-<td>Creative from Ansible flex kit</td>
-<td><a target="_blank" href="https://drive.google.com/drive/folders/1uhpkNAYNcDfEynbBs_-OSAIGhpFGq2xI">Source files (Google Drive)</a></td>
+<td>Presenter instructions and guide</td>
+<td><a target="_blank" href="https://drive.google.com/file/d/1CnGdPZLuScLQWBy9Bzn2Z9ezPK3cJqam/view?usp=sharing">Train-the-trainer video</a></td>
+</tr>
+<tr>
+<td>Certain event banners</td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/1uhpkNAYNcDfEynbBs_-OSAIGhpFGq2xI">Creative from Ansible flex kit (Google Drive)</a></td>
 </tr>
 </tbody>
 </table>
@@ -47,29 +43,33 @@ This workshop is tailored for individuals with limited or no experience in writi
 
 IT infrastructure engineers, DevOps engineers, and operations teams eager to experience the automation journey.
 
-## Topics covered
+## Attendee Prerequisites
+
+None.
+
+## Presentation Deck
+
+- [Presentation materials (Google Drive)](https://drive.google.com/drive/folders/1s-75X7xSbDJHguk8ZgxUZdJfq30YLRk8) - For Red Hat employees
+
+## Lab Agenda (Estimate total time ⏱️ 3.5 hours)
+
+**Topics covered:**
 
 * **Introspection:** Infrastructure Awareness and Reporting
 * **Standardization:** Configuration and Application Deployment
 * **Operational Efficiency:** Mission Critical Automation with Event-Driven Ansible
 
-## Attendee Prerequisites
-
-None.
-
-## Lab Agenda (Estimate total time ⏱️ 3.5 hours)
-
 <ul>
-<li><b>Welcome / Introduction of speaker &amp; topic / Learning objectives</b> [Estimated Time ⏱️ 5 minutes]</li><br>
-<li><b>Hands-on lab: Infrastructure Awareness and Reporting</b> [Estimated Time ⏱️ 45 minutes]</li><br>
-<li><b>Hands-on lab: Configuration and Application Deployment</b> [Estimated Time ⏱️ 90 minutes]</li><br>
-<li><b>Hands-on lab: Mission Critical Automation with Event-Driven Ansible</b> [Estimated Time ⏱️ 45 minutes]</li><br>
-<li><b>Q&amp;A and closing</b> [Estimated Time ⏱️ 10 minutes]</li>
+<li><b>Slides: Welcome / Introduction / Learning objectives</b> [Estimated Time ⏱️ 5 minutes]</li><br>
+<li><b>Lab: Infrastructure Awareness and Reporting</b> [Estimated Time ⏱️ 45 minutes]</li><br>
+<li><b>Lab: Configuration and Application Deployment</b> [Estimated Time ⏱️ 90 minutes]</li><br>
+<li><b>Lab: Mission Critical Automation with Event-Driven Ansible</b> [Estimated Time ⏱️ 45 minutes]</li><br>
+<li><b>Slides: Q&amp;A and closing</b> [Estimated Time ⏱️ 10 minutes]</li>
 </ul>
 
 ## Lab provisioner
 
-Request labs via the [lab environment request form](https://red.ht/lab-hotstarter). After you submit your request you will immediately get an email and the link at the bottom is what you will provide to your users/students. Select the three labs under the Getting Started section of the internal Google Form linked from the [lab request form](https://docs.google.com/forms/d/e/1FAIpQLSfdQOdhdEVggbJbIc2To0QM1UYruSwarfQibSkQl9GlT0QmxA/viewform).
+Request labs via the [lab request form](https://docs.google.com/forms/d/e/1FAIpQLSfdQOdhdEVggbJbIc2To0QM1UYruSwarfQibSkQl9GlT0QmxA/viewform) or the [lab environment request form](https://red.ht/lab-hotstarter). After you submit your request you will immediately get an email and the link at the bottom is what you will provide to your users/students. Select the three labs under the Getting Started section of the internal Google Form.
 
 # Learning Resources
 

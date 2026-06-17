@@ -13,23 +13,31 @@ This account-specific, 3-hour IT automation event is designed to be used as an a
 </thead>
 <tbody>
 <tr>
-<td>Event Kit</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1OQM1mo7KejZrI8hsEK_9ynWJ_2YHXsOTKVzBBze6ulE/edit?usp=sharing">Event Kit (Google Slides)</a></td>
+<td>Event kit</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1OQM1mo7KejZrI8hsEK_9ynWJ_2YHXsOTKVzBBze6ulE/edit?usp=sharing">Event kit (Google Slides)</a></td>
 </tr>
 <tr>
-<td>Planning Process</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1OQM1mo7KejZrI8hsEK_9ynWJ_2YHXsOTKVzBBze6ulE/edit#slide=id.gd536c839aa_0_1034">Planning Process</a></td>
+<td>Follow-up assets</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1OQM1mo7KejZrI8hsEK_9ynWJ_2YHXsOTKVzBBze6ulE/edit#slide=id.ge555862385_2_1">Follow-up assets</a></td>
 </tr>
 <tr>
-<td>Follow-up Assets</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1OQM1mo7KejZrI8hsEK_9ynWJ_2YHXsOTKVzBBze6ulE/edit#slide=id.ge555862385_2_1">Follow-up Assets</a></td>
+<td>Certain registration page &amp; promotional email copy</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1TJ8LGYsCkyjfyu-x9I4cHAHa5OvqwNxHAAGUnGwiWyg/edit">Registration page &amp; promotional email copy</a></td>
 </tr>
 <tr>
-<td>Certain Request</td>
-<td><a target="_blank" href="https://docs.google.com/document/d/1TJ8LGYsCkyjfyu-x9I4cHAHa5OvqwNxHAAGUnGwiWyg/edit">Certain Request</a></td>
+<td>Presenter instructions and guide</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1OQM1mo7KejZrI8hsEK_9ynWJ_2YHXsOTKVzBBze6ulE/edit#slide=id.gd536c839aa_0_1034">Planning process</a></td>
 </tr>
 </tbody>
 </table>
+
+## Target audience
+
+IT infrastructure engineers, DevOps engineers, operations teams, and automation champions within the account.
+
+## Presentation Deck
+
+- [Event kit (Google Slides)](https://docs.google.com/presentation/d/1OQM1mo7KejZrI8hsEK_9ynWJ_2YHXsOTKVzBBze6ulE/edit?usp=sharing) - For Red Hat employees
 
 ## Benefits
 

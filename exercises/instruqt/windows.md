@@ -136,7 +136,9 @@ It is highly recommended to take the [Microsoft Windows Automation with Red Hat 
 
 - [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
 
-Here is some additional collateral: 
+# Going Further
+
+Additional collateral for Windows automation:
 
 <table>
 <thead>

@@ -25,11 +25,11 @@ During this workshop, we will walk through the basics of EDA (Event-Driven Ansib
 </tr>
 <tr>
 <td>Follow-up assets</td>
-<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1wW8r4xcbwKQ2K1H5E1l3XlQZ_A317i8EJdEyrKMoCqI/edit?usp=drive_link">Follow-up assets spreadsheet</a></td>
+<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1wW8r4xcbwKQ2K1H5E1l3XlQZ_A317i8EJdEyrKMoCqI/edit?usp=sharing">Follow-up assets spreadsheet</a></td>
 </tr>
 <tr>
 <td>Post-event survey</td>
-<td><a target="_blank" href="https://docs.google.com/document/d/1OL6G5B3_zjmW2NP5erqhj30nFdeBvldx1hpWIlpT--Y/edit?usp=drive_link">Post-event survey</a></td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1OL6G5B3_zjmW2NP5erqhj30nFdeBvldx1hpWIlpT--Y/edit?usp=sharing">Post-event survey</a></td>
 </tr>
 <tr>
 <td>Certain registration page &amp; promotional email copy</td>

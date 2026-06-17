@@ -31,7 +31,7 @@ The Ansible Network Automation Workshop is a 90 minute, hands-on workshop coveri
 </tr>
 <tr>
 <td>Post-event survey</td>
-<td><a target="_blank" href="https://docs.google.com/document/d/1Wph4-abRIClCC8y1M91xZMntl0pzs6Br10fNXQW4rIQ/edit?usp=drive_link">Post-event survey</a></td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1Wph4-abRIClCC8y1M91xZMntl0pzs6Br10fNXQW4rIQ/edit?usp=sharing">Post-event survey</a></td>
 </tr>
 <tr>
 <td>Certain registration page &amp; promotional email copy</td>
@@ -43,7 +43,7 @@ The Ansible Network Automation Workshop is a 90 minute, hands-on workshop coveri
 </tr>
 <tr>
 <td>Certain event banners</td>
-<td><a target="_blank" href="https://drive.google.com/drive/folders/1NPKWa3IUqURjAS2c38LM_LgpqXO0AeKL?usp=drive_link">Event banners (Google Drive)</a></td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/1NPKWa3IUqURjAS2c38LM_LgpqXO0AeKL?usp=sharing">Event banners (Google Drive)</a></td>
 </tr>
 </tbody>
 </table>
@@ -99,10 +99,6 @@ Simplify network administration and operations using Red Hat Ansible Automation 
 </li>
 </ul>
 
-## Demos
-
-Any of the individual labs (that make up the workshop) can be used as a standalone demo.
-
 ## Supplemental Labs
 
 <table>
@@ -147,6 +143,14 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 </tbody>
 </table>
 
+## Lab provisioner
+
+Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) and [Instruqt](https://play.instruqt.com/redhat). For large events, use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+
+## Demos
+
+Any of the individual labs (that make up the workshop) can be used as a standalone demo.
+
 # Learning Resources
 
 - [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
@@ -156,7 +160,9 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 - [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
 - [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
 
-Here is some additional collateral:
+# Going Further
+
+Additional collateral for network automation:
 
 <table>
 <thead>

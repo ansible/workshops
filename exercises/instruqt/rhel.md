@@ -136,25 +136,7 @@ Recommended agenda for when there is an instructor teaching.
 </tbody>
 </table>
 
-## Lab provisioner
-
-[RHPDS](https://rhpds.redhat.com/) — Internal Red Hat Product Demo System. [AWS Lab Provisioner](https://github.com/ansible/workshops) — playbook that spins up instances on AWS for students to perform the provided exercises.
-
-## Demos
-
-Demos are intended for effectively demonstrating Ansible capabilities with prescriptive guides on the Ansible Automation Workshop infrastructure. See the [workshops repository](https://github.com/ansible/workshops) for demo content.
-
-# Learning Resources
-
-- [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
-
-## Documentation
-
-- [How to contribute](https://github.com/ansible/workshops)
-- [How to use the AWS Lab Provisioner](https://github.com/ansible/workshops)
-- [FAQ](https://github.com/ansible/workshops)
-
-## Exercise Index
+## Lab Index
 
 ### Section 1 — Command-line Ansible
 
@@ -258,6 +240,24 @@ Demos are intended for effectively demonstrating Ansible capabilities with presc
 </tr>
 </tbody>
 </table>
+
+## Lab provisioner
+
+[RHPDS](https://rhpds.redhat.com/) — Internal Red Hat Product Demo System. [AWS Lab Provisioner](https://github.com/ansible/workshops) — playbook that spins up instances on AWS for students to perform the provided exercises.
+
+## Demos
+
+Demos are intended for effectively demonstrating Ansible capabilities with prescriptive guides on the Ansible Automation Workshop infrastructure. See the [workshops repository](https://github.com/ansible/workshops) for demo content.
+
+# Learning Resources
+
+- [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
+
+## Documentation
+
+- [How to contribute](https://github.com/ansible/workshops)
+- [How to use the AWS Lab Provisioner](https://github.com/ansible/workshops)
+- [FAQ](https://github.com/ansible/workshops)
 
 # Going Further
 

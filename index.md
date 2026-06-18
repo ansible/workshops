@@ -110,7 +110,7 @@ patternfly: true
         </div>
       </a>
 
-      <div class="card-link" data-tags="linux,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fsandboxes-gpte.ans-bu-wksp-ripu.prod" class="card-link" data-tags="linux,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -130,7 +130,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
         </div>
       </section>
@@ -163,7 +163,7 @@ patternfly: true
         </div>
       </a>
 
-      <div class="card-link" data-tags="network,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=network+automation&item=babylon-catalog-prod%2Fsandboxes-gpte.ans-wksp-network-automation.prod" class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -183,9 +183,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="network,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-netbox.prod" class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -205,7 +205,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
       <div class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
@@ -347,7 +347,7 @@ patternfly: true
         <h2 class="cards-section__heading">General</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.awx-to-aap-25-aws.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -367,9 +367,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.awx-to-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -389,9 +389,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.aap2-migrate-awx-with-casc.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -411,9 +411,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.containerized-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -433,9 +433,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.aap25-operator-deployment.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -455,9 +455,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fenterprise.aap-product-demos-cnv-aap25.prod" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -477,9 +477,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fsandboxes-gpte.ans-bu-wksp-auto-satellite.prod" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -499,9 +499,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=navigator&item=babylon-catalog-prod%2Fzt-rhel.zt-ans-bu-ansible-navigator.prod" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -521,9 +521,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fzt-rhel.zt-ans-bu-automation-controller.prod" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -543,9 +543,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.automation-controller-adv-v2.prod" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -565,9 +565,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fansiblebu.aap2-workshop-casc.prod" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -587,7 +587,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
       <a target="_blank" href="./exercises/instruqt/servicenow" class="card-link" data-tags="general,workshop">
         <div class="pf-v6-c-card">
@@ -612,7 +612,7 @@ patternfly: true
         </div>
       </a>
 
-      <div class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/published.aap-self-service-intro.prod" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -632,9 +632,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-roadshow01.prod" class="card-link" data-tags="general,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -655,9 +655,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-roadshow02.prod" class="card-link" data-tags="general,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -678,9 +678,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="general,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-roadshow03.prod" class="card-link" data-tags="general,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -701,7 +701,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
       <a target="_blank" href="./exercises/instruqt/eda" class="card-link" data-tags="general,workshop">
         <div class="pf-v6-c-card">
@@ -765,7 +765,7 @@ patternfly: true
         <h2 class="cards-section__heading">Developer</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <div class="card-link" data-tags="developer,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.rhdh-ansible-demo.prod" class="card-link" data-tags="developer,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -785,9 +785,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="developer,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-ansible-builder.prod" class="card-link" data-tags="developer,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -807,9 +807,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="developer,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-lightspeed-101.prod" class="card-link" data-tags="developer,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -829,9 +829,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="developer,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-dev-tools.prod" class="card-link" data-tags="developer,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -852,7 +852,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
         </div>
       </section>
@@ -862,7 +862,7 @@ patternfly: true
         <h2 class="cards-section__heading">Cloud</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <div class="card-link" data-tags="cloud,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fazure-gpte.open-environment-azure-aap2.prod" class="card-link" data-tags="cloud,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -883,9 +883,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.open-environment-aws-aap2.prod" class="card-link" data-tags="cloud,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -906,9 +906,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fgcp-gpte.open-environment-gcp-aap2.prod" class="card-link" data-tags="cloud,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -928,9 +928,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-terraform-aap.prod" class="card-link" data-tags="cloud,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -950,9 +950,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-hashi-aap.prod" class="card-link" data-tags="cloud,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -973,9 +973,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-azure-visibility-aap.prod" class="card-link" data-tags="cloud,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -995,9 +995,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-operations-25.prod" class="card-link" data-tags="cloud,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1017,9 +1017,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-optimization-25.prod" class="card-link" data-tags="cloud,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1039,9 +1039,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-visibility-25.prod" class="card-link" data-tags="cloud,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1061,9 +1061,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-azure-optimization-aap.prod" class="card-link" data-tags="cloud,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1083,9 +1083,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-azure-operations-aap.prod" class="card-link" data-tags="cloud,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1105,7 +1105,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
         </div>
       </section>
@@ -1138,7 +1138,7 @@ patternfly: true
         </div>
       </a>
 
-      <div class="card-link" data-tags="windows,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-windows-ad.prod" class="card-link" data-tags="windows,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1158,7 +1158,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
         </div>
       </section>
@@ -1168,7 +1168,7 @@ patternfly: true
         <h2 class="cards-section__heading">Virt</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <div class="card-link" data-tags="virt,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fopenshift-cnv.mig-factory-demo.prod" class="card-link" data-tags="virt,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1188,9 +1188,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="virt,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.virt-on-rosa.prod" class="card-link" data-tags="virt,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1210,7 +1210,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
       <a target="_blank" href="./exercises/instruqt/day-2-ops" class="card-link" data-tags="virt,workshop">
         <div class="pf-v6-c-card">
@@ -1243,7 +1243,7 @@ patternfly: true
         <h2 class="cards-section__heading">Security</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <div class="card-link" data-tags="security,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-zta-aap.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="security,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1264,7 +1264,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
       <div class="card-link" data-tags="security,workshop,lab">
         <div class="pf-v6-c-card">

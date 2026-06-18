@@ -140,6 +140,29 @@ patternfly: true
         <h2 class="cards-section__heading">Network</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
+      <a target="_blank" href="./exercises/instruqt/network-6" class="card-link" data-tags="network,workshop">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                6-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Network Automation Workshop</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Full-day network automation workshop. Covers network basics and Ansible Automation Platform for network devices.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
       <a target="_blank" href="./exercises/instruqt/network" class="card-link" data-tags="network,workshop">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">

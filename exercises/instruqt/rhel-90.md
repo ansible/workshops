@@ -5,7 +5,7 @@
 > This is the 90 minute version of this workshop.  For the longer extended session please [🔬 click here](rhel)
 >
 
-If you're new to Ansible Automation, but want a quicker version of the original RHEL workshop, this 90-minute workshop provides you with fewer exercises, focused on cloud provisioning, converting bash/shell commands to Ansible, all the way to utilizing RHEL System Roles.
+This condensed workshop provides a quick introduction to Ansible Automation, starting with command-line fundamentals and progressing to Ansible Automation Platform. You'll write playbooks, use variables, create projects and job templates, work with surveys, configure role-based access control, and explore RHEL System Roles — all in 90 minutes.
 
 > **IMPORTANT TO NOTE:** This is NOT a deep dive, in the weeds, advanced workshop — it's an introduction.
 
@@ -75,32 +75,36 @@ There is no student prep work required prior to the workshop.
 
 ## Lab Agenda (Estimate total time ⏱️ 90 minutes)
 
-<ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/10rltay3pr3ZLzFMGTPnc6CAtsm0AwQ3L_XbwmmMNMdc/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Exercise 1: Overview of public cloud provisioning</b> [Estimated Time ⏱️ 15 minutes]<br>
-<a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/1-setup">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Exercise 2: The Ansible Basics</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/2-thebasics">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Exercise 3: Deploying applications to linux hosts</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/3-playbook">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Exercise 4: Retrieving information from automation hosts</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/4-variables">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Exercise 5: Self-service IT via surveys</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/5-surveys">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Exercise 6: Overview of system roles for RHEL</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/6-system-roles">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Slides: Close Out &amp; Q&amp;A</b> [Estimated Time ⏱️ 5 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/10rltay3pr3ZLzFMGTPnc6CAtsm0AwQ3L_XbwmmMNMdc/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li>
-</ul>
+Recommended agenda for when there is an instructor teaching.
+
+<table>
+<thead>
+<tr>
+<th>Agenda Item</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/10rltay3pr3ZLzFMGTPnc6CAtsm0AwQ3L_XbwmmMNMdc/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td><b>Lab</b>: Exercises 1–7</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td>⏱️ 75 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Close Out &amp; Q&amp;A</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/10rltay3pr3ZLzFMGTPnc6CAtsm0AwQ3L_XbwmmMNMdc/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 5 minutes</td>
+</tr>
+</tbody>
+</table>
+
+**Total Time**: 1.5 hours (90 minutes)
 
 ## Lab Index
 
@@ -109,51 +113,51 @@ There is no student prep work required prior to the workshop.
 <tr>
 <th>Exercise</th>
 <th>Description</th>
-<th>Link</th>
 <th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Exercise 1 — Overview of public cloud provisioning</td>
-<td>Set up your lab environment and explore cloud provisioning</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/1-setup">🚀 Launch Lab</a></td>
+<td>Exercise 1 — Writing Your First Playbook</td>
+<td>Create and run your first Ansible playbook</td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>Exercise 2 — The Ansible Basics</td>
-<td>Learn fundamental Ansible concepts and ad hoc commands</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/2-thebasics">🚀 Launch Lab</a></td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td>Exercise 3 — Deploying applications to linux hosts</td>
-<td>Create and run your first Ansible playbook</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/3-playbook">🚀 Launch Lab</a></td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td>Exercise 4 — Retrieving information from automation hosts</td>
+<td>Exercise 2 — Using Variables</td>
 <td>Learn how to use variables and facts in playbooks</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/4-variables">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
-<td>Exercise 5 — Self-service IT via surveys</td>
+<td>Exercise 3 — Projects &amp; Job Templates</td>
+<td>Create projects and job templates in automation controller</td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 4 — Surveys</td>
 <td>Add surveys to job templates for user-driven input</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/5-surveys">🚀 Launch Lab</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
-<td>Exercise 6 — Overview of system roles for RHEL</td>
-<td>Use RHEL System Roles for configuration management</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel_90/6-system-roles">🚀 Launch Lab</a></td>
+<td>Exercise 5 — Role-based Access Control</td>
+<td>Configure RBAC to manage user access and permissions</td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 6 — RHEL System Roles</td>
+<td>Use RHEL System Roles for firewall and timesync configuration</td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 7 — Wrap-Up</td>
+<td>Capstone exercise combining inventory, templates, surveys, and RBAC</td>
 <td>⏱️ 10 minutes</td>
 </tr>
 </tbody>
 </table>
 
 ## Lab provisioner
+
+This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Ansible for Red Hat Enterprise Linux Workshop (90min)](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link) catalog item.
 
 [RHPDS](https://rhpds.redhat.com/) — Internal Red Hat Product Demo System. [AWS Lab Provisioner](https://github.com/ansible/workshops) — playbook that spins up instances on AWS for students to perform the provided exercises.
 

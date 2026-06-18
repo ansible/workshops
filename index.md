@@ -207,7 +207,7 @@ patternfly: true
         </div>
       </a>
 
-      <div class="card-link" data-tags="network,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-ansible-network-automation-basics-lab-1.prod" class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -227,9 +227,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="network,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-ansible-network-automation-basics-lab-2.prod" class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -249,9 +249,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="network,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-ansible-network-automation-basics-lab-3.prod" class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -271,9 +271,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="network,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-ansible-network-automation-basics-lab-4.prod" class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -293,9 +293,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="network,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-network-lab-1.prod" class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -315,9 +315,9 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="card-link" data-tags="network,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-network-lab-2.prod" class="card-link" data-tags="network,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -337,7 +337,7 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
         </div>
       </section>

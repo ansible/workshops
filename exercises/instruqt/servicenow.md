@@ -61,22 +61,34 @@ There is no student prep work required prior to the workshop. Students would gre
 ## Presentation Deck
 
 - [Google Slides](https://docs.google.com/presentation/d/1sE8nZJjQw74QyWccufUVNwEtIepxPYTbsn5YfjN3oU8/edit?usp=sharing) - For Red Hat employees
-  
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
-
-<ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 30 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1sE8nZJjQw74QyWccufUVNwEtIepxPYTbsn5YfjN3oU8/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab: Get started with ServiceNow automation</b> [Estimated Time ⏱️ 60 minutes]<br>
-Explore the basic functionality of the ServiceNow collection for Red Hat Ansible Automation Platform.<br>
-<a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/getting-started-servicenow-automation?token=em_5ktpLJWtzpbqcDyM">[ 🚀 Start Exercise ]</a>
-</li>
-</ul>
 
 ## Lab provisioner
 
-There is no RHPDS lab provisioner associated with this workshop. This simply uses the Instruqt platform to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Getting Started with ServiceNow Automation](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-servicenow.prod) catalog item and [Instruqt](https://play.instruqt.com/redhat). If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+
+## Lab Index (Estimate total time ⏱️ 90 minutes)
+
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1sE8nZJjQw74QyWccufUVNwEtIepxPYTbsn5YfjN3oU8/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 30 minutes</td>
+</tr>
+<tr>
+<td>Lab: Get started with ServiceNow automation</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/getting-started-servicenow-automation?token=em_5ktpLJWtzpbqcDyM">🚀 Launch Lab</a></td>
+<td>⏱️ 60 minutes</td>
+</tr>
+</tbody>
+</table>
 
 ## Demos
 

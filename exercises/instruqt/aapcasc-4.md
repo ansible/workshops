@@ -53,36 +53,11 @@ Ansible automation engineers, platform administrators, and DevOps engineers resp
 
 Presentation materials are included in the lab environment. Refer to the [Config as code Introduction to AAP lab](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/summit-2025.lb2193-config-as-code-aap.prod&utm_source=webapp&utm_medium=share-link) for the latest deck.
 
-## Lab Agenda (Estimate total time ⏱️ 4 hours)
+## Lab provisioner
 
-Recommended agenda for when there is an instructor teaching.
+This lab is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/summit-2025.lb2193-config-as-code-aap.prod&utm_source=webapp&utm_medium=share-link). This is a Red Hat or Partner Only Lab — please reach out to your account representative to coordinate access.
 
-<table>
-<tbody>
-<tr>
-<td><b>Part 1</b>: Creating the Basics for configuring the Automation Platform</td>
-<td>⏱️ 40 minutes</td>
-</tr>
-<tr>
-<td><b>Part 2</b>: Creating credentials, inventories, and job templates and everything that is needed to create them.</td>
-<td>⏱️ 40 minutes</td>
-</tr>
-<tr>
-<td><b>Part 3</b>: Configuring the Automation hub to load more content</td>
-<td>⏱️ 30 minutes</td>
-</tr>
-<tr>
-<td><b>Part 4</b>: Build an execution environment to be used on the platform.</td>
-<td>⏱️ 40 minutes</td>
-</tr>
-<tr>
-<td><b>Part 5</b>: Creating an Automation controller Workflow in code</td>
-<td>⏱️ 90 minutes</td>
-</tr>
-</tbody>
-</table>
-
-**Total Time**: 4 hours (249 minutes)
+## Lab Index (Estimate total time ⏱️ 4 hours)
 
 In this lab, we will demonstrate how to use Configuration as Code to configure various aspects of the Ansible Automation Platform (AAP):
 
@@ -92,28 +67,42 @@ In this lab, we will demonstrate how to use Configuration as Code to configure v
 * Building an execution environment to be used on the platform
 * Creating a workflow from scratch (extra credit)
 
-## Lab Index
-
 <table>
 <thead>
 <tr>
-<th>Lab Title</th>
-<th>Description</th>
+<th>Activity</th>
 <th>Link</th>
+<th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Config as code Introduction to AAP</td>
-<td>Learn about the fundamentals of using Configuration of Code to maintain the Ansible Automation Platform. This is a Red Hat or Partner Only Lab, and requires access to demo.redhat.com, please reach out to your account representative to coordinate access to the Lab</td>
+<td>Part 1: Creating the Basics for configuring the Automation Platform</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/summit-2025.lb2193-config-as-code-aap.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td>⏱️ 40 minutes</td>
+</tr>
+<tr>
+<td>Part 2: Creating credentials, inventories, and job templates</td>
+<td></td>
+<td>⏱️ 40 minutes</td>
+</tr>
+<tr>
+<td>Part 3: Configuring the Automation hub to load more content</td>
+<td></td>
+<td>⏱️ 30 minutes</td>
+</tr>
+<tr>
+<td>Part 4: Build an execution environment to be used on the platform</td>
+<td></td>
+<td>⏱️ 40 minutes</td>
+</tr>
+<tr>
+<td>Part 5: Creating an Automation controller Workflow in code</td>
+<td></td>
+<td>⏱️ 90 minutes</td>
 </tr>
 </tbody>
 </table>
-
-## Lab provisioner
-
-This lab is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/summit-2025.lb2193-config-as-code-aap.prod&utm_source=webapp&utm_medium=share-link). This is a Red Hat or Partner Only Lab — please reach out to your account representative to coordinate access.
 
 # Going Further
 

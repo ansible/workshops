@@ -56,26 +56,6 @@ None.
 
 - [Google Slides](https://docs.google.com/presentation/d/1Zpi7AIWf4zqIBgqZ72mC8HXsFryA0D-PPWWh5760pHk/edit?usp=sharing) - For Red Hat employees (ABU — Introduction to AI with Ansible Automation Platform)
 
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
-
-This hands-on lab consists of four main parts:
-
-<ul>
-<li><b>Event-Driven Ansible Response</b> — Automatic detection of systemd application outages</li>
-<li><b>Log Enrichment and Prompt Generation</b> — AI-powered incident analysis and notification</li>
-<li><b>Remediation Workflow</b> — Automated playbook generation using Ansible Lightspeed</li>
-<li><b>Execute HTTPD Remediation</b> — Actual resolution of the application outage</li>
-</ul>
-
-<ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 15 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1Zpi7AIWf4zqIBgqZ72mC8HXsFryA0D-PPWWh5760pHk/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab: AI-Driven Ansible Automation Showroom</b> [Estimated Time ⏱️ 75 minutes]<br>
-<a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html">[ 🚀 Start Exercise ]</a>
-</li>
-</ul>
-
 ## Lab provisioner
 
 * Lab documentation: [https://rhpds.github.io/ai-driven-automation-showroom/](https://rhpds.github.io/ai-driven-automation-showroom/)
@@ -84,6 +64,37 @@ This hands-on lab consists of four main parts:
 **List of Proctors:** Anshul Behl, Sean Cavanaugh, Marty Turner, Alex Dworjan, Tony Dubiel, Chris Renwick, Jason Breitweg
 
 If you are an SA, SSP, or TMM you will have no problem proctoring this lab. If you have any questions around proctoring this lab, reach out to Anshul Behl or Sean Cavanaugh (Ansible TMMs).
+
+## Lab Index (Estimate total time ⏱️ 90 minutes)
+
+This hands-on lab consists of four main parts:
+
+* **Event-Driven Ansible Response** — Automatic detection of systemd application outages
+* **Log Enrichment and Prompt Generation** — AI-powered incident analysis and notification
+* **Remediation Workflow** — Automated playbook generation using Ansible Lightspeed
+* **Execute HTTPD Remediation** — Actual resolution of the application outage
+
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1Zpi7AIWf4zqIBgqZ72mC8HXsFryA0D-PPWWh5760pHk/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Lab: AI-Driven Ansible Automation Showroom</td>
+<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html">🚀 Launch Lab</a></td>
+<td>⏱️ 75 minutes</td>
+</tr>
+</tbody>
+</table>
 
 # Learning Resources
 

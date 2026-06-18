@@ -68,36 +68,54 @@ There is no student prep work required prior to the workshop. It is recommended 
 ## Presentation Deck
 
 - [Google Slides](https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing) - For Red Hat employees
-  
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
 
-A sample 90 agenda can be found below.
+## Lab provisioner
 
-<ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab 1: Network automation basics - First playbook</b> [Estimated Time ⏱️ 20 minutes]<br>
-Learn the fundamentals of Red Hat Ansible Automation Platform for network automation using ansible-navigator.<br>
-<a target="_blank" href="https://www.redhat.com/en/interactive-labs/network-automation-basics-first-playbook">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Slides: Brief for Lab 2</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab 2: Network automation - Backup and restore</b> [Estimated Time ⏱️ 20 minutes]<br>
-Learn how to automate network configurations and backups using Red Hat Ansible Automation Platform.<br>
-<a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/network-lab-1?token=em_bkpb1mcbod8qprrg">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Slides: Brief for Lab 3</b> [Estimated Time ⏱️ 5 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab 3: Red Hat Ansible Automation Platform for network administrators</b> [Estimated Time ⏱️ 25 minutes]<br>
-Simplify network administration and operations using Red Hat Ansible Automation Platform.<br>
-<a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/network-oper-tasks?token=em_sH26Rq5FE7u1WeWC">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Wrap Up</b>
-</li>
-</ul>
+Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Introduction to Ansible Network Automation Workshop](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.ansible-network-automation-workshop.prod) catalog item and [Instruqt](https://play.instruqt.com/redhat). For large events, use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+
+## Lab Index (Estimate total time ⏱️ 90 minutes)
+
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Lab 1: Network automation basics — First playbook</td>
+<td><a target="_blank" href="https://www.redhat.com/en/interactive-labs/network-automation-basics-first-playbook">🚀 Launch Lab</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Brief for Lab 2</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Lab 2: Network automation — Backup and restore</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/network-lab-1?token=em_bkpb1mcbod8qprrg">🚀 Launch Lab</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Brief for Lab 3</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 5 minutes</td>
+</tr>
+<tr>
+<td>Lab 3: Red Hat Ansible Automation Platform for network administrators</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/network-oper-tasks?token=em_sH26Rq5FE7u1WeWC">🚀 Launch Lab</a></td>
+<td>⏱️ 25 minutes</td>
+</tr>
+</tbody>
+</table>
 
 ## Supplemental Labs
 
@@ -142,10 +160,6 @@ Simplify network administration and operations using Red Hat Ansible Automation 
 </tr> 
 </tbody>
 </table>
-
-## Lab provisioner
-
-Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) and [Instruqt](https://play.instruqt.com/redhat). For large events, use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
 
 ## Demos
 

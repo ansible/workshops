@@ -73,14 +73,16 @@ There is no student prep work required prior to the workshop.
 - [PDF](../../decks/ansible_rhel_90.pdf) - For everyone
 - [Google Slides](https://docs.google.com/presentation/d/10rltay3pr3ZLzFMGTPnc6CAtsm0AwQ3L_XbwmmMNMdc/edit?usp=sharing) - For Red Hat employees
 
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
+## Lab provisioner
 
-Recommended agenda for when there is an instructor teaching.
+This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Ansible for Red Hat Enterprise Linux Workshop (90min)](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link) catalog item.
+
+## Lab Index (Estimate total time ⏱️ 90 minutes)
 
 <table>
 <thead>
 <tr>
-<th>Agenda Item</th>
+<th>Activity</th>
 <th>Link</th>
 <th>Estimated Time</th>
 </tr>
@@ -92,9 +94,39 @@ Recommended agenda for when there is an instructor teaching.
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
-<td><b>Lab</b>: Exercises 1–7</td>
+<td>Exercise 1 — Writing Your First Playbook</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
-<td>⏱️ 75 minutes</td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Exercise 2 — Using Variables</td>
+<td></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 3 — Projects &amp; Job Templates</td>
+<td></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 4 — Surveys</td>
+<td></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 5 — Role-based Access Control</td>
+<td></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 6 — RHEL System Roles</td>
+<td></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 7 — Wrap-Up</td>
+<td></td>
+<td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td><b>Slides</b>: Close Out &amp; Q&amp;A</td>
@@ -103,63 +135,6 @@ Recommended agenda for when there is an instructor teaching.
 </tr>
 </tbody>
 </table>
-
-**Total Time**: 1.5 hours (90 minutes)
-
-## Lab Index
-
-<table>
-<thead>
-<tr>
-<th>Exercise</th>
-<th>Description</th>
-<th>Estimated Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Exercise 1 — Writing Your First Playbook</td>
-<td>Create and run your first Ansible playbook</td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td>Exercise 2 — Using Variables</td>
-<td>Learn how to use variables and facts in playbooks</td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td>Exercise 3 — Projects &amp; Job Templates</td>
-<td>Create projects and job templates in automation controller</td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td>Exercise 4 — Surveys</td>
-<td>Add surveys to job templates for user-driven input</td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td>Exercise 5 — Role-based Access Control</td>
-<td>Configure RBAC to manage user access and permissions</td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td>Exercise 6 — RHEL System Roles</td>
-<td>Use RHEL System Roles for firewall and timesync configuration</td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td>Exercise 7 — Wrap-Up</td>
-<td>Capstone exercise combining inventory, templates, surveys, and RBAC</td>
-<td>⏱️ 10 minutes</td>
-</tr>
-</tbody>
-</table>
-
-## Lab provisioner
-
-This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Ansible for Red Hat Enterprise Linux Workshop (90min)](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel-90.prod&utm_source=webapp&utm_medium=share-link) catalog item.
-
-[RHPDS](https://rhpds.redhat.com/) — Internal Red Hat Product Demo System. [AWS Lab Provisioner](https://github.com/ansible/workshops) — playbook that spins up instances on AWS for students to perform the provided exercises.
 
 ## Demos
 
@@ -172,7 +147,6 @@ Demos are intended for effectively demonstrating Ansible capabilities with presc
 ## Documentation
 
 - [How to contribute](https://github.com/ansible/workshops)
-- [How to use the AWS Lab Provisioner](https://github.com/ansible/workshops)
 - [FAQ](https://github.com/ansible/workshops)
 
 # Going Further

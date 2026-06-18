@@ -70,36 +70,59 @@ There is no student prep work required prior to the workshop.
 ## Presentation Deck
 
 - [Google Slides](https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing) - For Red Hat employees
-  
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
 
-<ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 15  minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab: Ansible Automation With Windows</b> [Estimated Time ⏱️ 15 minutes]<br>
-<a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-windows90.prod">[ 🚀 Start Exercise ]</a>
-<ul><li>Challenge 1 - Configure Automation Controller
-</li></ul>
-</li><br>
-<li><b>Slides: Brief for Challenge 2</b> [Estimated Time ⏱️ 5  minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab: Ansible Automation With Windows</b> [Estimated Time ⏱️ 15 minutes]<br>
-<ul><li>Exercise 2 - Ad-hoc commands<br>
-<i>Continue from lab linked above</i></li></ul>
-</li><br>
-<li><b>Slides: Brief for Challenge 3</b> [Estimated Time ⏱️ 15  minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab: Ansible Automation With Windows</b> [Estimated Time ⏱️ 25 minutes]<br>
-<i>Continue from lab linked above</i>
-<ul><li>Exercise 3 - Intro to playbooks</li>
-<li>Exercise 4 - Configure a job template</li></ul>
-</li><br>
-<li><b>Wrap Up</b>
-</li>
-</ul>
+## Lab provisioner
+
+This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Windows Automation Workshop (90min)](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-windows90.prod) catalog item.
+
+## Lab Index (Estimate total time ⏱️ 90 minutes)
+
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Exercise 1 — Configure Automation Controller</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-windows90.prod">🚀 Launch Lab</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Brief for Challenge 2</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 5 minutes</td>
+</tr>
+<tr>
+<td>Exercise 2 — Ad-hoc commands</td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Brief for Challenge 3</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Exercise 3 — Intro to playbooks</td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Exercise 4 — Configure a job template</td>
+<td></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+</tbody>
+</table>
 
 ## Supplemental Exercises
 
@@ -107,28 +130,37 @@ Total Time ~⏱️ 60 minutes
 
 If your students are ahead or you want to have a lab longer than 90 minutes there are two additional exercises (and corresponding slides already in the deck):
 
-<ul>
-<li><b>Slides: Brief for Challenge 5</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab: Ansible Automation With Windows</b> [Estimated Time ⏱️ 15 minutes]<br>
-<ul><li>Exercise 5 - More advanced playbook<br>
-<i>Continue from lab linked above</i></li></ul>
-</li><br>
-<li><b>Slides: Brief for Challenge 6</b> [Estimated Time ⏱️ 5 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab: Ansible Automation With Windows</b> [Estimated Time ⏱️ 25 minutes]<br>
-<ul><li>Exercise 6 - Ansible roles<br>
-<i>Continue from lab linked above</i></li></ul>
-</li><br>
-<li><b>Wrap Up</b>
-</li>
-</ul>
-
-## Lab provisioner
-
-This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Windows Automation Workshop (90min)](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-windows90.prod) catalog item.
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Brief for Challenge 5</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Exercise 5 — More advanced playbook</td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Brief for Challenge 6</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 5 minutes</td>
+</tr>
+<tr>
+<td>Exercise 6 — Ansible roles</td>
+<td></td>
+<td>⏱️ 25 minutes</td>
+</tr>
+</tbody>
+</table>
 
 # Learning Resources
 

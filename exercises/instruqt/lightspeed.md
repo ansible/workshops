@@ -81,50 +81,39 @@ There is no student prep work required prior to the workshop.
 
 - [Google Slides](https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing) - For Red Hat employees
 
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
+## Lab provisioner
 
-Each workshop module and lab is designed to stand on its own, but may also be combined to suit your event and time constraints.  A sample 90 agenda and suggested pairings for shorter events can be found below.
+All labs can be provisioned on the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog). They can be provisioned separately with the links of each individual lab below or together on the [multi-asset workshop section](https://catalog.demo.redhat.com/multi-workshop/).
 
-<ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 15 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Get started with ansible-builder</b> [Estimated Time ⏱️ 30 minutes]<br>
-Install ansible-builder v3 and learn how to create custom execution environments.<br>
-<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=ansible+builder&item=zt-ansiblebu.zt-ans-bu-ansible-builder.prod">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Slides: Introduction to Ansible Lightspeed with IBM watsonx Code Assistant</b> [Estimated Time ⏱️ 15 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Get started with Ansible Lightspeed with IBM watsonx Code Assistant</b> [Estimated Time ⏱️ 30 minutes]<br>
-Learn how to configure, activate, and use Ansible Lightspeed to generate Ansible content.<br>
-<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=lightspeed&item=zt-ansiblebu.zt-ans-lightspeed-101.prod">[ 🚀 Start Exercise ]</a>
-</li>
-</ul>
-
-## Lab Index
+## Lab Index (Estimate total time ⏱️ 90 minutes)
 
 <table>
 <thead>
 <tr>
-<th>Lab Title</th>
-<th>Description</th>
+<th>Activity</th>
 <th>Link</th>
 <th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Get started with ansible-builder</td>
-<td>Install ansible-builder v3 and learn how to create custom execution environments.</td>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Lab 1: Get started with ansible-builder</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=ansible+builder&item=zt-ansiblebu.zt-ans-bu-ansible-builder.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 30 minutes</td>
 </tr>
 <tr>
-<td>Get started with Ansible Lightspeed with IBM watsonx Code Assistant</td>
-<td>Learn how to configure, activate, and use Ansible Lightspeed to generate Ansible content.</td>
+<td><b>Slides</b>: Introduction to Ansible Lightspeed with IBM watsonx Code Assistant</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Lab 2: Get started with Ansible Lightspeed with IBM watsonx Code Assistant</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=lightspeed&item=zt-ansiblebu.zt-ans-lightspeed-101.prod">🚀 Launch Lab</a></td>
-  <!-- NOTE: This Lightspeed lab is deprecated and the commercial lab requires Red Hat supervision-->
 <td>⏱️ 30 minutes</td>
 </tr>
 </tbody>
@@ -132,16 +121,22 @@ Learn how to configure, activate, and use Ansible Lightspeed to generate Ansible
 
 ## Supplemental Lab
 
-<ul>
-<li><b>Sign and verify projects with Red Hat Ansible Automation Platform</b> [Estimated Time ⏱️ 45 minutes]<br>
-Sign source repositories that include Ansible Playbooks and content, and validate signed content in the automation controller.<br>
-<a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=sign+and+verify&item=zt-ansiblebu.zt-ans-bu-verify-sign.prod">[ 🚀 Start Exercise ]</a>
-</li>
-</ul>
-
-## Lab provisioner
-
-All of these labs can be provisioned on RHDP. They can be provisioned separately with the links of each individual lab above or together on the [multi-asset workshop section](https://catalog.demo.redhat.com/multi-workshop/).
+<table>
+<thead>
+<tr>
+<th>Lab Title</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sign and verify projects with Red Hat Ansible Automation Platform</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=sign+and+verify&item=zt-ansiblebu.zt-ans-bu-verify-sign.prod">🚀 Launch Lab</a></td>
+<td>⏱️ 45 minutes</td>
+</tr>
+</tbody>
+</table>
 
 ## Demos
 

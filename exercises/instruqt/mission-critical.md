@@ -51,7 +51,11 @@ None.
 
 - [Presentation materials (Google Drive)](https://drive.google.com/drive/folders/1s-75X7xSbDJHguk8ZgxUZdJfq30YLRk8) - For Red Hat employees
 
-## Lab Agenda (Estimate total time ⏱️ 3.5 hours)
+## Lab provisioner
+
+Request labs via the [lab environment request form](https://red.ht/lab-hotstarter). After you submit your request you will immediately get an email and the link at the bottom is what you will provide to your users/students. Select the three labs under the Getting Started section of the internal Google Form.
+
+## Lab Index (Estimate total time ⏱️ 3.5 hours)
 
 **Topics covered:**
 
@@ -59,17 +63,36 @@ None.
 * **Standardization:** Configuration and Application Deployment
 * **Operational Efficiency:** Mission Critical Automation with Event-Driven Ansible
 
-<ul>
-<li><b>Slides: Welcome / Introduction / Learning objectives</b> [Estimated Time ⏱️ 5 minutes]</li><br>
-<li><b>Lab: Infrastructure Awareness and Reporting</b> [Estimated Time ⏱️ 45 minutes]</li><br>
-<li><b>Lab: Configuration and Application Deployment</b> [Estimated Time ⏱️ 90 minutes]</li><br>
-<li><b>Lab: Mission Critical Automation with Event-Driven Ansible</b> [Estimated Time ⏱️ 45 minutes]</li><br>
-<li><b>Slides: Q&amp;A and closing</b> [Estimated Time ⏱️ 10 minutes]</li>
-</ul>
-
-## Lab provisioner
-
-Request labs via the [lab request form](https://docs.google.com/forms/d/e/1FAIpQLSfdQOdhdEVggbJbIc2To0QM1UYruSwarfQibSkQl9GlT0QmxA/viewform) or the [lab environment request form](https://red.ht/lab-hotstarter). After you submit your request you will immediately get an email and the link at the bottom is what you will provide to your users/students. Select the three labs under the Getting Started section of the internal Google Form.
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Welcome / Introduction / Learning objectives</td>
+<td>⏱️ 5 minutes</td>
+</tr>
+<tr>
+<td>Lab: Infrastructure Awareness and Reporting</td>
+<td>⏱️ 45 minutes</td>
+</tr>
+<tr>
+<td>Lab: Configuration and Application Deployment</td>
+<td>⏱️ 90 minutes</td>
+</tr>
+<tr>
+<td>Lab: Mission Critical Automation with Event-Driven Ansible</td>
+<td>⏱️ 45 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Q&amp;A and closing</td>
+<td>⏱️ 10 minutes</td>
+</tr>
+</tbody>
+</table>
 
 # Learning Resources
 

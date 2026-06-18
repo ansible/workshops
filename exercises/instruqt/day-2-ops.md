@@ -56,17 +56,33 @@ There is no student prep work required prior to the workshop. A basic understand
 
 - [Google Slides](https://docs.google.com/presentation/d/16_xKqBb1AI_VHCROlQjz4B59P76Si-vpCNyuiaSsoUY/edit?usp=sharing) - For Red Hat employees
 
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
+## Lab provisioner
 
-<ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/16_xKqBb1AI_VHCROlQjz4B59P76Si-vpCNyuiaSsoUY/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab: OpenShift Virtualization Advanced Ops Showroom</b> [Estimated Time ⏱️ 80 minutes]<br>
-In this lab, which is a follow-up to our very popular Experience OpenShift Virtualization Roadshow lab, we intend to equip you with the knowledge and tools to manage your environment and perform critical operational tasks often required of virtual machine administrators from day-2 onward. This ensures that your virtualized workloads are efficiently managed and maintained long after the initial deployment.<br>
-<a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/index.html">[ 🚀 Access Lab ]</a>
-</li>
-</ul>
+This workshop uses RHDP to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+
+## Lab Index (Estimate total time ⏱️ 90 minutes)
+
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/16_xKqBb1AI_VHCROlQjz4B59P76Si-vpCNyuiaSsoUY/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Lab: OpenShift Virtualization Advanced Ops Showroom</td>
+<td><a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/index.html">🚀 Launch Lab</a></td>
+<td>⏱️ 80 minutes</td>
+</tr>
+</tbody>
+</table>
 
 The lab consists of five main sections:
 
@@ -75,10 +91,6 @@ The lab consists of five main sections:
 3. Advanced Networking and Security
 4. Automation of Virtual Machines
 5. Advanced Management of Virtual Workloads
-
-## Lab provisioner
-
-There is no RHPDS lab provisioner associated with this workshop. This simply uses RHDP to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
 
 ## Demos
 

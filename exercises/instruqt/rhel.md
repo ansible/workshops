@@ -75,14 +75,18 @@ There is no student prep work required prior to the workshop.
 - [PDF](../../decks/ansible_rhel.pdf) - For everyone
 - [Google Slides](https://docs.google.com/presentation/d/1V2IbX4hux4__6nZZMZZp3HMUFgYrt0ZH9LL6r30CBhs/edit?usp=sharing) - For Red Hat employees
 
-## Lab Agenda (Estimate total time ⏱️ 6 hours)
+## Lab provisioner
 
-Recommended agenda for when there is an instructor teaching.
+This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Ansible for Red Hat Enterprise Linux Workshop](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link) catalog item.
+
+## Lab Index (Estimate total time ⏱️ 6 hours)
+
+### Section 1 — Command-line Ansible
 
 <table>
 <thead>
 <tr>
-<th>Agenda Item</th>
+<th>Activity</th>
 <th>Link</th>
 <th>Estimated Time</th>
 </tr>
@@ -94,156 +98,113 @@ Recommended agenda for when there is an instructor teaching.
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
-<td><b>Lab</b>: Section 1 — Command-line Ansible (Exercises 1.1–1.4)</td>
+<td>Exercise 1.1 — Writing Your First Playbook</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
-<td>⏱️ 80 minutes</td>
-</tr>
-<tr>
-<td>☕ <b>Break</b></td>
-<td></td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td><b>Lab</b>: Section 1 — Command-line Ansible (Exercises 1.5–1.7)</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
-<td>⏱️ 55 minutes</td>
-</tr>
-<tr>
-<td>☕ <b>Break</b></td>
-<td></td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td><b>Lab</b>: Section 2 — Ansible Automation Platform (Exercises 2.1–2.4)</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
-<td>⏱️ 70 minutes</td>
-</tr>
-<tr>
-<td>☕ <b>Break</b></td>
-<td></td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td><b>Lab</b>: Section 2 — Ansible Automation Platform (Exercises 2.5–2.8)</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
-<td>⏱️ 75 minutes</td>
-</tr>
-<tr>
-<td><b>Slides</b>: Close Out & Q&A</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1V2IbX4hux4__6nZZMZZp3HMUFgYrt0ZH9LL6r30CBhs/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 10 minutes</td>
-</tr>
-</tbody>
-</table>
-
-## Lab Index
-
-### Section 1 — Command-line Ansible
-
-<table>
-<thead>
-<tr>
-<th>Exercise</th>
-<th>Description</th>
-<th>Estimated Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.1 Writing Your First Playbook</td>
-<td>Create and run your first Ansible playbook</td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
-<td>1.2 Using Variables</td>
-<td>Learn how to use variables in playbooks</td>
+<td>Exercise 1.2 — Using Variables</td>
+<td></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
-<td>1.3 Conditionals, Handlers and Loops</td>
-<td>Implement conditionals, handlers, and loops</td>
+<td>Exercise 1.3 — Conditionals, Handlers and Loops</td>
+<td></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
-<td>1.4 Templates</td>
-<td>Use Jinja2 templates to create dynamic configurations</td>
+<td>Exercise 1.4 — Templates</td>
+<td></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>1.5 Collections</td>
-<td>Explore and use Ansible collections</td>
+<td>☕ <b>Break</b></td>
+<td></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>1.6 Ansible Navigator & Execution Environments</td>
-<td>Introduction to Ansible Navigator and execution environments</td>
+<td>Exercise 1.5 — Collections</td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Exercise 1.6 — Ansible Navigator &amp; Execution Environments</td>
+<td></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
-<td>1.7 Debugging and Error Handling</td>
-<td>Debug playbooks and handle errors effectively</td>
+<td>Exercise 1.7 — Debugging and Error Handling</td>
+<td></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 </tbody>
 </table>
+
+☕ **Break** — ⏱️ 15 minutes
 
 ### Section 2 — Ansible Automation Platform
 
 <table>
 <thead>
 <tr>
-<th>Exercise</th>
-<th>Description</th>
+<th>Activity</th>
+<th>Link</th>
 <th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>2.1 Introduction to Automation Platform</td>
-<td>Get familiar with the Ansible Automation Controller web UI</td>
+<td>Exercise 2.1 — Introduction to Automation Platform</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>2.2 Inventories and Credentials</td>
-<td>Manage inventories and credentials in automation controller</td>
+<td>Exercise 2.2 — Inventories and Credentials</td>
+<td></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>2.3 Projects & Job Templates</td>
-<td>Create projects and job templates to run automation</td>
+<td>Exercise 2.3 — Projects &amp; Job Templates</td>
+<td></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
-<td>2.4 Surveys</td>
-<td>Add surveys to job templates for user-driven input</td>
+<td>Exercise 2.4 — Surveys</td>
+<td></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
-<td>2.5 Role-based Access Control</td>
-<td>Configure RBAC to manage user access and permissions</td>
+<td>☕ <b>Break</b></td>
+<td></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>2.6 Workflows</td>
-<td>Build multi-step automation workflows</td>
+<td>Exercise 2.5 — Role-based Access Control</td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Exercise 2.6 — Workflows</td>
+<td></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
-<td>2.7 System Roles</td>
-<td>Use RHEL System Roles for firewall and timesync configuration</td>
+<td>Exercise 2.7 — System Roles</td>
+<td></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>2.8 Wrap Up</td>
-<td>Capstone exercise combining inventory, templates, surveys, and RBAC</td>
+<td>Exercise 2.8 — Wrap Up</td>
+<td></td>
 <td>⏱️ 25 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Close Out &amp; Q&amp;A</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1V2IbX4hux4__6nZZMZZp3HMUFgYrt0ZH9LL6r30CBhs/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
 </tr>
 </tbody>
 </table>
-
-## Lab provisioner
-
-[RHPDS](https://rhpds.redhat.com/) — Internal Red Hat Product Demo System. [AWS Lab Provisioner](https://github.com/ansible/workshops) — playbook that spins up instances on AWS for students to perform the provided exercises.
 
 ## Demos
 
@@ -256,7 +217,6 @@ Demos are intended for effectively demonstrating Ansible capabilities with presc
 ## Documentation
 
 - [How to contribute](https://github.com/ansible/workshops)
-- [How to use the AWS Lab Provisioner](https://github.com/ansible/workshops)
 - [FAQ](https://github.com/ansible/workshops)
 
 # Going Further

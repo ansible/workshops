@@ -64,46 +64,38 @@ Automation specialists and site reliability engineers.
 - [PDF](decks/lab-eda-gitops.pdf) - For everyone
 - [Google Slides](https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing) - For Red Hat employees
 
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
+## Lab provisioner
 
-<ul>
-<li><b>Slides: Introduction + Workshop Brief</b> [Estimated Time ⏱️ 15 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab 1: Getting Started with Event-Driven Ansible</b> [Estimated Time ⏱️ 25 minutes]<br>
-Learn about the fundamental components of Event-Driven Ansible and go through some examples.<br>
-<a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/eda--ansible-rulebook?token=em_kn8hibVNgt0X03wZ">[ 🚀 Start Exercise ]</a>
-</li><br>
-<li><b>Slides: Lab Brief for Lab 2</b> [Estimated Time ⏱️ 10 minutes]<br>
-<a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">[ 🖥️ Slides ]</a>
-</li><br>
-<li><b>Lab 2: Getting Started with EDA Controller</b> [Estimated Time ⏱️ 40 minutes]<br>
-Learn how to adopt EDA into your organization with EDA Controller, which integrates into the Ansible Automation Platform with a web UI.<br>
-<a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/getting-started-eda-controller?token=em_pnJ8mV75JMc0MhZN">[ 🚀 Start Exercise ]</a>
-</li>
-</ul>
+This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please email: ansible-tmm@redhat.com.
 
-## Lab Index
+## Lab Index (Estimate total time ⏱️ 90 minutes)
 
 <table>
 <thead>
 <tr>
-<th>Lab Title</th>
-<th>Description</th>
+<th>Activity</th>
 <th>Link</th>
 <th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Getting Started with Event-Driven Ansible</td>
-<td>Learn about the fundamental components of Event-Driven Ansible and go through some examples</td>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Lab 1: Getting Started with Event-Driven Ansible</td>
 <td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/eda--ansible-rulebook?token=em_kn8hibVNgt0X03wZ">🚀 Launch Lab</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
-<td>Getting Started with EDA Controller</td>
-<td>Learn how to adopt EDA into your organization with EDA Controller, which integrates into the Ansible Automation Platform with a webUI</td>
+<td><b>Slides</b>: Lab Brief for Lab 2</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Lab 2: Getting Started with EDA Controller</td>
 <td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/getting-started-eda-controller?token=em_pnJ8mV75JMc0MhZN">🚀 Launch Lab</a></td>
 <td>⏱️ 40 minutes</td>
 </tr>
@@ -146,10 +138,6 @@ Learn how to adopt EDA into your organization with EDA Controller, which integra
 </tr>
 </tbody>
 </table>
-
-## Lab provisioner
-
-There is no RHPDS lab provisioner associated with this workshop. This simply uses the Instruqt platform to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please email: ansible-tmm@redhat.com.
 
 ## Demos
 

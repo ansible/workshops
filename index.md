@@ -110,7 +110,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fsandboxes-gpte.ans-bu-wksp-ripu.prod" class="card-link" data-tags="linux,lab">
+      <a href="./exercises/instruqt/ripu" class="card-link" data-tags="linux,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -182,28 +182,6 @@ patternfly: true
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=network+automation&item=babylon-catalog-prod%2Fsandboxes-gpte.ans-wksp-network-automation.prod" class="card-link" data-tags="network,lab">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Advanced Ansible Network Automation</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Advanced Network Automation topics for experienced Ansible users.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
           </div>
         </div>
       </a>
@@ -370,28 +348,6 @@ patternfly: true
         <h2 class="cards-section__heading">General</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.awx-to-aap-25-aws.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Migrate from AWX/Tower to AAP (AWS)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Migration guide from AWX/Tower to Ansible Automation Platform on AWS.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
       <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.awx-to-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
@@ -414,28 +370,6 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/sandboxes-gpte.aap2-migrate-awx-with-casc.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Migration AWX/Tower to AAP using CaC</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Migration from AWX/Tower to Ansible Automation Platform using Configuration as Code.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
       <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.containerized-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
@@ -451,28 +385,6 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__body">
             Product enablement for containerized deployment of Ansible Automation Platform 2.5.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.aap25-operator-deployment.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Product Enablement Operator AAP 2.5</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Product enablement for operator-based deployment of Ansible Automation Platform 2.5.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
@@ -568,7 +480,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.automation-controller-adv-v2.prod" class="card-link" data-tags="general,lab">
+      <a href="./exercises/instruqt/adv-controller" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -635,7 +547,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/published.aap-self-service-intro.prod" class="card-link" data-tags="general,lab">
+      <a href="./exercises/instruqt/aap-selfservice" class="card-link" data-tags="general,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -703,7 +615,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-roadshow03.prod" class="card-link" data-tags="general,workshop,lab">
+      <a href="./exercises/instruqt/roadshow03" class="card-link" data-tags="general,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -854,7 +766,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-dev-tools.prod" class="card-link" data-tags="developer,workshop,lab">
+      <a href="./exercises/instruqt/dev-tools" class="card-link" data-tags="developer,workshop,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -946,28 +858,6 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__body">
             Ansible Automation Platform on Google Cloud Platform open environment.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-terraform-aap.prod" class="card-link" data-tags="cloud,lab">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Terragrunt and Red Hat Ansible Automation Platform</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Terragrunt and Red Hat Ansible Automation Platform integration for infrastructure provisioning.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
@@ -1191,7 +1081,7 @@ patternfly: true
         <h2 class="cards-section__heading">Virt</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fopenshift-cnv.mig-factory-demo.prod" class="card-link" data-tags="virt,lab">
+      <a href="./exercises/instruqt/mig-factory" class="card-link" data-tags="virt,lab">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-teal">
@@ -1209,28 +1099,6 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.virt-on-rosa.prod" class="card-link" data-tags="virt,lab">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">OpenShift Virtualization Migration Factory Demo (ROSA)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            OpenShift Virtualization Migration Factory demonstration on ROSA.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
           </div>
         </div>
       </a>

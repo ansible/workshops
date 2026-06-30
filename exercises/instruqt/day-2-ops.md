@@ -60,7 +60,7 @@ There is no student prep work required prior to the workshop. A basic understand
 
 This workshop uses RHDP to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
 
-## Lab Index (Estimate total time ⏱️ 90 minutes)
+## Lab Index (Estimate total time ⏱️ 2 hours)
 
 <table>
 <thead>
@@ -77,20 +77,42 @@ This workshop uses RHDP to load the labs inside your browser. If you have a larg
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
-<td>Lab: OpenShift Virtualization Advanced Ops Showroom</td>
-<td><a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/index.html">🚀 Launch Lab</a></td>
-<td>⏱️ 80 minutes</td>
+<td>Module 1 — Performance, Scalability, and Troubleshooting</td>
+<td><a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/module-01-perf-scale-ts.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td>Module 2 — Security and Compliance</td>
+<td><a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/module-02-sec-comp.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td>Module 3 — Advanced Networking and Security</td>
+<td><a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/module-03-adv-net-sec.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td>☕ <b>Break</b></td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Module 4 — Automation of Virtual Machines</td>
+<td><a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/module-04-virt-automation.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td>Module 5 — Advanced Management of Virtual Machines</td>
+<td><a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/module-05-virt-acm.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Conclusion</td>
+<td><a target="_blank" href="https://rhpds.github.io/ocp-virt-advanced-ops-showroom/modules/conclusion.html">🖥️ Conclusion</a></td>
+<td>⏱️ 10 minutes</td>
 </tr>
 </tbody>
 </table>
-
-The lab consists of five main sections:
-
-1. Performance, Scalability, and Troubleshooting
-2. Security and Compliance
-3. Advanced Networking and Security
-4. Automation of Virtual Machines
-5. Advanced Management of Virtual Workloads
 
 ## Demos
 

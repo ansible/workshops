@@ -65,14 +65,11 @@ None.
 
 If you are an SA, SSP, or TMM you will have no problem proctoring this lab. If you have any questions around proctoring this lab, reach out to Anshul Behl or Sean Cavanaugh (Ansible TMMs).
 
-## Lab Index (Estimate total time ⏱️ 90 minutes)
+## Lab Index (Estimate total time ⏱️ 3-4 hours)
 
-This hands-on lab consists of four main parts:
+This hands-on workshop covers the full AIOps maturity spectrum — from event-driven remediation with human review to fully autonomous self-healing with AI agents. All six sections are independent and can be completed in any order.
 
-* **Event-Driven Ansible Response** — Automatic detection of systemd application outages
-* **Log Enrichment and Prompt Generation** — AI-powered incident analysis and notification
-* **Remediation Workflow** — Automated playbook generation using Ansible Lightspeed
-* **Execute HTTPD Remediation** — Actual resolution of the application outage
+### Section 1 — Event-Driven AIOps
 
 <table>
 <thead>
@@ -89,9 +86,60 @@ This hands-on lab consists of four main parts:
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>Lab: AI-Driven Ansible Automation Showroom</td>
-<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html">🚀 Launch Lab</a></td>
-<td>⏱️ 75 minutes</td>
+<td>Section 1 — AIOps with Apache Remediation</td>
+<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/module-01.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 30-40 minutes</td>
+</tr>
+<tr>
+<td>Section 2 — AIOps with Network Automation</td>
+<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/module-03.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 30-40 minutes</td>
+</tr>
+<tr>
+<td>Section 3 — AIOps with Windows Automation</td>
+<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/module-06.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 15-20 minutes</td>
+</tr>
+</tbody>
+</table>
+
+☕ **Break** — ⏱️ 15 minutes
+
+### Section 2 — AI-Powered Content Creation & Autonomous Remediation
+
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Section 4 — Red Hat Lightspeed and Agentic IDE Workflow</td>
+<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/module-07.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 50-70 minutes</td>
+</tr>
+<tr>
+<td>☕ <b>Break</b></td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Section 5 — Autonomous AIOps with Self-Healing RHEL</td>
+<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/module-08.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 20-30 minutes</td>
+</tr>
+<tr>
+<td>Section 6 — AI-Driven Incident Response with MCP</td>
+<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/module-09.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 30-40 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Summary &amp; Call to Actions</td>
+<td><a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/module-10.html">🖥️ Summary</a></td>
+<td>⏱️ 10 minutes</td>
 </tr>
 </tbody>
 </table>

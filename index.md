@@ -656,13 +656,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/day-in-the-life" class="card-link" data-tags="general,workshop,60to90min,tmm">
+      <a href="./exercises/instruqt/day-in-the-life" class="card-link" data-tags="general,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
+            <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                60-90 Min
+                2+ Hours
               </span>
             </span>
           </div>

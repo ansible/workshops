@@ -13,7 +13,7 @@ patternfly: true
       <span>Filter by</span>
       <button id="filter-clear" class="cards-sidebar__clear">Clear filters</button>
     </div>
-    <div class="cards-sidebar__section">
+    <div class="cards-sidebar__section" data-filter-group="domain">
       <h4 class="cards-sidebar__title">Domain</h4>
       <label class="cards-sidebar__checkbox">
         <input type="checkbox" value="linux"> Linux
@@ -43,13 +43,34 @@ patternfly: true
         <input type="checkbox" value="security"> Security
       </label>
     </div>
-    <div class="cards-sidebar__section">
+    <div class="cards-sidebar__section" data-filter-group="type">
       <h4 class="cards-sidebar__title">Type</h4>
       <label class="cards-sidebar__checkbox">
         <input type="checkbox" value="lab"> Lab
       </label>
       <label class="cards-sidebar__checkbox">
         <input type="checkbox" value="workshop"> Workshop
+      </label>
+    </div>
+    <div class="cards-sidebar__section" data-filter-group="time">
+      <h4 class="cards-sidebar__title">Time</h4>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="2plushours"> 2+ Hours
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="60to90min"> 60-90 Min
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="under60min"> Under 60 Min
+      </label>
+    </div>
+    <div class="cards-sidebar__section" data-filter-group="tmm">
+      <h4 class="cards-sidebar__title">TMM</h4>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="tmm"> TMM
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="nontmm"> Non TMM
       </label>
     </div>
   </aside>
@@ -64,7 +85,7 @@ patternfly: true
         <h2 class="cards-section__heading">Linux</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/rhel" class="card-link" data-tags="linux,workshop">
+      <a target="_blank" href="./exercises/instruqt/rhel" class="card-link" data-tags="linux,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -87,7 +108,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/rhel-90" class="card-link" data-tags="linux,workshop">
+      <a target="_blank" href="./exercises/instruqt/rhel-90" class="card-link" data-tags="linux,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -110,13 +131,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ripu" class="card-link" data-tags="linux,lab">
+      <a href="./exercises/instruqt/ripu" class="card-link" data-tags="linux,lab,2plushours,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
               </span>
             </span>
           </div>
@@ -140,7 +161,7 @@ patternfly: true
         <h2 class="cards-section__heading">Network</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/network-6" class="card-link" data-tags="network,workshop">
+      <a target="_blank" href="./exercises/instruqt/network-6" class="card-link" data-tags="network,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -163,7 +184,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/network" class="card-link" data-tags="network,workshop">
+      <a target="_blank" href="./exercises/instruqt/network" class="card-link" data-tags="network,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -186,13 +207,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/eda-netbox" class="card-link" data-tags="network,lab">
+      <a href="./exercises/instruqt/eda-netbox" class="card-link" data-tags="network,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
           </div>
@@ -208,13 +229,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-first-playbook" class="card-link" data-tags="network,lab">
+      <a href="./exercises/instruqt/network-first-playbook" class="card-link" data-tags="network,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -230,13 +251,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-backup-restore" class="card-link" data-tags="network,lab">
+      <a href="./exercises/instruqt/network-backup-restore" class="card-link" data-tags="network,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -252,13 +273,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-resource-modules" class="card-link" data-tags="network,lab">
+      <a href="./exercises/instruqt/network-resource-modules" class="card-link" data-tags="network,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -274,13 +295,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-surveys" class="card-link" data-tags="network,lab">
+      <a href="./exercises/instruqt/network-surveys" class="card-link" data-tags="network,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -296,13 +317,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-facts" class="card-link" data-tags="network,lab">
+      <a href="./exercises/instruqt/network-facts" class="card-link" data-tags="network,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -318,13 +339,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-visibility" class="card-link" data-tags="network,lab">
+      <a href="./exercises/instruqt/network-visibility" class="card-link" data-tags="network,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -348,13 +369,13 @@ patternfly: true
         <h2 class="cards-section__heading">General</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.awx-to-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.awx-to-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -370,13 +391,13 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.containerized-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.containerized-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab,60to90min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
           </div>
@@ -392,13 +413,13 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fenterprise.aap-product-demos-cnv-aap25.prod" class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fenterprise.aap-product-demos-cnv-aap25.prod" class="card-link" data-tags="general,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -414,13 +435,13 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fsandboxes-gpte.ans-bu-wksp-auto-satellite.prod" class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fsandboxes-gpte.ans-bu-wksp-auto-satellite.prod" class="card-link" data-tags="general,lab,60to90min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
           </div>
@@ -436,13 +457,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ansible-navigator" class="card-link" data-tags="general,lab">
+      <a href="./exercises/instruqt/ansible-navigator" class="card-link" data-tags="general,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -458,13 +479,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/automation-controller" class="card-link" data-tags="general,lab">
+      <a href="./exercises/instruqt/automation-controller" class="card-link" data-tags="general,lab,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
               </span>
             </span>
           </div>
@@ -480,13 +501,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/adv-controller" class="card-link" data-tags="general,lab">
+      <a href="./exercises/instruqt/adv-controller" class="card-link" data-tags="general,lab,2plushours,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
               </span>
             </span>
           </div>
@@ -502,13 +523,13 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fansiblebu.aap2-workshop-casc.prod" class="card-link" data-tags="general,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fansiblebu.aap2-workshop-casc.prod" class="card-link" data-tags="general,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -524,7 +545,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/servicenow" class="card-link" data-tags="general,workshop">
+      <a target="_blank" href="./exercises/instruqt/servicenow" class="card-link" data-tags="general,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -547,13 +568,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/aap-selfservice" class="card-link" data-tags="general,lab">
+      <a href="./exercises/instruqt/aap-selfservice" class="card-link" data-tags="general,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -569,13 +590,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/roadshow01" class="card-link" data-tags="general,workshop,lab">
+      <a href="./exercises/instruqt/roadshow01" class="card-link" data-tags="general,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -587,18 +608,17 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/roadshow02" class="card-link" data-tags="general,workshop,lab">
+      <a href="./exercises/instruqt/roadshow02" class="card-link" data-tags="general,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -610,18 +630,17 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/roadshow03" class="card-link" data-tags="general,workshop,lab">
+      <a href="./exercises/instruqt/roadshow03" class="card-link" data-tags="general,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -633,12 +652,34 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/instruqt/day-in-the-life" class="card-link" data-tags="general,workshop,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Day in the Life of an Automater</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Experience a typical day as an automation engineer using Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/eda" class="card-link" data-tags="general,workshop">
+      <a target="_blank" href="./exercises/instruqt/eda" class="card-link" data-tags="general,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -669,13 +710,13 @@ patternfly: true
         <h2 class="cards-section__heading">AI</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/ai-ansible" class="card-link" data-tags="ai,workshop">
+      <a target="_blank" href="./exercises/instruqt/ai-ansible" class="card-link" data-tags="ai,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
+            <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90-Minute
+                2+ Hours
               </span>
             </span>
           </div>
@@ -700,13 +741,13 @@ patternfly: true
         <h2 class="cards-section__heading">Developer</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.rhdh-ansible-demo.prod" class="card-link" data-tags="developer,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.rhdh-ansible-demo.prod" class="card-link" data-tags="developer,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -722,13 +763,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ansible-builder" class="card-link" data-tags="developer,lab">
+      <a href="./exercises/instruqt/ansible-builder" class="card-link" data-tags="developer,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -744,13 +785,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/lightspeed-101" class="card-link" data-tags="developer,lab">
+      <a href="./exercises/instruqt/lightspeed-101" class="card-link" data-tags="developer,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
           </div>
@@ -766,13 +807,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/dev-tools" class="card-link" data-tags="developer,workshop,lab">
+      <a href="./exercises/instruqt/dev-tools" class="card-link" data-tags="developer,workshop,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
           </div>
@@ -797,13 +838,13 @@ patternfly: true
         <h2 class="cards-section__heading">Cloud</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fazure-gpte.open-environment-azure-aap2.prod" class="card-link" data-tags="cloud,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fazure-gpte.open-environment-azure-aap2.prod" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -820,13 +861,13 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.open-environment-aws-aap2.prod" class="card-link" data-tags="cloud,workshop,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.open-environment-aws-aap2.prod" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -843,13 +884,13 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fgcp-gpte.open-environment-gcp-aap2.prod" class="card-link" data-tags="cloud,lab">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fgcp-gpte.open-environment-gcp-aap2.prod" class="card-link" data-tags="cloud,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -865,13 +906,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/hashicorp-aap" class="card-link" data-tags="cloud,workshop,lab">
+      <a href="./exercises/instruqt/hashicorp-aap" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -888,13 +929,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-azure-visibility" class="card-link" data-tags="cloud,lab">
+      <a href="./exercises/instruqt/cloud-azure-visibility" class="card-link" data-tags="cloud,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -910,13 +951,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-operations-aws" class="card-link" data-tags="cloud,lab">
+      <a href="./exercises/instruqt/cloud-operations-aws" class="card-link" data-tags="cloud,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -932,13 +973,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-optimization-aws" class="card-link" data-tags="cloud,lab">
+      <a href="./exercises/instruqt/cloud-optimization-aws" class="card-link" data-tags="cloud,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -954,13 +995,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-visibility-advanced" class="card-link" data-tags="cloud,lab">
+      <a href="./exercises/instruqt/cloud-visibility-advanced" class="card-link" data-tags="cloud,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -976,13 +1017,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-azure-optimization" class="card-link" data-tags="cloud,lab">
+      <a href="./exercises/instruqt/cloud-azure-optimization" class="card-link" data-tags="cloud,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -998,13 +1039,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-azure-operations" class="card-link" data-tags="cloud,lab">
+      <a href="./exercises/instruqt/cloud-azure-operations" class="card-link" data-tags="cloud,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -1028,7 +1069,7 @@ patternfly: true
         <h2 class="cards-section__heading">Windows</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/windows" class="card-link" data-tags="windows,workshop">
+      <a target="_blank" href="./exercises/instruqt/windows" class="card-link" data-tags="windows,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -1051,13 +1092,13 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/windows-ad" class="card-link" data-tags="windows,lab">
+      <a href="./exercises/instruqt/windows-ad" class="card-link" data-tags="windows,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -1081,13 +1122,13 @@ patternfly: true
         <h2 class="cards-section__heading">Virt</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a href="./exercises/instruqt/mig-factory" class="card-link" data-tags="virt,lab">
+      <a href="./exercises/instruqt/mig-factory" class="card-link" data-tags="virt,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
               </span>
             </span>
           </div>
@@ -1103,7 +1144,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/day-2-ops" class="card-link" data-tags="virt,workshop">
+      <a target="_blank" href="./exercises/instruqt/day-2-ops" class="card-link" data-tags="virt,workshop,60to90min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -1134,13 +1175,13 @@ patternfly: true
         <h2 class="cards-section__heading">Security</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a href="./exercises/instruqt/zero-trust" class="card-link" data-tags="security,workshop,lab">
+      <a href="./exercises/instruqt/zero-trust" class="card-link" data-tags="security,workshop,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
           </div>
@@ -1157,13 +1198,13 @@ patternfly: true
         </div>
       </a>
 
-      <div class="card-link" data-tags="security,workshop,lab">
+      <div class="card-link" data-tags="security,workshop,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
           </div>
@@ -1180,13 +1221,13 @@ patternfly: true
         </div>
       </div>
 
-      <div class="card-link" data-tags="security,workshop,lab">
+      <div class="card-link" data-tags="security,workshop,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
             <span class="pf-v6-c-label pf-m-gold pf-m-compact" style="margin-left:8px;">
@@ -1206,13 +1247,13 @@ patternfly: true
         </div>
       </div>
 
-      <div class="card-link" data-tags="security,workshop,lab">
+      <div class="card-link" data-tags="security,workshop,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-teal">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
-                <i class="fas fa-flask pf-v6-c-label__icon"></i>
-                Lab
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
               </span>
             </span>
             <span class="pf-v6-c-label pf-m-gold pf-m-compact" style="margin-left:8px;">
@@ -1446,28 +1487,40 @@ patternfly: true
     return text.toLowerCase();
   }
 
-  function getActiveFilters() {
-    var active = [];
-    checkboxes.forEach(function (cb) {
-      if (cb.checked) active.push(cb.value);
+  function getFiltersByGroup() {
+    var groups = {};
+    document.querySelectorAll('.cards-sidebar__section[data-filter-group]').forEach(function (section) {
+      var groupName = section.getAttribute('data-filter-group');
+      var checked = [];
+      section.querySelectorAll('input[type="checkbox"]:checked').forEach(function (cb) {
+        checked.push(cb.value);
+      });
+      if (checked.length) groups[groupName] = checked;
     });
-    return active;
+    return groups;
   }
 
   function filterCards() {
     var query = headerInput.value.toLowerCase().trim();
-    var activeFilters = getActiveFilters();
-    filterClearBtn.style.display = (activeFilters.length || query) ? 'inline' : 'none';
+    var groups = getFiltersByGroup();
+    var groupKeys = Object.keys(groups);
+    filterClearBtn.style.display = (groupKeys.length || query) ? 'inline' : 'none';
 
     var visible = 0;
 
     allCards.forEach(function (card) {
       var textMatch = !query || getCardText(card).indexOf(query) !== -1;
       var filterMatch = true;
-      if (activeFilters.length) {
+
+      if (groupKeys.length) {
         var cardTags = (card.getAttribute('data-tags') || '').split(',').map(function (s) { return s.trim(); });
-        filterMatch = activeFilters.some(function (f) { return cardTags.indexOf(f) !== -1; });
+        for (var i = 0; i < groupKeys.length; i++) {
+          var groupFilters = groups[groupKeys[i]];
+          var groupMatch = groupFilters.some(function (f) { return cardTags.indexOf(f) !== -1; });
+          if (!groupMatch) { filterMatch = false; break; }
+        }
       }
+
       var show = textMatch && filterMatch;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
@@ -1482,7 +1535,7 @@ patternfly: true
       section.style.display = sectionVisible ? '' : 'none';
     });
 
-    if (query || activeFilters.length) {
+    if (query || groupKeys.length) {
       countEl.textContent = visible === 0
         ? 'No workshops match your filters.'
         : visible + ' workshop' + (visible !== 1 ? 's' : '') + ' found.';

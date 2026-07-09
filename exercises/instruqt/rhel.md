@@ -1,8 +1,8 @@
 # Ansible for Red Hat Enterprise Linux Technical Workshop
 
-> **IMPORTANT TO NOTE** 
-> 
-> This is the extended version of this workshop (~6 hours).  For the shorter 90 minute session please [🔬 click here](rhel-90)
+> **IMPORTANT TO NOTE**
+>
+> This is the extended version of this workshop (~6 hours). For the shorter 90 minute session please [🔬 click here](rhel-90)
 >
 
 If you're new to Ansible Automation, this workshop consists of two parts: 1) starting with the basic fundamentals and 2) applying what you've learned to implement Ansible automation controller to your enterprise use cases. You'll start off by writing your first Ansible playbook, work on Jinja templates, and implement higher-level Ansible roles. Next you'll get started on automation controller, understand inventory and credential management, projects, job templates, surveys, workflows and more.
@@ -27,7 +27,7 @@ After finishing this lab you are ready to start using Ansible for your automatio
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel">labs.demoredhat.com/exercises/ansible_rhel</a></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/index.html">rhpds.github.io/zt-ans-bu-rhel</a></td>
 </tr>
 <tr>
 <td>Follow-up handouts/assets</td>
@@ -43,7 +43,7 @@ After finishing this lab you are ready to start using Ansible for your automatio
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/ansible_rhel">Presenter instructions and guide</a></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/index.html">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>
@@ -99,22 +99,22 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 </tr>
 <tr>
 <td>Exercise 1.1 — Writing Your First Playbook</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-01.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
 <td>Exercise 1.2 — Using Variables</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-02.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>Exercise 1.3 — Conditionals, Handlers and Loops</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-03.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>Exercise 1.4 — Templates</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-04.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
@@ -124,17 +124,17 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 </tr>
 <tr>
 <td>Exercise 1.5 — Collections</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-05.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>Exercise 1.6 — Ansible Navigator &amp; Execution Environments</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-06.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>Exercise 1.7 — Debugging and Error Handling</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-07.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 </tbody>
@@ -154,23 +154,28 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 </thead>
 <tbody>
 <tr>
+<td><b>Slides</b>: Ansible Automation Platform Introduction</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1V2IbX4hux4__6nZZMZZp3HMUFgYrt0ZH9LL6r30CBhs/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
 <td>Exercise 2.1 — Introduction to Automation Platform</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-rhel.prod&utm_source=webapp&utm_medium=share-link">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-08.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>Exercise 2.2 — Inventories and Credentials</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-09.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>Exercise 2.3 — Projects &amp; Job Templates</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-10.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>Exercise 2.4 — Surveys</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-11.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
@@ -180,22 +185,22 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 </tr>
 <tr>
 <td>Exercise 2.5 — Role-based Access Control</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-12.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>Exercise 2.6 — Workflows</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-13.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
 <td>Exercise 2.7 — System Roles</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-14.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
 <td>Exercise 2.8 — Wrap Up</td>
-<td></td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-rhel/modules/module-15.html">🚀 Launch Exercise</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
@@ -249,6 +254,8 @@ Additional material for Ansible and RHEL Automation
 </tr>
 </tbody>
 </table>
+
+<br>
 
 # Ansible Workshop
 

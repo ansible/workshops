@@ -2,12 +2,12 @@
 
 > **IMPORTANT TO NOTE** 
 > 
-> This is the 90 minute version of this workshop.  For the longer 4-hour session please [🔬 click here](lightspeed-4.md)
+> This is the 90 minute version of this workshop.  For the longer 4-hour session please [🔬 click here](lightspeed-4)
 >
 
-This workshop is for the Ansible automation engineer or application developer.  While their experience, skills, and job roles differ, both of these personas create automation.  This includes writing Ansible Playbooks, Ansible Roles, and Ansible Content Collections and learning how to distribute these throughout the organization..  This workshop will provide an opinionated experience for both of these roles.
+This workshop is for the Ansible automation engineer or application developer.  While their experience, skills, and job roles differ, both of these personas create automation.  This includes writing Ansible Playbooks, Ansible Roles, and Ansible Content Collections and learning how to distribute these throughout the organization. This workshop will provide an opinionated experience for both of these roles.
 
-The Ansible developer experience includes numerous capabilities to aid in the creation of Ansible automation content.  This includes an Ansible plugin for Microsoft Visual Studio Code as well as generative AI (artificial intelligence) integrations such as Red Hat Lightspeed.
+The Ansible developer experience includes numerous capabilities to aid in the creation of Ansible automation content.  This includes an Ansible plugin for Microsoft Visual Studio Code as well as generative AI (artificial intelligence) integrations such as Red Hat Ansible Lightspeed with watsonx Code Assistant.
 
 After finishing this lab you are ready to start taking advantage of the numerous Ansible content tools included in your Red Hat Ansible Automation Platform subscription.
 
@@ -21,62 +21,134 @@ After finishing this lab you are ready to start taking advantage of the numerous
 > This workshop requires a Red Hat employee instructor
 > 
 
-## Presentation Deck
-
-- [Google Slides](https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing) - For Red Hat employees
-
-## Lab Agenda (Estimate total time ⏱️ 90 minutes)
-
-Recommended agenda for when there is an instructor teaching.
-
-<table>
-<tbody>
-<tr>
-<td><b>Slides</b>: Introduction + Workshop Brief</td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td><b>Lab 1</b>: Get started with ansible-builder</td>
-<td>⏱️ 30 minutes</td>
-</tr>
-<tr>
-<td><b>Slides</b>: Introduction to Red Hat Lightspeed and lab brief</td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td><b>Lab 2</b>: Get started with Ansible Lightspeed with IBM watsonx Code Assistant</td>
-<td>⏱️ 30 minutes</td>
-</tr>
-</tbody>
-</table>
-
-## Lab Index
+## Workshop Resources
 
 <table>
 <thead>
 <tr>
-<th>Lab Title</th>
-<th>Description</th>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workshop content and exercises</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/exercises/instruqt/lightspeed-4">labs.demoredhat.com/exercises/instruqt/lightspeed-4</a></td>
+</tr>
+<tr>
+<td>Follow-up assets</td>
+<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1D7FyUExIWR6aZxXevbUHZ_G4nDQsUhAbASVEGAvc2Wc/edit?usp=sharing">Follow-up assets spreadsheet</a></td>
+</tr>
+<tr>
+<td>Post-event survey</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1wviedVHnvy49j68Bf8-6EN4c-TMzqkk6kx5xivk3aXk/edit?usp=sharing">Post-event survey</a></td>
+</tr>
+<tr>
+<td>Certain registration page &amp; promotional email copy</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1bhJKfCyTOWMeECzA3D-xp7pQQweJOaM6khfAtAxRllw/edit?usp=sharing">Registration page &amp; promotional email copy</a></td>
+</tr>
+<tr>
+<td>Presenter instructions and guide</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/webpages/lightspeed-4">Presenter instructions and guide</a></td>
+</tr>
+<tr>
+<td>Certain event banners</td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/1D9vkg8zF3jYFCDqD4unrVZ_tuAseqyPO?usp=sharing">Event banners (Google Drive)</a></td>
+</tr>
+</tbody>
+</table>
+
+## Target audience
+
+Anyone who is currently writing Ansible automation content such as Ansible Playbooks.  This includes the Ansible for Red Hat Enterprise Linux personas including DevOps engineers, operations engineers, systems engineers, release engineers, system administrators, developers, operations staff, network engineers, security professionals, and anyone interested in IT automation.
+
+## Attendee Prerequisites
+
+Student has one (1) of the following:
+
+* Student has completed the Ansible Red Hat Enterprise Linux Workshop
+* Student has completed the [Write your first playbook interactive lab](https://docs.google.com/document/d/1nnhVUhFs2Z-WliGae505yc2GEzNhrE74ceec8p83ntk/edit?usp=sharing)
+* Student has completed the Red Hat training course [Ansible Basics: Automation Technical Overview](https://www.redhat.com/en/services/training/do007-ansible-essentials-simplicity-automation-technical-overview)
+
+* A basic understanding of working with Linux systems
+* A basic understanding of [Visual Studio Code](https://code.visualstudio.com/). [Available for MacOS, Windows and Linux]
+* Attendees must bring/use a laptop with ADMIN rights and the ability to SSH to a lab environment hosted in a public cloud.
+* Must bring/use a laptop with Chrome 73+, Firefox 60+, Edge 40+, or Safari 12+ installed.
+
+There is no student prep work required prior to the workshop.
+
+## Presentation Deck
+
+- [Google Slides](https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing) - For Red Hat employees
+
+## Lab provisioner
+
+All labs can be provisioned on the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog). They can be provisioned separately with the links of each individual lab below or together on the [multi-asset workshop section](https://catalog.demo.redhat.com/multi-workshop/).
+
+## Lab Index (Estimate total time ⏱️ 90 minutes)
+
+<table>
+<thead>
+<tr>
+<th>Activity</th>
 <th>Link</th>
 <th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Get started with ansible-builder</td>
-<td>Install ansible-builder v3 and learn how to create custom execution environments.</td>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Lab 1: Get started with ansible-builder</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=ansible+builder&item=zt-ansiblebu.zt-ans-bu-ansible-builder.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 30 minutes</td>
 </tr>
 <tr>
-<td>Get started with Ansible Lightspeed with IBM watsonx Code Assistant</td>
-<td>Learn how to configure, activate, and use Ansible Lightspeed to generate Ansible content.</td>
+<td><b>Slides</b>: Introduction to Ansible Lightspeed with IBM watsonx Code Assistant</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Lab 2: Get started with Ansible Lightspeed with IBM watsonx Code Assistant</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=lightspeed&item=zt-ansiblebu.zt-ans-lightspeed-101.prod">🚀 Launch Lab</a></td>
-  <!-- NOTE: This Lightspeed lab is deprecated and the commercial lab requires Red Hat supervision-->
 <td>⏱️ 30 minutes</td>
 </tr>
 </tbody>
 </table>
+
+## Supplemental Lab
+
+<table>
+<thead>
+<tr>
+<th>Lab Title</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sign and verify projects with Red Hat Ansible Automation Platform</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=sign+and+verify&item=zt-ansiblebu.zt-ans-bu-verify-sign.prod">🚀 Launch Lab</a></td>
+<td>⏱️ 45 minutes</td>
+</tr>
+</tbody>
+</table>
+
+## Demos
+
+Any of the individual labs (that make up the workshop) can be used as a standalone demo.
+
+# Learning Resources
+
+- [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
+
+## Documentation
+
+- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
 
 # Going Further
 

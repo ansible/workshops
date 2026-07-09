@@ -2,67 +2,101 @@
 
 > **IMPORTANT TO NOTE** 
 > 
-> This is the 90 minute version of this workshop.  For the longer 4-hour session please [🔬 click here](eda-4.md)
+> This is the 90 minute version of this workshop.  For the longer 4-hour session please [🔬 click here](eda-4)
 >
 
-As a part of Red Hat® Ansible® Automation Platform, Event-Driven Ansible can process events containing discrete intelligence about conditions in the IT environment, determine the appropriate response to the event, then execute automated actions to address or remediate the event. This workshop will demonstrate Event-Driven Ansible and how it provides the event-handling capability needed to automate time-consuming tasks and respond to changing conditions in any IT domain. 
+As a part of Red Hat Ansible Automation Platform, Event-Driven Ansible can process events containing discrete intelligence about conditions in the IT environment, determine the appropriate response to the event, then execute automated actions to address or remediate the event. This workshop will demonstrate Event-Driven Ansible and how it provides the event-handling capability needed to automate time-consuming tasks and respond to changing conditions in any IT domain.
 
-During this workshop, we will walk through the basics of EDA (Event-Driven Ansible) covering fundamentals such as sources, rules, and actions and the corresponding technology and implementation through Ansible Rulebook CLI, rulebooks, source plugins, and EDA content collections.  This workshop requires students to have beginner-level knowledge of command-line Ansible, Visual Studio Code, and Git.
+During this workshop, we will walk through the basics of EDA (Event-Driven Ansible) covering fundamentals such as sources, rules, and actions and the corresponding technology and implementation through Ansible Rulebook CLI, rulebooks, source plugins, and EDA content collections. This workshop requires students to have beginner-level knowledge of command-line Ansible, Visual Studio Code, and Git.
+
+## Workshop Resources
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workshop content and exercises</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/exercises/instruqt/eda">labs.demoredhat.com/exercises/instruqt/eda</a></td>
+</tr>
+<tr>
+<td>Follow-up assets</td>
+<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1Ct4mhnnsIfkvynnPN5ApbOQQ1OS0kgd4g8Zih9cw9tA/edit?usp=sharing">Follow-up assets spreadsheet</a></td>
+</tr>
+<tr>
+<td>Post-event survey</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1qUISl1h5u8H9_XlRhA0NkSo0ODeb9JB3u-tvek09Q9k/edit?usp=sharing">Post-event survey</a></td>
+</tr>
+<tr>
+<td>Certain registration page &amp; promotional email copy</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1Ek2BnNxNQc_CRSmpwmfXM99dlHd7f1m6tPC7FC_kkhg/edit?usp=sharing">Registration page &amp; promotional email copy</a></td>
+</tr>
+<tr>
+<td>Presenter instructions and guide</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/webpages/eda">Presenter instructions and guide</a></td>
+</tr>
+<tr>
+<td>Certain event banners</td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/12vUy6_tO_pVEN-hbGknDSWBWge4Z7L0V?usp=sharing">Event banners (Google Drive)</a></td>
+</tr>
+</tbody>
+</table>
+
+## Who is this workshop best for?
+
+Advanced Ansible users and SREs would benefit from this workshop. The workshop introduces the domain of observability and automation.
+
+## Target audience
+
+Automation specialists and site reliability engineers.
+
+## Attendee Prerequisites
+
+* Experience with building Ansible Playbooks and working with Ansible Automation Platform
+* Basic understanding of Git and source control
 
 ## Presentation Deck
 
 - [PDF](decks/lab-eda-gitops.pdf) - For everyone
 - [Google Slides](https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing) - For Red Hat employees
 
-# Agenda
+## Lab provisioner
 
-Recommended agenda for when there is an instructor teaching.
+This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please email: ansible-tmm@redhat.com.
 
-<table>
-<tbody>
-<tr>
-<td><b>Slides</b>: Introduction + Workshp Brief</td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td><b>Lab1</b>: Getting Started with Event-Driven Ansible</td>
-<td>⏱️ 25 minutes</td>
-</tr>
-<tr>
-<td><b>Slides</b>: Lab Brief for Lab2</td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td><b>Lab2</b>: Getting Started with EDA Controller</td>
-<td>⏱️ 40 minutes</td>
-</tr>
-</tbody>
-</table>
-
-**Total Time**: 1.5 hours (90 minutes)
-
-## Lab Index
+## Lab Index (Estimate total time ⏱️ 90 minutes)
 
 <table>
 <thead>
 <tr>
-<th>Lab Title</th>
-<th>Description</th>
+<th>Activity</th>
 <th>Link</th>
 <th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Getting Started with Event-Driven Ansible</td>
-<td>Learn about the fundamental components of Event-Driven Ansible and go through some examples</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=get+started+with+event-driven&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-ansible-rulebook.prod">🚀 Launch Lab</a></td>
+<td><b>Slides</b>: Introduction + Workshop Brief</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Lab 1: Getting Started with Event-Driven Ansible</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/eda--ansible-rulebook?token=em_kn8hibVNgt0X03wZ">🚀 Launch Lab</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 <tr>
-<td>Getting Started with EDA Controller</td>
-<td>Learn how to adopt EDA into your organization with EDA Controller, which integrates into the Ansible Automation Platform with a webUI</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=event-driven+ansible+control&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-controller.prod">🚀 Launch Lab</a></td>
+<td><b>Slides</b>: Lab Brief for Lab 2</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Lab 2: Getting Started with EDA Controller</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/getting-started-eda-controller?token=em_pnJ8mV75JMc0MhZN">🚀 Launch Lab</a></td>
 <td>⏱️ 40 minutes</td>
 </tr>
 </tbody>
@@ -82,9 +116,16 @@ Recommended agenda for when there is an instructor teaching.
 </thead>
 <tbody>
 <tr>
+<td>Advanced EDA: GitOps with Event-Driven Ansible</td>
+<td>Use Event-Driven Ansible to react to events generated by Git operations.</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/eda-gitops?token=em__C74PAmX2rePq7Kk">🚀 Launch Lab</a></td>
+<td>⏱️ 40 minutes</td>
+<td></td>
+</tr>
+<tr>
 <td>Advanced EDA: Event-Driven Ansible and NetOps (Arista)</td>
 <td>Use Event-Driven Ansible to react to network events as well as work with ChatOps.</td>
-<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=netbo&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-eda-netbox.prod">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/event-driven-netops?token=em_W0qtY5GifN13CZ1a">🚀 Launch Lab</a></td>
 <td>⏱️ 40 minutes</td>
 <td></td>
 </tr>
@@ -97,6 +138,18 @@ Recommended agenda for when there is an instructor teaching.
 </tr>
 </tbody>
 </table>
+
+## Demos
+
+Any of the individual labs (that make up the workshop) can be used as a standalone demo.
+
+# Learning Resources
+
+- [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
+
+## Documentation
+
+- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
 
 # Going Further
 

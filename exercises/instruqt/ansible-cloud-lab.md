@@ -6,6 +6,54 @@ This self-paced lab will demonstrate how Ansible Automation Platform can help yo
 > 
 > You will have the option to use **Microsoft Azure** or **Amazon Web Services (AWS)** for each exercise.
 
+> **IMPORTANT TO NOTE:** This is NOT a deep dive, in the weeds, advanced workshop — it's an introduction.
+
+## Workshop Resources
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workshop content and exercises</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/webpages/ansible-cloud-lab">labs.demoredhat.com/webpages/ansible-cloud-lab</a></td>
+</tr>
+<tr>
+<td>Certain registration page &amp; promotional email copy</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1kX_pI-Ono1_ob9R3zXQ-HSI-kqTJErYMBaKzXCyVosw/edit?usp=sharing">Registration page &amp; promotional email copy</a></td>
+</tr>
+<tr>
+<td>Presenter instructions and guide</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/webpages/ansible-cloud-lab">Presenter instructions and guide</a></td>
+</tr>
+<tr>
+<td>Certain event banners</td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/17P9yNwk74yzkH_59Fpv0fRRMLezwm8xO?usp=sharing">Event banners (Google Drive)</a></td>
+</tr>
+</tbody>
+</table>
+
+## Who is this workshop best for?
+
+This workshop is intended for people who want to learn the basics of cloud automation. This workshop will demonstrate how Ansible Automation Platform can help you orchestrate, operationalize and govern your hybrid cloud environments. This workshop is a first step before the [Red Hat Ansible Automation Platform on AWS workshop](https://source.redhat.com/departments/marketing/globalcampaignsteamgtc/automation/automation_wiki/it_automation_technical_workshop__red_hat_ansible_automation_platform_on_aws).
+
+## Target audience
+
+Cloud Operators, SREs, System Administrators.
+
+If you need help with understanding cloud personas please refer to the [How to have a hybrid cloud automation discussion](https://docs.google.com/presentation/d/1HhvqXkHwqYRwNhaznUhAZ-4J4f7TJ4PMD-M43vIEW2U/edit?usp=sharing) presentation.
+
+## Attendee Prerequisites
+
+* A basic understanding of working with Linux systems
+* Must bring/use a laptop with Chrome 73+, Firefox 60+, Edge 40+, or Safari 12+ installed
+
+There is no student prep work required prior to the workshop.
+
 ## Presentation Deck
 
 - [Google Slides](https://docs.google.com/presentation/d/1LNzCv16dZ9nNDrfEY-wOMd1jYAZMZlIcla_fUJLsq0U/edit?usp=sharing) - For Red Hat employees
@@ -15,28 +63,77 @@ Optional module **Terraforming Clouds with Ansible** deck:
 - [Google Slides](https://docs.google.com/presentation/d/1LNzCv16dZ9nNDrfEY-wOMd1jYAZMZlIcla_fUJLsq0U/edit?usp=sharing) - For Red Hat employees
 - [PDF](decks/lab-terraforming-clouds-with-ansible.pdf) - For everyone
 
-## Lab Agenda
+## Lab provisioner
 
-- **Infrastructure visibility** [Estimated Time ⏰ 20 minutes]  
-  <br>In this lab we will illustrate how we can retrieve Ansible facts (key, value pairs), also known as structured data, from public clouds and how we can use this data to provide us awareness of our cloud footprint easily
-    - <a href="https://catalog.demo.redhat.com/catalog?search=infrastructure+visibility&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-cloud-visibility-25.prod" target="_blank" rel="noopener noreferrer">Start exercise on AWS</a>
-    - <a href="https://catalog.demo.redhat.com/catalog?search=infrastructure+visibility&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-cloud-azure-visibility-aap.prod" target="_blank" rel="noopener noreferrer">Start exercise on Azure</a>
+This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please email: ansible-tmm@redhat.com. There will be a cost charged back to the event.
 
-- **Cloud Operations** [Estimated Time ⏰ 20 minutes]  
-  <br>This lab will illustrate how Ansible Automation Platform can help you automate common day-2 cloud operations tasks across your public cloud. Our focus here will be on AWS, but the use cases here are ones you can extend across the hybrid cloud.
-    - <a href="https://catalog.demo.redhat.com/catalog?search=cloud+operations&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-cloud-operations-25.prod" target="_blank" rel="noopener noreferrer">Start exercise on AWS</a>
-    - <a href="https://catalog.demo.redhat.com/catalog?search=cloud+operations&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-azure-operations-aap.prod" target="_blank" rel="noopener noreferrer">Start exercise on Azure</a>
+## Lab Index (Estimate total time ⏱️ 90 minutes)
 
-- **Infrastructure optimization** [Estimated Time ⏰ 20 minutes]  
-  <br>In this lab we will guide you in understanding some basic optimization exercises that can help you tame your public clouds.
-    - <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=cloud+optimization&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-cloud-optimization-25.prod" target="_blank" rel="noopener noreferrer">Start exercise on AWS</a>
-    - <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=cloud+optimization&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-cloud-azure-optimization-aap.prod" target="_blank" rel="noopener noreferrer">Start exercise on Azure</a>
+<table>
+<thead>
+<tr>
+<th>Activity</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Slides</b>: Introduction + Workshop Brief (slides 1–16)</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1LNzCv16dZ9nNDrfEY-wOMd1jYAZMZlIcla_fUJLsq0U/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Lab: Infrastructure visibility</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/cloud-visibility?token=em_IYvE6P3BoPg-Fo50">🚀 AWS</a> | <a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/ansible-for-azure-infrastructure-visibility?token=em_b_TKcpWZfvC6Jbwe">🚀 Azure</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Lab Brief (slides 17–23)</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1LNzCv16dZ9nNDrfEY-wOMd1jYAZMZlIcla_fUJLsq0U/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 6 minutes</td>
+</tr>
+<tr>
+<td>Lab: Cloud Operations</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/cloud-operations?token=em_785MP3rpLI7oAW1Y">🚀 AWS</a> | <a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/ansible-for-azure-cloud-operations?token=em_Iea3nZSewDSNZBW7">🚀 Azure</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Lab Brief (slides 24–31)</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1LNzCv16dZ9nNDrfEY-wOMd1jYAZMZlIcla_fUJLsq0U/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 6 minutes</td>
+</tr>
+<tr>
+<td>Lab: Infrastructure optimization</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/cloud-optimization?token=em_0h2ed0VTvBXyHNA6">🚀 AWS</a> | <a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/ansible-for-azure-infrastructure-optimization?token=em_habXtbTR9H2f9QWd">🚀 Azure</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Close Out (slides 32–34)</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1LNzCv16dZ9nNDrfEY-wOMd1jYAZMZlIcla_fUJLsq0U/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 3 minutes</td>
+</tr>
+</tbody>
+</table>
 
-  
-Optional Lab  
-- <a href="https://catalog.demo.redhat.com/catalog?search=terraform+automat&item=babylon-catalog-prod%2Fzt-ansiblebu.zt-ans-bu-terraform-aap.prod" target="_blank" rel="noopener noreferrer">Terraforming Clouds with Ansible</a> [Estimated Time ⏰ 60 minutes]  
-  <br>In this lab we explore the basics of Terraform and how we can use it to deploy infrastructure. We then take it up a level by introducing Ansible's Automation controller and simplify the creation of this infrastructure as well as bring the all important post-provisioning tasks which we all need to do when infrastructure is being configured. This lab will get you creating infrastructure with Terraform and Automation controller in no time
+## Optional Lab
 
+<table>
+<thead>
+<tr>
+<th>Lab Title</th>
+<th>Link</th>
+<th>Estimated Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Terraforming Clouds with Ansible</td>
+<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/terraform-ansible?token=em_9xhy_e8tyoPKFdab">🚀 Launch Lab</a></td>
+<td>⏱️ 60 minutes</td>
+</tr>
+</tbody>
+</table>
 
 ## Lab Diagram AWS
 
@@ -46,12 +143,26 @@ Optional Lab
 
 <img src="https://ipvsean.github.io/instruqt/webpages/img/azure_diagram.png" width="600px">
 
+## Demos
+
+Any of the individual labs (that make up the workshop) can be used as a standalone demo.
+
+# Learning Resources
+
+- [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
+- [Hybrid Cloud Automation slides](https://ansible.github.io/slides/#hybrid-cloud-automation)
+
+## Documentation
+
+- [https://labs.demoredhat.com/webpages/ansible-cloud-lab](https://labs.demoredhat.com/webpages/ansible-cloud-lab)
+- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
+
 # Free e-books
 
 - [Automate your hybrid cloud at scale](https://www.redhat.com/en/engage/automate-hybrid-cloud-20221006)
 - [Connect your hybrid cloud environment with IT automation](https://www.redhat.com/en/engage/hybrid-cloud-environment-20220412)
-- [Using automation to get the most from your public cloud	](https://www.redhat.com/en/engage/automation-public-cloud-20221014)
-- 
+- [Using automation to get the most from your public cloud](https://www.redhat.com/en/engage/automation-public-cloud-20221014)
+
 # Ansible Workshop
 
 This is an official Ansible Workshop

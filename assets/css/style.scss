@@ -931,6 +931,31 @@ b {
   min-height: 20px;
 }
 
+.cards-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.cards-section {
+  width: 100%;
+}
+
+.cards-section__heading {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #151515;
+  margin: 28px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #ee0000;
+}
+
+.cards-section:first-child .cards-section__heading {
+  margin-top: 0;
+}
+
 .cards-gallery {
   margin: 0;
   padding: 0;

@@ -76,6 +76,12 @@ patternfly: true
         <input type="checkbox" value="nontmm"> Non TMM
       </label>
     </div>
+    <div class="cards-sidebar__section" data-filter-group="availability">
+      <h4 class="cards-sidebar__title">Availability</h4>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="public"> Public
+      </label>
+    </div>
   </aside>
 
   <div class="cards-main">
@@ -195,6 +201,18 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Writing automation with Ansible development tools in VS Code</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Writing automation with Ansible development tools in Visual Studio Code.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
 
       <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.rhdh-ansible-demo.prod" class="card-link" data-tags="developer,lab,under60min,tmm">
         <div class="pf-v6-c-card">
@@ -206,8 +224,19 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Plug-ins for Red Hat Developer Hub Demo</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible plug-ins for Red Hat Developer Hub demo environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
 
-      <a href="./exercises/instruqt/ansible-builder" class="card-link" data-tags="developer,lab,under60min,tmm">
+      <a href="./exercises/instruqt/ansible-builder" class="card-link" data-tags="developer,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -217,6 +246,19 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Get started with ansible-builder</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Get started with ansible-builder for creating custom execution environments.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884763','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
 
       <a href="./exercises/instruqt/lightspeed-101" class="card-link" data-tags="developer,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
@@ -229,14 +271,13 @@ patternfly: true
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Writing automation with Ansible development tools in VS Code</h3>
+            <h3 class="pf-v6-c-card__title-text">Intro into Ansible Lightspeed with IBM watsonx Code Assistant</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Writing automation with Ansible development tools in Visual Studio Code.
+            Introduction to Ansible Lightspeed with IBM watsonx Code Assistant for AI-powered content creation.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
@@ -379,7 +420,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/windows-ad" class="card-link" data-tags="windows,lab,under60min,tmm">
+      <a href="./exercises/instruqt/windows-ad" class="card-link" data-tags="windows,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -397,6 +438,8 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884845','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
@@ -477,7 +520,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-first-playbook" class="card-link" data-tags="network,lab,under60min,tmm">
+      <a href="./exercises/instruqt/network-first-playbook" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -495,11 +538,13 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884830','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-backup-restore" class="card-link" data-tags="network,lab,under60min,tmm">
+      <a href="./exercises/instruqt/network-backup-restore" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -517,11 +562,13 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884831','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-resource-modules" class="card-link" data-tags="network,lab,under60min,tmm">
+      <a href="./exercises/instruqt/network-resource-modules" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -539,11 +586,13 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884832','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-surveys" class="card-link" data-tags="network,lab,under60min,tmm">
+      <a href="./exercises/instruqt/network-surveys" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -561,11 +610,13 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884835','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-facts" class="card-link" data-tags="network,lab,under60min,tmm">
+      <a href="./exercises/instruqt/network-facts" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -583,11 +634,13 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884833','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-visibility" class="card-link" data-tags="network,lab,under60min,tmm">
+      <a href="./exercises/instruqt/network-visibility" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -605,6 +658,8 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884834','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
@@ -733,6 +788,18 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Day 2 Ops</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Automation with OpenShift Virtualization. Activities we can perform with OpenShift Virtualization and AAP.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
 
       <a href="./exercises/instruqt/mig-factory" class="card-link" data-tags="virt,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
@@ -745,14 +812,13 @@ patternfly: true
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Day 2 Ops</h3>
+            <h3 class="pf-v6-c-card__title-text">OpenShift Virtualization Migration Factory Demo</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Automation with OpenShift Virtualization. Activities we can perform with OpenShift Virtualization and AAP.
+            OpenShift Virtualization Migration Factory demonstration environment.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
@@ -775,6 +841,18 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automation Platform on Azure - Open Env</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Automation Platform on Microsoft Azure open environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
 
       <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.open-environment-aws-aap2.prod" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
         <div class="pf-v6-c-card">
@@ -786,6 +864,18 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automation Platform on AWS - Open Env</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Automation Platform on Amazon Web Services open environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
 
       <a href="./exercises/instruqt/hashicorp-aap" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
         <div class="pf-v6-c-card">
@@ -797,6 +887,18 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">AAP and HashiCorp: Terraform, Vault and AAP</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Automation Platform and HashiCorp integration with Terraform and Vault.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
 
       <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fgcp-gpte.open-environment-gcp-aap2.prod" class="card-link" data-tags="cloud,lab,under60min,tmm">
         <div class="pf-v6-c-card">
@@ -808,8 +910,19 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automation Platform on GCP - Open Env</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Automation Platform on Google Cloud Platform open environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
 
-      <a href="./exercises/instruqt/cloud-azure-visibility" class="card-link" data-tags="cloud,lab,under60min,tmm">
+      <a href="./exercises/instruqt/cloud-azure-visibility" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -819,8 +932,21 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Infrastructure visibility on Microsoft Azure</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Infrastructure visibility and management on Microsoft Azure with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884777','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
 
-      <a href="./exercises/instruqt/cloud-operations-aws" class="card-link" data-tags="cloud,lab,under60min,tmm">
+      <a href="./exercises/instruqt/cloud-operations-aws" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -830,8 +956,21 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Cloud operations on AWS (IaC)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Cloud operations and Infrastructure as Code on AWS with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884774','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
 
-      <a href="./exercises/instruqt/cloud-optimization-aws" class="card-link" data-tags="cloud,lab,under60min,tmm">
+      <a href="./exercises/instruqt/cloud-optimization-aws" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -841,8 +980,21 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Infrastructure optimization on AWS</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Infrastructure optimization and cost management on AWS with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884775','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
 
-      <a href="./exercises/instruqt/cloud-visibility-advanced" class="card-link" data-tags="cloud,lab,under60min,tmm">
+      <a href="./exercises/instruqt/cloud-visibility-advanced" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -852,8 +1004,21 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Infrastructure visibility on Microsoft Azure (Advanced)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Advanced infrastructure visibility on Microsoft Azure with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884773','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
 
-      <a href="./exercises/instruqt/cloud-azure-optimization" class="card-link" data-tags="cloud,lab,under60min,tmm">
+      <a href="./exercises/instruqt/cloud-azure-optimization" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -863,8 +1028,21 @@ patternfly: true
               </span>
             </span>
           </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Infrastructure optimization (Advanced)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Advanced infrastructure optimization across hybrid cloud with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884829','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
 
-      <a href="./exercises/instruqt/cloud-azure-operations" class="card-link" data-tags="cloud,lab,under60min,tmm">
+      <a href="./exercises/instruqt/cloud-azure-operations" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -882,6 +1060,8 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884828','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
@@ -894,7 +1074,7 @@ patternfly: true
         <h2 class="cards-section__heading">General</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/servicenow" class="card-link" data-tags="general,workshop,60to90min,tmm">
+      <a target="_blank" href="./exercises/instruqt/servicenow" class="card-link" data-tags="general,workshop,60to90min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -913,6 +1093,8 @@ patternfly: true
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884768','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
@@ -1028,7 +1210,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ansible-navigator" class="card-link" data-tags="general,lab,under60min,tmm">
+      <a href="./exercises/instruqt/ansible-navigator" class="card-link" data-tags="general,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -1046,11 +1228,13 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884762','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/automation-controller" class="card-link" data-tags="general,lab,2plushours,tmm">
+      <a href="./exercises/instruqt/automation-controller" class="card-link" data-tags="general,lab,2plushours,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -1068,6 +1252,8 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884764','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
           </div>
         </div>
       </a>

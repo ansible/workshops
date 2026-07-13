@@ -1,5 +1,10 @@
 # Getting Started with Ansible Development Tools in VS Code
 
+> **IMPORTANT TO NOTE**
+>
+> This is the shorter version of this workshop (~2 hours). For the extended session please [🔬 click here](dev-tools-extended)
+>
+
 This hands-on workshop teaches you to create, test, and package Ansible content using the full suite of Ansible development tools inside Visual Studio Code. You'll scaffold a collection, write a custom module, lint and test your automation with Molecule and pytest-ansible, build an execution environment, and sign your content for supply-chain security.
 
 > **IMPORTANT TO NOTE:** This is NOT a deep dive, in the weeds, advanced workshop — it's an introduction.

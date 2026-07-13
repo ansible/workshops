@@ -813,18 +813,41 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                60-90 Min
+                2-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Writing automation with Ansible development tools in VS Code</h3>
+            <h3 class="pf-v6-c-card__title-text">Ansible Development Tools in VS Code</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Writing automation with Ansible development tools in Visual Studio Code.
+            Condensed workshop for creating, testing, and packaging Ansible content with development tools in VS Code.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/instruqt/dev-tools-extended" class="card-link" data-tags="developer,workshop,lab,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                3-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Introduction to Ansible Development Tools</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Comprehensive workshop covering the full Ansible content development lifecycle with OpenShift Dev Spaces.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>

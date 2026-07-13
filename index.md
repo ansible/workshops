@@ -457,28 +457,6 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ansible-navigator" class="card-link" data-tags="general,lab,under60min,tmm">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-cyan">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                Under 60 Min
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Get Started ansible-navigator</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Get started with ansible-navigator for running and developing Ansible content.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
-          </div>
-        </div>
-      </a>
-
       <a href="./exercises/instruqt/automation-controller" class="card-link" data-tags="general,lab,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
@@ -741,46 +719,48 @@ patternfly: true
         <h2 class="cards-section__heading">Developer</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.rhdh-ansible-demo.prod" class="card-link" data-tags="developer,lab,under60min,tmm">
+      <a href="./exercises/instruqt/dev-tools" class="card-link" data-tags="developer,workshop,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-cyan">
+            <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                Under 60 Min
+                2-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible Plug-ins for Red Hat Developer Hub Demo</h3>
+            <h3 class="pf-v6-c-card__title-text">Ansible Development Tools Workshop</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Ansible plug-ins for Red Hat Developer Hub demo environment.
+            Create, test, and package Ansible collections using the DevTools suite in a pre-provisioned VS Code environment.
           </div>
           <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ansible-builder" class="card-link" data-tags="developer,lab,under60min,tmm">
+      <a href="./exercises/instruqt/dev-tools-extended" class="card-link" data-tags="developer,workshop,lab,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-cyan">
+            <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                Under 60 Min
+                3-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Get started with ansible-builder</h3>
+            <h3 class="pf-v6-c-card__title-text">Ansible Development Tools Workshop (Extended)</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Get started with ansible-builder for creating custom execution environments.
+            Full DevTools lifecycle using Ansible Workspaces on OpenShift Dev Spaces — create, test, and deploy automation content with the complete ansible-dev-tools suite and VS Code.
           </div>
           <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
@@ -807,48 +787,68 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/dev-tools" class="card-link" data-tags="developer,workshop,lab,60to90min,tmm">
+      <a href="./exercises/instruqt/ansible-navigator" class="card-link" data-tags="developer,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                2-Hour
+                Under 60 Min
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible Development Tools in VS Code</h3>
+            <h3 class="pf-v6-c-card__title-text">Get Started ansible-navigator</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Condensed workshop for creating, testing, and packaging Ansible content with development tools in VS Code.
+            Get started with ansible-navigator for running and developing Ansible content.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
 
-      <a href="./exercises/instruqt/dev-tools-extended" class="card-link" data-tags="developer,workshop,lab,2plushours,tmm">
+      <a href="./exercises/instruqt/ansible-builder" class="card-link" data-tags="developer,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                3-Hour
+                Under 60 Min
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Introduction to Ansible Development Tools</h3>
+            <h3 class="pf-v6-c-card__title-text">Get started with ansible-builder</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Comprehensive workshop covering the full Ansible content development lifecycle with OpenShift Dev Spaces.
+            Get started with ansible-builder for creating custom execution environments.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.rhdh-ansible-demo.prod" class="card-link" data-tags="developer,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Plug-ins for Red Hat Developer Hub Demo</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible plug-ins for Red Hat Developer Hub demo environment.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>

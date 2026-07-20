@@ -197,18 +197,41 @@ patternfly: true
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                60-90 Min
+                2-Hour
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Writing automation with Ansible development tools in VS Code</h3>
+            <h3 class="pf-v6-c-card__title-text">Ansible Development Tools Workshop</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Writing automation with Ansible development tools in Visual Studio Code.
+            Create, test, and package Ansible collections using the DevTools suite in a pre-provisioned VS Code environment.
           </div>
           <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/instruqt/dev-tools-extended" class="card-link" data-tags="developer,workshop,lab,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                3-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Development Tools Workshop (Extended)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Full DevTools lifecycle using Ansible Workspaces on OpenShift Dev Spaces — create, test, and deploy automation content with the complete ansible-dev-tools suite and VS Code.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
             <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>

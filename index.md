@@ -706,7 +706,7 @@ patternfly: true
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Impedance Zero Trust with Ansible Automation Platform</h3>
+            <h3 class="pf-v6-c-card__title-text">Implementing Zero Trust with Ansible Automation Platform</h3>
           </div>
           <div class="pf-v6-c-card__body">
             Implementing Zero Trust security architecture with Ansible Automation Platform.
@@ -726,6 +726,9 @@ patternfly: true
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
                 60-90 Min
               </span>
+            </span>
+            <span class="pf-v6-c-label pf-m-gold pf-m-compact" style="margin-left:8px;">
+              <span class="pf-v6-c-label__content">Proposed</span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">

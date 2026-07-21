@@ -26,7 +26,7 @@ Get started with ansible-navigator for running and developing Ansible content.
 <tr>
 <td>Public Lab</td>
 <td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-ansible-nav.prod">🔬 Public Lab</a></td>
-<td>Launch this lab directly — no Red Hat account needed</td>
+<td>Publicly available — free Red Hat account required</td>
 </tr>
 </tbody>
 </table>

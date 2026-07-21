@@ -26,7 +26,7 @@ Working with Ansible network resource modules for declarative network management
 <tr>
 <td>Public Lab</td>
 <td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.ansible-network-automation-basics-lab-3.prod">🔬 Public Lab</a></td>
-<td>Launch this lab directly — no Red Hat account needed</td>
+<td>Publicly available — free Red Hat account required</td>
 </tr>
 </tbody>
 </table>

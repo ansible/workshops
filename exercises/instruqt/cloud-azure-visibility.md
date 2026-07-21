@@ -26,7 +26,7 @@ Infrastructure visibility and management on Microsoft Azure with Ansible.
 <tr>
 <td>Public Lab</td>
 <td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-cloud-azure-visibility-aap.prod">🔬 Public Lab</a></td>
-<td>Launch this lab directly — no Red Hat account needed</td>
+<td>Publicly available — free Red Hat account required</td>
 </tr>
 </tbody>
 </table>

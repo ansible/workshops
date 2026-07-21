@@ -26,7 +26,7 @@ Get started with the Automation Controller web UI and key concepts.
 <tr>
 <td>Public Lab</td>
 <td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-automation-controller.prod">🔬 Public Lab</a></td>
-<td>Launch this lab directly — no Red Hat account needed</td>
+<td>Publicly available — free Red Hat account required</td>
 </tr>
 </tbody>
 </table>

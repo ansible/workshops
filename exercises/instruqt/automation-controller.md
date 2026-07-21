@@ -23,6 +23,11 @@ Get started with the Automation Controller web UI and key concepts.
 <td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-intro-controller-aap25/modules/module-01.html">📖 View Showroom</a></td>
 <td>Browse the lab instructions and exercises</td>
 </tr>
+<tr>
+<td>Public Lab</td>
+<td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-automation-controller.prod">🔬 Public Lab</a></td>
+<td>Publicly available — free Red Hat account required</td>
+</tr>
 </tbody>
 </table>
 

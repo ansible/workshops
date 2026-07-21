@@ -23,6 +23,11 @@ Get started with ansible-navigator for running and developing Ansible content.
 <td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-ansible-nav/modules/index.html">📖 View Showroom</a></td>
 <td>Browse the lab instructions and exercises</td>
 </tr>
+<tr>
+<td>Public Lab</td>
+<td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-ansible-nav.prod">🔬 Public Lab</a></td>
+<td>Publicly available — free Red Hat account required</td>
+</tr>
 </tbody>
 </table>
 

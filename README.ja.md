@@ -97,7 +97,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/eda" class="card-link" data-tags="90-minute">
+      <a target="_blank" href="./exercises/eda" class="card-link" data-tags="90-minute">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -119,7 +119,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/ansible-cloud-lab" class="card-link" data-tags="90-minute">
+      <a target="_blank" href="exercises/ansible-cloud-lab" class="card-link" data-tags="90-minute">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -141,7 +141,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/lightspeed" class="card-link" data-tags="90-minute">
+      <a target="_blank" href="exercises/lightspeed" class="card-link" data-tags="90-minute">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -163,7 +163,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/network" class="card-link" data-tags="90-minute,cisco">
+      <a target="_blank" href="exercises/network" class="card-link" data-tags="90-minute,cisco">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -208,7 +208,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/servicenow" class="card-link" data-tags="90-minute,servicenow">
+      <a target="_blank" href="exercises/servicenow" class="card-link" data-tags="90-minute,servicenow">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -231,7 +231,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/windows" class="card-link" data-tags="90-minute,microsoft">
+      <a target="_blank" href="exercises/windows" class="card-link" data-tags="90-minute,microsoft">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -256,7 +256,7 @@ patternfly: true
 
       <!-- 4時間ワークショップ -->
 
-      <a target="_blank" href="./exercises/instruqt/eda-4" class="card-link" data-tags="4-hour">
+      <a target="_blank" href="./exercises/eda-4" class="card-link" data-tags="4-hour">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-blue">
@@ -278,7 +278,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/lightspeed-4" class="card-link" data-tags="4-hour">
+      <a target="_blank" href="exercises/lightspeed-4" class="card-link" data-tags="4-hour">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-blue">
@@ -300,7 +300,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/aapcasc-4" class="card-link" data-tags="4-hour">
+      <a target="_blank" href="exercises/aapcasc-4" class="card-link" data-tags="4-hour">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-blue">

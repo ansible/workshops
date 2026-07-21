@@ -94,7 +94,7 @@ patternfly: true
         <h2 class="cards-section__heading">Getting Started</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a href="./exercises/instruqt/day-in-the-life" class="card-link" data-tags="gettingstarted,workshop,2plushours,tmm">
+      <a href="./exercises/day-in-the-life" class="card-link" data-tags="gettingstarted,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -117,7 +117,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/roadshow01" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
+      <a href="./exercises/roadshow01" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -139,7 +139,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/roadshow02" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
+      <a href="./exercises/roadshow02" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -161,7 +161,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/roadshow03" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
+      <a href="./exercises/roadshow03" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -191,7 +191,7 @@ patternfly: true
         <h2 class="cards-section__heading">Developer</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a href="./exercises/instruqt/dev-tools" class="card-link" data-tags="developer,workshop,lab,60to90min,tmm">
+      <a href="./exercises/dev-tools" class="card-link" data-tags="developer,workshop,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -214,7 +214,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/dev-tools-extended" class="card-link" data-tags="developer,workshop,lab,2plushours,tmm">
+      <a href="./exercises/dev-tools-extended" class="card-link" data-tags="developer,workshop,lab,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -259,7 +259,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ansible-builder" class="card-link" data-tags="developer,lab,under60min,tmm,public">
+      <a href="./exercises/ansible-builder" class="card-link" data-tags="developer,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -283,7 +283,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/lightspeed-101" class="card-link" data-tags="developer,lab,60to90min,tmm">
+      <a href="./exercises/lightspeed-101" class="card-link" data-tags="developer,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -313,7 +313,7 @@ patternfly: true
         <h2 class="cards-section__heading">AI</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/ai-ansible" class="card-link" data-tags="ai,workshop,2plushours,tmm">
+      <a target="_blank" href="./exercises/ai-ansible" class="card-link" data-tags="ai,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -344,7 +344,7 @@ patternfly: true
         <h2 class="cards-section__heading">Linux</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/rhel" class="card-link" data-tags="linux,workshop,2plushours,tmm">
+      <a target="_blank" href="./exercises/rhel" class="card-link" data-tags="linux,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -367,7 +367,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/rhel-90" class="card-link" data-tags="linux,workshop,60to90min,tmm">
+      <a target="_blank" href="./exercises/rhel-90" class="card-link" data-tags="linux,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -390,7 +390,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ripu" class="card-link" data-tags="linux,lab,2plushours,nontmm">
+      <a href="./exercises/ripu" class="card-link" data-tags="linux,lab,2plushours,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -420,7 +420,7 @@ patternfly: true
         <h2 class="cards-section__heading">Windows</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/windows" class="card-link" data-tags="windows,workshop,60to90min,tmm">
+      <a target="_blank" href="./exercises/windows" class="card-link" data-tags="windows,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -443,7 +443,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/windows-ad" class="card-link" data-tags="windows,lab,under60min,tmm,public">
+      <a href="./exercises/windows-ad" class="card-link" data-tags="windows,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -475,7 +475,7 @@ patternfly: true
         <h2 class="cards-section__heading">Network</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/network-6" class="card-link" data-tags="network,workshop,2plushours,tmm">
+      <a target="_blank" href="./exercises/network-6" class="card-link" data-tags="network,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -498,7 +498,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/network" class="card-link" data-tags="network,workshop,60to90min,tmm">
+      <a target="_blank" href="./exercises/network" class="card-link" data-tags="network,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -521,7 +521,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/eda-netbox" class="card-link" data-tags="network,lab,60to90min,tmm">
+      <a href="./exercises/eda-netbox" class="card-link" data-tags="network,lab,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -543,7 +543,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-first-playbook" class="card-link" data-tags="network,lab,under60min,tmm,public">
+      <a href="./exercises/network-first-playbook" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -567,7 +567,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-backup-restore" class="card-link" data-tags="network,lab,under60min,tmm,public">
+      <a href="./exercises/network-backup-restore" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -591,7 +591,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-resource-modules" class="card-link" data-tags="network,lab,under60min,tmm,public">
+      <a href="./exercises/network-resource-modules" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -615,7 +615,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-surveys" class="card-link" data-tags="network,lab,under60min,tmm,public">
+      <a href="./exercises/network-surveys" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -639,7 +639,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-facts" class="card-link" data-tags="network,lab,under60min,tmm,public">
+      <a href="./exercises/network-facts" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -663,7 +663,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/network-visibility" class="card-link" data-tags="network,lab,under60min,tmm,public">
+      <a href="./exercises/network-visibility" class="card-link" data-tags="network,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -695,7 +695,7 @@ patternfly: true
         <h2 class="cards-section__heading">Security</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a href="./exercises/instruqt/zero-trust" class="card-link" data-tags="security,workshop,lab,2plushours,tmm">
+      <a href="./exercises/zero-trust" class="card-link" data-tags="security,workshop,lab,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -804,7 +804,7 @@ patternfly: true
         <h2 class="cards-section__heading">Virt</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/day-2-ops" class="card-link" data-tags="virt,workshop,60to90min,nontmm">
+      <a target="_blank" href="./exercises/day-2-ops" class="card-link" data-tags="virt,workshop,60to90min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -827,7 +827,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/mig-factory" class="card-link" data-tags="virt,lab,under60min,nontmm">
+      <a href="./exercises/mig-factory" class="card-link" data-tags="virt,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -903,7 +903,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/hashicorp-aap" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
+      <a href="./exercises/hashicorp-aap" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -948,7 +948,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-azure-visibility" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+      <a href="./exercises/cloud-azure-visibility" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -972,7 +972,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-operations-aws" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+      <a href="./exercises/cloud-operations-aws" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -996,7 +996,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-optimization-aws" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+      <a href="./exercises/cloud-optimization-aws" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -1020,7 +1020,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-visibility-advanced" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+      <a href="./exercises/cloud-visibility-advanced" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -1044,7 +1044,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-azure-optimization" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+      <a href="./exercises/cloud-azure-optimization" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -1068,7 +1068,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/cloud-azure-operations" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+      <a href="./exercises/cloud-azure-operations" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -1100,7 +1100,7 @@ patternfly: true
         <h2 class="cards-section__heading">General</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/servicenow" class="card-link" data-tags="general,workshop,60to90min,tmm,public">
+      <a target="_blank" href="./exercises/servicenow" class="card-link" data-tags="general,workshop,60to90min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -1125,7 +1125,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/eda" class="card-link" data-tags="general,workshop,60to90min,tmm">
+      <a target="_blank" href="./exercises/eda" class="card-link" data-tags="general,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -1236,7 +1236,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/ansible-navigator" class="card-link" data-tags="general,lab,under60min,tmm,public">
+      <a href="./exercises/ansible-navigator" class="card-link" data-tags="general,lab,under60min,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -1260,7 +1260,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/automation-controller" class="card-link" data-tags="general,lab,2plushours,tmm,public">
+      <a href="./exercises/automation-controller" class="card-link" data-tags="general,lab,2plushours,tmm,public">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -1284,7 +1284,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/adv-controller" class="card-link" data-tags="general,lab,2plushours,nontmm">
+      <a href="./exercises/adv-controller" class="card-link" data-tags="general,lab,2plushours,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-green">
@@ -1328,7 +1328,7 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/instruqt/aap-selfservice" class="card-link" data-tags="general,lab,under60min,tmm">
+      <a href="./exercises/aap-selfservice" class="card-link" data-tags="general,lab,under60min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">
@@ -1358,7 +1358,7 @@ patternfly: true
         <h2 class="cards-section__heading">Events</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/ansible-automates" class="card-link" data-tags="events">
+      <a target="_blank" href="./exercises/ansible-automates" class="card-link" data-tags="events">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-orange">
@@ -1377,7 +1377,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/ansible-automates-events" class="card-link" data-tags="events">
+      <a target="_blank" href="./exercises/ansible-automates-events" class="card-link" data-tags="events">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-orange">
@@ -1396,7 +1396,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/automation-connection" class="card-link" data-tags="events">
+      <a target="_blank" href="./exercises/automation-connection" class="card-link" data-tags="events">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-orange">
@@ -1415,7 +1415,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/automation-everywhere" class="card-link" data-tags="events">
+      <a target="_blank" href="./exercises/automation-everywhere" class="card-link" data-tags="events">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-orange">
@@ -1434,7 +1434,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/automation-roundtable" class="card-link" data-tags="events">
+      <a target="_blank" href="./exercises/automation-roundtable" class="card-link" data-tags="events">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-orange">
@@ -1460,7 +1460,7 @@ patternfly: true
         <h2 class="cards-section__heading">Resources</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="./exercises/instruqt/one-stop-shop" class="card-link" data-tags="resources">
+      <a target="_blank" href="./exercises/one-stop-shop" class="card-link" data-tags="resources">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-gold">
@@ -1479,7 +1479,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/ansible-workshops" class="card-link" data-tags="resources">
+      <a target="_blank" href="./exercises/ansible-workshops" class="card-link" data-tags="resources">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-gold">

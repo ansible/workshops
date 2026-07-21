@@ -9,47 +9,47 @@ Visit the live site at [ansible.github.io/workshops](https://ansible.github.io/w
 
 | Workshop | Description |
 |---|---|
-| [AI + Ansible](./exercises/instruqt/ai-ansible) | Introduction to AI-Driven Ansible Automation & AIOps |
-| [Day 2 Ops](./exercises/instruqt/day-2-ops) | Automation with OpenShift Virtualization |
-| [Event-Driven Ansible](./exercises/instruqt/eda) | EDA fundamentals — sources, rules, and actions |
-| [Cloud Automation](exercises/instruqt/ansible-cloud-lab) | Orchestrate, operationalize and govern hybrid cloud environments |
-| [Ansible Lightspeed](exercises/instruqt/lightspeed) | Ansible Lightspeed and Development Technical Workshop |
-| [Network Automation](exercises/instruqt/network) | Getting Started with Network Automation |
-| [RHEL Automation](./exercises/instruqt/rhel-90) | Ansible Red Hat Enterprise Linux Workshop |
-| [ServiceNow](exercises/instruqt/servicenow) | Getting Started with ServiceNow Automation |
-| [Windows](exercises/instruqt/windows) | Getting Started with Windows Automation |
+| [AI + Ansible](./exercises/ai-ansible) | Introduction to AI-Driven Ansible Automation & AIOps |
+| [Day 2 Ops](./exercises/day-2-ops) | Automation with OpenShift Virtualization |
+| [Event-Driven Ansible](./exercises/eda) | EDA fundamentals — sources, rules, and actions |
+| [Cloud Automation](exercises/ansible-cloud-lab) | Orchestrate, operationalize and govern hybrid cloud environments |
+| [Ansible Lightspeed](exercises/lightspeed) | Ansible Lightspeed and Development Technical Workshop |
+| [Network Automation](exercises/network) | Getting Started with Network Automation |
+| [RHEL Automation](./exercises/rhel-90) | Ansible Red Hat Enterprise Linux Workshop |
+| [ServiceNow](exercises/servicenow) | Getting Started with ServiceNow Automation |
+| [Windows](exercises/windows) | Getting Started with Windows Automation |
 
 ## Events
 
 | Event | Description |
 |---|---|
-| [Ansible Automates](./exercises/instruqt/ansible-automates) | Full-day regional AnsibleFest-style conference |
-| [Ansible Automates Events](./exercises/instruqt/ansible-automates-events) | In-person and virtual event kits |
-| [Automation Connection](./exercises/instruqt/automation-connection) | 3-hour account expansion event |
-| [Automation Everywhere](./exercises/instruqt/automation-everywhere) | 3-hour decision-maker nurturing event |
-| [Automation Roundtable](./exercises/instruqt/automation-roundtable) | Executive peer-to-peer roundtable |
+| [Ansible Automates](./exercises/ansible-automates) | Full-day regional AnsibleFest-style conference |
+| [Ansible Automates Events](./exercises/ansible-automates-events) | In-person and virtual event kits |
+| [Automation Connection](./exercises/automation-connection) | 3-hour account expansion event |
+| [Automation Everywhere](./exercises/automation-everywhere) | 3-hour decision-maker nurturing event |
+| [Automation Roundtable](./exercises/automation-roundtable) | Executive peer-to-peer roundtable |
 
 ## Resources
 
 | Resource | Description |
 |---|---|
-| [ONE-STOP SHOP](./exercises/instruqt/one-stop-shop) | IT Automation workshops and events hub |
-| [Ansible Workshops](./exercises/instruqt/ansible-workshops) | Full workshop catalog from Source |
+| [ONE-STOP SHOP](./exercises/one-stop-shop) | IT Automation workshops and events hub |
+| [Ansible Workshops](./exercises/ansible-workshops) | Full workshop catalog from Source |
 
 ## 4 Hour Workshops
 
 | Workshop | Description |
 |---|---|
-| [Mission-Critical Automation](./exercises/instruqt/mission-critical) | 3.5-hour automation journey with EDA |
-| [Event-Driven Ansible & ServiceNow](./exercises/instruqt/eda-4) | Extended EDA + ServiceNow workshop |
-| [Ansible Lightspeed](exercises/instruqt/lightspeed-4) | Lightspeed and Development Technical Workshop (extended) |
-| [Configuration as Code](exercises/instruqt/aapcasc-4) | CaC for Ansible Automation Platform |
+| [Mission-Critical Automation](./exercises/mission-critical) | 3.5-hour automation journey with EDA |
+| [Event-Driven Ansible & ServiceNow](./exercises/eda-4) | Extended EDA + ServiceNow workshop |
+| [Ansible Lightspeed](exercises/lightspeed-4) | Lightspeed and Development Technical Workshop (extended) |
+| [Configuration as Code](exercises/aapcasc-4) | CaC for Ansible Automation Platform |
 
 ## 6 Hour Workshops
 
 | Workshop | Description |
 |---|---|
-| [RHEL](./exercises/instruqt/rhel) | Ansible Red Hat Enterprise Linux Workshop |
+| [RHEL](./exercises/rhel) | Ansible Red Hat Enterprise Linux Workshop |
 | [Network](./exercises/ansible_network) | Ansible Network Automation Workshop |
 | [Satellite](./exercises/rhdp_auto_satellite) | Ansible + Satellite Workshop |
 | [RIPU](./exercises/ansible_ripu) | RHEL In-place Upgrade Automation Workshop |

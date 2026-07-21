@@ -148,7 +148,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 
 ## Documentation
 
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 
 # Going Further
 
@@ -187,7 +187,7 @@ Additional material for Event-Driven Ansible
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+lightspeed+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+lightspeed+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

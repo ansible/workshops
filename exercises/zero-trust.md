@@ -90,7 +90,7 @@ This workshop provides hands-on experience building a NIST SP 800-207 compliant 
 
 ## Lab provisioner
 
-This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Implementing Zero Trust with Ansible Automation Platform](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-zta-aap.prod&utm_source=webapp&utm_medium=share-link) catalog item. For large events, use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Implementing Zero Trust with Ansible Automation Platform](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-zta-aap.prod&utm_source=webapp&utm_medium=share-link) catalog item.
 
 ## Exercises
 
@@ -145,6 +145,6 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+zero+trust+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+zero+trust+workshop+issue&body=)
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

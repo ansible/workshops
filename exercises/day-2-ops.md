@@ -58,7 +58,7 @@ There is no student prep work required prior to the workshop. A basic understand
 
 ## Lab provisioner
 
-This workshop uses RHDP to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+This workshop uses RHDP to load the labs inside your browser.
 
 ## Lab Index (Estimate total time ⏱️ 2 hours)
 

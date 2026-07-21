@@ -135,7 +135,7 @@ Additional material for Configuration as Code for Ansible Automation Platform 2
 This is an official Ansible Workshop
 
 This workshop is maintained by the [Infra Config as Code Volunteers](https://forum.ansible.com/tag/infra-config-as-code)
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+config+as+code+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+config+as+code+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

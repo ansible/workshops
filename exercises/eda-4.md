@@ -63,7 +63,7 @@ Automation engineers, DevOps engineers, and operations teams looking to automate
 * Attendees must bring/use a laptop with ADMIN rights and the ability to SSH to a lab environment hosted in a public cloud
 * Must bring/use a laptop with Chrome 73+, Firefox 60+, Edge 40+, or Safari 12+ installed
 
-If the student has no Ansible experience, it is recommended, as a prerequisite, to try the free on-demand lab [Introduction to automation controller](https://play.instruqt.com/embed/redhat/tracks/controller-101?token=em_mUfT4xw1TXybXnBr&show_challenges=true). Students would greatly benefit from watching the free training course [Ansible Basics: Automation Technical Overview](https://www.redhat.com/en/services/training/do007-ansible-essentials-simplicity-automation-technical-overview).
+If the student has no Ansible experience, it is recommended, as a prerequisite, to try the free on-demand lab [Introduction to automation controller](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-rhel.zt-ans-bu-automation-controller.prod). Students would greatly benefit from watching the free training course [Ansible Basics: Automation Technical Overview](https://www.redhat.com/en/services/training/do007-ansible-essentials-simplicity-automation-technical-overview).
 
 ## Presentation Deck
 
@@ -73,7 +73,7 @@ If the student has no Ansible experience, it is recommended, as a prerequisite, 
 
 ## Lab provisioner
 
-This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please email: ansible-tmm@redhat.com.
+This workshop uses the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) to load the labs inside your browser.
 
 ## Lab Index (Estimate total time ⏱️ 4 hours)
 
@@ -133,7 +133,7 @@ This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to 
 </tr>
 <tr>
 <td>Lab 5: Get started with ServiceNow automation</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/getting-started-servicenow-automation?token=em_5ktpLJWtzpbqcDyM">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-servicenow.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 60 minutes</td>
 </tr>
 </tbody>
@@ -172,7 +172,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 
 ## Documentation
 
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 
 # Going Further
 
@@ -210,7 +210,7 @@ Additional material for Event-Driven Ansible
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+eda+4hour+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+eda+4hour+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

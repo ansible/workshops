@@ -76,7 +76,7 @@ There is no student prep work required prior to the workshop. It is recommended 
 
 ## Lab provisioner
 
-Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Introduction to Ansible Network Automation Workshop](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.ansible-network-automation-workshop.prod) catalog item and [Instruqt](https://play.instruqt.com/redhat). For large events, use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Introduction to Ansible Network Automation Workshop](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.ansible-network-automation-workshop.prod) catalog item.
 
 ## Lab Index (Estimate total time ⏱️ 90 minutes)
 
@@ -106,7 +106,7 @@ Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.c
 </tr>
 <tr>
 <td>Lab 2: Network automation — Backup and restore</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/network-lab-1?token=em_bkpb1mcbod8qprrg">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-ansible-network-automation-basics-lab-2.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
@@ -116,7 +116,7 @@ Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.c
 </tr>
 <tr>
 <td>Lab 3: Red Hat Ansible Automation Platform for network administrators</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/network-oper-tasks?token=em_sH26Rq5FE7u1WeWC">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-network-lab-2.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 25 minutes</td>
 </tr>
 </tbody>
@@ -176,8 +176,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 
 ## Documentation
 
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
-- [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 
 # Going Further
 
@@ -222,7 +221,7 @@ Additional collateral for network automation:
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+network+automation+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+network+automation+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

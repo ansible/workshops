@@ -695,13 +695,13 @@ patternfly: true
         <h2 class="cards-section__heading">Security</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a href="./exercises/instruqt/zero-trust" class="card-link" data-tags="security,workshop,lab,60to90min,tmm">
+      <a href="./exercises/instruqt/zero-trust" class="card-link" data-tags="security,workshop,lab,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
+            <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                60-90 Min
+                2+ Hours
               </span>
             </span>
           </div>

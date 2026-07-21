@@ -66,6 +66,8 @@ There is no student prep work required prior to the workshop. Students would gre
 
 This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Getting Started with ServiceNow Automation](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-servicenow.prod) catalog item and [Instruqt](https://play.instruqt.com/redhat). If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
 
+This lab is also available as a [🔬 Public Lab](https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-serviceNow.prod) — no Red Hat account needed.
+
 ## Lab Index (Estimate total time ⏱️ 90 minutes)
 
 <table>

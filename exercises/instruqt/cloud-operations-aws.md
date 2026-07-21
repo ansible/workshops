@@ -23,6 +23,11 @@ Cloud operations and Infrastructure as Code on AWS with Ansible.
 <td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-cloud-operations-25/modules/index.html">📖 View Showroom</a></td>
 <td>Browse the lab instructions and exercises</td>
 </tr>
+<tr>
+<td>Public Lab</td>
+<td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-cloud-operations-25.prod">🔬 Public Lab</a></td>
+<td>Launch this lab directly — no Red Hat account needed</td>
+</tr>
 </tbody>
 </table>
 

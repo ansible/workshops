@@ -23,6 +23,11 @@ Gathering and using network device facts with Ansible.
 <td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-network-lab-1/modules/index.html">📖 View Showroom</a></td>
 <td>Browse the lab instructions and exercises</td>
 </tr>
+<tr>
+<td>Public Lab</td>
+<td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.ansible-network-automation-basics-lab-2.prod">🔬 Public Lab</a></td>
+<td>Launch this lab directly — no Red Hat account needed</td>
+</tr>
 </tbody>
 </table>
 

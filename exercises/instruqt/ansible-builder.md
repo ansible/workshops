@@ -23,6 +23,11 @@ Get started with ansible-builder for creating custom execution environments.
 <td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-ansible-builder/modules/index.html">📖 View Showroom</a></td>
 <td>Browse the lab instructions and exercises</td>
 </tr>
+<tr>
+<td>Public Lab</td>
+<td><a target="_blank" href="https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-ansible-builder.prod">🔬 Public Lab</a></td>
+<td>Launch this lab directly — no Red Hat account needed</td>
+</tr>
 </tbody>
 </table>
 

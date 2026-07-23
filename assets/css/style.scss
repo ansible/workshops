@@ -1031,6 +1031,23 @@ b {
   margin-right: 4px;
 }
 
+.cards-intro {
+  margin: 0 0 24px;
+  padding: 0;
+  width: 100% !important;
+}
+
+.cards-intro p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.cards-intro p:last-child {
+  margin-bottom: 0;
+}
+
 .cards-contributing {
   margin: 20px 0 40px;
   padding: 0;

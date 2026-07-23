@@ -85,6 +85,11 @@ patternfly: true
   </aside>
 
   <div class="cards-main">
+    <div class="cards-intro">
+      <p><strong>Workshops</strong> are comprehensive, instructor-led hands-on sessions designed for classroom or event delivery. They typically run 60 minutes to several hours and include presentation decks, guided exercises, and a structured learning path from fundamentals to practical application.</p>
+      <p><strong>Labs</strong> are focused, self-paced hands-on exercises that explore a specific topic or skill. They are shorter (often under 60 minutes) and can be launched individually on the Red Hat Demo Platform without an instructor.</p>
+    </div>
+
     <p id="guide-search-count" class="cards-search__count"></p>
 
     <div class="cards-sections">

@@ -65,7 +65,7 @@ Optional module **Terraforming Clouds with Ansible** deck:
 
 ## Lab provisioner
 
-This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please email: ansible-tmm@redhat.com. There will be a cost charged back to the event.
+This workshop uses the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) to load the labs inside your browser.
 
 ## Lab Index (Estimate total time ⏱️ 90 minutes)
 
@@ -85,7 +85,7 @@ This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to 
 </tr>
 <tr>
 <td>Lab: Infrastructure visibility</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/cloud-visibility?token=em_IYvE6P3BoPg-Fo50">🚀 AWS</a> | <a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/ansible-for-azure-infrastructure-visibility?token=em_b_TKcpWZfvC6Jbwe">🚀 Azure</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-visibility-25.prod">🚀 AWS</a> | <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-azure-visibility-aap.prod">🚀 Azure</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
@@ -95,7 +95,7 @@ This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to 
 </tr>
 <tr>
 <td>Lab: Cloud Operations</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/cloud-operations?token=em_785MP3rpLI7oAW1Y">🚀 AWS</a> | <a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/ansible-for-azure-cloud-operations?token=em_Iea3nZSewDSNZBW7">🚀 Azure</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-operations-25.prod">🚀 AWS</a> | <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-azure-operations-aap.prod">🚀 Azure</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
@@ -105,7 +105,7 @@ This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to 
 </tr>
 <tr>
 <td>Lab: Infrastructure optimization</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/cloud-optimization?token=em_0h2ed0VTvBXyHNA6">🚀 AWS</a> | <a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/ansible-for-azure-infrastructure-optimization?token=em_habXtbTR9H2f9QWd">🚀 Azure</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-optimization-25.prod">🚀 AWS</a> | <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-cloud-azure-optimization-aap.prod">🚀 Azure</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
@@ -129,7 +129,7 @@ This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to 
 <tbody>
 <tr>
 <td>Terraforming Clouds with Ansible</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/terraform-ansible?token=em_9xhy_e8tyoPKFdab">🚀 Launch Lab</a></td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-hashi-aap.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 60 minutes</td>
 </tr>
 </tbody>
@@ -141,7 +141,7 @@ This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to 
 
 ## Lab Diagram Azure
 
-<img src="https://ipvsean.github.io/instruqt/webpages/img/azure_diagram.png" width="600px">
+<img src="img/azure_diagram.png" width="600px">
 
 ## Demos
 
@@ -155,7 +155,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 ## Documentation
 
 - [https://labs.demoredhat.com/webpages/ansible-cloud-lab](https://labs.demoredhat.com/webpages/ansible-cloud-lab)
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 
 # Free e-books
 
@@ -168,7 +168,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+cloud+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+cloud+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

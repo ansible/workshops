@@ -21,7 +21,7 @@ During this workshop, we will walk through the basics of EDA (Event-Driven Ansib
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/instruqt/eda">labs.demoredhat.com/exercises/instruqt/eda</a></td>
+<td><a target="_blank" href="https://labs.demoredhat.com/exercises/eda">labs.demoredhat.com/exercises/eda</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -66,7 +66,7 @@ Automation specialists and site reliability engineers.
 
 ## Lab provisioner
 
-This workshop uses the [Instruqt](https://play.instruqt.com/redhat) platform to load the labs inside your browser. If you have a large number of users and want to increase the amount of hot-standbys please email: ansible-tmm@redhat.com.
+This workshop uses the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) to load the labs inside your browser.
 
 ## Lab Index (Estimate total time ⏱️ 90 minutes)
 
@@ -149,7 +149,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 
 ## Documentation
 
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 
 # Going Further
 
@@ -182,7 +182,7 @@ Additional material for Event-Driven Ansible
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+eda+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+eda+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

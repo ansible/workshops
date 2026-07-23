@@ -1,19 +1,20 @@
-# Ansible Network Automation Workshop
+# Getting Started with Network Automation
 
 > **IMPORTANT TO NOTE**
 >
-> This is the extended version of this workshop (~6 hours). For the shorter 90 minute session please [🔬 click here](network)
+> This is the 90 minute version of this workshop. For the longer extended session please [🔬 click here](network-6)
 >
 
-This comprehensive, full-day workshop covers Ansible Automation with respect to routers and switches. In the first half, attendees will learn command-line Ansible for network automation — exploring the lab environment, writing playbooks, gathering facts, and using resource modules. In the second half, attendees will apply what they've learned to Ansible Automation Platform — exploring automation controller, creating job templates, surveys, role-based access control, and workflows.
+The Ansible Network Automation Workshop is a 90 minute, hands-on workshop covering Ansible Automation with respect to routers and switches. Attendees will learn how to pull facts from devices, build templated network configurations, and apply these concepts at scale with Ansible Automation Platform. You'll put it all together by exploring the job templates, surveys, access controls and more.
 
-After finishing this lab you are ready to start using Ansible for your network automation requirements.
-
-> **NOTE**
+> **NOTE** 
 >
 > In this workshop, attendees will be managing network devices, specifically a Cisco IOS-XE router.
 
-> **IMPORTANT TO NOTE:** This is NOT a deep dive, in the weeds, advanced workshop — it's an introduction.
+> **NOTE** 
+> 
+> This workshop is also known as the Network Automation 90-min Technical Workshop
+> 
 
 ## Workshop Resources
 
@@ -27,7 +28,7 @@ After finishing this lab you are ready to start using Ansible for your network a
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/index.html">rhpds.github.io/zt-network-automation-workshop</a></td>
+<td><a target="_blank" href="https://labs.demoredhat.com/webpages/network">labs.demoredhat.com/webpages/network</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -43,7 +44,7 @@ After finishing this lab you are ready to start using Ansible for your network a
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/index.html">Presenter instructions and guide</a></td>
+<td><a target="_blank" href="https://labs.demoredhat.com/webpages/network">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>
@@ -54,7 +55,7 @@ After finishing this lab you are ready to start using Ansible for your network a
 
 ## Who is this workshop best for?
 
-This workshop is intended as a comprehensive course for Ansible Network Automation. For the condensed 90-minute introduction, see [Getting Started with Network Automation](network). For more in-depth training please refer to [Red Hat Training Ansible for Network Automation](https://www.redhat.com/en/services/training/do457-ansible-network-automation). The intended audience is someone who has limited or no exposure to writing Ansible Playbooks or using Ansible Automation Platform. This workshop will cover common network scenarios and topics and is best suited for network engineers or folks interested in network automation.
+This workshop is intended as an introductory course for Ansible Network Automation. For more in-depth training please refer to [Red Hat Training Ansible for Network Automation](https://www.redhat.com/en/services/training/do457-ansible-network-automation). The intended audience is someone who has limited or no exposure to writing Ansible Playbooks or using Ansible Automation Platform. This workshop will cover common network scenarios and topics and is best suited for network engineers or folks interested in network automation.
 
 ## Target audience
 
@@ -75,11 +76,9 @@ There is no student prep work required prior to the workshop. It is recommended 
 
 ## Lab provisioner
 
-Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Introduction to Ansible Network Automation Workshop](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.ansible-network-automation-workshop.prod) catalog item. For large events, use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Introduction to Ansible Network Automation Workshop](https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.ansible-network-automation-workshop.prod) catalog item.
 
-## Lab Index (Estimate total time ⏱️ 6 hours)
-
-### Section 1 — Network Basics
+## Lab Index (Estimate total time ⏱️ 90 minutes)
 
 <table>
 <thead>
@@ -93,83 +92,32 @@ Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.c
 <tr>
 <td><b>Slides</b>: Introduction + Workshop Brief</td>
 <td><a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Lab 1: Network automation basics — First playbook</td>
+<td><a target="_blank" href="https://www.redhat.com/en/interactive-labs/network-automation-basics-first-playbook">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
 </tr>
 <tr>
-<td>Exercise 1-1 — Explore the lab environment</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/03-module-01-explore-lab.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 25 minutes</td>
-</tr>
-<tr>
-<td>Exercise 1-2 — First Ansible Playbook</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/04-module-02-first-playbook.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 30 minutes</td>
-</tr>
-<tr>
-<td>Exercise 1-3 — Ansible facts</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/05-module-03-facts.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 25 minutes</td>
-</tr>
-<tr>
-<td>Exercise 1-4 — Resource modules</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/06-module-04-resource-modules.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 30 minutes</td>
-</tr>
-</tbody>
-</table>
-
-☕ **Break** — ⏱️ 15 minutes
-
-### Section 2 — Intro to Ansible Automation Platform
-
-<table>
-<thead>
-<tr>
-<th>Activity</th>
-<th>Link</th>
-<th>Estimated Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><b>Slides</b>: Ansible Automation Platform Introduction</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td>Exercise 2-1 — Explore Ansible Automation Platform</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/07-module-05-explore-controller.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 25 minutes</td>
-</tr>
-<tr>
-<td>Exercise 2-2 — Job templates</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/08-module-06-job-template.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 25 minutes</td>
-</tr>
-<tr>
-<td>Exercise 2-3 — Surveys</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/09-module-07-survey.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 25 minutes</td>
-</tr>
-<tr>
-<td>☕ <b>Break</b></td>
-<td></td>
-<td>⏱️ 15 minutes</td>
-</tr>
-<tr>
-<td>Exercise 2-4 — RBAC</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/10-module-08-rbac.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 20 minutes</td>
-</tr>
-<tr>
-<td>Exercise 2-5 — Workflows</td>
-<td><a target="_blank" href="https://rhpds.github.io/zt-network-automation-workshop/modules/11-module-09-workflow.html">🚀 Launch Exercise</a></td>
-<td>⏱️ 25 minutes</td>
-</tr>
-<tr>
-<td><b>Slides</b>: Close Out &amp; Q&amp;A</td>
+<td><b>Slides</b>: Brief for Lab 2</td>
 <td><a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">🖥️ Google Slides</a></td>
 <td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Lab 2: Network automation — Backup and restore</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-ansible-network-automation-basics-lab-2.prod">🚀 Launch Lab</a></td>
+<td>⏱️ 20 minutes</td>
+</tr>
+<tr>
+<td><b>Slides</b>: Brief for Lab 3</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1TVeHwv-4dtOmh8FMJa2Kd0Md8aqWGI0vHIwBpFih6_0/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 5 minutes</td>
+</tr>
+<tr>
+<td>Lab 3: Red Hat Ansible Automation Platform for network administrators</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-network-lab-2.prod">🚀 Launch Lab</a></td>
+<td>⏱️ 25 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -183,6 +131,7 @@ Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.c
 <th>Description</th>
 <th>Link</th>
 <th>Estimated Time</th>
+<th>Notes</th>
 </tr>
 </thead>
 <tbody>
@@ -191,25 +140,29 @@ Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.c
 <td>Learn Red Hat Ansible Automation Platform playbook basics for network automation.</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=resource+module&item=zt-ansiblebu.ansible-network-automation-basics-lab-3.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
+<td></td>
 </tr>
 <tr>
 <td>Network automation basics: Facts</td>
 <td>Learn about retrieving facts from a Cisco IOS-XE device.</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=facts&item=zt-ansiblebu.ansible-network-automation-basics-lab-2.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
+<td></td>
 </tr>
 <tr>
-<td>Network automation basics: Infrastructure visibility and awareness</td>
+<td>Network automation basics: Infrastructure visability and awareness</td>
 <td>Learn how to use Red Hat Ansible Automation Platform to retrieve facts from network infrastructure and create dynamic documentation.</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=network+automation+-+infra&item=zt-ansiblebu.zt-ans-bu-network-lab-2.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
+<td></td>
 </tr>
 <tr>
 <td>Network automation basics: Surveys</td>
 <td>Learn how to create an automation controller survey to configure a Cisco IOS network device.</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=network+automation+basics+-&item=babylon-catalog-prod%2Fzt-ansiblebu.ansible-network-automation-basics-lab-4.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 20 minutes</td>
-</tr>
+<td></td>  
+</tr> 
 </tbody>
 </table>
 
@@ -223,8 +176,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 
 ## Documentation
 
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
-- [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 
 # Going Further
 
@@ -269,7 +221,7 @@ Additional collateral for network automation:
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+network+automation+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+network+automation+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

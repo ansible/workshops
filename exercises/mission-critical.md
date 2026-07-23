@@ -53,7 +53,7 @@ None.
 
 ## Lab provisioner
 
-Request labs via the [lab environment request form](https://red.ht/lab-hotstarter). After you submit your request you will immediately get an email and the link at the bottom is what you will provide to your users/students. Select the three labs under the Getting Started section of the internal Google Form.
+Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog).
 
 ## Lab Index (Estimate total time ⏱️ 3.5 hours)
 

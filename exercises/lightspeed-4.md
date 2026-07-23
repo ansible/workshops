@@ -2,7 +2,7 @@
 
 > **IMPORTANT TO NOTE** 
 > 
-> This is the 90 minute version of this workshop.  For the longer 4-hour session please [🔬 click here](lightspeed-4)
+> This is the 4-hour version of this workshop.  For the shorter 90-minute session please [🔬 click here](lightspeed)
 >
 
 This workshop is for the Ansible automation engineer or application developer.  While their experience, skills, and job roles differ, both of these personas create automation.  This includes writing Ansible Playbooks, Ansible Roles, and Ansible Content Collections and learning how to distribute these throughout the organization. This workshop will provide an opinionated experience for both of these roles.
@@ -33,7 +33,7 @@ After finishing this lab you are ready to start taking advantage of the numerous
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/instruqt/lightspeed-4">labs.demoredhat.com/exercises/instruqt/lightspeed-4</a></td>
+<td><a target="_blank" href="https://labs.demoredhat.com/exercises/lightspeed-4">labs.demoredhat.com/exercises/lightspeed-4</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -85,7 +85,7 @@ There is no student prep work required prior to the workshop.
 
 All labs can be provisioned on the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog). They can be provisioned separately with the links of each individual lab below or together on the [multi-asset workshop section](https://catalog.demo.redhat.com/multi-workshop/).
 
-## Lab Index (Estimate total time ⏱️ 90 minutes)
+## Lab Index (Estimate total time ⏱️ 4 hours)
 
 <table>
 <thead>
@@ -99,7 +99,7 @@ All labs can be provisioned on the [Red Hat Demo Platform](https://catalog.demo.
 <tr>
 <td><b>Slides</b>: Introduction + Workshop Brief</td>
 <td><a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 15 minutes</td>
+<td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Lab 1: Get started with ansible-builder</td>
@@ -107,33 +107,24 @@ All labs can be provisioned on the [Red Hat Demo Platform](https://catalog.demo.
 <td>⏱️ 30 minutes</td>
 </tr>
 <tr>
-<td><b>Slides</b>: Introduction to Ansible Lightspeed with IBM watsonx Code Assistant</td>
+<td><b>Slides</b>: Introduction to Red Hat Lightspeed and lab brief</td>
 <td><a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 15 minutes</td>
+<td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Lab 2: Get started with Ansible Lightspeed with IBM watsonx Code Assistant</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=lightspeed&item=zt-ansiblebu.zt-ans-lightspeed-101.prod">🚀 Launch Lab</a></td>
 <td>⏱️ 30 minutes</td>
 </tr>
-</tbody>
-</table>
-
-## Supplemental Lab
-
-<table>
-<thead>
 <tr>
-<th>Lab Title</th>
-<th>Link</th>
-<th>Estimated Time</th>
+<td><b>Slides</b>: Introduction to Ansible-sign and lab brief for lab 3</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/1Px4Fn6VBfQeAZnx4_3ydUZDNEteOTrYPfXCOfFOZTsc/edit?usp=sharing">🖥️ Google Slides</a></td>
+<td>⏱️ 10 minutes</td>
 </tr>
-</thead>
-<tbody>
 <tr>
-<td>Sign and verify projects with Red Hat Ansible Automation Platform</td>
+<td>Lab 3: Sign and verify projects with Red Hat Ansible Automation Platform</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?search=sign+and+verify&item=zt-ansiblebu.zt-ans-bu-verify-sign.prod">🚀 Launch Lab</a></td>
-<td>⏱️ 45 minutes</td>
+<td>⏱️ 40 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -148,11 +139,11 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 
 ## Documentation
 
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 
 # Going Further
 
-Additional material for Event-Driven Ansible
+Additional material for Ansible Lightspeed
 
 <table>
 <thead>
@@ -187,7 +178,7 @@ Additional material for Event-Driven Ansible
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+lightspeed+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+lightspeed+4hour+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

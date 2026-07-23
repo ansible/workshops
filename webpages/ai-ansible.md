@@ -1,1 +1,1 @@
-<meta http-equiv="refresh" content="0; url=../exercises/instruqt/ai-ansible">
+<meta http-equiv="refresh" content="0; url=../exercises/ai-ansible">

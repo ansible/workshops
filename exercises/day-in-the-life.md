@@ -1,4 +1,4 @@
-# Day in the Life of an Automater
+# Mission Critical Automation
 
 Experience a typical day as an automation engineer using Ansible Automation Platform. This workshop combines all three AAP Roadshow modules — Introspection, Standardization, and Operational Efficiency — into a single comprehensive session. Attendees will work through real-world automation scenarios covering backup, infrastructure awareness, reporting, standardization, governance, and scaling automation.
 
@@ -156,7 +156,7 @@ Any of the individual roadshow modules can be used as a standalone demo (~45 min
 
 ## Documentation
 
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 
 <br>
 
@@ -165,6 +165,6 @@ Any of the individual roadshow modules can be used as a standalone demo (~45 min
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+day-in-the-life+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+day-in-the-life+workshop+issue&body=)
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

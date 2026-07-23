@@ -64,7 +64,7 @@ There is no student prep work required prior to the workshop. Students would gre
 
 ## Lab provisioner
 
-This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Getting Started with ServiceNow Automation](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-servicenow.prod) catalog item and [Instruqt](https://play.instruqt.com/redhat). If you have a large number of users and want to increase the amount of hot-standbys please use the lab hotstarter: [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
+This lab environment is available via the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) under the [Getting Started with ServiceNow Automation](https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-servicenow.prod) catalog item.
 
 This lab is also available as a [🔬 Public Lab](https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-serviceNow.prod) — publicly available, free Red Hat account required.
 
@@ -85,9 +85,34 @@ This lab is also available as a [🔬 Public Lab](https://zero.rhdp.net/lab/zt-a
 <td>⏱️ 30 minutes</td>
 </tr>
 <tr>
-<td>Lab: Get started with ServiceNow automation</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/getting-started-servicenow-automation?token=em_5ktpLJWtzpbqcDyM">🚀 Launch Lab</a></td>
-<td>⏱️ 60 minutes</td>
+<td>Module 1: Creating Incidents</td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-serviceNow/modules/module-01.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Module 2: Problem Management</td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-serviceNow/modules/module-02.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Module 3: Change Management</td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-serviceNow/modules/module-03.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Module 4: CMDB Management</td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-serviceNow/modules/module-04.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Module 5: Record Cleanup</td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-serviceNow/modules/module-05.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 10 minutes</td>
+</tr>
+<tr>
+<td>Module 6: ServiceNow Inventory</td>
+<td><a target="_blank" href="https://rhpds.github.io/zt-ans-bu-serviceNow/modules/module-06.html">🚀 Launch Exercise</a></td>
+<td>⏱️ 10 minutes</td>
 </tr>
 </tbody>
 </table>
@@ -102,9 +127,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 
 ## Documentation
 
-- [https://github.com/ansible/instruqt](https://github.com/ansible/instruqt)
-- [https://red.ht/lab-hotstarter](https://red.ht/lab-hotstarter)
-
+- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
 - Blogs: 
   - [Introducing the Ansible API for ServiceNow ITSM](https://www.ansible.com/blog/introducing-the-ansible-api-for-servicenow-itsm)
   - [Enabling modern IT service management actions for ServiceNow with Red Hat Ansible Automation Platform](https://www.redhat.com/en/blog/enabling-modern-it-service-management-actions-servicenow-red-hat-ansible-automation-platform)
@@ -120,7 +143,7 @@ Any of the individual labs (that make up the workshop) can be used as a standalo
 This is an official Ansible Workshop
 
 This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
-Please open an [issues on Github](https://github.com/ansible/instruqt/issues/new?title=New+servicenow+workshop+issue&body=)
+Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+servicenow+workshop+issue&body=)
 
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

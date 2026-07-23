@@ -1,4 +1,4 @@
-# Day in the Life of an Automater
+# Mission Critical Automation
 
 Experience a typical day as an automation engineer using Ansible Automation Platform. This workshop combines all three AAP Roadshow modules — Introspection, Standardization, and Operational Efficiency — into a single comprehensive session. Attendees will work through real-world automation scenarios covering backup, infrastructure awareness, reporting, standardization, governance, and scaling automation.
 

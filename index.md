@@ -105,7 +105,7 @@ patternfly: true
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Day in the Life of an Automater</h3>
+            <h3 class="pf-v6-c-card__title-text">Mission Critical Automation</h3>
           </div>
           <div class="pf-v6-c-card__body">
             Experience a typical day as an automation engineer using Ansible Automation Platform.

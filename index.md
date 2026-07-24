@@ -299,10 +299,10 @@ patternfly: true
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Intro into Ansible Lightspeed with IBM watsonx Code Assistant</h3>
+            <h3 class="pf-v6-c-card__title-text">Getting started with automation coding assistant</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Introduction to Ansible Lightspeed with IBM watsonx Code Assistant for AI-powered content creation.
+            Use the Ansible VS Code extension's automation coding assistant to generate playbooks from plain-English descriptions.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>

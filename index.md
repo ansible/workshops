@@ -1220,7 +1220,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fenterprise.aap-product-demos-cnv-aap25.prod" class="card-link" data-tags="general,lab,under60min,nontmm">
+      <a target="_blank" href="./exercises/product_demos/" class="card-link" data-tags="general,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">

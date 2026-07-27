@@ -1,8 +1,8 @@
 # Ansible Product Demos
 
-The `Ansible Product Demos` is a Git project that acts as a centralized location for Ansible Product Demos. This project is a collection of use cases implemented with Ansible for use with the Ansible Automation Platform.
+Ansible Product Demos is a Git project that acts as a centralized location for Ansible Product Demos. This project is a collection of use cases implemented with Ansible for use with the Ansible Automation Platform.
 
-This project aims to be an agnostic catalog of automation `Job Templates` that any Red Hat employee, partner, customer or community member can use and contribute to to quickly preload into any Ansible Automation Platform installation.  This differs from workshops that are very perscriptive and opiniated ways to teach Ansible Automation Platform.  This should allow anyone to easily create a job template, and allow any other person to use that very easily.
+This project aims to be an agnostic catalog of automation job Templates that any Red Hat employee, partner, customer or community member can use and contribute to to quickly preload into any Ansible Automation Platform installation.  This differs from workshops that are very perscriptive and opiniated ways to teach Ansible Automation Platform.  This should allow anyone to easily create a job template, and allow any other person to use that very easily.
 
 ## Resources
 

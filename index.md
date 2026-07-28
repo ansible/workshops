@@ -299,10 +299,10 @@ patternfly: true
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Intro into Ansible Lightspeed with IBM watsonx Code Assistant</h3>
+            <h3 class="pf-v6-c-card__title-text">Getting started with automation coding assistant</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Introduction to Ansible Lightspeed with IBM watsonx Code Assistant for AI-powered content creation.
+            Use the Ansible VS Code extension's automation coding assistant to generate playbooks from plain-English descriptions.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
@@ -715,6 +715,29 @@ patternfly: true
           </div>
           <div class="pf-v6-c-card__body">
             Implementing Zero Trust security architecture with Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/defend-contain-comply" target="_blank" class="card-link" data-tags="security,workshop,lab,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Defend, Contain, Comply — Vulnerability Lifecycle Automation with Ansible Automation Platform</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Hands-on vulnerability management — detect and contain CVEs, apply policy-gated patching, and validate compliance with Ansible Automation Platform.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
@@ -1197,7 +1220,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fenterprise.aap-product-demos-cnv-aap25.prod" class="card-link" data-tags="general,lab,under60min,nontmm">
+      <a target="_blank" href="./exercises/product_demos/" class="card-link" data-tags="general,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">

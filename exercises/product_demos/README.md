@@ -30,10 +30,5 @@ This project aims to be an agnostic catalog of automation job Templates that any
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fenterprise.aap-product-demos-cnv-aap25.prod">🚀 Launch Lab</a></td>
 <td>Provision a pre-built AAP environment with product demos on the Red Hat Demo Platform</td>
 </tr>
-<tr>
-<td>APD sandbox</td>
-<td><a target="_blank" href="https://red.ht/apd-sandbox">red.ht/apd-sandbox</a></td>
-<td>Demo environment for Red Hat employees — OpenShift cluster with AAP pre-installed and product demos loaded</td>
-</tr>
 </tbody>
 </table>

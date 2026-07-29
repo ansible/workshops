@@ -1,6 +1,6 @@
-# Defend, Contain, Comply — Vulnerability Lifecycle Automation with Ansible Automation Platform
+# Technical Workshop — In-person or virtual (2 hr): Defend, Contain, Comply — Vulnerability Lifecycle Automation with Ansible Automation Platform
 
-The **Defend, Contain, Comply** workshop is a hands-on Ansible Automation Platform experience focused on vulnerability management. In this workshop you will manage a complete vulnerability lifecycle on a RHEL system using AAP — from detecting and containing a critical CVE, through policy-gated patching, to compliance validation and hardened container delivery.
+This workshop provides hands-on experience managing a complete vulnerability lifecycle — from CVE detection through automated containment to compliant container delivery — using Red Hat Ansible Automation Platform. Participants respond to a critical CVE alert on a production RHEL application server, using AAP Controller, Event-Driven Ansible (EDA), and integrations with Splunk (SIEM) and Open Policy Agent (OPA) to defend, patch, and prove compliance without manual intervention.
 
 * **Module 1 — DEFEND**: Detect a critical CVE and automate containment when no patch exists
 * **Module 2 — CONTAIN**: Apply a policy-gated patching workflow once an errata is published
@@ -47,13 +47,25 @@ The **Defend, Contain, Comply** workshop is a hands-on Ansible Automation Platfo
 </tbody>
 </table>
 
+## Key themes
+
+* Event-Driven Ansible for automated incident response
+* Policy-as-Code with OPA for gated patching decisions
+* Workflow orchestration with approval gates and compliance verification
+* Secure supply chain delivery with Podman containerization and image scanning
+* End-to-end audit trail from detection to remediation
+
 ## Who is this workshop best for?
 
 This workshop is intended for security and operations teams who need to automate vulnerability response, policy-gated remediation, and compliance hardening with Ansible Automation Platform. Attendees will work with Event-Driven Ansible, Open Policy Agent (OPA), Splunk, and Ansible Automation Platform workflows in a realistic CVE management scenario.
 
 ## Target audience
 
-This workshop is geared toward security engineers, platform engineers, DevSecOps practitioners, compliance teams, and anyone interested in automated vulnerability lifecycle management with Ansible Automation Platform.
+* Platform engineers managing RHEL infrastructure at scale
+* Security operations teams evaluating AAP for vulnerability response
+* DevOps practitioners interested in policy-as-code for patching
+* SysAdmins and IT Operations
+* Anyone interested in Event-Driven Ansible for security automation
 
 ## Attendee Prerequisites
 

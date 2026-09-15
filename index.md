@@ -1334,7 +1334,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fansiblebu.aap2-workshop-casc.prod" class="card-link" data-tags="general,lab,under60min,nontmm">
+      <a target="_blank" href="./exercises/aapcasc-4" class="card-link" data-tags="general,lab,2plushours,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">

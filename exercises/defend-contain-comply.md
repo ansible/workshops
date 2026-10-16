@@ -30,11 +30,11 @@ This workshop provides hands-on experience managing a complete vulnerability lif
 </tr>
 <tr>
 <td>Post-event survey</td>
-<td><b>TO DO</b></td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1FxOSJajVOH9c7rKxgNFQDsh0EqyeYt0yB70wXF65j6E/edit?usp=sharing">Post-event survey</a></td>
 </tr>
 <tr>
 <td>Certain registration page &amp; promotional email copy</td>
-<td><b>TO DO</b></td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1n5Eej-rb88fuBtqIzviN38kSSyuI69NTtBTu3WAywow/edit?usp=sharing">Registration page &amp; promotional email copy</a></td>
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
@@ -78,7 +78,7 @@ There is no student prep work required prior to the workshop. It is recommended 
 
 ## Presentation Deck
 
-- **TO DO** — Google Slides link for Red Hat employees
+- [Google Slides](https://docs.google.com/presentation/d/154MJx_RGVvP1NI0sgXGNpe_j1q9FqnwxHOfOu5bVnpw/edit?usp=sharing) - For Red Hat employees
 
 ## Lab provisioner
 
@@ -102,7 +102,7 @@ Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.c
 </tr>
 <tr>
 <td><b>Slides</b>: Introduction + Workshop Brief</td>
-<td><b>TO DO</b></td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/154MJx_RGVvP1NI0sgXGNpe_j1q9FqnwxHOfOu5bVnpw/edit?usp=sharing">🖥️ Google Slides</a></td>
 <td>⏱️ 10 minutes</td>
 </tr>
 <tr>
@@ -112,7 +112,7 @@ Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.c
 </tr>
 <tr>
 <td><b>Slides</b>: Brief for Module 2</td>
-<td><b>TO DO</b></td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/154MJx_RGVvP1NI0sgXGNpe_j1q9FqnwxHOfOu5bVnpw/edit?usp=sharing">🖥️ Google Slides</a></td>
 <td>⏱️ 5 minutes</td>
 </tr>
 <tr>
@@ -122,7 +122,7 @@ Labs are available via the [Red Hat Demo Platform](https://catalog.demo.redhat.c
 </tr>
 <tr>
 <td><b>Slides</b>: Brief for Module 3</td>
-<td><b>TO DO</b></td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/154MJx_RGVvP1NI0sgXGNpe_j1q9FqnwxHOfOu5bVnpw/edit?usp=sharing">🖥️ Google Slides</a></td>
 <td>⏱️ 5 minutes</td>
 </tr>
 <tr>

@@ -25,24 +25,12 @@ This workshop provides hands-on experience managing a complete vulnerability lif
 <td><a target="_blank" href="https://rhpds.github.io/zt-ans-defend-contain-comply/modules/index.html">rhpds.github.io/zt-ans-defend-contain-comply</a></td>
 </tr>
 <tr>
-<td>Follow-up assets</td>
-<td><b>TO DO</b></td>
-</tr>
-<tr>
 <td>Post-event survey</td>
 <td><a target="_blank" href="https://docs.google.com/document/d/1FxOSJajVOH9c7rKxgNFQDsh0EqyeYt0yB70wXF65j6E/edit?usp=sharing">Post-event survey</a></td>
 </tr>
 <tr>
 <td>Certain registration page &amp; promotional email copy</td>
 <td><a target="_blank" href="https://docs.google.com/document/d/1n5Eej-rb88fuBtqIzviN38kSSyuI69NTtBTu3WAywow/edit?usp=sharing">Registration page &amp; promotional email copy</a></td>
-</tr>
-<tr>
-<td>Presenter instructions and guide</td>
-<td><b>TO DO</b></td>
-</tr>
-<tr>
-<td>Certain event banners</td>
-<td><b>TO DO</b></td>
 </tr>
 </tbody>
 </table>

@@ -13,8 +13,6 @@ After finishing this lab you are ready to start using Ansible for your automatio
 
 > **IMPORTANT TO NOTE:** This is NOT a deep dive, in the weeds, advanced workshop — it's an introduction.
 
-> **NOTE:** This content has been updated to reflect the latest changes from the Ansible Automation Platform 2.0 release. [Learn more about how the 2.0 release impacts this workshop](https://docs.google.com/presentation/d/1VK8rF2jB6jqlcjgUzONBEGm8seqL6bfzFeyOwohICH4/edit?usp=sharing) or watch the [video walkthrough](https://www.youtube.com/watch?v=Oe1AbAvn9gg).
-
 ## Workshop Resources
 
 <table>

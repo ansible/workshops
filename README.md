@@ -1,5 +1,5 @@
 **Read this in other languages**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語](README.ja.md)
+<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English](README.md),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語](README.ja.md), ![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文](README.zh.md)
 
 # Ansible Workshops
 

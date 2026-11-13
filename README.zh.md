@@ -83,8 +83,13 @@ patternfly: true
   </aside>
 
   <div class="cards-main">
-    <p class="cards-lang-nav">**其他语言版本**：
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }})，![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})，![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})</p>
+    <div class="cards-lang-nav">
+      <strong>其他语言版本</strong>：
+      <br>
+      <img src="https://github.com/ansible/workshops/raw/devel/images/uk.png" alt="uk"> <a href="{{ '/' | relative_url }}">English</a>，
+      <img src="https://github.com/ansible/workshops/raw/devel/images/japan.png" alt="japan"> <a href="{{ '/README.ja' | relative_url }}">日本語</a>，
+      <img src="https://github.com/ansible/workshops/raw/devel/images/cn.png" alt="cn"> <a href="{{ '/README.zh' | relative_url }}">简体中文</a>
+    </div>
 
     <div class="cards-intro">
       <p><strong>工作坊（Workshops）</strong>是面向课堂或活动交付的综合性讲师引导动手课程。时长通常为 60 分钟至数小时，包含演示文稿、引导式练习，以及从基础到实际应用的结构化学习路径。</p>

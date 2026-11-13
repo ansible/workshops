@@ -82,8 +82,13 @@ patternfly: true
   </aside>
 
   <div class="cards-main">
-    <p class="cards-lang-nav">**Read this in other languages**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }}),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }}), ![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})</p>
+    <div class="cards-lang-nav">
+      <strong>Read this in other languages</strong>:
+      <br>
+      <img src="https://github.com/ansible/workshops/raw/devel/images/uk.png" alt="uk"> <a href="{{ '/' | relative_url }}">English</a>,
+      <img src="https://github.com/ansible/workshops/raw/devel/images/japan.png" alt="japan"> <a href="{{ '/README.ja' | relative_url }}">日本語</a>,
+      <img src="https://github.com/ansible/workshops/raw/devel/images/cn.png" alt="cn"> <a href="{{ '/README.zh' | relative_url }}">简体中文</a>
+    </div>
 
     <div class="cards-intro">
       <p><strong>Workshops</strong> are comprehensive, instructor-led hands-on sessions designed for classroom or event delivery. They typically run 60 minutes to several hours and include presentation decks, guided exercises, and a structured learning path from fundamentals to practical application.</p>

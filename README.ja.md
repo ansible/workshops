@@ -43,8 +43,13 @@ patternfly: true
   </aside>
 
   <div class="cards-main">
-    <p class="cards-lang-nav">**他の言語でもお読みいただけます**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }})、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})、![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})</p>
+    <div class="cards-lang-nav">
+      <strong>他の言語でもお読みいただけます</strong>:
+      <br>
+      <img src="https://github.com/ansible/workshops/raw/devel/images/uk.png" alt="uk"> <a href="{{ '/' | relative_url }}">English</a>、
+      <img src="https://github.com/ansible/workshops/raw/devel/images/japan.png" alt="japan"> <a href="{{ '/README.ja' | relative_url }}">日本語</a>、
+      <img src="https://github.com/ansible/workshops/raw/devel/images/cn.png" alt="cn"> <a href="{{ '/README.zh' | relative_url }}">简体中文</a>
+    </div>
 
     <p id="guide-search-count" class="cards-search__count"></p>
 

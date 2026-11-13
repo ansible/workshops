@@ -4,9 +4,6 @@ title: Ansible ワークショップ
 patternfly: true
 ---
 
-**他の言語でもお読みいただけます**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }})、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})、![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})
-
 <div class="cards-layout">
   <aside class="cards-sidebar">
     <div class="cards-sidebar__header">
@@ -46,6 +43,9 @@ patternfly: true
   </aside>
 
   <div class="cards-main">
+    <p class="cards-lang-nav">**他の言語でもお読みいただけます**:
+<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }})、![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})、![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})</p>
+
     <p id="guide-search-count" class="cards-search__count"></p>
 
     <div class="pf-v6-l-gallery pf-m-gutter cards-gallery" id="main-gallery">

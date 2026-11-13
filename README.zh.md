@@ -5,9 +5,6 @@ lang: zh-CN
 patternfly: true
 ---
 
-**其他语言版本**：
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }})，![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})，![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})
-
 <div class="cards-layout">
   <aside class="cards-sidebar">
     <div class="cards-sidebar__header">
@@ -86,6 +83,9 @@ patternfly: true
   </aside>
 
   <div class="cards-main">
+    <p class="cards-lang-nav">**其他语言版本**：
+<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }})，![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})，![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})</p>
+
     <div class="cards-intro">
       <p><strong>工作坊（Workshops）</strong>是面向课堂或活动交付的综合性讲师引导动手课程。时长通常为 60 分钟至数小时，包含演示文稿、引导式练习，以及从基础到实际应用的结构化学习路径。</p>
       <p><strong>实验（Labs）</strong>是聚焦特定主题或技能的自主动手练习。时间更短（通常不到 60 分钟），可在 Red Hat Demo Platform 上单独启动，无需讲师。</p>

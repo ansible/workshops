@@ -71,14 +71,21 @@
                 </a>
               </div>
             </div>
-            <a class="header-link" target="_blank" href="https://www.redhat.com/aap-interact">
-              Interactive Experiences
-            </a>
-            <a class="header-link" target="_blank" href="https://www.redhat.com/en/interactive-labs/ansible">
-              Interactive Labs
-            </a>
-            <a class="header-link" href="https://github.com/ansible/workshops/issues/new/choose">
-              Open an Issue
+            <div class="header-dropdown">
+              <button class="header-link header-dropdown__toggle">
+                Interactive <i class="fas fa-chevron-down header-dropdown__icon"></i>
+              </button>
+              <div class="header-dropdown__menu">
+                <a class="header-dropdown__item" target="_blank" href="https://www.redhat.com/aap-interact">
+                  AAP Experiences
+                </a>
+                <a class="header-dropdown__item" target="_blank" href="https://www.redhat.com/en/interactive-labs/ansible">
+                  Labs
+                </a>
+              </div>
+            </div>
+            <a class="header-link" target="_blank" href="https://ansible-tmm.github.io">
+              TMM Hub
             </a>
             <div class="header-search">
               <i class="fas fa-search header-search__icon"></i>
@@ -104,6 +111,8 @@
           </a>
           <p class="footer-copyright">Copyright &copy; 2026 Red Hat, Inc.</p>
           <div class="footer-linkContainer">
+            <a href="https://github.com/ansible/workshops/issues/new/choose" class="footer-link">Open an Issue</a>
+            <span class="footer-linkSpacer">|</span>
             <a href="https://www.redhat.com/en/about/privacy-policy" class="footer-link">Privacy statement</a>
             <span class="footer-linkSpacer">|</span>
             <a href="https://www.ansible.com/security?hsLang=en-us" class="footer-link">Security disclosure</a>

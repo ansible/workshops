@@ -16,7 +16,7 @@ The ServiceNow integration for Ansible Automation Platform is made possible thro
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/servicenow">labs.demoredhat.com/webpages/servicenow</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/servicenow">labs.demoredhat.com/webpages/servicenow</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -32,7 +32,7 @@ The ServiceNow integration for Ansible Automation Platform is made possible thro
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/servicenow">Presenter instructions and guide</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/servicenow">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>

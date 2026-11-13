@@ -14,7 +14,7 @@ Experience a typical day as an automation engineer using Ansible Automation Plat
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/day-in-the-life">labs.demoredhat.com/exercises/day-in-the-life</a></td>
+<td><a href="https://labs.demoredhat.com/exercises/day-in-the-life">labs.demoredhat.com/exercises/day-in-the-life</a></td>
 </tr>
 <tr>
 <td>Registration page &amp; promotional email copy</td>

@@ -30,7 +30,7 @@ Tasks in this lab include:
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/windows">labs.demoredhat.com/webpages/windows</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/windows">labs.demoredhat.com/webpages/windows</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -46,7 +46,7 @@ Tasks in this lab include:
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/windows">Presenter instructions and guide</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/windows">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>

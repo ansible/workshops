@@ -28,7 +28,7 @@ The Ansible Network Automation Workshop is a 90 minute, hands-on workshop coveri
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/network">labs.demoredhat.com/webpages/network</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/network">labs.demoredhat.com/webpages/network</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -44,7 +44,7 @@ The Ansible Network Automation Workshop is a 90 minute, hands-on workshop coveri
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/network">Presenter instructions and guide</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/network">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>

@@ -297,6 +297,16 @@ header {
   flex-shrink: 0;
 }
 
+.header-brand a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.header-logo-link {
+  display: flex;
+  align-items: center;
+}
+
 .header-title {
   font-family: 'Red Hat Display', sans-serif;
   font-weight: 500;

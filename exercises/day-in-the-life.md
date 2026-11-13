@@ -2,6 +2,35 @@
 
 Experience a typical day as an automation engineer using Ansible Automation Platform. This workshop combines all three AAP Roadshow modules — Introspection, Standardization, and Operational Efficiency — into a single comprehensive session. Attendees will work through real-world automation scenarios covering backup, infrastructure awareness, reporting, standardization, governance, and scaling automation.
 
+## Workshop Resources
+
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Workshop content and exercises</td>
+<td><a target="_blank" href="https://labs.demoredhat.com/exercises/day-in-the-life">labs.demoredhat.com/exercises/day-in-the-life</a></td>
+</tr>
+<tr>
+<td>Registration page &amp; promotional email copy</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1t3TpwQFsMP73kHYY1OFeqlNPjNJTPWyDtmdOVMrPOA8/edit?usp=sharing">Email and reg page copy</a></td>
+</tr>
+<tr>
+<td>Train the trainer recording</td>
+<td><a target="_blank" href="https://drive.google.com/file/d/1CnGdPZLuScLQWBy9Bzn2Z9ezPK3cJqam/view?usp=sharing">Train the trainer recording (Google Drive)</a></td>
+</tr>
+<tr>
+<td>Presentation and lab materials</td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/1s-75X7xSbDJHguk8ZgxUZdJfq30YLRk8">Presentation and lab materials (Google Drive)</a></td>
+</tr>
+</tbody>
+</table>
+
 ## Lab Options
 
 <table>

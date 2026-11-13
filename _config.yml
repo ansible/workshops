@@ -1,13 +1,13 @@
 ---
 title: Ansible Workshops
 description: Training Course for Ansible Automation Platform
-logo: /assets/images/ansible-workshops-og.png
+logo: /assets/images/ansible-workshops-social.png
 theme: jekyll-theme-dinky
 defaults:
   - scope:
       path: ""
     values:
-      image: /assets/images/ansible-workshops-og.png
+      image: /assets/images/ansible-workshops-social.png
 include:
   - "provisioner/README.md"
 exclude:

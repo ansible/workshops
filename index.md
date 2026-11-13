@@ -4,9 +4,6 @@ title: Ansible Workshops
 patternfly: true
 ---
 
-**Read this in other languages**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }}),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }}), ![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})
-
 <div class="cards-layout">
   <aside class="cards-sidebar">
     <div class="cards-sidebar__header">
@@ -85,6 +82,9 @@ patternfly: true
   </aside>
 
   <div class="cards-main">
+    <p class="cards-lang-nav">**Read this in other languages**:
+<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }}),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }}), ![cn](https://github.com/ansible/workshops/raw/devel/images/cn.png)[简体中文]({{ '/README.zh' | relative_url }})</p>
+
     <div class="cards-intro">
       <p><strong>Workshops</strong> are comprehensive, instructor-led hands-on sessions designed for classroom or event delivery. They typically run 60 minutes to several hours and include presentation decks, guided exercises, and a structured learning path from fundamentals to practical application.</p>
       <p><strong>Labs</strong> are focused, self-paced hands-on exercises that explore a specific topic or skill. They are shorter (often under 60 minutes) and can be launched individually on the Red Hat Demo Platform without an instructor.</p>

@@ -2,9 +2,9 @@
 
 Automation orchestrator is an add-on to Red Hat Ansible Automation Platform: a composable canvas for designing and running complex IT operations workflows. In this 90-minute hands-on lab you will build workflows from scratch and modify existing workflows that will run against real systems.
 
-For the uninitiated, a workflow is a sequence of connected steps. Each one starts with a trigger, and the steps you place after it determine the path the run takes.
+For the uninitiated, a workflow is a sequence of connected steps. Each one starts with a trigger, and what you place after it determines the path the run takes.
 
-Your existing automation plugs directly into these workflows, giving you reusable, tested, and validated steps built on an execution layer you already trust.
+Your existing automation plugs directly into these workflows, giving you reusable, tested, and validated steps built on Ansible Automation Platform, the execution layer you already trust.
 
 Within this lab, you will come across six modules that will allow you to build and complete four different workflows.
 
@@ -13,7 +13,59 @@ Within this lab, you will come across six modules that will allow you to build a
 * A **ticket enrichment** workflow where a task agent reads a live ITSM incident and routes it to auto-remediation, an approval gate, or back for human approval
 * A **CVE auto-remediation** workflow that patches development hosts automatically while requiring approval before production environments, routing on findings from Red Hat Lightspeed
 
-**Red Hat products included:** Ansible Automation Platform, OpenShift Container Platform, Red Hat Enterprise Linux, and Red Hat Lightspeed. Supporting applications in the environment: OpenFlake (the ITSM system holding the incident tickets), Gitea (the Git service the CVE remediation playbook is committed to), and Mattermost (where your workflows post notifications).
+## Red Hat products included
+
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Role in the lab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red Hat Ansible Automation Platform</td>
+<td>Runs the job templates your workflow steps call</td>
+</tr>
+<tr>
+<td>Red Hat OpenShift Container Platform</td>
+<td>Hosts the lab environment</td>
+</tr>
+<tr>
+<td>Red Hat Enterprise Linux</td>
+<td>The managed hosts your workflows run against</td>
+</tr>
+<tr>
+<td>Red Hat Lightspeed</td>
+<td>Supplies the CVE findings the remediation workflow routes on</td>
+</tr>
+</tbody>
+</table>
+
+Supporting applications in the environment:
+
+<table>
+<thead>
+<tr>
+<th>Application</th>
+<th>Role in the lab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenFlake</td>
+<td>The ITSM system holding the incident tickets</td>
+</tr>
+<tr>
+<td>Gitea</td>
+<td>The Git service the CVE remediation playbook is committed to</td>
+</tr>
+<tr>
+<td>Mattermost</td>
+<td>Where your workflows post notifications</td>
+</tr>
+</tbody>
+</table>
 
 ## Workshop Resources
 
@@ -49,7 +101,7 @@ You will get the most out of this lab if you are:
 
 * Familiarity with the basics of Ansible Playbooks and AAP job templates
 * No prior automation orchestrator experience required
-* No playbook writing required, you will not write a single one to complete the modules
+* No playbook writing required
 * Everything runs in the browser, there is nothing to install
 
 ## Presentation Deck

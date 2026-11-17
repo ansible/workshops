@@ -10,6 +10,7 @@ Visit the live site at [ansible.github.io/workshops](https://ansible.github.io/w
 | Workshop | Description |
 |---|---|
 | [AI + Ansible](./exercises/ai-ansible) | Introduction to AI-Driven Ansible Automation & AIOps |
+| [Automation Orchestrator](./exercises/intro-ao-lab) | Build and run AI-assisted workflows on the automation orchestrator canvas |
 | [Day 2 Ops](./exercises/day-2-ops) | Automation with OpenShift Virtualization |
 | [Event-Driven Ansible](./exercises/eda) | EDA fundamentals — sources, rules, and actions |
 | [Cloud Automation](exercises/ansible-cloud-lab) | Orchestrate, operationalize and govern hybrid cloud environments |

@@ -92,6 +92,12 @@ These beginner-level and advanced workshops introduce you to running Ansible Aut
 <td><a href="windows">🚀 Launch</a></td>
 </tr>
 <tr>
+<td>Introduction to Automation Orchestrator</td>
+<td>90 minutes</td>
+<td>Automation engineers, platform teams, operations teams</td>
+<td><a href="intro-ao-lab">🚀 Launch</a></td>
+</tr>
+<tr>
 <td>Introduction to AI with Ansible Automation Platform</td>
 <td>90 minutes</td>
 <td>Design application/system architects</td>

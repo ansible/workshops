@@ -297,6 +297,16 @@ header {
   flex-shrink: 0;
 }
 
+.header-brand a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.header-logo-link {
+  display: flex;
+  align-items: center;
+}
+
 .header-title {
   font-family: 'Red Hat Display', sans-serif;
   font-weight: 500;
@@ -931,6 +941,31 @@ b {
   min-height: 20px;
 }
 
+.cards-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.cards-section {
+  width: 100%;
+}
+
+.cards-section__heading {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #151515;
+  margin: 28px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #ee0000;
+}
+
+.cards-section:first-child .cards-section__heading {
+  margin-top: 0;
+}
+
 .cards-gallery {
   margin: 0;
   padding: 0;
@@ -1004,6 +1039,39 @@ b {
 
 .card-link .pf-v6-c-label__icon {
   margin-right: 4px;
+}
+
+.cards-lang-nav {
+  margin: 0 0 16px;
+  padding: 0;
+  width: 100% !important;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cards-lang-nav img {
+  height: 14px;
+  width: auto;
+  vertical-align: middle;
+  margin: 0 2px 0 0;
+  border: 0;
+}
+
+.cards-intro {
+  margin: 0 0 24px;
+  padding: 0;
+  width: 100% !important;
+}
+
+.cards-intro p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.cards-intro p:last-child {
+  margin-bottom: 0;
 }
 
 .cards-contributing {

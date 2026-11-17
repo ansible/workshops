@@ -4,55 +4,380 @@ title: Ansible Workshops
 patternfly: true
 ---
 
-**Read this in other languages**:
-<br>![uk](https://github.com/ansible/workshops/raw/devel/images/uk.png) [English]({{ '/' | relative_url }}),  ![japan](https://github.com/ansible/workshops/raw/devel/images/japan.png)[日本語]({{ '/README.ja' | relative_url }})
-
 <div class="cards-layout">
   <aside class="cards-sidebar">
     <div class="cards-sidebar__header">
       <span>Filter by</span>
       <button id="filter-clear" class="cards-sidebar__clear">Clear filters</button>
     </div>
-    <div class="cards-sidebar__section">
-      <h4 class="cards-sidebar__title">Type</h4>
+    <div class="cards-sidebar__section" data-filter-group="domain">
+      <h4 class="cards-sidebar__title">Domain</h4>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="90-minute"> 90-Minute
+        <input type="checkbox" value="gettingstarted"> Getting Started
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="4-hour"> 4-Hour
+        <input type="checkbox" value="linux"> Linux
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="6-hour"> 6-Hour
+        <input type="checkbox" value="network"> Network
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="product-demos"> Product Demos
+        <input type="checkbox" value="general"> General
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="ai"> AI
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="developer"> Developer
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="cloud"> Cloud
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="windows"> Windows
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="virt"> Virt
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="security"> Security
       </label>
     </div>
-    <div class="cards-sidebar__section">
-      <h4 class="cards-sidebar__title">Partner</h4>
+    <div class="cards-sidebar__section" data-filter-group="type">
+      <h4 class="cards-sidebar__title">Type</h4>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="splunk"> Splunk
+        <input type="checkbox" value="lab"> Lab
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="servicenow"> ServiceNow
+        <input type="checkbox" value="workshop"> Workshop
+      </label>
+    </div>
+    <div class="cards-sidebar__section" data-filter-group="time">
+      <h4 class="cards-sidebar__title">Time</h4>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="2plushours"> 2+ Hours
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="cisco"> Cisco
+        <input type="checkbox" value="60to90min"> 60-90 Min
       </label>
       <label class="cards-sidebar__checkbox">
-        <input type="checkbox" value="microsoft"> Microsoft
+        <input type="checkbox" value="under60min"> Under 60 Min
+      </label>
+    </div>
+    <div class="cards-sidebar__section" data-filter-group="tmm">
+      <h4 class="cards-sidebar__title">TMM</h4>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="tmm"> TMM
+      </label>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="nontmm"> Non TMM
+      </label>
+    </div>
+    <div class="cards-sidebar__section" data-filter-group="availability">
+      <h4 class="cards-sidebar__title">Availability</h4>
+      <label class="cards-sidebar__checkbox">
+        <input type="checkbox" value="public"> Public
       </label>
     </div>
   </aside>
 
   <div class="cards-main">
+    <div class="cards-lang-nav">
+      <strong>Read this in other languages</strong>:
+      <br>
+      <img src="https://github.com/ansible/workshops/raw/devel/images/uk.png" alt="uk"> <a href="{{ '/' | relative_url }}">English</a>,
+      <img src="https://github.com/ansible/workshops/raw/devel/images/japan.png" alt="japan"> <a href="{{ '/README.ja' | relative_url }}">日本語</a>,
+      <img src="https://github.com/ansible/workshops/raw/devel/images/cn.png" alt="cn"> <a href="{{ '/README.zh' | relative_url }}">简体中文</a>
+    </div>
+
+    <div class="cards-intro">
+      <p><strong>Workshops</strong> are comprehensive, instructor-led hands-on sessions designed for classroom or event delivery. They typically run 60 minutes to several hours and include presentation decks, guided exercises, and a structured learning path from fundamentals to practical application.</p>
+      <p><strong>Labs</strong> are focused, self-paced hands-on exercises that explore a specific topic or skill. They are shorter (often under 60 minutes) and can be launched individually on the Red Hat Demo Platform without an instructor.</p>
+    </div>
+
     <p id="guide-search-count" class="cards-search__count"></p>
 
-    <div class="pf-v6-l-gallery pf-m-gutter cards-gallery" id="main-gallery">
+    <div class="cards-sections">
 
-      <!-- 90-Minute Workshops -->
+      <!-- ========== GETTING_STARTED ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Getting Started</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
-      <a target="_blank" href="https://rhpds.github.io/ai-driven-automation-showroom/modules/index.html" class="card-link" data-tags="90-minute,splunk">
+      <a href="./exercises/day-in-the-life" class="card-link" data-tags="gettingstarted,workshop,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Mission Critical Automation</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Experience a typical day as an automation engineer using Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/roadshow01" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">AAP Roadshow #1 - Introspection</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            AAP Roadshow module focused on introspection and understanding your automation environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/roadshow02" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">AAP Roadshow #2 - Standardization</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            AAP Roadshow module focused on standardization and governance of automation.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/roadshow03" class="card-link" data-tags="gettingstarted,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">AAP Roadshow #3 - Operational Efficiency</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            AAP Roadshow module focused on operational efficiency and scaling automation.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+<!-- ========== DEVELOPER ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Developer</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/dev-tools" class="card-link" data-tags="developer,workshop,lab,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Development Tools Workshop</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Create, test, and package Ansible collections using the DevTools suite in a pre-provisioned VS Code environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP Zero</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/dev-tools-extended" class="card-link" data-tags="developer,workshop,lab,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                3-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Development Tools Workshop (Extended)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Full DevTools lifecycle using Ansible Workspaces on OpenShift Dev Spaces — create, test, and deploy automation content with the complete ansible-dev-tools suite and VS Code.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.rhdh-ansible-demo.prod" class="card-link" data-tags="developer,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Plug-ins for Red Hat Developer Hub Demo</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible plug-ins for Red Hat Developer Hub demo environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/ansible-builder" class="card-link" data-tags="developer,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Get started with ansible-builder</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Get started with ansible-builder for creating custom execution environments.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884763','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/lightspeed-101" class="card-link" data-tags="developer,lab,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Getting started with automation coding assistant</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Use the Ansible VS Code extension's automation coding assistant to generate playbooks from plain-English descriptions.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+<!-- ========== AI ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">AI</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/ai-ansible" class="card-link" data-tags="ai,workshop,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Introduction to AI-Driven Ansible Automation: Self-healing</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Introduction to AI-Driven Ansible Automation &amp; AIOps. Build an intelligent, self-healing automation workflow.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+<!-- ========== LINUX ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Linux</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/rhel" class="card-link" data-tags="linux,workshop,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                6-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible for Red Hat Enterprise Linux</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Full-day RHEL automation workshop. Focused on automating Linux platforms like Red Hat Enterprise Linux.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/rhel-90" class="card-link" data-tags="linux,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -63,19 +388,456 @@ patternfly: true
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">AI + Ansible</h3>
+            <h3 class="pf-v6-c-card__title-text">Ansible for Red Hat Enterprise Linux (90 min)</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Introduction to AI-Driven Ansible Automation & AIOps. Build an intelligent, self-healing automation workflow.
+            90-minute RHEL automation workshop. Focused on automating Linux platforms like Red Hat Enterprise Linux.
           </div>
           <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Splunk</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
 
-      <a target="_blank" href="https://rhpds.github.io/showroom-virt-aap-day-2/modules/index.html" class="card-link" data-tags="90-minute">
+      <a href="./exercises/ripu" class="card-link" data-tags="linux,lab,2plushours,nontmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">RHEL In-place Upgrade Automation Workshop</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            RHEL In-place Upgrade Automation Workshop. Focused on automation of RHEL in-place upgrades at enterprise scale.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+<!-- ========== WINDOWS ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Windows</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/windows" class="card-link" data-tags="windows,workshop,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                90-Minute
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Intro to Windows Automation (90 min)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Getting Started with Windows Automation. Focused on using Ansible Automation for automating tasks on a Windows host.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/windows-ad" class="card-link" data-tags="windows,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Intro to Windows Automation - Active Directory</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Windows Automation focused on Active Directory management with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884845','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+<!-- ========== NETWORK ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Network</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/network-6" class="card-link" data-tags="network,workshop,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                6-Hour
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Network Automation Workshop</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Full-day network automation workshop. Covers network basics and Ansible Automation Platform for network devices.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/network" class="card-link" data-tags="network,workshop,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                90-Minute
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Introduction to Ansible Network Automation Workshop</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Getting Started with Network Automation. Focused on Ansible Automation with respect to routers and switches.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/eda-netbox" class="card-link" data-tags="network,lab,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible and Netbox as a source of truth</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Event-Driven Ansible with Netbox integration for network automation source of truth.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/network-first-playbook" class="card-link" data-tags="network,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Network Automation: First Playbook</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Write your first network automation playbook with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884830','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/network-backup-restore" class="card-link" data-tags="network,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Network Automation: Backup and Restore</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Network configuration backup and restore automation with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884831','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/network-resource-modules" class="card-link" data-tags="network,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Network Automation: Resource Modules</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Working with Ansible network resource modules for declarative network management.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884832','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/network-surveys" class="card-link" data-tags="network,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Network Automation: Surveys</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Using Automation Controller surveys for self-service network automation.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884835','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/network-facts" class="card-link" data-tags="network,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Network Automation: Facts</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Gathering and using network device facts with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884833','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/network-visibility" class="card-link" data-tags="network,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Network Automation: Infrastructure Visibility</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Network infrastructure visibility and reporting with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884834','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+<!-- ========== SECURITY ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Security</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/zero-trust" class="card-link" data-tags="security,workshop,lab,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Implementing Zero Trust with Ansible Automation Platform</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Implementing Zero Trust security architecture with Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/defend-contain-comply" class="card-link" data-tags="security,workshop,lab,2plushours,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Defend, Contain, Comply — Vulnerability Lifecycle Automation with Ansible Automation Platform</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Hands-on vulnerability management — detect and contain CVEs, apply policy-gated patching, and validate compliance with Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <div class="card-link" data-tags="security,workshop,lab,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
+              </span>
+            </span>
+            <span class="pf-v6-c-label pf-m-gold pf-m-compact" style="margin-left:8px;">
+              <span class="pf-v6-c-label__content">Proposed</span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Compliance &amp; Hardening - Foundational security with AAP</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Foundational security compliance and hardening with Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-link" data-tags="security,workshop,lab,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
+              </span>
+            </span>
+            <span class="pf-v6-c-label pf-m-gold pf-m-compact" style="margin-left:8px;">
+              <span class="pf-v6-c-label__content">Proposed</span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hack and Heal - Responsive Security with AAP</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Responsive security with Ansible Automation Platform &mdash; hack and heal exercises.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-link" data-tags="security,workshop,lab,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
+              </span>
+            </span>
+            <span class="pf-v6-c-label pf-m-gold pf-m-compact" style="margin-left:8px;">
+              <span class="pf-v6-c-label__content">Proposed</span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automation Platform and Data Sovereignty</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Data sovereignty and compliance with Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </div>
+
+        </div>
+      </section>
+
+<!-- ========== VIRT ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Virt</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/day-2-ops" class="card-link" data-tags="virt,workshop,60to90min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -92,12 +854,311 @@ patternfly: true
             Automation with OpenShift Virtualization. Activities we can perform with OpenShift Virtualization and AAP.
           </div>
           <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
 
-      <a target="_blank" href="./exercises/instruqt/eda" class="card-link" data-tags="90-minute">
+      <a href="./exercises/mig-factory" class="card-link" data-tags="virt,lab,under60min,nontmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">OpenShift Virtualization Migration Factory Demo</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            OpenShift Virtualization Migration Factory demonstration environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+<!-- ========== CLOUD ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Cloud</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fazure-gpte.open-environment-azure-aap2.prod" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automation Platform on Azure - Open Env</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Automation Platform on Microsoft Azure open environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fsandboxes-gpte.open-environment-aws-aap2.prod" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automation Platform on AWS - Open Env</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Automation Platform on Amazon Web Services open environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/hashicorp-aap" class="card-link" data-tags="cloud,workshop,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">AAP and HashiCorp: Terraform, Vault and AAP</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Automation Platform and HashiCorp integration with Terraform and Vault.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fgcp-gpte.open-environment-gcp-aap2.prod" class="card-link" data-tags="cloud,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automation Platform on GCP - Open Env</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Ansible Automation Platform on Google Cloud Platform open environment.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/cloud-azure-visibility" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Infrastructure visibility on Microsoft Azure</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Infrastructure visibility and management on Microsoft Azure with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884777','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/cloud-operations-aws" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Cloud operations on AWS (IaC)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Cloud operations and Infrastructure as Code on AWS with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884774','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/cloud-optimization-aws" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Infrastructure optimization on AWS</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Infrastructure optimization and cost management on AWS with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884775','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/cloud-visibility-advanced" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Infrastructure visibility on Microsoft Azure (Advanced)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Advanced infrastructure visibility on Microsoft Azure with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884773','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/cloud-azure-optimization" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Infrastructure optimization (Advanced)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Advanced infrastructure optimization across hybrid cloud with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884829','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/cloud-azure-operations" class="card-link" data-tags="cloud,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Hybrid cloud automation: Cloud operations on Microsoft Azure</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Cloud operations on Microsoft Azure with Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884828','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+      <!-- ========== GENERAL ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">General</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/servicenow" class="card-link" data-tags="general,workshop,60to90min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                90-Minute
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Get started with ServiceNow</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Getting Started with ServiceNow Automation. Focused on using Ansible Automation in conjunction with an IT Service Management (ITSM) tool.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884768','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/eda" class="card-link" data-tags="general,workshop,60to90min,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
@@ -114,351 +1175,363 @@ patternfly: true
             EDA Technical Workshop. Covers EDA fundamentals such as sources, rules, and actions.
           </div>
           <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/ansible-cloud-lab" class="card-link" data-tags="90-minute">
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.awx-to-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab,under60min,nontmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Migrate from AWX/Tower to AAP (CNV)</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Migration guide from AWX/Tower to Ansible Automation Platform on CNV.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/pert.containerized-aap-25.prod&utm_source=webapp&utm_medium=share-link" class="card-link" data-tags="general,lab,60to90min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-purple">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90-Minute
+                60-90 Min
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Cloud Automation</h3>
+            <h3 class="pf-v6-c-card__title-text">Product Enablement Containerized AAP 2.5</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            Introduction to cloud automation. Focused on how to orchestrate, operationalize and govern your hybrid cloud environments.
+            Product enablement for containerized deployment of Ansible Automation Platform 2.5.
           </div>
           <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
           </div>
         </div>
       </a>
 
-      <a target="_blank" href="exercises/instruqt/lightspeed" class="card-link" data-tags="90-minute">
+      <a href="./exercises/product_demos/" class="card-link" data-tags="general,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
+            <span class="pf-v6-c-label pf-m-cyan">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90-Minute
+                Under 60 Min
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible Lightspeed</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Lightspeed and Development Technical Workshop. Focused on the Ansible automation engineer or application developer.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="exercises/instruqt/network" class="card-link" data-tags="90-minute,cisco">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90-Minute
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Network Automation</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Getting Started with Network Automation. Focused on Ansible Automation with respect to routers and switches.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Cisco</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/instruqt/rhel-90" class="card-link" data-tags="90-minute">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90-Minute
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">RHEL Automation</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Red Hat Enterprise Linux Workshop. Focused on automating Linux platforms like Red Hat Enterprise Linux.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="exercises/instruqt/servicenow" class="card-link" data-tags="90-minute,servicenow">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90-Minute
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">ServiceNow Automation</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Getting Started with ServiceNow Automation. Focused on using Ansible Automation in conjunction with an IT Service Management (ITSM) tool.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">ServiceNow</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="exercises/instruqt/windows" class="card-link" data-tags="90-minute,microsoft">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-purple">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                90-Minute
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Windows Automation</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Getting Started with Windows Automation. Focused on using Ansible Automation for automating tasks on a Windows host.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Microsoft</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <!-- 4-Hour Workshops -->
-
-      <a target="_blank" href="./exercises/instruqt/eda-4" class="card-link" data-tags="4-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-blue">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible (Extended)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            EDA Technical Workshop. Covers EDA fundamentals such as sources, rules, and actions with deeper hands-on exercises.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="exercises/instruqt/lightspeed-4" class="card-link" data-tags="4-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-blue">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible Lightspeed (Extended)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Lightspeed and Development Technical Workshop. Focused on the Ansible automation engineer or application developer.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="exercises/instruqt/aapcasc-4" class="card-link" data-tags="4-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-blue">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                4-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Configuration as Code</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            CaC for Ansible Automation Platform. Focused on Configuration as Code for Ansible Automation Platform.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <!-- 6-Hour Workshops -->
-
-      <a target="_blank" href="./exercises/instruqt/rhel" class="card-link" data-tags="6-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">RHEL Automation (Full Day)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Red Hat Enterprise Linux Workshop. Focused on automating Linux platforms like Red Hat Enterprise Linux.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/ansible_network" class="card-link" data-tags="6-hour,cisco">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Network Automation (Full Day)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Network Automation Workshop. Focused on router and switch platforms like Arista, Cisco, Juniper.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Cisco</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/ansible_windows" class="card-link" data-tags="6-hour,microsoft">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Windows Automation (Full Day)</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible Windows Automation Workshop. Focused on automation of Microsoft Windows.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Microsoft</span></span>
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/rhdp_auto_satellite" class="card-link" data-tags="6-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible + Satellite</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            Ansible + Satellite Workshop. Focused on automation of security and lifecycle management with Red Hat Satellite Server.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <a target="_blank" href="./exercises/ansible_ripu" class="card-link" data-tags="6-hour">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-green">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                6-Hour
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">RHEL In-place Upgrade</h3>
-          </div>
-          <div class="pf-v6-c-card__body">
-            RHEL In-place Upgrade Automation Workshop. Focused on automation of RHEL in-place upgrades at enterprise scale.
-          </div>
-          <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
-          </div>
-        </div>
-      </a>
-
-      <!-- Product Demos -->
-
-      <a target="_blank" href="./exercises/product_demos/" class="card-link" data-tags="product-demos">
-        <div class="pf-v6-c-card">
-          <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-orange">
-              <span class="pf-v6-c-label__content">
-                <i class="fas fa-play-circle pf-v6-c-label__icon"></i>
-                Product Demos
-              </span>
-            </span>
-          </div>
-          <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Ansible Product Demos</h3>
+            <h3 class="pf-v6-c-card__title-text">Ansible Product Demos (AAP 2.5, 2.6, 2.7)</h3>
           </div>
           <div class="pf-v6-c-card__body">
             Sandbox for demoing, development, and experimentation with Ansible Automation Platform.
           </div>
           <div class="pf-v6-c-card__footer">
-            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">RHDP</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
           </div>
         </div>
       </a>
+
+      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=rhel+automation&item=babylon-catalog-prod%2Fsandboxes-gpte.ans-bu-wksp-auto-satellite.prod" class="card-link" data-tags="general,lab,60to90min,nontmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automated Satellite Workshop</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Automated Satellite Workshop for Red Hat Satellite management with Ansible.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/ansible-navigator" class="card-link" data-tags="general,lab,under60min,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Get Started ansible-navigator</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Get started with ansible-navigator for running and developing Ansible content.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884762','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/automation-controller" class="card-link" data-tags="general,lab,2plushours,tmm,public">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Get Started with Automation Controller</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Get started with the Automation Controller web UI and key concepts.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-green" style="cursor:pointer" onclick="event.preventDefault();event.stopPropagation();window.open('https://developers.redhat.com/content-gateway/link/3884764','_blank')"><span class="pf-v6-c-label__content">Public Lab</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/adv-controller" class="card-link" data-tags="general,lab,2plushours,nontmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-green">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                2+ Hours
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Advanced Features of Ansible Automation Controller</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Advanced features and capabilities of the Ansible Automation Controller.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/aapcasc-4" class="card-link" data-tags="general,lab,2plushours,nontmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Controller Configuration as Code</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Configuration as Code for Automation Controller using the controller configuration collection.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">Non TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/aap-selfservice" class="card-link" data-tags="general,lab,under60min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-cyan">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                Under 60 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Introduction to AAP self-service automation</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Introduction to self-service automation with Ansible Automation Platform.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+          </div>
+        </div>
+      </a>
+
+        </div>
+      </section>
+
+<!-- ========== EVENTS ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Events</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/ansible-automates" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automates</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Full-day, one-track conference presenting the best AnsibleFest content to regional audiences around the world.
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/ansible-automates-events" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Automates Events</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            In-person and virtual Ansible Automates event kits with session content repository and marketing assets.
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/automation-connection" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Connection</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Account-specific 3-hour IT automation event for account expansion and community building within an account.
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/automation-everywhere" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Everywhere</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            3-hour non-technical event for decision makers when an Ansible Automation Platform opportunity has been identified.
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/automation-roundtable" class="card-link" data-tags="events">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-orange">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-users pf-v6-c-label__icon"></i>
+                Events
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Automation Roundtable</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Executive roundtable for peer-to-peer discussions with key IT decision-makers.
+          </div>
+        </div>
+      </a>
+        </div>
+      </section>
+
+<!-- ========== RESOURCES ========== -->
+      <section class="cards-section">
+        <h2 class="cards-section__heading">Resources</h2>
+        <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
+
+      <a href="./exercises/one-stop-shop" class="card-link" data-tags="resources">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-gold">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-book pf-v6-c-label__icon"></i>
+                Resources
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">ONE-STOP SHOP</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            IT Automation Workshops and Events hub — select the event or workshop that best fits your scenario.
+          </div>
+        </div>
+      </a>
+
+      <a href="./exercises/ansible-workshops" class="card-link" data-tags="resources">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-gold">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-book pf-v6-c-label__icon"></i>
+                Resources
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Ansible Workshops</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Catalog of all Ansible technical workshops and event kits with duration and target audience guidance.
+          </div>
+        </div>
+      </a>
+        </div>
+      </section>
 
     </div>
 
@@ -524,34 +1597,55 @@ patternfly: true
     return text.toLowerCase();
   }
 
-  function getActiveFilters() {
-    var active = [];
-    checkboxes.forEach(function (cb) {
-      if (cb.checked) active.push(cb.value);
+  function getFiltersByGroup() {
+    var groups = {};
+    document.querySelectorAll('.cards-sidebar__section[data-filter-group]').forEach(function (section) {
+      var groupName = section.getAttribute('data-filter-group');
+      var checked = [];
+      section.querySelectorAll('input[type="checkbox"]:checked').forEach(function (cb) {
+        checked.push(cb.value);
+      });
+      if (checked.length) groups[groupName] = checked;
     });
-    return active;
+    return groups;
   }
 
   function filterCards() {
     var query = headerInput.value.toLowerCase().trim();
-    var activeFilters = getActiveFilters();
-    filterClearBtn.style.display = (activeFilters.length || query) ? 'inline' : 'none';
+    var groups = getFiltersByGroup();
+    var groupKeys = Object.keys(groups);
+    filterClearBtn.style.display = (groupKeys.length || query) ? 'inline' : 'none';
 
     var visible = 0;
 
     allCards.forEach(function (card) {
       var textMatch = !query || getCardText(card).indexOf(query) !== -1;
       var filterMatch = true;
-      if (activeFilters.length) {
+
+      if (groupKeys.length) {
         var cardTags = (card.getAttribute('data-tags') || '').split(',').map(function (s) { return s.trim(); });
-        filterMatch = activeFilters.some(function (f) { return cardTags.indexOf(f) !== -1; });
+        for (var i = 0; i < groupKeys.length; i++) {
+          var groupFilters = groups[groupKeys[i]];
+          var groupMatch = groupFilters.some(function (f) { return cardTags.indexOf(f) !== -1; });
+          if (!groupMatch) { filterMatch = false; break; }
+        }
       }
+
       var show = textMatch && filterMatch;
       card.style.display = show ? '' : 'none';
       if (show) visible++;
     });
 
-    if (query || activeFilters.length) {
+    document.querySelectorAll('.cards-section').forEach(function (section) {
+      var sectionCards = section.querySelectorAll('.card-link');
+      var sectionVisible = false;
+      sectionCards.forEach(function (card) {
+        if (card.style.display !== 'none') sectionVisible = true;
+      });
+      section.style.display = sectionVisible ? '' : 'none';
+    });
+
+    if (query || groupKeys.length) {
       countEl.textContent = visible === 0
         ? 'No workshops match your filters.'
         : visible + ' workshop' + (visible !== 1 ? 's' : '') + ' found.';

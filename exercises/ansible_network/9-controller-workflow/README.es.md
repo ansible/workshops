@@ -126,6 +126,10 @@ En este ejercicio crearemos una copia de seguridad con marca de tiempo, si el tr
 
 ### Paso 5: Añadir la plantilla de trabajo Network-Restore
 
+> Nota:
+>
+> Si **Network Automation - Restore** falla al extraer **Default execution environment** desde `registry.redhat.io`, la plantilla **Backup network configurations** del ejercicio 6 debe incluir `restore_ee: network-ee` ([acme_corp/network-ee en Quay](https://quay.io/repository/acme_corp/network-ee)), o edita **Network Automation - Restore** para usar **network-ee**. Consulta el ejercicio 6.
+
 1. Pasa el cursor sobre el nodo **Network-Banner** y haz click en el símbolo **+**. La ventana **Add Node** aparecerá de nuevo.
 
 2. Selecciona **On Failure** en Run type

@@ -47,7 +47,7 @@ Let's add to the system_setup.yml playbook the ability to install the Apache HTT
 ```yaml
 ---
 - name: Basic System Setup
-  hosts: all
+  hosts: web
   become: true
   vars:
     user_name: 'Roger'
@@ -88,7 +88,7 @@ Let's say we want to ensure the firewall is configured correctly on all web serv
 ```yaml
 ---
 - name: Basic System Setup
-  hosts: all
+  hosts: web
   become: true
   vars:
     user_name: 'Roger'

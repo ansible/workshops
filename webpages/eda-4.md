@@ -1,1 +1,1 @@
-<meta http-equiv="refresh" content="0; url=../exercises/instruqt/eda-4">
+<meta http-equiv="refresh" content="0; url=../exercises/eda-4">

@@ -63,6 +63,20 @@ To run an Ansible Playbook in Automation controller we need to create a **Job Te
 
   ![switch credential type](images/controller_cred.png)
 
+* Expand **Variables**, choose **YAML** for extra variables if prompted, then add YAML as shown below. The playbook [`network_backup.yml`](https://github.com/network-automation/toolkit/blob/master/playbooks/network_backup.yml) creates or updates the **Network Automation - Restore** job template; without `restore_ee`, that template keeps **Default execution environment**, which pulls from `registry.redhat.io` and may fail when the controller cannot pull that image. The workshop execution environment corresponds to image [acme_corp/network-ee on Quay](https://quay.io/repository/acme_corp/network-ee), registered as **network-ee** on the controller.
+
+<!-- {% raw %} -->
+
+```yaml
+restore_ee: network-ee
+```
+
+<!-- {% endraw %} -->
+
+> Note:
+>
+> **network-ee** must match the **Execution environment** name shown in automation controller exactly. If you already ran **Backup network configurations** before adding this variable, edit the **Network Automation - Restore** job template and set **Execution Environment** to **network-ee**, or remove that template and run the backup job again after saving the extra variables.
+
 * Scroll down and click the blue `Save job template` button.
 
 ### Step 2: Launch the Job Template

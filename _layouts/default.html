@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ site.lang | default: "en-US" }}">
+<html lang="{{ page.lang | default: site.lang | default: "en-US" }}">
   <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-LJWQBHM62Z"></script>
@@ -36,15 +36,17 @@
     <div class="wrapper">
       <header>
         <div class="header-container">
-          <a href="{{ '/' | relative_url }}" class="header-brand">
-            <img
-              class="header-logo"
-              src="{{ '/assets/images/redhat-ansible-logo.svg' | relative_url }}"
-              title="Red Hat Ansible"
-              alt="Red Hat Ansible"
-            />
-            <span class="header-title">Workshops</span>
-          </a>
+          <div class="header-brand">
+            <a href="https://ansible-tmm.github.io" class="header-logo-link" title="TMM Hub">
+              <img
+                class="header-logo"
+                src="{{ '/assets/images/redhat-ansible-logo.svg' | relative_url }}"
+                title="Red Hat Ansible"
+                alt="Red Hat Ansible"
+              />
+            </a>
+            <a href="{{ '/' | relative_url }}" class="header-title">Workshops</a>
+          </div>
           <button class="header-hamburger" id="header-hamburger" aria-label="Toggle menu">
             <i class="fas fa-bars"></i>
           </button>
@@ -57,11 +59,17 @@
                 Resources <i class="fas fa-chevron-down header-dropdown__icon"></i>
               </button>
               <div class="header-dropdown__menu">
+                <a class="header-dropdown__item" href="https://ansible-tmm.github.io/solution-guides/">
+                  Solution Guides
+                </a>
+                <a class="header-dropdown__item" href="https://ansible.github.io/product-demos/">
+                  Ansible Product Demos
+                </a>
+                <a class="header-dropdown__item" href="https://ansible-tmm.github.io/aap-orchestrator-demos/">
+                  Automation Orchestrator Demos
+                </a>
                 <a class="header-dropdown__item" href="https://ansible.github.io/slides">
                   Slides
-                </a>
-                <a class="header-dropdown__item" href="https://ansible.github.io/slides/ebooks">
-                  E-Books
                 </a>
                 <a class="header-dropdown__item" href="https://ansible.github.io/slides/customer_references">
                   Customer References
@@ -71,14 +79,24 @@
                 </a>
               </div>
             </div>
-            <a class="header-link" target="_blank" href="https://www.redhat.com/aap-interact">
-              Interactive Experiences
-            </a>
-            <a class="header-link" target="_blank" href="https://www.redhat.com/en/interactive-labs/ansible">
-              Interactive Labs
-            </a>
-            <a class="header-link" href="https://github.com/ansible/workshops/issues/new/choose">
+            <div class="header-dropdown">
+              <button class="header-link header-dropdown__toggle">
+                Interactive <i class="fas fa-chevron-down header-dropdown__icon"></i>
+              </button>
+              <div class="header-dropdown__menu">
+                <a class="header-dropdown__item" target="_blank" href="https://www.redhat.com/aap-interact">
+                  Interactive Experiences
+                </a>
+                <a class="header-dropdown__item" target="_blank" href="https://www.redhat.com/en/interactive-labs/ansible">
+                  Interactive Labs
+                </a>
+              </div>
+            </div>
+            <a class="header-link" id="open-issue-link" href="https://github.com/ansible/workshops/issues/new/choose">
               Open an Issue
+            </a>
+            <a class="header-link" target="_blank" href="https://ansible-tmm.github.io">
+              TMM Hub
             </a>
             <div class="header-search">
               <i class="fas fa-search header-search__icon"></i>
@@ -104,6 +122,8 @@
           </a>
           <p class="footer-copyright">Copyright &copy; 2026 Red Hat, Inc.</p>
           <div class="footer-linkContainer">
+            <a id="open-issue-link-footer" href="https://github.com/ansible/workshops/issues/new/choose" class="footer-link">Open an Issue</a>
+            <span class="footer-linkSpacer">|</span>
             <a href="https://www.redhat.com/en/about/privacy-policy" class="footer-link">Privacy statement</a>
             <span class="footer-linkSpacer">|</span>
             <a href="https://www.ansible.com/security?hsLang=en-us" class="footer-link">Security disclosure</a>
@@ -210,6 +230,23 @@
           if (path === href || (href !== '{{ "/" | relative_url }}'.replace(/\/$/, '') && path.indexOf(href) === 0)) {
             link.classList.add('header-link--active');
           }
+        });
+      });
+    </script>
+
+    <!-- Prefill GitHub issue links with the current page URL -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var pageUrl = window.location.href;
+        var title = 'Issue on ' + window.location.pathname;
+        var body = '**Page:** ' + pageUrl + '\n\nDescribe the issue here:\n';
+        var issueHref = 'https://github.com/ansible/workshops/issues/new'
+          + '?template=documentation.yaml'
+          + '&title=' + encodeURIComponent(title)
+          + '&proposed-changes=' + encodeURIComponent(body);
+        ['open-issue-link', 'open-issue-link-footer'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.setAttribute('href', issueHref);
         });
       });
     </script>

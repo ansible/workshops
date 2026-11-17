@@ -1,1 +1,1 @@
-<meta http-equiv="refresh" content="0; url=../exercises/instruqt/windows">
+<meta http-equiv="refresh" content="0; url=../exercises/windows">

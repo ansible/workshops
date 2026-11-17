@@ -1167,7 +1167,7 @@ patternfly: true
             <h3 class="pf-v6-c-card__title-text">Event-Driven Ansible</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            EDA Technical Workshop. Covers EDA fundamentals such as sources, rules, and actions.
+            Event-Driven Ansible on Ansible Automation Platform. Rulebooks, rulebook activations, decision environments, and event streams.
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
@@ -1334,7 +1334,7 @@ patternfly: true
         </div>
       </a>
 
-      <a target="_blank" href="https://catalog.demo.redhat.com/catalog?search=ansible&item=babylon-catalog-prod%2Fansiblebu.aap2-workshop-casc.prod" class="card-link" data-tags="general,lab,under60min,nontmm">
+      <a href="./exercises/ansible_config_as_code" target="_blank" class="card-link" data-tags="general,lab,under60min,nontmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
             <span class="pf-v6-c-label pf-m-cyan">

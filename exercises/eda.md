@@ -1,13 +1,17 @@
 # Event-Driven Ansible Technical Workshop
 
-> **IMPORTANT TO NOTE** 
-> 
-> This is the 90 minute version of this workshop.  For the longer 4-hour session please [🔬 click here](eda-4)
->
+Ansible Automation Platform can run a playbook when someone clicks Launch. Event-Driven Ansible is the part of the platform that starts that work when something in the environment changes: an alert fires, a webhook arrives, or a message shows up on a queue. A rulebook listens to a source, matches a condition, and runs an action, usually an Automation Execution job template or workflow.
 
-As a part of Red Hat Ansible Automation Platform, Event-Driven Ansible can process events containing discrete intelligence about conditions in the IT environment, determine the appropriate response to the event, then execute automated actions to address or remediate the event. This workshop will demonstrate Event-Driven Ansible and how it provides the event-handling capability needed to automate time-consuming tasks and respond to changing conditions in any IT domain.
+This workshop walks that model on current Ansible Automation Platform. Event-Driven Ansible runs as Automation Decisions, in the same UI as Automation Execution. You configure a decision environment and a project, turn a rulebook into a rulebook activation that stays running, and use event streams when several activations should share one inbound webhook. A second lab runs `ansible-rulebook` directly, so the source, condition, and action are visible on their own.
 
-During this workshop, we will walk through the basics of EDA (Event-Driven Ansible) covering fundamentals such as sources, rules, and actions and the corresponding technology and implementation through Ansible Rulebook CLI, rulebooks, source plugins, and EDA content collections. This workshop requires students to have beginner-level knowledge of command-line Ansible, Visual Studio Code, and Git.
+The longer session that adds ServiceNow is the [4-hour workshop](eda-4).
+
+**Key themes explored in the workshop:**
+
+- **Sources, conditions, and actions**: A rulebook listens through an event source plugin, filters with a condition, and responds with an action. The rulebook lab does this with a webhook, a Kafka topic, and a URL check.
+- **Automation Decisions**: Event-Driven Ansible calls Automation Execution through a credential in the unified Ansible Automation Platform UI. Decision environments carry the collections a rulebook needs, the same role execution environments play for playbooks.
+- **Rulebook activations**: An activation pairs a project with a decision environment and keeps the rulebook listening. Rule Audit records each event that matches a condition.
+- **From alert to action**: Prometheus and Alertmanager raise an event and the activation remediates it. Event streams collect inbound webhooks on the platform route and hand them to one or more activations, including a Gitea change that redeploys alerting rules.
 
 ## Workshop Resources
 
@@ -21,158 +25,121 @@ During this workshop, we will walk through the basics of EDA (Event-Driven Ansib
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/eda">labs.demoredhat.com/exercises/eda</a></td>
-</tr>
-<tr>
-<td>Follow-up assets</td>
-<td><a target="_blank" href="https://docs.google.com/spreadsheets/d/1Ct4mhnnsIfkvynnPN5ApbOQQ1OS0kgd4g8Zih9cw9tA/edit?usp=sharing">Follow-up assets spreadsheet</a></td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/18FsymQlk8cCBENHsh7NXyqvXtatfGOr8Nl761r1rU4w/edit?usp=sharing">🖥️ Google Slides</a></td>
 </tr>
 <tr>
 <td>Post-event survey</td>
-<td><a target="_blank" href="https://docs.google.com/document/d/1qUISl1h5u8H9_XlRhA0NkSo0ODeb9JB3u-tvek09Q9k/edit?usp=sharing">Post-event survey</a></td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1qUISl1h5u8H9_XlRhA0NkSo0ODeb9JB3u-tvek09Q9k/edit?usp=sharing">📋 Post-event survey</a></td>
 </tr>
 <tr>
-<td>Certain registration page &amp; promotional email copy</td>
-<td><a target="_blank" href="https://docs.google.com/document/d/1Ek2BnNxNQc_CRSmpwmfXM99dlHd7f1m6tPC7FC_kkhg/edit?usp=sharing">Registration page &amp; promotional email copy</a></td>
+<td>Registration page &amp; promotional email copy</td>
+<td><a target="_blank" href="https://docs.google.com/document/d/1Ek2BnNxNQc_CRSmpwmfXM99dlHd7f1m6tPC7FC_kkhg/edit?usp=sharing">📝 Registration page &amp; promotional email copy</a></td>
 </tr>
 <tr>
-<td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/eda">Presenter instructions and guide</a></td>
-</tr>
-<tr>
-<td>Certain event banners</td>
-<td><a target="_blank" href="https://drive.google.com/drive/folders/12vUy6_tO_pVEN-hbGknDSWBWge4Z7L0V?usp=sharing">Event banners (Google Drive)</a></td>
+<td>Event banners</td>
+<td><a target="_blank" href="https://drive.google.com/drive/folders/12vUy6_tO_pVEN-hbGknDSWBWge4Z7L0V?usp=sharing">🎨 Event banners</a></td>
 </tr>
 </tbody>
 </table>
 
-## Who is this workshop best for?
+## Target Audience
 
-Advanced Ansible users and SREs would benefit from this workshop. The workshop introduces the domain of observability and automation.
-
-## Target audience
-
-Automation specialists and site reliability engineers.
+- Automation specialists and site reliability engineers
+- Platform engineers who run Ansible Automation Platform
+- Operations teams connecting observability tools to automation
 
 ## Attendee Prerequisites
 
-* Experience with building Ansible Playbooks and working with Ansible Automation Platform
-* Basic understanding of Git and source control
+* Experience building Ansible Playbooks and working with Ansible Automation Platform
+* A basic understanding of Git and source control
+* A laptop with Chrome, Firefox, Edge, or Safari. Both labs run in the browser on the Red Hat Demo Platform.
 
 ## Presentation Deck
 
-- [PDF](decks/lab-eda-gitops.pdf) - For everyone
-- [Google Slides](https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing) - For Red Hat employees
+- [Event-Driven Ansible 201](https://docs.google.com/presentation/d/18FsymQlk8cCBENHsh7NXyqvXtatfGOr8Nl761r1rU4w/edit?usp=sharing) - For Red Hat employees
+- [Event-Driven Ansible 301](https://docs.google.com/presentation/d/1xQyUGRGqu-qpjZVRKrJvN3cbVLoFzZ0BP7ED1VOyuX4/edit?usp=sharing) - For Red Hat employees
+
+## Lab Options
+
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Link</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Launch rulebook lab on RHDP</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-ansible-rulebook.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Lab</a></td>
+<td>Provision <b>Get started with Event-Driven Ansible and Ansible Rulebooks</b></td>
+</tr>
+<tr>
+<td>Launch Automation Decisions lab on RHDP</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-controller.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Lab</a></td>
+<td>Provision <b>Event-Driven Ansible Controller Up and Running 2.5</b>. The showroom covers Automation Decisions, rulebook activations, and event streams.</td>
+</tr>
+</tbody>
+</table>
 
 ## Lab provisioner
 
-This workshop uses the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog) to load the labs inside your browser.
+Both labs are on the [Red Hat Demo Platform](https://catalog.demo.redhat.com/catalog). The exercise guide opens in the showroom after the environment is provisioned.
 
-## Lab Index (Estimate total time ⏱️ 90 minutes)
+They are also available as public labs. A free Red Hat account is required.
+
+* [Get started with Event-Driven Ansible and Ansible Rulebooks](https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-eda-ansible-rulebook.prod)
+* [Event-Driven Ansible Controller Up and Running 2.5](https://zero.rhdp.net/lab/zt-ansiblebu.zt-ans-bu-eda-controller.prod)
+
+## Exercises
 
 <table>
 <thead>
 <tr>
 <th>Activity</th>
 <th>Link</th>
-<th>Estimated Time</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><b>Slides</b>: Introduction + Workshop Brief</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 15 minutes</td>
+<td><a target="_blank" href="https://docs.google.com/presentation/d/18FsymQlk8cCBENHsh7NXyqvXtatfGOr8Nl761r1rU4w/edit?usp=sharing">🖥️ Google Slides</a></td>
 </tr>
 <tr>
-<td>Lab 1: Getting Started with Event-Driven Ansible</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/eda--ansible-rulebook?token=em_kn8hibVNgt0X03wZ">🚀 Launch Lab</a></td>
-<td>⏱️ 25 minutes</td>
+<td>Exercise 1 — Rulebook basics and a webhook source</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-ansible-rulebook.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Exercise</a></td>
 </tr>
 <tr>
-<td><b>Slides</b>: Lab Brief for Lab 2</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1wrJ90OEvkais6wcyinMq42uv1_VJJQlzrxHy8UgC220/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 10 minutes</td>
+<td>Exercise 2 — Kafka source</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-ansible-rulebook.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Exercise</a></td>
 </tr>
 <tr>
-<td>Lab 2: Getting Started with EDA Controller</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/getting-started-eda-controller?token=em_pnJ8mV75JMc0MhZN">🚀 Launch Lab</a></td>
-<td>⏱️ 40 minutes</td>
-</tr>
-</tbody>
-</table>
-
-## Supplemental Labs
-
-<table>
-<thead>
-<tr>
-<th>Lab Title</th>
-<th>Description</th>
-<th>Link</th>
-<th>Estimated Time</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Advanced EDA: GitOps with Event-Driven Ansible</td>
-<td>Use Event-Driven Ansible to react to events generated by Git operations.</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/eda-gitops?token=em__C74PAmX2rePq7Kk">🚀 Launch Lab</a></td>
-<td>⏱️ 40 minutes</td>
-<td></td>
+<td>Exercise 3 — URL check source</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-ansible-rulebook.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Exercise</a></td>
 </tr>
 <tr>
-<td>Advanced EDA: Event-Driven Ansible and NetOps (Arista)</td>
-<td>Use Event-Driven Ansible to react to network events as well as work with ChatOps.</td>
-<td><a target="_blank" href="https://play.instruqt.com/embed/redhat/tracks/event-driven-netops?token=em_W0qtY5GifN13CZ1a">🚀 Launch Lab</a></td>
-<td>⏱️ 40 minutes</td>
-<td></td>
+<td colspan="2"><b>Automation Decisions on Ansible Automation Platform</b></td>
 </tr>
 <tr>
-<td>Event-driven Ansible with OpenShift Demo</td>
-<td>Use Red Hat OpenShift events as a trigger showcasing the adaptability and effectiveness of Event-Driven Ansible</td>
-<td><a target="_blank" href="https://demo.redhat.com/catalog/babylon-catalog-prod/order/enterprise.event-driven-ansible.prod">🚀 Launch Lab</a></td>
-<td>⏱️ 40 minutes</td>
-<td><table class="important"><tr><td><div class="infobutton"><i class="icon-info-sign"></i></div>Important</td></tr><tr><td>This runs on demo.redhat.com and is only available to Red Hat employees</td></tr></table></td>
-</tr>
-</tbody>
-</table>
-
-## Demos
-
-Any of the individual labs (that make up the workshop) can be used as a standalone demo.
-
-# Learning Resources
-
-- [Red Hat Ansible Automation Platform - Training + Certification slides](https://docs.google.com/presentation/d/16pkh6Js89q7gR5VUILEQEU0mYRi6Ti98c9aRTcPOBVs/edit?usp=sharing)
-
-## Documentation
-
-- [https://github.com/ansible/workshops](https://github.com/ansible/workshops)
-
-# Going Further
-
-Additional material for Event-Driven Ansible
-
-<table>
-<thead>
-<tr>
-<th>Title</th>
-<th>Type</th>
-<th>Link</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Automate IT response with Event-Driven Ansible</td>
-<td>E-Book</td>
-<td><a target="_blank" href="https://www.redhat.com/en/engage/build-innovation-automation-20230414">📖 Download E-Book</a></td>
+<td>Exercise 4 — Introduction to Event-Driven Ansible</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-controller.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Exercise</a></td>
 </tr>
 <tr>
-<td>The impact of event-driven automation on IT operations</td>
-<td>Analyst material</td>
-<td><a target="_blank" href="https://www.redhat.com/en/resources/event-driven-impact-on-it-operations-analyst-material">📒 Download Analyst Material</a></td>
+<td>Exercise 5 — Credentials, decision environments, and projects</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-controller.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Exercise</a></td>
+</tr>
+<tr>
+<td>Exercise 6 — Rulebook activations</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-controller.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Exercise</a></td>
+</tr>
+<tr>
+<td>Exercise 7 — Prometheus and Alertmanager</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-controller.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Exercise</a></td>
+</tr>
+<tr>
+<td>Exercise 8 — Event streams</td>
+<td><a target="_blank" href="https://catalog.demo.redhat.com/catalog/babylon-catalog-prod?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-eda-controller.prod&amp;utm_source=webapp&amp;utm_medium=share-link">🚀 Launch Exercise</a></td>
 </tr>
 </tbody>
 </table>
@@ -181,8 +148,7 @@ Additional material for Event-Driven Ansible
 
 This is an official Ansible Workshop
 
-This workshop is maintained by the Red Hat Ansible Technical Marketing Team.  
+This workshop is maintained by the Red Hat Ansible Technical Marketing Team.
 Please open an [issues on Github](https://github.com/ansible/workshops/issues/new?title=New+eda+workshop+issue&body=)
-
 
 ![ansible workshop logo](https://github.com/ansible/workshops/blob/devel/images/Ansible-Workshop-Logo.png?raw=true)

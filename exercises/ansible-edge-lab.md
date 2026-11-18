@@ -20,7 +20,7 @@ There’s also a playground section you can use to experiment and explore!
 
 * <a href="https://docs.google.com/presentation/d/1WDw5QjAE74LfZUACrQUgYVRb61FP3zjaqnFwfOJet60/edit?usp=sharing" target="_blank">Google Slides</a> - For Red Hat employees
 
-* <a href="../decks/lab-edge.pdf" target="_blank">PDF</a> - For everyone
+* <a href="../decks/lab-edge.pdf">PDF</a> - For everyone
 
 ## Playbook examples
 

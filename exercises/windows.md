@@ -10,12 +10,19 @@ Tasks in this lab include:
 * Configuring Credentials and Inventories
 * Running Ad-hoc commands
 * Creating and using basic playbooks
-* Using advanced Playbook methodologies 
+* Using advanced Playbook methodologies
 * Creating and using Ansible Roles
+
+Supplemental exercises in this lab also cover:
+* Installing Windows updates with a survey-driven job template
+* Managing Windows software with Chocolatey
+* Chaining jobs in an automation controller workflow
 
 > **NOTE** 
 > 
 > This workshop is also known as the Windows Automation Technical 90-min Workshop
+> 
+> Exercises 1 through 6 are the 90-minute path. Exercises 7 through 9 are supplementary and stay available in the same lab if you have more time.
 > 
 
 ## Workshop Resources
@@ -30,7 +37,7 @@ Tasks in this lab include:
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/windows">labs.demoredhat.com/webpages/windows</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/windows">labs.demoredhat.com/webpages/windows</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -46,7 +53,7 @@ Tasks in this lab include:
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/windows">Presenter instructions and guide</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/windows">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>
@@ -77,6 +84,8 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 
 ## Lab Index (Estimate total time ⏱️ 90 minutes)
 
+Exercises 1 through 6 are the core 90-minute workshop.
+
 <table>
 <thead>
 <tr>
@@ -89,12 +98,12 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 <tr>
 <td><b>Slides</b>: Introduction + Workshop Brief</td>
 <td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 15 minutes</td>
+<td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td>Exercise 1 — Configure Automation Controller</td>
 <td><a target="_blank" href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/zt-ansiblebu.zt-ans-bu-windows90.prod">🚀 Launch Lab</a></td>
-<td>⏱️ 15 minutes</td>
+<td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td><b>Slides</b>: Brief for Challenge 2</td>
@@ -104,12 +113,12 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 <tr>
 <td>Exercise 2 — Ad-hoc commands</td>
 <td></td>
-<td>⏱️ 15 minutes</td>
+<td>⏱️ 10 minutes</td>
 </tr>
 <tr>
 <td><b>Slides</b>: Brief for Challenge 3</td>
 <td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 15 minutes</td>
+<td>⏱️ 5 minutes</td>
 </tr>
 <tr>
 <td>Exercise 3 — Intro to playbooks</td>
@@ -121,6 +130,16 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 <td></td>
 <td>⏱️ 10 minutes</td>
 </tr>
+<tr>
+<td>Exercise 5 — More advanced playbook</td>
+<td></td>
+<td>⏱️ 15 minutes</td>
+</tr>
+<tr>
+<td>Exercise 6 — Ansible roles</td>
+<td></td>
+<td>⏱️ 10 minutes</td>
+</tr>
 </tbody>
 </table>
 
@@ -128,7 +147,7 @@ This lab environment is available via the [Red Hat Demo Platform](https://catalo
 
 Total Time ~⏱️ 60 minutes
 
-If your students are ahead or you want to have a lab longer than 90 minutes there are two additional exercises (and corresponding slides already in the deck):
+If your students are ahead or you want to run a longer lab, Exercises 7 through 9 stay in the same environment and add Windows updates, Chocolatey package management, and a workflow:
 
 <table>
 <thead>
@@ -140,24 +159,19 @@ If your students are ahead or you want to have a lab longer than 90 minutes ther
 </thead>
 <tbody>
 <tr>
-<td><b>Slides</b>: Brief for Challenge 5</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 10 minutes</td>
-</tr>
-<tr>
-<td>Exercise 5 — More advanced playbook</td>
+<td>Exercise 7 — Windows Updates</td>
 <td></td>
 <td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td><b>Slides</b>: Brief for Challenge 6</td>
-<td><a target="_blank" href="https://docs.google.com/presentation/d/1RO5CQiCoqLDES1NvTI_1fQrR-oWM1NuW-uB0JRvtJzE/edit?usp=sharing">🖥️ Google Slides</a></td>
-<td>⏱️ 5 minutes</td>
+<td>Exercise 8 — Chocolatey</td>
+<td></td>
+<td>⏱️ 15 minutes</td>
 </tr>
 <tr>
-<td>Exercise 6 — Ansible roles</td>
+<td>Exercise 9 — Workflows</td>
 <td></td>
-<td>⏱️ 25 minutes</td>
+<td>⏱️ 10 minutes</td>
 </tr>
 </tbody>
 </table>

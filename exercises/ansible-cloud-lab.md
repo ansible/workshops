@@ -20,7 +20,7 @@ This self-paced lab will demonstrate how Ansible Automation Platform can help yo
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/ansible-cloud-lab">labs.demoredhat.com/webpages/ansible-cloud-lab</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/ansible-cloud-lab">labs.demoredhat.com/webpages/ansible-cloud-lab</a></td>
 </tr>
 <tr>
 <td>Certain registration page &amp; promotional email copy</td>
@@ -28,7 +28,7 @@ This self-paced lab will demonstrate how Ansible Automation Platform can help yo
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/ansible-cloud-lab">Presenter instructions and guide</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/ansible-cloud-lab">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>

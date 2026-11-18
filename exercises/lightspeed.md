@@ -33,7 +33,7 @@ After finishing this lab you are ready to start taking advantage of the numerous
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/exercises/lightspeed-4">labs.demoredhat.com/exercises/lightspeed-4</a></td>
+<td><a href="https://labs.demoredhat.com/exercises/lightspeed-4">labs.demoredhat.com/exercises/lightspeed-4</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -49,7 +49,7 @@ After finishing this lab you are ready to start taking advantage of the numerous
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/lightspeed-4">Presenter instructions and guide</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/lightspeed-4">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>

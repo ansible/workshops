@@ -22,7 +22,7 @@ This project aims to be an agnostic catalog of automation job Templates that any
 </tr>
 <tr>
 <td>List of use cases</td>
-<td><a target="_blank" href="https://ansible.github.io/product-demos/">ansible.github.io/product-demos</a></td>
+<td><a href="https://ansible.github.io/product-demos/">ansible.github.io/product-demos</a></td>
 <td>Browse the product demos catalog by category (Cloud, Linux, Windows, Network, OpenShift, Satellite, and more)</td>
 </tr>
 <tr>

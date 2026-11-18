@@ -21,7 +21,7 @@ During this workshop, we will walk through the basics of EDA (Event-Driven Ansib
 <tbody>
 <tr>
 <td>Workshop content and exercises</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/eda-4">labs.demoredhat.com/webpages/eda-4</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/eda-4">labs.demoredhat.com/webpages/eda-4</a></td>
 </tr>
 <tr>
 <td>Follow-up assets</td>
@@ -37,7 +37,7 @@ During this workshop, we will walk through the basics of EDA (Event-Driven Ansib
 </tr>
 <tr>
 <td>Presenter instructions and guide</td>
-<td><a target="_blank" href="https://labs.demoredhat.com/webpages/eda-4">Presenter instructions and guide</a></td>
+<td><a href="https://labs.demoredhat.com/webpages/eda-4">Presenter instructions and guide</a></td>
 </tr>
 <tr>
 <td>Certain event banners</td>

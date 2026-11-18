@@ -1,13 +1,13 @@
 # Introduction to AI with Ansible Automation Platform
 
-In this 90-minute interactive workshop, you'll discover how the powerful combination of Red Hat Ansible Automation Platform and AI can revolutionize your IT operations. We'll explore the integration of large language models (deployed on Red Hat Enterprise Linux AI or Red Hat OpenShift AI), Red Hat Ansible Lightspeed, and policy-as-code to enrich operational data, intelligently generate playbooks, and maintain robust governance across diverse IT scenarios.
+In this 90-minute interactive workshop, you'll discover how the powerful combination of Red Hat Ansible Automation Platform and AI can revolutionize your IT operations. We'll explore the integration of large language models (deployed on Red Hat AI), Automation coding assistant, and policy-as-code to enrich operational data, intelligently generate playbooks, and maintain robust governance across diverse IT scenarios.
 
 This workshop will delve into AI-Ops principles and demonstrate flexible, closed-loop workflows that drive transformative outcomes. You'll gain a roadmap for leveraging AI and Ansible Automation Platform to accelerate automation and innovation within your organization.
 
 Through hands-on experience, you will learn to build intelligent, self-healing automation workflows that detect, analyze, and remediate application failures—without manually writing any playbooks. Specifically, you'll work with:
 
 * Red Hat AI for understanding service issues
-* Ansible Lightspeed to generate remediation playbooks
+* Automation coding assistant to generate remediation playbooks
 * Ansible Automation Platform (AAP) workflows for orchestration
 * Event-Driven Ansible (EDA) to listen for real-time service events
 

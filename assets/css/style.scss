@@ -297,6 +297,16 @@ header {
   flex-shrink: 0;
 }
 
+.header-brand a {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.header-logo-link {
+  display: flex;
+  align-items: center;
+}
+
 .header-title {
   font-family: 'Red Hat Display', sans-serif;
   font-weight: 500;
@@ -1029,6 +1039,22 @@ b {
 
 .card-link .pf-v6-c-label__icon {
   margin-right: 4px;
+}
+
+.cards-lang-nav {
+  margin: 0 0 16px;
+  padding: 0;
+  width: 100% !important;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cards-lang-nav img {
+  height: 14px;
+  width: auto;
+  vertical-align: middle;
+  margin: 0 2px 0 0;
+  border: 0;
 }
 
 .cards-intro {

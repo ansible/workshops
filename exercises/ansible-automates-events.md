@@ -20,7 +20,7 @@ Ansible Automates virtual conferences are half-day, online events that present a
 </tr>
 <tr>
 <td>Follow-up assets</td>
-<td><a target="_blank" href="https://ansible.github.io/workshops/">Ansible Workshops catalog</a></td>
+<td><a href="https://ansible.github.io/workshops/">Ansible Workshops catalog</a></td>
 </tr>
 <tr>
 <td>Post-event survey</td>

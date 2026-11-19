@@ -1362,24 +1362,25 @@ patternfly: true
         </div>
       </a>
 
-      <a href="./exercises/aap-selfservice" class="card-link" data-tags="general,lab,under60min,tmm">
+      <a href="./exercises/automation-portal" class="card-link" data-tags="general,workshop,lab,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
-            <span class="pf-v6-c-label pf-m-cyan">
+            <span class="pf-v6-c-label pf-m-green">
               <span class="pf-v6-c-label__content">
                 <i class="fas fa-clock pf-v6-c-label__icon"></i>
-                60 分钟以内
+                2 小时以上
               </span>
             </span>
           </div>
           <div class="pf-v6-c-card__title">
-            <h3 class="pf-v6-c-card__title-text">Introduction to AAP self-service automation</h3>
+            <h3 class="pf-v6-c-card__title-text">Introduction to Automation Portal</h3>
           </div>
           <div class="pf-v6-c-card__body">
-            使用 Ansible Automation Platform 入门自助自动化。
+            在 AAP 2.7 上使用 Automation Portal：治理访问、内容发现与执行环境构建。
           </div>
           <div class="pf-v6-c-card__footer">
             <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Workshop</span></span>
           </div>
         </div>
       </a>

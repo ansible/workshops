@@ -1,6 +1,6 @@
 # Introduction to Automation Portal
 
-This approximately 3-hour hands-on workshop shows how **Automation Portal** on Ansible Automation Platform **2.7** helps organizations broaden who can use automation while keeping governance through AAP identity and RBAC.
+This hands-on workshop shows how **Automation Portal** on Ansible Automation Platform helps organizations broaden who can use automation while keeping governance through AAP identity and RBAC.
 
 You will configure portal and AAP access for domain teams, use the catalog as cloud, network, and RHEL personas, improve launch with surveys and a custom dynamic template, browse content discovery (Git repos and Hub collections), and build an execution environment with Execution Environment Builder, then attach it to a job template and run it. A GitHub account is required for Module 5.
 

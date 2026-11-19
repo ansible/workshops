@@ -11,7 +11,7 @@ Visit the live site at [ansible.github.io/workshops](https://ansible.github.io/w
 |---|---|
 | [AI + Ansible](./exercises/ai-ansible) | Introduction to AI-Driven Ansible Automation & AIOps |
 | [Day 2 Ops](./exercises/day-2-ops) | Automation with OpenShift Virtualization |
-| [Event-Driven Ansible](./exercises/eda) | EDA fundamentals — sources, rules, and actions |
+| [Event-Driven Ansible](./exercises/eda) | Rulebooks, Automation Decisions, and event streams |
 | [Cloud Automation](exercises/ansible-cloud-lab) | Orchestrate, operationalize and govern hybrid cloud environments |
 | [Ansible Lightspeed](exercises/lightspeed) | Ansible Lightspeed and Development Technical Workshop |
 | [Network Automation](exercises/network) | Getting Started with Network Automation |

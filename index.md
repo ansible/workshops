@@ -104,6 +104,29 @@ patternfly: true
         <h2 class="cards-section__heading">Getting Started</h2>
         <div class="pf-v6-l-gallery pf-m-gutter cards-gallery">
 
+      <a href="./exercises/intro-ao-lab" class="card-link" data-tags="gettingstarted,lab,60to90min,tmm">
+        <div class="pf-v6-c-card">
+          <div class="pf-v6-c-card__header">
+            <span class="pf-v6-c-label pf-m-purple">
+              <span class="pf-v6-c-label__content">
+                <i class="fas fa-clock pf-v6-c-label__icon"></i>
+                60-90 Min
+              </span>
+            </span>
+          </div>
+          <div class="pf-v6-c-card__title">
+            <h3 class="pf-v6-c-card__title-text">Introduction to Automation Orchestrator</h3>
+          </div>
+          <div class="pf-v6-c-card__body">
+            Build workflows on the automation orchestrator canvas that combine AAP job templates, AI task agents, and approval steps.
+          </div>
+          <div class="pf-v6-c-card__footer">
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact"><span class="pf-v6-c-label__content">TMM</span></span>
+            <span class="pf-v6-c-label pf-m-outline pf-m-compact pf-m-blue"><span class="pf-v6-c-label__content">Lab</span></span>
+          </div>
+        </div>
+      </a>
+
       <a href="./exercises/day-in-the-life" class="card-link" data-tags="gettingstarted,workshop,2plushours,tmm">
         <div class="pf-v6-c-card">
           <div class="pf-v6-c-card__header">
